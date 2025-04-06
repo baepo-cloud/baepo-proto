@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package baepo.api.v1;
+
+import "google/protobuf/empty.proto";
+
+option go_package = "github.com/baepo-cloud/baepo-oss/pkg/proto/baepo/api/v1";
+
+service NodeService {
+  rpc Connect(stream NodeConnectClientEvent) returns (stream NodeConnectServerEvent);
+}
+
+message NodeConnectServerEvent {
+  oneof event {
+    RegisterResponse register = 1;
+    PingEvent ping = 2;
+  }
+
+  message RegisterResponse {
+    string node_id = 1;
+    string node_token = 2;
+    bytes authority_cert = 3;
+    bytes server_cert = 4;
+    bytes server_key = 5;
+  }
+
+  message PingEvent {
+  }
+}
+
+message NodeConnectClientEvent {
+  oneof event {
+    RegisterRequest register = 1;
+    StatsEvent stats = 2;
+  }
+
+  message RegisterRequest {
+    string cluster_id = 1;
+    string bootstrap_token = 2;
+    optional string node_token = 3;
+    string ip_address = 4;
+    string api_endpoint = 5;
+    string gateway_endpoint = 6;
+    uint64 total_memory = 7;
+    uint64 used_memory = 8;
+    uint32 cpu_count = 9;
+  }
+
+  message StatsEvent {
+    uint64 total_memory = 1;
+    uint64 used_memory = 2;
+    uint32 cpu_count = 3;
+    repeated string running_machine_ids = 4;
+  }
+}
