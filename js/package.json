@@ -1,0 +1,12 @@
+{
+  "type": "module",
+  "name": "@baepo-cloud/proto",
+  "version": "0.0.1",
+  "main": "./lib",
+  "files": [
+    "./lib"
+  ],
+  "dependencies": {
+    "@bufbuild/protobuf": "^2.2.5"
+  }
+}

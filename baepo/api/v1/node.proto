@@ -4,6 +4,8 @@ package baepo.api.v1;
 
 import "google/protobuf/empty.proto";
 
+option go_package = "github.com/baepo-cloud/baepo-proto/go/baepo/api/v1";
+
 service NodeService {
   rpc Connect(stream NodeConnectClientEvent) returns (stream NodeConnectServerEvent);
 }

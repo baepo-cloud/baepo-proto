@@ -5,6 +5,8 @@ package baepo.api.v1;
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
 
+option go_package = "github.com/baepo-cloud/baepo-proto/go/baepo/api/v1";
+
 service ClusterService {
   rpc List(ClusterListRequest) returns (ClusterListResponse);
 

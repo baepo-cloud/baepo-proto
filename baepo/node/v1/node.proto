@@ -4,6 +4,8 @@ package baepo.node.v1;
 
 import "google/protobuf/empty.proto";
 
+option go_package = "github.com/baepo-cloud/baepo-proto/go/baepo/node/v1";
+
 service NodeService {
   rpc StartMachine(NodeStartMachineRequest) returns (NodeStartMachineReply);
 
