@@ -40,7 +40,7 @@ const (
 
 // NodeControllerServiceClient is a client for the baepo.api.v1.NodeControllerService service.
 type NodeControllerServiceClient interface {
-	Connect(context.Context) *connect.BidiStreamForClient[v1.NodeConnectClientEvent, v1.NodeConnectServerEvent]
+	Connect(context.Context) *connect.BidiStreamForClient[v1.NodeControllerConnectClientEvent, v1.NodeControllerConnectServerEvent]
 }
 
 // NewNodeControllerServiceClient constructs a client for the baepo.api.v1.NodeControllerService
@@ -54,7 +54,7 @@ func NewNodeControllerServiceClient(httpClient connect.HTTPClient, baseURL strin
 	baseURL = strings.TrimRight(baseURL, "/")
 	nodeControllerServiceMethods := v1.File_baepo_api_v1_node_controller_proto.Services().ByName("NodeControllerService").Methods()
 	return &nodeControllerServiceClient{
-		connect: connect.NewClient[v1.NodeConnectClientEvent, v1.NodeConnectServerEvent](
+		connect: connect.NewClient[v1.NodeControllerConnectClientEvent, v1.NodeControllerConnectServerEvent](
 			httpClient,
 			baseURL+NodeControllerServiceConnectProcedure,
 			connect.WithSchema(nodeControllerServiceMethods.ByName("Connect")),
@@ -65,18 +65,18 @@ func NewNodeControllerServiceClient(httpClient connect.HTTPClient, baseURL strin
 
 // nodeControllerServiceClient implements NodeControllerServiceClient.
 type nodeControllerServiceClient struct {
-	connect *connect.Client[v1.NodeConnectClientEvent, v1.NodeConnectServerEvent]
+	connect *connect.Client[v1.NodeControllerConnectClientEvent, v1.NodeControllerConnectServerEvent]
 }
 
 // Connect calls baepo.api.v1.NodeControllerService.Connect.
-func (c *nodeControllerServiceClient) Connect(ctx context.Context) *connect.BidiStreamForClient[v1.NodeConnectClientEvent, v1.NodeConnectServerEvent] {
+func (c *nodeControllerServiceClient) Connect(ctx context.Context) *connect.BidiStreamForClient[v1.NodeControllerConnectClientEvent, v1.NodeControllerConnectServerEvent] {
 	return c.connect.CallBidiStream(ctx)
 }
 
 // NodeControllerServiceHandler is an implementation of the baepo.api.v1.NodeControllerService
 // service.
 type NodeControllerServiceHandler interface {
-	Connect(context.Context, *connect.BidiStream[v1.NodeConnectClientEvent, v1.NodeConnectServerEvent]) error
+	Connect(context.Context, *connect.BidiStream[v1.NodeControllerConnectClientEvent, v1.NodeControllerConnectServerEvent]) error
 }
 
 // NewNodeControllerServiceHandler builds an HTTP handler from the service implementation. It
@@ -105,6 +105,6 @@ func NewNodeControllerServiceHandler(svc NodeControllerServiceHandler, opts ...c
 // UnimplementedNodeControllerServiceHandler returns CodeUnimplemented from all methods.
 type UnimplementedNodeControllerServiceHandler struct{}
 
-func (UnimplementedNodeControllerServiceHandler) Connect(context.Context, *connect.BidiStream[v1.NodeConnectClientEvent, v1.NodeConnectServerEvent]) error {
+func (UnimplementedNodeControllerServiceHandler) Connect(context.Context, *connect.BidiStream[v1.NodeControllerConnectClientEvent, v1.NodeControllerConnectServerEvent]) error {
 	return connect.NewError(connect.CodeUnimplemented, errors.New("baepo.api.v1.NodeControllerService.Connect is not implemented"))
 }

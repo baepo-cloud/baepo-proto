@@ -22,31 +22,31 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type NodeConnectServerEvent struct {
+type NodeControllerConnectServerEvent struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// Types that are valid to be assigned to Event:
 	//
-	//	*NodeConnectServerEvent_Register
-	//	*NodeConnectServerEvent_Ping
-	Event         isNodeConnectServerEvent_Event `protobuf_oneof:"event"`
+	//	*NodeControllerConnectServerEvent_Register
+	//	*NodeControllerConnectServerEvent_Ping
+	Event         isNodeControllerConnectServerEvent_Event `protobuf_oneof:"event"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *NodeConnectServerEvent) Reset() {
-	*x = NodeConnectServerEvent{}
+func (x *NodeControllerConnectServerEvent) Reset() {
+	*x = NodeControllerConnectServerEvent{}
 	mi := &file_baepo_api_v1_node_controller_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *NodeConnectServerEvent) String() string {
+func (x *NodeControllerConnectServerEvent) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*NodeConnectServerEvent) ProtoMessage() {}
+func (*NodeControllerConnectServerEvent) ProtoMessage() {}
 
-func (x *NodeConnectServerEvent) ProtoReflect() protoreflect.Message {
+func (x *NodeControllerConnectServerEvent) ProtoReflect() protoreflect.Message {
 	mi := &file_baepo_api_v1_node_controller_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -58,77 +58,77 @@ func (x *NodeConnectServerEvent) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use NodeConnectServerEvent.ProtoReflect.Descriptor instead.
-func (*NodeConnectServerEvent) Descriptor() ([]byte, []int) {
+// Deprecated: Use NodeControllerConnectServerEvent.ProtoReflect.Descriptor instead.
+func (*NodeControllerConnectServerEvent) Descriptor() ([]byte, []int) {
 	return file_baepo_api_v1_node_controller_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *NodeConnectServerEvent) GetEvent() isNodeConnectServerEvent_Event {
+func (x *NodeControllerConnectServerEvent) GetEvent() isNodeControllerConnectServerEvent_Event {
 	if x != nil {
 		return x.Event
 	}
 	return nil
 }
 
-func (x *NodeConnectServerEvent) GetRegister() *NodeConnectServerEvent_RegisterResponse {
+func (x *NodeControllerConnectServerEvent) GetRegister() *NodeControllerConnectServerEvent_RegisterResponse {
 	if x != nil {
-		if x, ok := x.Event.(*NodeConnectServerEvent_Register); ok {
+		if x, ok := x.Event.(*NodeControllerConnectServerEvent_Register); ok {
 			return x.Register
 		}
 	}
 	return nil
 }
 
-func (x *NodeConnectServerEvent) GetPing() *NodeConnectServerEvent_PingEvent {
+func (x *NodeControllerConnectServerEvent) GetPing() *NodeControllerConnectServerEvent_PingEvent {
 	if x != nil {
-		if x, ok := x.Event.(*NodeConnectServerEvent_Ping); ok {
+		if x, ok := x.Event.(*NodeControllerConnectServerEvent_Ping); ok {
 			return x.Ping
 		}
 	}
 	return nil
 }
 
-type isNodeConnectServerEvent_Event interface {
-	isNodeConnectServerEvent_Event()
+type isNodeControllerConnectServerEvent_Event interface {
+	isNodeControllerConnectServerEvent_Event()
 }
 
-type NodeConnectServerEvent_Register struct {
-	Register *NodeConnectServerEvent_RegisterResponse `protobuf:"bytes,1,opt,name=register,proto3,oneof"`
+type NodeControllerConnectServerEvent_Register struct {
+	Register *NodeControllerConnectServerEvent_RegisterResponse `protobuf:"bytes,1,opt,name=register,proto3,oneof"`
 }
 
-type NodeConnectServerEvent_Ping struct {
-	Ping *NodeConnectServerEvent_PingEvent `protobuf:"bytes,2,opt,name=ping,proto3,oneof"`
+type NodeControllerConnectServerEvent_Ping struct {
+	Ping *NodeControllerConnectServerEvent_PingEvent `protobuf:"bytes,2,opt,name=ping,proto3,oneof"`
 }
 
-func (*NodeConnectServerEvent_Register) isNodeConnectServerEvent_Event() {}
+func (*NodeControllerConnectServerEvent_Register) isNodeControllerConnectServerEvent_Event() {}
 
-func (*NodeConnectServerEvent_Ping) isNodeConnectServerEvent_Event() {}
+func (*NodeControllerConnectServerEvent_Ping) isNodeControllerConnectServerEvent_Event() {}
 
-type NodeConnectClientEvent struct {
+type NodeControllerConnectClientEvent struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// Types that are valid to be assigned to Event:
 	//
-	//	*NodeConnectClientEvent_Register
-	//	*NodeConnectClientEvent_Stats
-	Event         isNodeConnectClientEvent_Event `protobuf_oneof:"event"`
+	//	*NodeControllerConnectClientEvent_Register
+	//	*NodeControllerConnectClientEvent_Stats
+	Event         isNodeControllerConnectClientEvent_Event `protobuf_oneof:"event"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *NodeConnectClientEvent) Reset() {
-	*x = NodeConnectClientEvent{}
+func (x *NodeControllerConnectClientEvent) Reset() {
+	*x = NodeControllerConnectClientEvent{}
 	mi := &file_baepo_api_v1_node_controller_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *NodeConnectClientEvent) String() string {
+func (x *NodeControllerConnectClientEvent) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*NodeConnectClientEvent) ProtoMessage() {}
+func (*NodeControllerConnectClientEvent) ProtoMessage() {}
 
-func (x *NodeConnectClientEvent) ProtoReflect() protoreflect.Message {
+func (x *NodeControllerConnectClientEvent) ProtoReflect() protoreflect.Message {
 	mi := &file_baepo_api_v1_node_controller_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -140,53 +140,53 @@ func (x *NodeConnectClientEvent) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use NodeConnectClientEvent.ProtoReflect.Descriptor instead.
-func (*NodeConnectClientEvent) Descriptor() ([]byte, []int) {
+// Deprecated: Use NodeControllerConnectClientEvent.ProtoReflect.Descriptor instead.
+func (*NodeControllerConnectClientEvent) Descriptor() ([]byte, []int) {
 	return file_baepo_api_v1_node_controller_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *NodeConnectClientEvent) GetEvent() isNodeConnectClientEvent_Event {
+func (x *NodeControllerConnectClientEvent) GetEvent() isNodeControllerConnectClientEvent_Event {
 	if x != nil {
 		return x.Event
 	}
 	return nil
 }
 
-func (x *NodeConnectClientEvent) GetRegister() *NodeConnectClientEvent_RegisterRequest {
+func (x *NodeControllerConnectClientEvent) GetRegister() *NodeControllerConnectClientEvent_RegisterRequest {
 	if x != nil {
-		if x, ok := x.Event.(*NodeConnectClientEvent_Register); ok {
+		if x, ok := x.Event.(*NodeControllerConnectClientEvent_Register); ok {
 			return x.Register
 		}
 	}
 	return nil
 }
 
-func (x *NodeConnectClientEvent) GetStats() *NodeConnectClientEvent_StatsEvent {
+func (x *NodeControllerConnectClientEvent) GetStats() *NodeControllerConnectClientEvent_StatsEvent {
 	if x != nil {
-		if x, ok := x.Event.(*NodeConnectClientEvent_Stats); ok {
+		if x, ok := x.Event.(*NodeControllerConnectClientEvent_Stats); ok {
 			return x.Stats
 		}
 	}
 	return nil
 }
 
-type isNodeConnectClientEvent_Event interface {
-	isNodeConnectClientEvent_Event()
+type isNodeControllerConnectClientEvent_Event interface {
+	isNodeControllerConnectClientEvent_Event()
 }
 
-type NodeConnectClientEvent_Register struct {
-	Register *NodeConnectClientEvent_RegisterRequest `protobuf:"bytes,1,opt,name=register,proto3,oneof"`
+type NodeControllerConnectClientEvent_Register struct {
+	Register *NodeControllerConnectClientEvent_RegisterRequest `protobuf:"bytes,1,opt,name=register,proto3,oneof"`
 }
 
-type NodeConnectClientEvent_Stats struct {
-	Stats *NodeConnectClientEvent_StatsEvent `protobuf:"bytes,2,opt,name=stats,proto3,oneof"`
+type NodeControllerConnectClientEvent_Stats struct {
+	Stats *NodeControllerConnectClientEvent_StatsEvent `protobuf:"bytes,2,opt,name=stats,proto3,oneof"`
 }
 
-func (*NodeConnectClientEvent_Register) isNodeConnectClientEvent_Event() {}
+func (*NodeControllerConnectClientEvent_Register) isNodeControllerConnectClientEvent_Event() {}
 
-func (*NodeConnectClientEvent_Stats) isNodeConnectClientEvent_Event() {}
+func (*NodeControllerConnectClientEvent_Stats) isNodeControllerConnectClientEvent_Event() {}
 
-type NodeConnectServerEvent_RegisterResponse struct {
+type NodeControllerConnectServerEvent_RegisterResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	NodeId        string                 `protobuf:"bytes,1,opt,name=node_id,json=nodeId,proto3" json:"node_id,omitempty"`
 	NodeToken     string                 `protobuf:"bytes,2,opt,name=node_token,json=nodeToken,proto3" json:"node_token,omitempty"`
@@ -197,20 +197,20 @@ type NodeConnectServerEvent_RegisterResponse struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *NodeConnectServerEvent_RegisterResponse) Reset() {
-	*x = NodeConnectServerEvent_RegisterResponse{}
+func (x *NodeControllerConnectServerEvent_RegisterResponse) Reset() {
+	*x = NodeControllerConnectServerEvent_RegisterResponse{}
 	mi := &file_baepo_api_v1_node_controller_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *NodeConnectServerEvent_RegisterResponse) String() string {
+func (x *NodeControllerConnectServerEvent_RegisterResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*NodeConnectServerEvent_RegisterResponse) ProtoMessage() {}
+func (*NodeControllerConnectServerEvent_RegisterResponse) ProtoMessage() {}
 
-func (x *NodeConnectServerEvent_RegisterResponse) ProtoReflect() protoreflect.Message {
+func (x *NodeControllerConnectServerEvent_RegisterResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_baepo_api_v1_node_controller_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -222,66 +222,66 @@ func (x *NodeConnectServerEvent_RegisterResponse) ProtoReflect() protoreflect.Me
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use NodeConnectServerEvent_RegisterResponse.ProtoReflect.Descriptor instead.
-func (*NodeConnectServerEvent_RegisterResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use NodeControllerConnectServerEvent_RegisterResponse.ProtoReflect.Descriptor instead.
+func (*NodeControllerConnectServerEvent_RegisterResponse) Descriptor() ([]byte, []int) {
 	return file_baepo_api_v1_node_controller_proto_rawDescGZIP(), []int{0, 0}
 }
 
-func (x *NodeConnectServerEvent_RegisterResponse) GetNodeId() string {
+func (x *NodeControllerConnectServerEvent_RegisterResponse) GetNodeId() string {
 	if x != nil {
 		return x.NodeId
 	}
 	return ""
 }
 
-func (x *NodeConnectServerEvent_RegisterResponse) GetNodeToken() string {
+func (x *NodeControllerConnectServerEvent_RegisterResponse) GetNodeToken() string {
 	if x != nil {
 		return x.NodeToken
 	}
 	return ""
 }
 
-func (x *NodeConnectServerEvent_RegisterResponse) GetAuthorityCert() []byte {
+func (x *NodeControllerConnectServerEvent_RegisterResponse) GetAuthorityCert() []byte {
 	if x != nil {
 		return x.AuthorityCert
 	}
 	return nil
 }
 
-func (x *NodeConnectServerEvent_RegisterResponse) GetServerCert() []byte {
+func (x *NodeControllerConnectServerEvent_RegisterResponse) GetServerCert() []byte {
 	if x != nil {
 		return x.ServerCert
 	}
 	return nil
 }
 
-func (x *NodeConnectServerEvent_RegisterResponse) GetServerKey() []byte {
+func (x *NodeControllerConnectServerEvent_RegisterResponse) GetServerKey() []byte {
 	if x != nil {
 		return x.ServerKey
 	}
 	return nil
 }
 
-type NodeConnectServerEvent_PingEvent struct {
+type NodeControllerConnectServerEvent_PingEvent struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *NodeConnectServerEvent_PingEvent) Reset() {
-	*x = NodeConnectServerEvent_PingEvent{}
+func (x *NodeControllerConnectServerEvent_PingEvent) Reset() {
+	*x = NodeControllerConnectServerEvent_PingEvent{}
 	mi := &file_baepo_api_v1_node_controller_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *NodeConnectServerEvent_PingEvent) String() string {
+func (x *NodeControllerConnectServerEvent_PingEvent) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*NodeConnectServerEvent_PingEvent) ProtoMessage() {}
+func (*NodeControllerConnectServerEvent_PingEvent) ProtoMessage() {}
 
-func (x *NodeConnectServerEvent_PingEvent) ProtoReflect() protoreflect.Message {
+func (x *NodeControllerConnectServerEvent_PingEvent) ProtoReflect() protoreflect.Message {
 	mi := &file_baepo_api_v1_node_controller_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -293,12 +293,12 @@ func (x *NodeConnectServerEvent_PingEvent) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use NodeConnectServerEvent_PingEvent.ProtoReflect.Descriptor instead.
-func (*NodeConnectServerEvent_PingEvent) Descriptor() ([]byte, []int) {
+// Deprecated: Use NodeControllerConnectServerEvent_PingEvent.ProtoReflect.Descriptor instead.
+func (*NodeControllerConnectServerEvent_PingEvent) Descriptor() ([]byte, []int) {
 	return file_baepo_api_v1_node_controller_proto_rawDescGZIP(), []int{0, 1}
 }
 
-type NodeConnectClientEvent_RegisterRequest struct {
+type NodeControllerConnectClientEvent_RegisterRequest struct {
 	state           protoimpl.MessageState `protogen:"open.v1"`
 	ClusterId       string                 `protobuf:"bytes,1,opt,name=cluster_id,json=clusterId,proto3" json:"cluster_id,omitempty"`
 	BootstrapToken  string                 `protobuf:"bytes,2,opt,name=bootstrap_token,json=bootstrapToken,proto3" json:"bootstrap_token,omitempty"`
@@ -310,20 +310,20 @@ type NodeConnectClientEvent_RegisterRequest struct {
 	sizeCache       protoimpl.SizeCache
 }
 
-func (x *NodeConnectClientEvent_RegisterRequest) Reset() {
-	*x = NodeConnectClientEvent_RegisterRequest{}
+func (x *NodeControllerConnectClientEvent_RegisterRequest) Reset() {
+	*x = NodeControllerConnectClientEvent_RegisterRequest{}
 	mi := &file_baepo_api_v1_node_controller_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *NodeConnectClientEvent_RegisterRequest) String() string {
+func (x *NodeControllerConnectClientEvent_RegisterRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*NodeConnectClientEvent_RegisterRequest) ProtoMessage() {}
+func (*NodeControllerConnectClientEvent_RegisterRequest) ProtoMessage() {}
 
-func (x *NodeConnectClientEvent_RegisterRequest) ProtoReflect() protoreflect.Message {
+func (x *NodeControllerConnectClientEvent_RegisterRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_baepo_api_v1_node_controller_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -335,54 +335,54 @@ func (x *NodeConnectClientEvent_RegisterRequest) ProtoReflect() protoreflect.Mes
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use NodeConnectClientEvent_RegisterRequest.ProtoReflect.Descriptor instead.
-func (*NodeConnectClientEvent_RegisterRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use NodeControllerConnectClientEvent_RegisterRequest.ProtoReflect.Descriptor instead.
+func (*NodeControllerConnectClientEvent_RegisterRequest) Descriptor() ([]byte, []int) {
 	return file_baepo_api_v1_node_controller_proto_rawDescGZIP(), []int{1, 0}
 }
 
-func (x *NodeConnectClientEvent_RegisterRequest) GetClusterId() string {
+func (x *NodeControllerConnectClientEvent_RegisterRequest) GetClusterId() string {
 	if x != nil {
 		return x.ClusterId
 	}
 	return ""
 }
 
-func (x *NodeConnectClientEvent_RegisterRequest) GetBootstrapToken() string {
+func (x *NodeControllerConnectClientEvent_RegisterRequest) GetBootstrapToken() string {
 	if x != nil {
 		return x.BootstrapToken
 	}
 	return ""
 }
 
-func (x *NodeConnectClientEvent_RegisterRequest) GetNodeToken() string {
+func (x *NodeControllerConnectClientEvent_RegisterRequest) GetNodeToken() string {
 	if x != nil && x.NodeToken != nil {
 		return *x.NodeToken
 	}
 	return ""
 }
 
-func (x *NodeConnectClientEvent_RegisterRequest) GetIpAddress() string {
+func (x *NodeControllerConnectClientEvent_RegisterRequest) GetIpAddress() string {
 	if x != nil {
 		return x.IpAddress
 	}
 	return ""
 }
 
-func (x *NodeConnectClientEvent_RegisterRequest) GetApiEndpoint() string {
+func (x *NodeControllerConnectClientEvent_RegisterRequest) GetApiEndpoint() string {
 	if x != nil {
 		return x.ApiEndpoint
 	}
 	return ""
 }
 
-func (x *NodeConnectClientEvent_RegisterRequest) GetGatewayEndpoint() string {
+func (x *NodeControllerConnectClientEvent_RegisterRequest) GetGatewayEndpoint() string {
 	if x != nil {
 		return x.GatewayEndpoint
 	}
 	return ""
 }
 
-type NodeConnectClientEvent_StatsEvent struct {
+type NodeControllerConnectClientEvent_StatsEvent struct {
 	state             protoimpl.MessageState `protogen:"open.v1"`
 	TotalMemory       uint64                 `protobuf:"varint,1,opt,name=total_memory,json=totalMemory,proto3" json:"total_memory,omitempty"`
 	UsedMemory        uint64                 `protobuf:"varint,2,opt,name=used_memory,json=usedMemory,proto3" json:"used_memory,omitempty"`
@@ -393,20 +393,20 @@ type NodeConnectClientEvent_StatsEvent struct {
 	sizeCache         protoimpl.SizeCache
 }
 
-func (x *NodeConnectClientEvent_StatsEvent) Reset() {
-	*x = NodeConnectClientEvent_StatsEvent{}
+func (x *NodeControllerConnectClientEvent_StatsEvent) Reset() {
+	*x = NodeControllerConnectClientEvent_StatsEvent{}
 	mi := &file_baepo_api_v1_node_controller_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *NodeConnectClientEvent_StatsEvent) String() string {
+func (x *NodeControllerConnectClientEvent_StatsEvent) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*NodeConnectClientEvent_StatsEvent) ProtoMessage() {}
+func (*NodeControllerConnectClientEvent_StatsEvent) ProtoMessage() {}
 
-func (x *NodeConnectClientEvent_StatsEvent) ProtoReflect() protoreflect.Message {
+func (x *NodeControllerConnectClientEvent_StatsEvent) ProtoReflect() protoreflect.Message {
 	mi := &file_baepo_api_v1_node_controller_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -418,40 +418,40 @@ func (x *NodeConnectClientEvent_StatsEvent) ProtoReflect() protoreflect.Message 
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use NodeConnectClientEvent_StatsEvent.ProtoReflect.Descriptor instead.
-func (*NodeConnectClientEvent_StatsEvent) Descriptor() ([]byte, []int) {
+// Deprecated: Use NodeControllerConnectClientEvent_StatsEvent.ProtoReflect.Descriptor instead.
+func (*NodeControllerConnectClientEvent_StatsEvent) Descriptor() ([]byte, []int) {
 	return file_baepo_api_v1_node_controller_proto_rawDescGZIP(), []int{1, 1}
 }
 
-func (x *NodeConnectClientEvent_StatsEvent) GetTotalMemory() uint64 {
+func (x *NodeControllerConnectClientEvent_StatsEvent) GetTotalMemory() uint64 {
 	if x != nil {
 		return x.TotalMemory
 	}
 	return 0
 }
 
-func (x *NodeConnectClientEvent_StatsEvent) GetUsedMemory() uint64 {
+func (x *NodeControllerConnectClientEvent_StatsEvent) GetUsedMemory() uint64 {
 	if x != nil {
 		return x.UsedMemory
 	}
 	return 0
 }
 
-func (x *NodeConnectClientEvent_StatsEvent) GetCpuCount() uint32 {
+func (x *NodeControllerConnectClientEvent_StatsEvent) GetCpuCount() uint32 {
 	if x != nil {
 		return x.CpuCount
 	}
 	return 0
 }
 
-func (x *NodeConnectClientEvent_StatsEvent) GetRunningMachineIds() []string {
+func (x *NodeControllerConnectClientEvent_StatsEvent) GetRunningMachineIds() []string {
 	if x != nil {
 		return x.RunningMachineIds
 	}
 	return nil
 }
 
-func (x *NodeConnectClientEvent_StatsEvent) GetReservedMemory() uint64 {
+func (x *NodeControllerConnectClientEvent_StatsEvent) GetReservedMemory() uint64 {
 	if x != nil {
 		return x.ReservedMemory
 	}
@@ -462,10 +462,10 @@ var File_baepo_api_v1_node_controller_proto protoreflect.FileDescriptor
 
 const file_baepo_api_v1_node_controller_proto_rawDesc = "" +
 	"\n" +
-	"\"baepo/api/v1/node_controller.proto\x12\fbaepo.api.v1\x1a\x1bgoogle/protobuf/empty.proto\"\xfd\x02\n" +
-	"\x16NodeConnectServerEvent\x12S\n" +
-	"\bregister\x18\x01 \x01(\v25.baepo.api.v1.NodeConnectServerEvent.RegisterResponseH\x00R\bregister\x12D\n" +
-	"\x04ping\x18\x02 \x01(\v2..baepo.api.v1.NodeConnectServerEvent.PingEventH\x00R\x04ping\x1a\xb1\x01\n" +
+	"\"baepo/api/v1/node_controller.proto\x12\fbaepo.api.v1\x1a\x1bgoogle/protobuf/empty.proto\"\x9b\x03\n" +
+	" NodeControllerConnectServerEvent\x12]\n" +
+	"\bregister\x18\x01 \x01(\v2?.baepo.api.v1.NodeControllerConnectServerEvent.RegisterResponseH\x00R\bregister\x12N\n" +
+	"\x04ping\x18\x02 \x01(\v28.baepo.api.v1.NodeControllerConnectServerEvent.PingEventH\x00R\x04ping\x1a\xb1\x01\n" +
 	"\x10RegisterResponse\x12\x17\n" +
 	"\anode_id\x18\x01 \x01(\tR\x06nodeId\x12\x1d\n" +
 	"\n" +
@@ -476,10 +476,10 @@ const file_baepo_api_v1_node_controller_proto_rawDesc = "" +
 	"\n" +
 	"server_key\x18\x05 \x01(\fR\tserverKey\x1a\v\n" +
 	"\tPingEventB\a\n" +
-	"\x05event\"\x83\x05\n" +
-	"\x16NodeConnectClientEvent\x12R\n" +
-	"\bregister\x18\x01 \x01(\v24.baepo.api.v1.NodeConnectClientEvent.RegisterRequestH\x00R\bregister\x12G\n" +
-	"\x05stats\x18\x02 \x01(\v2/.baepo.api.v1.NodeConnectClientEvent.StatsEventH\x00R\x05stats\x1a\xf9\x01\n" +
+	"\x05event\"\xa1\x05\n" +
+	" NodeControllerConnectClientEvent\x12\\\n" +
+	"\bregister\x18\x01 \x01(\v2>.baepo.api.v1.NodeControllerConnectClientEvent.RegisterRequestH\x00R\bregister\x12Q\n" +
+	"\x05stats\x18\x02 \x01(\v29.baepo.api.v1.NodeControllerConnectClientEvent.StatsEventH\x00R\x05stats\x1a\xf9\x01\n" +
 	"\x0fRegisterRequest\x12\x1d\n" +
 	"\n" +
 	"cluster_id\x18\x01 \x01(\tR\tclusterId\x12'\n" +
@@ -499,9 +499,9 @@ const file_baepo_api_v1_node_controller_proto_rawDesc = "" +
 	"\tcpu_count\x18\x03 \x01(\rR\bcpuCount\x12.\n" +
 	"\x13running_machine_ids\x18\x04 \x03(\tR\x11runningMachineIds\x12'\n" +
 	"\x0freserved_memory\x18\x05 \x01(\x04R\x0ereservedMemoryB\a\n" +
-	"\x05event2r\n" +
-	"\x15NodeControllerService\x12Y\n" +
-	"\aConnect\x12$.baepo.api.v1.NodeConnectClientEvent\x1a$.baepo.api.v1.NodeConnectServerEvent(\x010\x01B4Z2github.com/baepo-cloud/baepo-proto/go/baepo/api/v1b\x06proto3"
+	"\x05event2\x86\x01\n" +
+	"\x15NodeControllerService\x12m\n" +
+	"\aConnect\x12..baepo.api.v1.NodeControllerConnectClientEvent\x1a..baepo.api.v1.NodeControllerConnectServerEvent(\x010\x01B4Z2github.com/baepo-cloud/baepo-proto/go/baepo/api/v1b\x06proto3"
 
 var (
 	file_baepo_api_v1_node_controller_proto_rawDescOnce sync.Once
@@ -517,20 +517,20 @@ func file_baepo_api_v1_node_controller_proto_rawDescGZIP() []byte {
 
 var file_baepo_api_v1_node_controller_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_baepo_api_v1_node_controller_proto_goTypes = []any{
-	(*NodeConnectServerEvent)(nil),                  // 0: baepo.api.v1.NodeConnectServerEvent
-	(*NodeConnectClientEvent)(nil),                  // 1: baepo.api.v1.NodeConnectClientEvent
-	(*NodeConnectServerEvent_RegisterResponse)(nil), // 2: baepo.api.v1.NodeConnectServerEvent.RegisterResponse
-	(*NodeConnectServerEvent_PingEvent)(nil),        // 3: baepo.api.v1.NodeConnectServerEvent.PingEvent
-	(*NodeConnectClientEvent_RegisterRequest)(nil),  // 4: baepo.api.v1.NodeConnectClientEvent.RegisterRequest
-	(*NodeConnectClientEvent_StatsEvent)(nil),       // 5: baepo.api.v1.NodeConnectClientEvent.StatsEvent
+	(*NodeControllerConnectServerEvent)(nil),                  // 0: baepo.api.v1.NodeControllerConnectServerEvent
+	(*NodeControllerConnectClientEvent)(nil),                  // 1: baepo.api.v1.NodeControllerConnectClientEvent
+	(*NodeControllerConnectServerEvent_RegisterResponse)(nil), // 2: baepo.api.v1.NodeControllerConnectServerEvent.RegisterResponse
+	(*NodeControllerConnectServerEvent_PingEvent)(nil),        // 3: baepo.api.v1.NodeControllerConnectServerEvent.PingEvent
+	(*NodeControllerConnectClientEvent_RegisterRequest)(nil),  // 4: baepo.api.v1.NodeControllerConnectClientEvent.RegisterRequest
+	(*NodeControllerConnectClientEvent_StatsEvent)(nil),       // 5: baepo.api.v1.NodeControllerConnectClientEvent.StatsEvent
 }
 var file_baepo_api_v1_node_controller_proto_depIdxs = []int32{
-	2, // 0: baepo.api.v1.NodeConnectServerEvent.register:type_name -> baepo.api.v1.NodeConnectServerEvent.RegisterResponse
-	3, // 1: baepo.api.v1.NodeConnectServerEvent.ping:type_name -> baepo.api.v1.NodeConnectServerEvent.PingEvent
-	4, // 2: baepo.api.v1.NodeConnectClientEvent.register:type_name -> baepo.api.v1.NodeConnectClientEvent.RegisterRequest
-	5, // 3: baepo.api.v1.NodeConnectClientEvent.stats:type_name -> baepo.api.v1.NodeConnectClientEvent.StatsEvent
-	1, // 4: baepo.api.v1.NodeControllerService.Connect:input_type -> baepo.api.v1.NodeConnectClientEvent
-	0, // 5: baepo.api.v1.NodeControllerService.Connect:output_type -> baepo.api.v1.NodeConnectServerEvent
+	2, // 0: baepo.api.v1.NodeControllerConnectServerEvent.register:type_name -> baepo.api.v1.NodeControllerConnectServerEvent.RegisterResponse
+	3, // 1: baepo.api.v1.NodeControllerConnectServerEvent.ping:type_name -> baepo.api.v1.NodeControllerConnectServerEvent.PingEvent
+	4, // 2: baepo.api.v1.NodeControllerConnectClientEvent.register:type_name -> baepo.api.v1.NodeControllerConnectClientEvent.RegisterRequest
+	5, // 3: baepo.api.v1.NodeControllerConnectClientEvent.stats:type_name -> baepo.api.v1.NodeControllerConnectClientEvent.StatsEvent
+	1, // 4: baepo.api.v1.NodeControllerService.Connect:input_type -> baepo.api.v1.NodeControllerConnectClientEvent
+	0, // 5: baepo.api.v1.NodeControllerService.Connect:output_type -> baepo.api.v1.NodeControllerConnectServerEvent
 	5, // [5:6] is the sub-list for method output_type
 	4, // [4:5] is the sub-list for method input_type
 	4, // [4:4] is the sub-list for extension type_name
@@ -544,12 +544,12 @@ func file_baepo_api_v1_node_controller_proto_init() {
 		return
 	}
 	file_baepo_api_v1_node_controller_proto_msgTypes[0].OneofWrappers = []any{
-		(*NodeConnectServerEvent_Register)(nil),
-		(*NodeConnectServerEvent_Ping)(nil),
+		(*NodeControllerConnectServerEvent_Register)(nil),
+		(*NodeControllerConnectServerEvent_Ping)(nil),
 	}
 	file_baepo_api_v1_node_controller_proto_msgTypes[1].OneofWrappers = []any{
-		(*NodeConnectClientEvent_Register)(nil),
-		(*NodeConnectClientEvent_Stats)(nil),
+		(*NodeControllerConnectClientEvent_Register)(nil),
+		(*NodeControllerConnectClientEvent_Stats)(nil),
 	}
 	file_baepo_api_v1_node_controller_proto_msgTypes[4].OneofWrappers = []any{}
 	type x struct{}

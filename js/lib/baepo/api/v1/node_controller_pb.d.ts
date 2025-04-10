@@ -11,37 +11,37 @@ import type { Message } from "@bufbuild/protobuf";
 export declare const file_baepo_api_v1_node_controller: GenFile;
 
 /**
- * @generated from message baepo.api.v1.NodeConnectServerEvent
+ * @generated from message baepo.api.v1.NodeControllerConnectServerEvent
  */
-export declare type NodeConnectServerEvent = Message<"baepo.api.v1.NodeConnectServerEvent"> & {
+export declare type NodeControllerConnectServerEvent = Message<"baepo.api.v1.NodeControllerConnectServerEvent"> & {
   /**
-   * @generated from oneof baepo.api.v1.NodeConnectServerEvent.event
+   * @generated from oneof baepo.api.v1.NodeControllerConnectServerEvent.event
    */
   event: {
     /**
-     * @generated from field: baepo.api.v1.NodeConnectServerEvent.RegisterResponse register = 1;
+     * @generated from field: baepo.api.v1.NodeControllerConnectServerEvent.RegisterResponse register = 1;
      */
-    value: NodeConnectServerEvent_RegisterResponse;
+    value: NodeControllerConnectServerEvent_RegisterResponse;
     case: "register";
   } | {
     /**
-     * @generated from field: baepo.api.v1.NodeConnectServerEvent.PingEvent ping = 2;
+     * @generated from field: baepo.api.v1.NodeControllerConnectServerEvent.PingEvent ping = 2;
      */
-    value: NodeConnectServerEvent_PingEvent;
+    value: NodeControllerConnectServerEvent_PingEvent;
     case: "ping";
   } | { case: undefined; value?: undefined };
 };
 
 /**
- * Describes the message baepo.api.v1.NodeConnectServerEvent.
- * Use `create(NodeConnectServerEventSchema)` to create a new message.
+ * Describes the message baepo.api.v1.NodeControllerConnectServerEvent.
+ * Use `create(NodeControllerConnectServerEventSchema)` to create a new message.
  */
-export declare const NodeConnectServerEventSchema: GenMessage<NodeConnectServerEvent>;
+export declare const NodeControllerConnectServerEventSchema: GenMessage<NodeControllerConnectServerEvent>;
 
 /**
- * @generated from message baepo.api.v1.NodeConnectServerEvent.RegisterResponse
+ * @generated from message baepo.api.v1.NodeControllerConnectServerEvent.RegisterResponse
  */
-export declare type NodeConnectServerEvent_RegisterResponse = Message<"baepo.api.v1.NodeConnectServerEvent.RegisterResponse"> & {
+export declare type NodeControllerConnectServerEvent_RegisterResponse = Message<"baepo.api.v1.NodeControllerConnectServerEvent.RegisterResponse"> & {
   /**
    * @generated from field: string node_id = 1;
    */
@@ -69,55 +69,55 @@ export declare type NodeConnectServerEvent_RegisterResponse = Message<"baepo.api
 };
 
 /**
- * Describes the message baepo.api.v1.NodeConnectServerEvent.RegisterResponse.
- * Use `create(NodeConnectServerEvent_RegisterResponseSchema)` to create a new message.
+ * Describes the message baepo.api.v1.NodeControllerConnectServerEvent.RegisterResponse.
+ * Use `create(NodeControllerConnectServerEvent_RegisterResponseSchema)` to create a new message.
  */
-export declare const NodeConnectServerEvent_RegisterResponseSchema: GenMessage<NodeConnectServerEvent_RegisterResponse>;
+export declare const NodeControllerConnectServerEvent_RegisterResponseSchema: GenMessage<NodeControllerConnectServerEvent_RegisterResponse>;
 
 /**
- * @generated from message baepo.api.v1.NodeConnectServerEvent.PingEvent
+ * @generated from message baepo.api.v1.NodeControllerConnectServerEvent.PingEvent
  */
-export declare type NodeConnectServerEvent_PingEvent = Message<"baepo.api.v1.NodeConnectServerEvent.PingEvent"> & {
+export declare type NodeControllerConnectServerEvent_PingEvent = Message<"baepo.api.v1.NodeControllerConnectServerEvent.PingEvent"> & {
 };
 
 /**
- * Describes the message baepo.api.v1.NodeConnectServerEvent.PingEvent.
- * Use `create(NodeConnectServerEvent_PingEventSchema)` to create a new message.
+ * Describes the message baepo.api.v1.NodeControllerConnectServerEvent.PingEvent.
+ * Use `create(NodeControllerConnectServerEvent_PingEventSchema)` to create a new message.
  */
-export declare const NodeConnectServerEvent_PingEventSchema: GenMessage<NodeConnectServerEvent_PingEvent>;
+export declare const NodeControllerConnectServerEvent_PingEventSchema: GenMessage<NodeControllerConnectServerEvent_PingEvent>;
 
 /**
- * @generated from message baepo.api.v1.NodeConnectClientEvent
+ * @generated from message baepo.api.v1.NodeControllerConnectClientEvent
  */
-export declare type NodeConnectClientEvent = Message<"baepo.api.v1.NodeConnectClientEvent"> & {
+export declare type NodeControllerConnectClientEvent = Message<"baepo.api.v1.NodeControllerConnectClientEvent"> & {
   /**
-   * @generated from oneof baepo.api.v1.NodeConnectClientEvent.event
+   * @generated from oneof baepo.api.v1.NodeControllerConnectClientEvent.event
    */
   event: {
     /**
-     * @generated from field: baepo.api.v1.NodeConnectClientEvent.RegisterRequest register = 1;
+     * @generated from field: baepo.api.v1.NodeControllerConnectClientEvent.RegisterRequest register = 1;
      */
-    value: NodeConnectClientEvent_RegisterRequest;
+    value: NodeControllerConnectClientEvent_RegisterRequest;
     case: "register";
   } | {
     /**
-     * @generated from field: baepo.api.v1.NodeConnectClientEvent.StatsEvent stats = 2;
+     * @generated from field: baepo.api.v1.NodeControllerConnectClientEvent.StatsEvent stats = 2;
      */
-    value: NodeConnectClientEvent_StatsEvent;
+    value: NodeControllerConnectClientEvent_StatsEvent;
     case: "stats";
   } | { case: undefined; value?: undefined };
 };
 
 /**
- * Describes the message baepo.api.v1.NodeConnectClientEvent.
- * Use `create(NodeConnectClientEventSchema)` to create a new message.
+ * Describes the message baepo.api.v1.NodeControllerConnectClientEvent.
+ * Use `create(NodeControllerConnectClientEventSchema)` to create a new message.
  */
-export declare const NodeConnectClientEventSchema: GenMessage<NodeConnectClientEvent>;
+export declare const NodeControllerConnectClientEventSchema: GenMessage<NodeControllerConnectClientEvent>;
 
 /**
- * @generated from message baepo.api.v1.NodeConnectClientEvent.RegisterRequest
+ * @generated from message baepo.api.v1.NodeControllerConnectClientEvent.RegisterRequest
  */
-export declare type NodeConnectClientEvent_RegisterRequest = Message<"baepo.api.v1.NodeConnectClientEvent.RegisterRequest"> & {
+export declare type NodeControllerConnectClientEvent_RegisterRequest = Message<"baepo.api.v1.NodeControllerConnectClientEvent.RegisterRequest"> & {
   /**
    * @generated from field: string cluster_id = 1;
    */
@@ -150,15 +150,15 @@ export declare type NodeConnectClientEvent_RegisterRequest = Message<"baepo.api.
 };
 
 /**
- * Describes the message baepo.api.v1.NodeConnectClientEvent.RegisterRequest.
- * Use `create(NodeConnectClientEvent_RegisterRequestSchema)` to create a new message.
+ * Describes the message baepo.api.v1.NodeControllerConnectClientEvent.RegisterRequest.
+ * Use `create(NodeControllerConnectClientEvent_RegisterRequestSchema)` to create a new message.
  */
-export declare const NodeConnectClientEvent_RegisterRequestSchema: GenMessage<NodeConnectClientEvent_RegisterRequest>;
+export declare const NodeControllerConnectClientEvent_RegisterRequestSchema: GenMessage<NodeControllerConnectClientEvent_RegisterRequest>;
 
 /**
- * @generated from message baepo.api.v1.NodeConnectClientEvent.StatsEvent
+ * @generated from message baepo.api.v1.NodeControllerConnectClientEvent.StatsEvent
  */
-export declare type NodeConnectClientEvent_StatsEvent = Message<"baepo.api.v1.NodeConnectClientEvent.StatsEvent"> & {
+export declare type NodeControllerConnectClientEvent_StatsEvent = Message<"baepo.api.v1.NodeControllerConnectClientEvent.StatsEvent"> & {
   /**
    * @generated from field: uint64 total_memory = 1;
    */
@@ -186,10 +186,10 @@ export declare type NodeConnectClientEvent_StatsEvent = Message<"baepo.api.v1.No
 };
 
 /**
- * Describes the message baepo.api.v1.NodeConnectClientEvent.StatsEvent.
- * Use `create(NodeConnectClientEvent_StatsEventSchema)` to create a new message.
+ * Describes the message baepo.api.v1.NodeControllerConnectClientEvent.StatsEvent.
+ * Use `create(NodeControllerConnectClientEvent_StatsEventSchema)` to create a new message.
  */
-export declare const NodeConnectClientEvent_StatsEventSchema: GenMessage<NodeConnectClientEvent_StatsEvent>;
+export declare const NodeControllerConnectClientEvent_StatsEventSchema: GenMessage<NodeControllerConnectClientEvent_StatsEvent>;
 
 /**
  * @generated from service baepo.api.v1.NodeControllerService
@@ -200,8 +200,8 @@ export declare const NodeControllerService: GenService<{
    */
   connect: {
     methodKind: "bidi_streaming";
-    input: typeof NodeConnectClientEventSchema;
-    output: typeof NodeConnectServerEventSchema;
+    input: typeof NodeControllerConnectClientEventSchema;
+    output: typeof NodeControllerConnectServerEventSchema;
   },
 }>;
 

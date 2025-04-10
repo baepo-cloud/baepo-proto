@@ -7,10 +7,10 @@ import "google/protobuf/empty.proto";
 option go_package = "github.com/baepo-cloud/baepo-proto/go/baepo/api/v1";
 
 service NodeControllerService {
-  rpc Connect(stream NodeConnectClientEvent) returns (stream NodeConnectServerEvent);
+  rpc Connect(stream NodeControllerConnectClientEvent) returns (stream NodeControllerConnectServerEvent);
 }
 
-message NodeConnectServerEvent {
+message NodeControllerConnectServerEvent {
   oneof event {
     RegisterResponse register = 1;
     PingEvent ping = 2;
@@ -28,7 +28,7 @@ message NodeConnectServerEvent {
   }
 }
 
-message NodeConnectClientEvent {
+message NodeControllerConnectClientEvent {
   oneof event {
     RegisterRequest register = 1;
     StatsEvent stats = 2;
