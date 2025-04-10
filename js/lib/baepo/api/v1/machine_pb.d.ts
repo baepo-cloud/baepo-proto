@@ -110,6 +110,16 @@ export declare type MachineSpec = Message<"baepo.api.v1.MachineSpec"> & {
    * @generated from field: map<string, string> env = 3;
    */
   env: { [key: string]: string };
+
+  /**
+   * @generated from field: string image = 4;
+   */
+  image: string;
+
+  /**
+   * @generated from field: repeated string command = 5;
+   */
+  command: string[];
 };
 
 /**
@@ -151,26 +161,68 @@ export declare type MachineListResponse = Message<"baepo.api.v1.MachineListRespo
 export declare const MachineListResponseSchema: GenMessage<MachineListResponse>;
 
 /**
+ * @generated from message baepo.api.v1.MachineFindByIdRequest
+ */
+export declare type MachineFindByIdRequest = Message<"baepo.api.v1.MachineFindByIdRequest"> & {
+  /**
+   * @generated from field: string workspace_id = 1;
+   */
+  workspaceId: string;
+
+  /**
+   * @generated from field: string machine_id = 2;
+   */
+  machineId: string;
+};
+
+/**
+ * Describes the message baepo.api.v1.MachineFindByIdRequest.
+ * Use `create(MachineFindByIdRequestSchema)` to create a new message.
+ */
+export declare const MachineFindByIdRequestSchema: GenMessage<MachineFindByIdRequest>;
+
+/**
+ * @generated from message baepo.api.v1.MachineFindByIdResponse
+ */
+export declare type MachineFindByIdResponse = Message<"baepo.api.v1.MachineFindByIdResponse"> & {
+  /**
+   * @generated from field: baepo.api.v1.Machine machine = 1;
+   */
+  machine?: Machine;
+};
+
+/**
+ * Describes the message baepo.api.v1.MachineFindByIdResponse.
+ * Use `create(MachineFindByIdResponseSchema)` to create a new message.
+ */
+export declare const MachineFindByIdResponseSchema: GenMessage<MachineFindByIdResponse>;
+
+/**
  * @generated from message baepo.api.v1.MachineCreateRequest
  */
 export declare type MachineCreateRequest = Message<"baepo.api.v1.MachineCreateRequest"> & {
   /**
-   * @generated from field: optional string name = 1;
+   * @generated from field: string workspace_id = 1;
+   */
+  workspaceId: string;
+
+  /**
+   * @generated from field: optional string name = 2;
    */
   name?: string;
 
   /**
-   * @generated from field: optional uint32 timeout = 2;
+   * @generated from field: optional uint32 timeout = 3;
    */
   timeout?: number;
 
   /**
-   * @generated from field: baepo.api.v1.MachineSpec spec = 3;
+   * @generated from field: baepo.api.v1.MachineSpec spec = 4;
    */
   spec?: MachineSpec;
 
   /**
-   * @generated from field: map<string, string> metadata = 4;
+   * @generated from field: map<string, string> metadata = 5;
    */
   metadata: { [key: string]: string };
 };
@@ -202,7 +254,12 @@ export declare const MachineCreateResponseSchema: GenMessage<MachineCreateRespon
  */
 export declare type MachineTerminateRequest = Message<"baepo.api.v1.MachineTerminateRequest"> & {
   /**
-   * @generated from field: string machine_id = 1;
+   * @generated from field: string workspace_id = 1;
+   */
+  workspaceId: string;
+
+  /**
+   * @generated from field: string machine_id = 2;
    */
   machineId: string;
 };
@@ -280,6 +337,14 @@ export declare const MachineService: GenService<{
     methodKind: "unary";
     input: typeof MachineListRequestSchema;
     output: typeof MachineListResponseSchema;
+  },
+  /**
+   * @generated from rpc baepo.api.v1.MachineService.FindById
+   */
+  findById: {
+    methodKind: "unary";
+    input: typeof MachineFindByIdRequestSchema;
+    output: typeof MachineFindByIdResponseSchema;
   },
   /**
    * @generated from rpc baepo.api.v1.MachineService.Create

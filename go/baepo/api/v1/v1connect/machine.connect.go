@@ -35,6 +35,8 @@ const (
 const (
 	// MachineServiceListProcedure is the fully-qualified name of the MachineService's List RPC.
 	MachineServiceListProcedure = "/baepo.api.v1.MachineService/List"
+	// MachineServiceFindByIdProcedure is the fully-qualified name of the MachineService's FindById RPC.
+	MachineServiceFindByIdProcedure = "/baepo.api.v1.MachineService/FindById"
 	// MachineServiceCreateProcedure is the fully-qualified name of the MachineService's Create RPC.
 	MachineServiceCreateProcedure = "/baepo.api.v1.MachineService/Create"
 	// MachineServiceTerminateProcedure is the fully-qualified name of the MachineService's Terminate
@@ -45,6 +47,7 @@ const (
 // MachineServiceClient is a client for the baepo.api.v1.MachineService service.
 type MachineServiceClient interface {
 	List(context.Context, *connect.Request[v1.MachineListRequest]) (*connect.Response[v1.MachineListResponse], error)
+	FindById(context.Context, *connect.Request[v1.MachineFindByIdRequest]) (*connect.Response[v1.MachineFindByIdResponse], error)
 	Create(context.Context, *connect.Request[v1.MachineCreateRequest]) (*connect.Response[v1.MachineCreateResponse], error)
 	Terminate(context.Context, *connect.Request[v1.MachineTerminateRequest]) (*connect.Response[v1.MachineTerminateResponse], error)
 }
@@ -66,6 +69,12 @@ func NewMachineServiceClient(httpClient connect.HTTPClient, baseURL string, opts
 			connect.WithSchema(machineServiceMethods.ByName("List")),
 			connect.WithClientOptions(opts...),
 		),
+		findById: connect.NewClient[v1.MachineFindByIdRequest, v1.MachineFindByIdResponse](
+			httpClient,
+			baseURL+MachineServiceFindByIdProcedure,
+			connect.WithSchema(machineServiceMethods.ByName("FindById")),
+			connect.WithClientOptions(opts...),
+		),
 		create: connect.NewClient[v1.MachineCreateRequest, v1.MachineCreateResponse](
 			httpClient,
 			baseURL+MachineServiceCreateProcedure,
@@ -84,6 +93,7 @@ func NewMachineServiceClient(httpClient connect.HTTPClient, baseURL string, opts
 // machineServiceClient implements MachineServiceClient.
 type machineServiceClient struct {
 	list      *connect.Client[v1.MachineListRequest, v1.MachineListResponse]
+	findById  *connect.Client[v1.MachineFindByIdRequest, v1.MachineFindByIdResponse]
 	create    *connect.Client[v1.MachineCreateRequest, v1.MachineCreateResponse]
 	terminate *connect.Client[v1.MachineTerminateRequest, v1.MachineTerminateResponse]
 }
@@ -91,6 +101,11 @@ type machineServiceClient struct {
 // List calls baepo.api.v1.MachineService.List.
 func (c *machineServiceClient) List(ctx context.Context, req *connect.Request[v1.MachineListRequest]) (*connect.Response[v1.MachineListResponse], error) {
 	return c.list.CallUnary(ctx, req)
+}
+
+// FindById calls baepo.api.v1.MachineService.FindById.
+func (c *machineServiceClient) FindById(ctx context.Context, req *connect.Request[v1.MachineFindByIdRequest]) (*connect.Response[v1.MachineFindByIdResponse], error) {
+	return c.findById.CallUnary(ctx, req)
 }
 
 // Create calls baepo.api.v1.MachineService.Create.
@@ -106,6 +121,7 @@ func (c *machineServiceClient) Terminate(ctx context.Context, req *connect.Reque
 // MachineServiceHandler is an implementation of the baepo.api.v1.MachineService service.
 type MachineServiceHandler interface {
 	List(context.Context, *connect.Request[v1.MachineListRequest]) (*connect.Response[v1.MachineListResponse], error)
+	FindById(context.Context, *connect.Request[v1.MachineFindByIdRequest]) (*connect.Response[v1.MachineFindByIdResponse], error)
 	Create(context.Context, *connect.Request[v1.MachineCreateRequest]) (*connect.Response[v1.MachineCreateResponse], error)
 	Terminate(context.Context, *connect.Request[v1.MachineTerminateRequest]) (*connect.Response[v1.MachineTerminateResponse], error)
 }
@@ -121,6 +137,12 @@ func NewMachineServiceHandler(svc MachineServiceHandler, opts ...connect.Handler
 		MachineServiceListProcedure,
 		svc.List,
 		connect.WithSchema(machineServiceMethods.ByName("List")),
+		connect.WithHandlerOptions(opts...),
+	)
+	machineServiceFindByIdHandler := connect.NewUnaryHandler(
+		MachineServiceFindByIdProcedure,
+		svc.FindById,
+		connect.WithSchema(machineServiceMethods.ByName("FindById")),
 		connect.WithHandlerOptions(opts...),
 	)
 	machineServiceCreateHandler := connect.NewUnaryHandler(
@@ -139,6 +161,8 @@ func NewMachineServiceHandler(svc MachineServiceHandler, opts ...connect.Handler
 		switch r.URL.Path {
 		case MachineServiceListProcedure:
 			machineServiceListHandler.ServeHTTP(w, r)
+		case MachineServiceFindByIdProcedure:
+			machineServiceFindByIdHandler.ServeHTTP(w, r)
 		case MachineServiceCreateProcedure:
 			machineServiceCreateHandler.ServeHTTP(w, r)
 		case MachineServiceTerminateProcedure:
@@ -154,6 +178,10 @@ type UnimplementedMachineServiceHandler struct{}
 
 func (UnimplementedMachineServiceHandler) List(context.Context, *connect.Request[v1.MachineListRequest]) (*connect.Response[v1.MachineListResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("baepo.api.v1.MachineService.List is not implemented"))
+}
+
+func (UnimplementedMachineServiceHandler) FindById(context.Context, *connect.Request[v1.MachineFindByIdRequest]) (*connect.Response[v1.MachineFindByIdResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("baepo.api.v1.MachineService.FindById is not implemented"))
 }
 
 func (UnimplementedMachineServiceHandler) Create(context.Context, *connect.Request[v1.MachineCreateRequest]) (*connect.Response[v1.MachineCreateResponse], error) {
