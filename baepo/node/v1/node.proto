@@ -19,6 +19,7 @@ message NodeStartMachineRequest {
   uint32 v_cpus = 2;
   uint64 memory_mb = 3;
   map<string, string> env = 4;
+  string image = 5;
 }
 
 message NodeStartMachineReply {

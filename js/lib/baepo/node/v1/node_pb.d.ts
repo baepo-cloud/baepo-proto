@@ -34,6 +34,11 @@ export declare type NodeStartMachineRequest = Message<"baepo.node.v1.NodeStartMa
    * @generated from field: map<string, string> env = 4;
    */
   env: { [key: string]: string };
+
+  /**
+   * @generated from field: string image = 5;
+   */
+  image: string;
 };
 
 /**

@@ -80,6 +80,7 @@ type NodeStartMachineRequest struct {
 	VCpus         uint32                 `protobuf:"varint,2,opt,name=v_cpus,json=vCpus,proto3" json:"v_cpus,omitempty"`
 	MemoryMb      uint64                 `protobuf:"varint,3,opt,name=memory_mb,json=memoryMb,proto3" json:"memory_mb,omitempty"`
 	Env           map[string]string      `protobuf:"bytes,4,rep,name=env,proto3" json:"env,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	Image         string                 `protobuf:"bytes,5,opt,name=image,proto3" json:"image,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -140,6 +141,13 @@ func (x *NodeStartMachineRequest) GetEnv() map[string]string {
 		return x.Env
 	}
 	return nil
+}
+
+func (x *NodeStartMachineRequest) GetImage() string {
+	if x != nil {
+		return x.Image
+	}
+	return ""
 }
 
 type NodeStartMachineReply struct {
@@ -406,13 +414,14 @@ var File_baepo_node_v1_node_proto protoreflect.FileDescriptor
 
 const file_baepo_node_v1_node_proto_rawDesc = "" +
 	"\n" +
-	"\x18baepo/node/v1/node.proto\x12\rbaepo.node.v1\x1a\x1bgoogle/protobuf/empty.proto\"\xe7\x01\n" +
+	"\x18baepo/node/v1/node.proto\x12\rbaepo.node.v1\x1a\x1bgoogle/protobuf/empty.proto\"\xfd\x01\n" +
 	"\x17NodeStartMachineRequest\x12\x1d\n" +
 	"\n" +
 	"machine_id\x18\x01 \x01(\tR\tmachineId\x12\x15\n" +
 	"\x06v_cpus\x18\x02 \x01(\rR\x05vCpus\x12\x1b\n" +
 	"\tmemory_mb\x18\x03 \x01(\x04R\bmemoryMb\x12A\n" +
-	"\x03env\x18\x04 \x03(\v2/.baepo.node.v1.NodeStartMachineRequest.EnvEntryR\x03env\x1a6\n" +
+	"\x03env\x18\x04 \x03(\v2/.baepo.node.v1.NodeStartMachineRequest.EnvEntryR\x03env\x12\x14\n" +
+	"\x05image\x18\x05 \x01(\tR\x05image\x1a6\n" +
 	"\bEnvEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"M\n" +
