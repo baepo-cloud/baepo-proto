@@ -32,6 +32,7 @@ message Machine {
   map<string, string> metadata = 12;
   google.protobuf.Timestamp created_at = 13;
   google.protobuf.Timestamp updated_at = 14;
+  string workspace_id = 15;
 }
 
 message MachineSpec {
@@ -60,8 +61,7 @@ message MachineListResponse {
 }
 
 message MachineFindByIdRequest {
-  string workspace_id = 1;
-  string machine_id = 2;
+  string machine_id = 1;
 }
 
 message MachineFindByIdResponse {
@@ -81,8 +81,7 @@ message MachineCreateResponse {
 }
 
 message MachineTerminateRequest {
-  string workspace_id = 1;
-  string machine_id = 2;
+  string machine_id = 1;
 }
 
 message MachineTerminateResponse {

@@ -84,6 +84,11 @@ export declare type Machine = Message<"baepo.api.v1.Machine"> & {
    * @generated from field: google.protobuf.Timestamp updated_at = 14;
    */
   updatedAt?: Timestamp;
+
+  /**
+   * @generated from field: string workspace_id = 15;
+   */
+  workspaceId: string;
 };
 
 /**
@@ -165,12 +170,7 @@ export declare const MachineListResponseSchema: GenMessage<MachineListResponse>;
  */
 export declare type MachineFindByIdRequest = Message<"baepo.api.v1.MachineFindByIdRequest"> & {
   /**
-   * @generated from field: string workspace_id = 1;
-   */
-  workspaceId: string;
-
-  /**
-   * @generated from field: string machine_id = 2;
+   * @generated from field: string machine_id = 1;
    */
   machineId: string;
 };
@@ -254,12 +254,7 @@ export declare const MachineCreateResponseSchema: GenMessage<MachineCreateRespon
  */
 export declare type MachineTerminateRequest = Message<"baepo.api.v1.MachineTerminateRequest"> & {
   /**
-   * @generated from field: string workspace_id = 1;
-   */
-  workspaceId: string;
-
-  /**
-   * @generated from field: string machine_id = 2;
+   * @generated from field: string machine_id = 1;
    */
   machineId: string;
 };

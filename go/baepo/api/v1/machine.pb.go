@@ -97,6 +97,7 @@ type Machine struct {
 	Metadata           map[string]string      `protobuf:"bytes,12,rep,name=metadata,proto3" json:"metadata,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
 	CreatedAt          *timestamppb.Timestamp `protobuf:"bytes,13,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
 	UpdatedAt          *timestamppb.Timestamp `protobuf:"bytes,14,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	WorkspaceId        string                 `protobuf:"bytes,15,opt,name=workspace_id,json=workspaceId,proto3" json:"workspace_id,omitempty"`
 	unknownFields      protoimpl.UnknownFields
 	sizeCache          protoimpl.SizeCache
 }
@@ -227,6 +228,13 @@ func (x *Machine) GetUpdatedAt() *timestamppb.Timestamp {
 		return x.UpdatedAt
 	}
 	return nil
+}
+
+func (x *Machine) GetWorkspaceId() string {
+	if x != nil {
+		return x.WorkspaceId
+	}
+	return ""
 }
 
 type MachineSpec struct {
@@ -395,8 +403,7 @@ func (x *MachineListResponse) GetMachines() []*Machine {
 
 type MachineFindByIdRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	WorkspaceId   string                 `protobuf:"bytes,1,opt,name=workspace_id,json=workspaceId,proto3" json:"workspace_id,omitempty"`
-	MachineId     string                 `protobuf:"bytes,2,opt,name=machine_id,json=machineId,proto3" json:"machine_id,omitempty"`
+	MachineId     string                 `protobuf:"bytes,1,opt,name=machine_id,json=machineId,proto3" json:"machine_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -429,13 +436,6 @@ func (x *MachineFindByIdRequest) ProtoReflect() protoreflect.Message {
 // Deprecated: Use MachineFindByIdRequest.ProtoReflect.Descriptor instead.
 func (*MachineFindByIdRequest) Descriptor() ([]byte, []int) {
 	return file_baepo_api_v1_machine_proto_rawDescGZIP(), []int{4}
-}
-
-func (x *MachineFindByIdRequest) GetWorkspaceId() string {
-	if x != nil {
-		return x.WorkspaceId
-	}
-	return ""
 }
 
 func (x *MachineFindByIdRequest) GetMachineId() string {
@@ -611,8 +611,7 @@ func (x *MachineCreateResponse) GetMachine() *Machine {
 
 type MachineTerminateRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	WorkspaceId   string                 `protobuf:"bytes,1,opt,name=workspace_id,json=workspaceId,proto3" json:"workspace_id,omitempty"`
-	MachineId     string                 `protobuf:"bytes,2,opt,name=machine_id,json=machineId,proto3" json:"machine_id,omitempty"`
+	MachineId     string                 `protobuf:"bytes,1,opt,name=machine_id,json=machineId,proto3" json:"machine_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -645,13 +644,6 @@ func (x *MachineTerminateRequest) ProtoReflect() protoreflect.Message {
 // Deprecated: Use MachineTerminateRequest.ProtoReflect.Descriptor instead.
 func (*MachineTerminateRequest) Descriptor() ([]byte, []int) {
 	return file_baepo_api_v1_machine_proto_rawDescGZIP(), []int{8}
-}
-
-func (x *MachineTerminateRequest) GetWorkspaceId() string {
-	if x != nil {
-		return x.WorkspaceId
-	}
-	return ""
 }
 
 func (x *MachineTerminateRequest) GetMachineId() string {
@@ -709,7 +701,7 @@ var File_baepo_api_v1_machine_proto protoreflect.FileDescriptor
 
 const file_baepo_api_v1_machine_proto_rawDesc = "" +
 	"\n" +
-	"\x1abaepo/api/v1/machine.proto\x12\fbaepo.api.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xf4\x06\n" +
+	"\x1abaepo/api/v1/machine.proto\x12\fbaepo.api.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\x97\a\n" +
 	"\aMachine\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x17\n" +
 	"\x04name\x18\x02 \x01(\tH\x00R\x04name\x88\x01\x01\x123\n" +
@@ -729,7 +721,8 @@ const file_baepo_api_v1_machine_proto_rawDesc = "" +
 	"\n" +
 	"created_at\x18\r \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
 	"\n" +
-	"updated_at\x18\x0e \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\x1a;\n" +
+	"updated_at\x18\x0e \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\x12!\n" +
+	"\fworkspace_id\x18\x0f \x01(\tR\vworkspaceId\x1a;\n" +
 	"\rMetadataEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01B\a\n" +
@@ -755,11 +748,10 @@ const file_baepo_api_v1_machine_proto_rawDesc = "" +
 	"\x12MachineListRequest\x12!\n" +
 	"\fworkspace_id\x18\x01 \x01(\tR\vworkspaceId\"H\n" +
 	"\x13MachineListResponse\x121\n" +
-	"\bmachines\x18\x01 \x03(\v2\x15.baepo.api.v1.MachineR\bmachines\"Z\n" +
-	"\x16MachineFindByIdRequest\x12!\n" +
-	"\fworkspace_id\x18\x01 \x01(\tR\vworkspaceId\x12\x1d\n" +
+	"\bmachines\x18\x01 \x03(\v2\x15.baepo.api.v1.MachineR\bmachines\"7\n" +
+	"\x16MachineFindByIdRequest\x12\x1d\n" +
 	"\n" +
-	"machine_id\x18\x02 \x01(\tR\tmachineId\"J\n" +
+	"machine_id\x18\x01 \x01(\tR\tmachineId\"J\n" +
 	"\x17MachineFindByIdResponse\x12/\n" +
 	"\amachine\x18\x01 \x01(\v2\x15.baepo.api.v1.MachineR\amachine\"\xc0\x02\n" +
 	"\x14MachineCreateRequest\x12!\n" +
@@ -775,11 +767,10 @@ const file_baepo_api_v1_machine_proto_rawDesc = "" +
 	"\n" +
 	"\b_timeout\"H\n" +
 	"\x15MachineCreateResponse\x12/\n" +
-	"\amachine\x18\x01 \x01(\v2\x15.baepo.api.v1.MachineR\amachine\"[\n" +
-	"\x17MachineTerminateRequest\x12!\n" +
-	"\fworkspace_id\x18\x01 \x01(\tR\vworkspaceId\x12\x1d\n" +
+	"\amachine\x18\x01 \x01(\v2\x15.baepo.api.v1.MachineR\amachine\"8\n" +
+	"\x17MachineTerminateRequest\x12\x1d\n" +
 	"\n" +
-	"machine_id\x18\x02 \x01(\tR\tmachineId\"K\n" +
+	"machine_id\x18\x01 \x01(\tR\tmachineId\"K\n" +
 	"\x18MachineTerminateResponse\x12/\n" +
 	"\amachine\x18\x01 \x01(\v2\x15.baepo.api.v1.MachineR\amachine*\xbc\x01\n" +
 	"\rMachineStatus\x12\x19\n" +

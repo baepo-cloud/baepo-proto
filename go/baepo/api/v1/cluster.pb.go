@@ -32,6 +32,7 @@ type Cluster struct {
 	CreatedAt      *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
 	UpdatedAt      *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
 	DeletedAt      *timestamppb.Timestamp `protobuf:"bytes,7,opt,name=deleted_at,json=deletedAt,proto3,oneof" json:"deleted_at,omitempty"`
+	WorkspaceId    *string                `protobuf:"bytes,8,opt,name=workspace_id,json=workspaceId,proto3,oneof" json:"workspace_id,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -113,6 +114,13 @@ func (x *Cluster) GetDeletedAt() *timestamppb.Timestamp {
 		return x.DeletedAt
 	}
 	return nil
+}
+
+func (x *Cluster) GetWorkspaceId() string {
+	if x != nil && x.WorkspaceId != nil {
+		return *x.WorkspaceId
+	}
+	return ""
 }
 
 type ClusterListRequest struct {
@@ -383,7 +391,7 @@ var File_baepo_api_v1_cluster_proto protoreflect.FileDescriptor
 
 const file_baepo_api_v1_cluster_proto_rawDesc = "" +
 	"\n" +
-	"\x1abaepo/api/v1/cluster.proto\x12\fbaepo.api.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xd3\x02\n" +
+	"\x1abaepo/api/v1/cluster.proto\x12\fbaepo.api.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\x8c\x03\n" +
 	"\aCluster\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12,\n" +
@@ -395,9 +403,11 @@ const file_baepo_api_v1_cluster_proto_rawDesc = "" +
 	"\n" +
 	"updated_at\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\x12>\n" +
 	"\n" +
-	"deleted_at\x18\a \x01(\v2\x1a.google.protobuf.TimestampH\x01R\tdeletedAt\x88\x01\x01B\x12\n" +
+	"deleted_at\x18\a \x01(\v2\x1a.google.protobuf.TimestampH\x01R\tdeletedAt\x88\x01\x01\x12&\n" +
+	"\fworkspace_id\x18\b \x01(\tH\x02R\vworkspaceId\x88\x01\x01B\x12\n" +
 	"\x10_bootstrap_tokenB\r\n" +
-	"\v_deleted_at\"7\n" +
+	"\v_deleted_atB\x0f\n" +
+	"\r_workspace_id\"7\n" +
 	"\x12ClusterListRequest\x12!\n" +
 	"\fworkspace_id\x18\x01 \x01(\tR\vworkspaceId\"H\n" +
 	"\x13ClusterListResponse\x121\n" +

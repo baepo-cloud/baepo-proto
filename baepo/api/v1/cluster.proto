@@ -23,6 +23,7 @@ message Cluster {
   google.protobuf.Timestamp created_at = 5;
   google.protobuf.Timestamp updated_at = 6;
   optional google.protobuf.Timestamp deleted_at = 7;
+  optional string workspace_id = 8;
 }
 
 message ClusterListRequest {

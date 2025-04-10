@@ -49,6 +49,11 @@ export declare type Cluster = Message<"baepo.api.v1.Cluster"> & {
    * @generated from field: optional google.protobuf.Timestamp deleted_at = 7;
    */
   deletedAt?: Timestamp;
+
+  /**
+   * @generated from field: optional string workspace_id = 8;
+   */
+  workspaceId?: string;
 };
 
 /**
