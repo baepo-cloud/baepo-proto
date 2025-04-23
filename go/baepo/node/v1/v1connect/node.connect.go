@@ -39,16 +39,15 @@ const (
 	NodeServiceStartMachineProcedure = "/baepo.node.v1.NodeService/StartMachine"
 	// NodeServiceStopMachineProcedure is the fully-qualified name of the NodeService's StopMachine RPC.
 	NodeServiceStopMachineProcedure = "/baepo.node.v1.NodeService/StopMachine"
-	// NodeServiceHealthcheckMachineProcedure is the fully-qualified name of the NodeService's
-	// HealthcheckMachine RPC.
-	NodeServiceHealthcheckMachineProcedure = "/baepo.node.v1.NodeService/HealthcheckMachine"
+	// NodeServiceGetMachineProcedure is the fully-qualified name of the NodeService's GetMachine RPC.
+	NodeServiceGetMachineProcedure = "/baepo.node.v1.NodeService/GetMachine"
 )
 
 // NodeServiceClient is a client for the baepo.node.v1.NodeService service.
 type NodeServiceClient interface {
-	StartMachine(context.Context, *connect.Request[v1.NodeStartMachineRequest]) (*connect.Response[v1.NodeStartMachineReply], error)
+	StartMachine(context.Context, *connect.Request[v1.NodeStartMachineRequest]) (*connect.Response[v1.NodeStartMachineResponse], error)
 	StopMachine(context.Context, *connect.Request[v1.NodeStopMachineRequest]) (*connect.Response[emptypb.Empty], error)
-	HealthcheckMachine(context.Context, *connect.Request[v1.NodeHealthcheckMachineRequest]) (*connect.Response[v1.NodeHealthcheckMachineReply], error)
+	GetMachine(context.Context, *connect.Request[v1.NodeGetMachineRequest]) (*connect.Response[v1.NodeGetMachineResponse], error)
 }
 
 // NewNodeServiceClient constructs a client for the baepo.node.v1.NodeService service. By default,
@@ -62,7 +61,7 @@ func NewNodeServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 	baseURL = strings.TrimRight(baseURL, "/")
 	nodeServiceMethods := v1.File_baepo_node_v1_node_proto.Services().ByName("NodeService").Methods()
 	return &nodeServiceClient{
-		startMachine: connect.NewClient[v1.NodeStartMachineRequest, v1.NodeStartMachineReply](
+		startMachine: connect.NewClient[v1.NodeStartMachineRequest, v1.NodeStartMachineResponse](
 			httpClient,
 			baseURL+NodeServiceStartMachineProcedure,
 			connect.WithSchema(nodeServiceMethods.ByName("StartMachine")),
@@ -74,10 +73,10 @@ func NewNodeServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 			connect.WithSchema(nodeServiceMethods.ByName("StopMachine")),
 			connect.WithClientOptions(opts...),
 		),
-		healthcheckMachine: connect.NewClient[v1.NodeHealthcheckMachineRequest, v1.NodeHealthcheckMachineReply](
+		getMachine: connect.NewClient[v1.NodeGetMachineRequest, v1.NodeGetMachineResponse](
 			httpClient,
-			baseURL+NodeServiceHealthcheckMachineProcedure,
-			connect.WithSchema(nodeServiceMethods.ByName("HealthcheckMachine")),
+			baseURL+NodeServiceGetMachineProcedure,
+			connect.WithSchema(nodeServiceMethods.ByName("GetMachine")),
 			connect.WithClientOptions(opts...),
 		),
 	}
@@ -85,13 +84,13 @@ func NewNodeServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 
 // nodeServiceClient implements NodeServiceClient.
 type nodeServiceClient struct {
-	startMachine       *connect.Client[v1.NodeStartMachineRequest, v1.NodeStartMachineReply]
-	stopMachine        *connect.Client[v1.NodeStopMachineRequest, emptypb.Empty]
-	healthcheckMachine *connect.Client[v1.NodeHealthcheckMachineRequest, v1.NodeHealthcheckMachineReply]
+	startMachine *connect.Client[v1.NodeStartMachineRequest, v1.NodeStartMachineResponse]
+	stopMachine  *connect.Client[v1.NodeStopMachineRequest, emptypb.Empty]
+	getMachine   *connect.Client[v1.NodeGetMachineRequest, v1.NodeGetMachineResponse]
 }
 
 // StartMachine calls baepo.node.v1.NodeService.StartMachine.
-func (c *nodeServiceClient) StartMachine(ctx context.Context, req *connect.Request[v1.NodeStartMachineRequest]) (*connect.Response[v1.NodeStartMachineReply], error) {
+func (c *nodeServiceClient) StartMachine(ctx context.Context, req *connect.Request[v1.NodeStartMachineRequest]) (*connect.Response[v1.NodeStartMachineResponse], error) {
 	return c.startMachine.CallUnary(ctx, req)
 }
 
@@ -100,16 +99,16 @@ func (c *nodeServiceClient) StopMachine(ctx context.Context, req *connect.Reques
 	return c.stopMachine.CallUnary(ctx, req)
 }
 
-// HealthcheckMachine calls baepo.node.v1.NodeService.HealthcheckMachine.
-func (c *nodeServiceClient) HealthcheckMachine(ctx context.Context, req *connect.Request[v1.NodeHealthcheckMachineRequest]) (*connect.Response[v1.NodeHealthcheckMachineReply], error) {
-	return c.healthcheckMachine.CallUnary(ctx, req)
+// GetMachine calls baepo.node.v1.NodeService.GetMachine.
+func (c *nodeServiceClient) GetMachine(ctx context.Context, req *connect.Request[v1.NodeGetMachineRequest]) (*connect.Response[v1.NodeGetMachineResponse], error) {
+	return c.getMachine.CallUnary(ctx, req)
 }
 
 // NodeServiceHandler is an implementation of the baepo.node.v1.NodeService service.
 type NodeServiceHandler interface {
-	StartMachine(context.Context, *connect.Request[v1.NodeStartMachineRequest]) (*connect.Response[v1.NodeStartMachineReply], error)
+	StartMachine(context.Context, *connect.Request[v1.NodeStartMachineRequest]) (*connect.Response[v1.NodeStartMachineResponse], error)
 	StopMachine(context.Context, *connect.Request[v1.NodeStopMachineRequest]) (*connect.Response[emptypb.Empty], error)
-	HealthcheckMachine(context.Context, *connect.Request[v1.NodeHealthcheckMachineRequest]) (*connect.Response[v1.NodeHealthcheckMachineReply], error)
+	GetMachine(context.Context, *connect.Request[v1.NodeGetMachineRequest]) (*connect.Response[v1.NodeGetMachineResponse], error)
 }
 
 // NewNodeServiceHandler builds an HTTP handler from the service implementation. It returns the path
@@ -131,10 +130,10 @@ func NewNodeServiceHandler(svc NodeServiceHandler, opts ...connect.HandlerOption
 		connect.WithSchema(nodeServiceMethods.ByName("StopMachine")),
 		connect.WithHandlerOptions(opts...),
 	)
-	nodeServiceHealthcheckMachineHandler := connect.NewUnaryHandler(
-		NodeServiceHealthcheckMachineProcedure,
-		svc.HealthcheckMachine,
-		connect.WithSchema(nodeServiceMethods.ByName("HealthcheckMachine")),
+	nodeServiceGetMachineHandler := connect.NewUnaryHandler(
+		NodeServiceGetMachineProcedure,
+		svc.GetMachine,
+		connect.WithSchema(nodeServiceMethods.ByName("GetMachine")),
 		connect.WithHandlerOptions(opts...),
 	)
 	return "/baepo.node.v1.NodeService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -143,8 +142,8 @@ func NewNodeServiceHandler(svc NodeServiceHandler, opts ...connect.HandlerOption
 			nodeServiceStartMachineHandler.ServeHTTP(w, r)
 		case NodeServiceStopMachineProcedure:
 			nodeServiceStopMachineHandler.ServeHTTP(w, r)
-		case NodeServiceHealthcheckMachineProcedure:
-			nodeServiceHealthcheckMachineHandler.ServeHTTP(w, r)
+		case NodeServiceGetMachineProcedure:
+			nodeServiceGetMachineHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -154,7 +153,7 @@ func NewNodeServiceHandler(svc NodeServiceHandler, opts ...connect.HandlerOption
 // UnimplementedNodeServiceHandler returns CodeUnimplemented from all methods.
 type UnimplementedNodeServiceHandler struct{}
 
-func (UnimplementedNodeServiceHandler) StartMachine(context.Context, *connect.Request[v1.NodeStartMachineRequest]) (*connect.Response[v1.NodeStartMachineReply], error) {
+func (UnimplementedNodeServiceHandler) StartMachine(context.Context, *connect.Request[v1.NodeStartMachineRequest]) (*connect.Response[v1.NodeStartMachineResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("baepo.node.v1.NodeService.StartMachine is not implemented"))
 }
 
@@ -162,6 +161,6 @@ func (UnimplementedNodeServiceHandler) StopMachine(context.Context, *connect.Req
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("baepo.node.v1.NodeService.StopMachine is not implemented"))
 }
 
-func (UnimplementedNodeServiceHandler) HealthcheckMachine(context.Context, *connect.Request[v1.NodeHealthcheckMachineRequest]) (*connect.Response[v1.NodeHealthcheckMachineReply], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("baepo.node.v1.NodeService.HealthcheckMachine is not implemented"))
+func (UnimplementedNodeServiceHandler) GetMachine(context.Context, *connect.Request[v1.NodeGetMachineRequest]) (*connect.Response[v1.NodeGetMachineResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("baepo.node.v1.NodeService.GetMachine is not implemented"))
 }

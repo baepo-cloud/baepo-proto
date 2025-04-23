@@ -7,6 +7,7 @@
 package v1
 
 import (
+	v1 "github.com/baepo-cloud/baepo-proto/go/baepo/node/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	_ "google.golang.org/protobuf/types/known/emptypb"
@@ -110,6 +111,7 @@ type NodeControllerConnectClientEvent struct {
 	//
 	//	*NodeControllerConnectClientEvent_Register
 	//	*NodeControllerConnectClientEvent_Stats
+	//	*NodeControllerConnectClientEvent_MachineStateChange
 	Event         isNodeControllerConnectClientEvent_Event `protobuf_oneof:"event"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -170,6 +172,15 @@ func (x *NodeControllerConnectClientEvent) GetStats() *NodeControllerConnectClie
 	return nil
 }
 
+func (x *NodeControllerConnectClientEvent) GetMachineStateChange() *NodeControllerConnectClientEvent_MachineStateChangeEvent {
+	if x != nil {
+		if x, ok := x.Event.(*NodeControllerConnectClientEvent_MachineStateChange); ok {
+			return x.MachineStateChange
+		}
+	}
+	return nil
+}
+
 type isNodeControllerConnectClientEvent_Event interface {
 	isNodeControllerConnectClientEvent_Event()
 }
@@ -182,9 +193,16 @@ type NodeControllerConnectClientEvent_Stats struct {
 	Stats *NodeControllerConnectClientEvent_StatsEvent `protobuf:"bytes,2,opt,name=stats,proto3,oneof"`
 }
 
+type NodeControllerConnectClientEvent_MachineStateChange struct {
+	MachineStateChange *NodeControllerConnectClientEvent_MachineStateChangeEvent `protobuf:"bytes,3,opt,name=machine_state_change,json=machineStateChange,proto3,oneof"`
+}
+
 func (*NodeControllerConnectClientEvent_Register) isNodeControllerConnectClientEvent_Event() {}
 
 func (*NodeControllerConnectClientEvent_Stats) isNodeControllerConnectClientEvent_Event() {}
+
+func (*NodeControllerConnectClientEvent_MachineStateChange) isNodeControllerConnectClientEvent_Event() {
+}
 
 type NodeControllerConnectServerEvent_RegisterResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
@@ -383,14 +401,14 @@ func (x *NodeControllerConnectClientEvent_RegisterRequest) GetGatewayEndpoint() 
 }
 
 type NodeControllerConnectClientEvent_StatsEvent struct {
-	state             protoimpl.MessageState `protogen:"open.v1"`
-	TotalMemory       uint64                 `protobuf:"varint,1,opt,name=total_memory,json=totalMemory,proto3" json:"total_memory,omitempty"`
-	UsedMemory        uint64                 `protobuf:"varint,2,opt,name=used_memory,json=usedMemory,proto3" json:"used_memory,omitempty"`
-	CpuCount          uint32                 `protobuf:"varint,3,opt,name=cpu_count,json=cpuCount,proto3" json:"cpu_count,omitempty"`
-	RunningMachineIds []string               `protobuf:"bytes,4,rep,name=running_machine_ids,json=runningMachineIds,proto3" json:"running_machine_ids,omitempty"`
-	ReservedMemory    uint64                 `protobuf:"varint,5,opt,name=reserved_memory,json=reservedMemory,proto3" json:"reserved_memory,omitempty"`
-	unknownFields     protoimpl.UnknownFields
-	sizeCache         protoimpl.SizeCache
+	state            protoimpl.MessageState     `protogen:"open.v1"`
+	TotalMemoryMb    uint64                     `protobuf:"varint,1,opt,name=total_memory_mb,json=totalMemoryMb,proto3" json:"total_memory_mb,omitempty"`
+	UsedMemoryMb     uint64                     `protobuf:"varint,2,opt,name=used_memory_mb,json=usedMemoryMb,proto3" json:"used_memory_mb,omitempty"`
+	ReservedMemoryMb uint64                     `protobuf:"varint,3,opt,name=reserved_memory_mb,json=reservedMemoryMb,proto3" json:"reserved_memory_mb,omitempty"`
+	CpuCount         uint32                     `protobuf:"varint,4,opt,name=cpu_count,json=cpuCount,proto3" json:"cpu_count,omitempty"`
+	MachineStates    map[string]v1.MachineState `protobuf:"bytes,5,rep,name=machine_states,json=machineStates,proto3" json:"machine_states,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"varint,2,opt,name=value,enum=baepo.node.v1.MachineState"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
 }
 
 func (x *NodeControllerConnectClientEvent_StatsEvent) Reset() {
@@ -423,16 +441,23 @@ func (*NodeControllerConnectClientEvent_StatsEvent) Descriptor() ([]byte, []int)
 	return file_baepo_api_v1_node_controller_proto_rawDescGZIP(), []int{1, 1}
 }
 
-func (x *NodeControllerConnectClientEvent_StatsEvent) GetTotalMemory() uint64 {
+func (x *NodeControllerConnectClientEvent_StatsEvent) GetTotalMemoryMb() uint64 {
 	if x != nil {
-		return x.TotalMemory
+		return x.TotalMemoryMb
 	}
 	return 0
 }
 
-func (x *NodeControllerConnectClientEvent_StatsEvent) GetUsedMemory() uint64 {
+func (x *NodeControllerConnectClientEvent_StatsEvent) GetUsedMemoryMb() uint64 {
 	if x != nil {
-		return x.UsedMemory
+		return x.UsedMemoryMb
+	}
+	return 0
+}
+
+func (x *NodeControllerConnectClientEvent_StatsEvent) GetReservedMemoryMb() uint64 {
+	if x != nil {
+		return x.ReservedMemoryMb
 	}
 	return 0
 }
@@ -444,25 +469,70 @@ func (x *NodeControllerConnectClientEvent_StatsEvent) GetCpuCount() uint32 {
 	return 0
 }
 
-func (x *NodeControllerConnectClientEvent_StatsEvent) GetRunningMachineIds() []string {
+func (x *NodeControllerConnectClientEvent_StatsEvent) GetMachineStates() map[string]v1.MachineState {
 	if x != nil {
-		return x.RunningMachineIds
+		return x.MachineStates
 	}
 	return nil
 }
 
-func (x *NodeControllerConnectClientEvent_StatsEvent) GetReservedMemory() uint64 {
+type NodeControllerConnectClientEvent_MachineStateChangeEvent struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	MachineId     string                 `protobuf:"bytes,1,opt,name=machine_id,json=machineId,proto3" json:"machine_id,omitempty"`
+	State         v1.MachineState        `protobuf:"varint,2,opt,name=state,proto3,enum=baepo.node.v1.MachineState" json:"state,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *NodeControllerConnectClientEvent_MachineStateChangeEvent) Reset() {
+	*x = NodeControllerConnectClientEvent_MachineStateChangeEvent{}
+	mi := &file_baepo_api_v1_node_controller_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *NodeControllerConnectClientEvent_MachineStateChangeEvent) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*NodeControllerConnectClientEvent_MachineStateChangeEvent) ProtoMessage() {}
+
+func (x *NodeControllerConnectClientEvent_MachineStateChangeEvent) ProtoReflect() protoreflect.Message {
+	mi := &file_baepo_api_v1_node_controller_proto_msgTypes[6]
 	if x != nil {
-		return x.ReservedMemory
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
 	}
-	return 0
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use NodeControllerConnectClientEvent_MachineStateChangeEvent.ProtoReflect.Descriptor instead.
+func (*NodeControllerConnectClientEvent_MachineStateChangeEvent) Descriptor() ([]byte, []int) {
+	return file_baepo_api_v1_node_controller_proto_rawDescGZIP(), []int{1, 2}
+}
+
+func (x *NodeControllerConnectClientEvent_MachineStateChangeEvent) GetMachineId() string {
+	if x != nil {
+		return x.MachineId
+	}
+	return ""
+}
+
+func (x *NodeControllerConnectClientEvent_MachineStateChangeEvent) GetState() v1.MachineState {
+	if x != nil {
+		return x.State
+	}
+	return v1.MachineState(0)
 }
 
 var File_baepo_api_v1_node_controller_proto protoreflect.FileDescriptor
 
 const file_baepo_api_v1_node_controller_proto_rawDesc = "" +
 	"\n" +
-	"\"baepo/api/v1/node_controller.proto\x12\fbaepo.api.v1\x1a\x1bgoogle/protobuf/empty.proto\"\x9b\x03\n" +
+	"\"baepo/api/v1/node_controller.proto\x12\fbaepo.api.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1bbaepo/node/v1/machine.proto\"\x9b\x03\n" +
 	" NodeControllerConnectServerEvent\x12]\n" +
 	"\bregister\x18\x01 \x01(\v2?.baepo.api.v1.NodeControllerConnectServerEvent.RegisterResponseH\x00R\bregister\x12N\n" +
 	"\x04ping\x18\x02 \x01(\v28.baepo.api.v1.NodeControllerConnectServerEvent.PingEventH\x00R\x04ping\x1a\xb1\x01\n" +
@@ -476,10 +546,11 @@ const file_baepo_api_v1_node_controller_proto_rawDesc = "" +
 	"\n" +
 	"server_key\x18\x05 \x01(\fR\tserverKey\x1a\v\n" +
 	"\tPingEventB\a\n" +
-	"\x05event\"\xa1\x05\n" +
+	"\x05event\"\xbd\b\n" +
 	" NodeControllerConnectClientEvent\x12\\\n" +
 	"\bregister\x18\x01 \x01(\v2>.baepo.api.v1.NodeControllerConnectClientEvent.RegisterRequestH\x00R\bregister\x12Q\n" +
-	"\x05stats\x18\x02 \x01(\v29.baepo.api.v1.NodeControllerConnectClientEvent.StatsEventH\x00R\x05stats\x1a\xf9\x01\n" +
+	"\x05stats\x18\x02 \x01(\v29.baepo.api.v1.NodeControllerConnectClientEvent.StatsEventH\x00R\x05stats\x12z\n" +
+	"\x14machine_state_change\x18\x03 \x01(\v2F.baepo.api.v1.NodeControllerConnectClientEvent.MachineStateChangeEventH\x00R\x12machineStateChange\x1a\xf9\x01\n" +
 	"\x0fRegisterRequest\x12\x1d\n" +
 	"\n" +
 	"cluster_id\x18\x01 \x01(\tR\tclusterId\x12'\n" +
@@ -490,18 +561,24 @@ const file_baepo_api_v1_node_controller_proto_rawDesc = "" +
 	"ip_address\x18\x04 \x01(\tR\tipAddress\x12!\n" +
 	"\fapi_endpoint\x18\x05 \x01(\tR\vapiEndpoint\x12)\n" +
 	"\x10gateway_endpoint\x18\x06 \x01(\tR\x0fgatewayEndpointB\r\n" +
-	"\v_node_token\x1a\xc6\x01\n" +
+	"\v_node_token\x1a\xf9\x02\n" +
 	"\n" +
-	"StatsEvent\x12!\n" +
-	"\ftotal_memory\x18\x01 \x01(\x04R\vtotalMemory\x12\x1f\n" +
-	"\vused_memory\x18\x02 \x01(\x04R\n" +
-	"usedMemory\x12\x1b\n" +
-	"\tcpu_count\x18\x03 \x01(\rR\bcpuCount\x12.\n" +
-	"\x13running_machine_ids\x18\x04 \x03(\tR\x11runningMachineIds\x12'\n" +
-	"\x0freserved_memory\x18\x05 \x01(\x04R\x0ereservedMemoryB\a\n" +
-	"\x05event2\x86\x01\n" +
-	"\x15NodeControllerService\x12m\n" +
-	"\aConnect\x12..baepo.api.v1.NodeControllerConnectClientEvent\x1a..baepo.api.v1.NodeControllerConnectServerEvent(\x010\x01B4Z2github.com/baepo-cloud/baepo-proto/go/baepo/api/v1b\x06proto3"
+	"StatsEvent\x12&\n" +
+	"\x0ftotal_memory_mb\x18\x01 \x01(\x04R\rtotalMemoryMb\x12$\n" +
+	"\x0eused_memory_mb\x18\x02 \x01(\x04R\fusedMemoryMb\x12,\n" +
+	"\x12reserved_memory_mb\x18\x03 \x01(\x04R\x10reservedMemoryMb\x12\x1b\n" +
+	"\tcpu_count\x18\x04 \x01(\rR\bcpuCount\x12s\n" +
+	"\x0emachine_states\x18\x05 \x03(\v2L.baepo.api.v1.NodeControllerConnectClientEvent.StatsEvent.MachineStatesEntryR\rmachineStates\x1a]\n" +
+	"\x12MachineStatesEntry\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x121\n" +
+	"\x05value\x18\x02 \x01(\x0e2\x1b.baepo.node.v1.MachineStateR\x05value:\x028\x01\x1ak\n" +
+	"\x17MachineStateChangeEvent\x12\x1d\n" +
+	"\n" +
+	"machine_id\x18\x01 \x01(\tR\tmachineId\x121\n" +
+	"\x05state\x18\x02 \x01(\x0e2\x1b.baepo.node.v1.MachineStateR\x05stateB\a\n" +
+	"\x05event2\x85\x01\n" +
+	"\x15NodeControllerService\x12l\n" +
+	"\x06Events\x12..baepo.api.v1.NodeControllerConnectClientEvent\x1a..baepo.api.v1.NodeControllerConnectServerEvent(\x010\x01B4Z2github.com/baepo-cloud/baepo-proto/go/baepo/api/v1b\x06proto3"
 
 var (
 	file_baepo_api_v1_node_controller_proto_rawDescOnce sync.Once
@@ -515,27 +592,34 @@ func file_baepo_api_v1_node_controller_proto_rawDescGZIP() []byte {
 	return file_baepo_api_v1_node_controller_proto_rawDescData
 }
 
-var file_baepo_api_v1_node_controller_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_baepo_api_v1_node_controller_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_baepo_api_v1_node_controller_proto_goTypes = []any{
-	(*NodeControllerConnectServerEvent)(nil),                  // 0: baepo.api.v1.NodeControllerConnectServerEvent
-	(*NodeControllerConnectClientEvent)(nil),                  // 1: baepo.api.v1.NodeControllerConnectClientEvent
-	(*NodeControllerConnectServerEvent_RegisterResponse)(nil), // 2: baepo.api.v1.NodeControllerConnectServerEvent.RegisterResponse
-	(*NodeControllerConnectServerEvent_PingEvent)(nil),        // 3: baepo.api.v1.NodeControllerConnectServerEvent.PingEvent
-	(*NodeControllerConnectClientEvent_RegisterRequest)(nil),  // 4: baepo.api.v1.NodeControllerConnectClientEvent.RegisterRequest
-	(*NodeControllerConnectClientEvent_StatsEvent)(nil),       // 5: baepo.api.v1.NodeControllerConnectClientEvent.StatsEvent
+	(*NodeControllerConnectServerEvent)(nil),                         // 0: baepo.api.v1.NodeControllerConnectServerEvent
+	(*NodeControllerConnectClientEvent)(nil),                         // 1: baepo.api.v1.NodeControllerConnectClientEvent
+	(*NodeControllerConnectServerEvent_RegisterResponse)(nil),        // 2: baepo.api.v1.NodeControllerConnectServerEvent.RegisterResponse
+	(*NodeControllerConnectServerEvent_PingEvent)(nil),               // 3: baepo.api.v1.NodeControllerConnectServerEvent.PingEvent
+	(*NodeControllerConnectClientEvent_RegisterRequest)(nil),         // 4: baepo.api.v1.NodeControllerConnectClientEvent.RegisterRequest
+	(*NodeControllerConnectClientEvent_StatsEvent)(nil),              // 5: baepo.api.v1.NodeControllerConnectClientEvent.StatsEvent
+	(*NodeControllerConnectClientEvent_MachineStateChangeEvent)(nil), // 6: baepo.api.v1.NodeControllerConnectClientEvent.MachineStateChangeEvent
+	nil,                  // 7: baepo.api.v1.NodeControllerConnectClientEvent.StatsEvent.MachineStatesEntry
+	(v1.MachineState)(0), // 8: baepo.node.v1.MachineState
 }
 var file_baepo_api_v1_node_controller_proto_depIdxs = []int32{
 	2, // 0: baepo.api.v1.NodeControllerConnectServerEvent.register:type_name -> baepo.api.v1.NodeControllerConnectServerEvent.RegisterResponse
 	3, // 1: baepo.api.v1.NodeControllerConnectServerEvent.ping:type_name -> baepo.api.v1.NodeControllerConnectServerEvent.PingEvent
 	4, // 2: baepo.api.v1.NodeControllerConnectClientEvent.register:type_name -> baepo.api.v1.NodeControllerConnectClientEvent.RegisterRequest
 	5, // 3: baepo.api.v1.NodeControllerConnectClientEvent.stats:type_name -> baepo.api.v1.NodeControllerConnectClientEvent.StatsEvent
-	1, // 4: baepo.api.v1.NodeControllerService.Connect:input_type -> baepo.api.v1.NodeControllerConnectClientEvent
-	0, // 5: baepo.api.v1.NodeControllerService.Connect:output_type -> baepo.api.v1.NodeControllerConnectServerEvent
-	5, // [5:6] is the sub-list for method output_type
-	4, // [4:5] is the sub-list for method input_type
-	4, // [4:4] is the sub-list for extension type_name
-	4, // [4:4] is the sub-list for extension extendee
-	0, // [0:4] is the sub-list for field type_name
+	6, // 4: baepo.api.v1.NodeControllerConnectClientEvent.machine_state_change:type_name -> baepo.api.v1.NodeControllerConnectClientEvent.MachineStateChangeEvent
+	7, // 5: baepo.api.v1.NodeControllerConnectClientEvent.StatsEvent.machine_states:type_name -> baepo.api.v1.NodeControllerConnectClientEvent.StatsEvent.MachineStatesEntry
+	8, // 6: baepo.api.v1.NodeControllerConnectClientEvent.MachineStateChangeEvent.state:type_name -> baepo.node.v1.MachineState
+	8, // 7: baepo.api.v1.NodeControllerConnectClientEvent.StatsEvent.MachineStatesEntry.value:type_name -> baepo.node.v1.MachineState
+	1, // 8: baepo.api.v1.NodeControllerService.Events:input_type -> baepo.api.v1.NodeControllerConnectClientEvent
+	0, // 9: baepo.api.v1.NodeControllerService.Events:output_type -> baepo.api.v1.NodeControllerConnectServerEvent
+	9, // [9:10] is the sub-list for method output_type
+	8, // [8:9] is the sub-list for method input_type
+	8, // [8:8] is the sub-list for extension type_name
+	8, // [8:8] is the sub-list for extension extendee
+	0, // [0:8] is the sub-list for field type_name
 }
 
 func init() { file_baepo_api_v1_node_controller_proto_init() }
@@ -550,6 +634,7 @@ func file_baepo_api_v1_node_controller_proto_init() {
 	file_baepo_api_v1_node_controller_proto_msgTypes[1].OneofWrappers = []any{
 		(*NodeControllerConnectClientEvent_Register)(nil),
 		(*NodeControllerConnectClientEvent_Stats)(nil),
+		(*NodeControllerConnectClientEvent_MachineStateChange)(nil),
 	}
 	file_baepo_api_v1_node_controller_proto_msgTypes[4].OneofWrappers = []any{}
 	type x struct{}
@@ -558,7 +643,7 @@ func file_baepo_api_v1_node_controller_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_baepo_api_v1_node_controller_proto_rawDesc), len(file_baepo_api_v1_node_controller_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

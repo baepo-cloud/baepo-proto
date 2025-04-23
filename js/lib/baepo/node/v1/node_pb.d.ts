@@ -2,8 +2,9 @@
 // @generated from file baepo/node/v1/node.proto (package baepo.node.v1, syntax proto3)
 /* eslint-disable */
 
-import type { GenEnum, GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv1";
+import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv1";
 import type { Message } from "@bufbuild/protobuf";
+import type { Machine, MachineSpec } from "./machine_pb";
 import type { EmptySchema } from "@bufbuild/protobuf/wkt";
 
 /**
@@ -16,29 +17,9 @@ export declare const file_baepo_node_v1_node: GenFile;
  */
 export declare type NodeStartMachineRequest = Message<"baepo.node.v1.NodeStartMachineRequest"> & {
   /**
-   * @generated from field: string machine_id = 1;
+   * @generated from field: baepo.node.v1.MachineSpec spec = 1;
    */
-  machineId: string;
-
-  /**
-   * @generated from field: uint32 v_cpus = 2;
-   */
-  vCpus: number;
-
-  /**
-   * @generated from field: uint64 memory_mb = 3;
-   */
-  memoryMb: bigint;
-
-  /**
-   * @generated from field: map<string, string> env = 4;
-   */
-  env: { [key: string]: string };
-
-  /**
-   * @generated from field: string image = 5;
-   */
-  image: string;
+  spec?: MachineSpec;
 };
 
 /**
@@ -48,61 +29,20 @@ export declare type NodeStartMachineRequest = Message<"baepo.node.v1.NodeStartMa
 export declare const NodeStartMachineRequestSchema: GenMessage<NodeStartMachineRequest>;
 
 /**
- * @generated from message baepo.node.v1.NodeStartMachineReply
+ * @generated from message baepo.node.v1.NodeStartMachineResponse
  */
-export declare type NodeStartMachineReply = Message<"baepo.node.v1.NodeStartMachineReply"> & {
+export declare type NodeStartMachineResponse = Message<"baepo.node.v1.NodeStartMachineResponse"> & {
   /**
-   * @generated from field: baepo.node.v1.NodeMachine machine = 1;
+   * @generated from field: baepo.node.v1.Machine machine = 1;
    */
-  machine?: NodeMachine;
+  machine?: Machine;
 };
 
 /**
- * Describes the message baepo.node.v1.NodeStartMachineReply.
- * Use `create(NodeStartMachineReplySchema)` to create a new message.
+ * Describes the message baepo.node.v1.NodeStartMachineResponse.
+ * Use `create(NodeStartMachineResponseSchema)` to create a new message.
  */
-export declare const NodeStartMachineReplySchema: GenMessage<NodeStartMachineReply>;
-
-/**
- * @generated from message baepo.node.v1.NodeMachine
- */
-export declare type NodeMachine = Message<"baepo.node.v1.NodeMachine"> & {
-  /**
-   * @generated from field: string machine_id = 1;
-   */
-  machineId: string;
-
-  /**
-   * @generated from field: baepo.node.v1.NodeMachineState state = 2;
-   */
-  state: NodeMachineState;
-
-  /**
-   * @generated from field: int64 pid = 3;
-   */
-  pid: bigint;
-
-  /**
-   * @generated from field: string tap_interface = 4;
-   */
-  tapInterface: string;
-
-  /**
-   * @generated from field: string mac_address = 5;
-   */
-  macAddress: string;
-
-  /**
-   * @generated from field: string ip_address = 6;
-   */
-  ipAddress: string;
-};
-
-/**
- * Describes the message baepo.node.v1.NodeMachine.
- * Use `create(NodeMachineSchema)` to create a new message.
- */
-export declare const NodeMachineSchema: GenMessage<NodeMachine>;
+export declare const NodeStartMachineResponseSchema: GenMessage<NodeStartMachineResponse>;
 
 /**
  * @generated from message baepo.node.v1.NodeStopMachineRequest
@@ -121,9 +61,9 @@ export declare type NodeStopMachineRequest = Message<"baepo.node.v1.NodeStopMach
 export declare const NodeStopMachineRequestSchema: GenMessage<NodeStopMachineRequest>;
 
 /**
- * @generated from message baepo.node.v1.NodeHealthcheckMachineRequest
+ * @generated from message baepo.node.v1.NodeGetMachineRequest
  */
-export declare type NodeHealthcheckMachineRequest = Message<"baepo.node.v1.NodeHealthcheckMachineRequest"> & {
+export declare type NodeGetMachineRequest = Message<"baepo.node.v1.NodeGetMachineRequest"> & {
   /**
    * @generated from field: string machine_id = 1;
    */
@@ -131,56 +71,26 @@ export declare type NodeHealthcheckMachineRequest = Message<"baepo.node.v1.NodeH
 };
 
 /**
- * Describes the message baepo.node.v1.NodeHealthcheckMachineRequest.
- * Use `create(NodeHealthcheckMachineRequestSchema)` to create a new message.
+ * Describes the message baepo.node.v1.NodeGetMachineRequest.
+ * Use `create(NodeGetMachineRequestSchema)` to create a new message.
  */
-export declare const NodeHealthcheckMachineRequestSchema: GenMessage<NodeHealthcheckMachineRequest>;
+export declare const NodeGetMachineRequestSchema: GenMessage<NodeGetMachineRequest>;
 
 /**
- * @generated from message baepo.node.v1.NodeHealthcheckMachineReply
+ * @generated from message baepo.node.v1.NodeGetMachineResponse
  */
-export declare type NodeHealthcheckMachineReply = Message<"baepo.node.v1.NodeHealthcheckMachineReply"> & {
+export declare type NodeGetMachineResponse = Message<"baepo.node.v1.NodeGetMachineResponse"> & {
   /**
-   * @generated from field: baepo.node.v1.NodeMachine machine = 1;
+   * @generated from field: baepo.node.v1.Machine machine = 1;
    */
-  machine?: NodeMachine;
+  machine?: Machine;
 };
 
 /**
- * Describes the message baepo.node.v1.NodeHealthcheckMachineReply.
- * Use `create(NodeHealthcheckMachineReplySchema)` to create a new message.
+ * Describes the message baepo.node.v1.NodeGetMachineResponse.
+ * Use `create(NodeGetMachineResponseSchema)` to create a new message.
  */
-export declare const NodeHealthcheckMachineReplySchema: GenMessage<NodeHealthcheckMachineReply>;
-
-/**
- * @generated from enum baepo.node.v1.NodeMachineState
- */
-export enum NodeMachineState {
-  /**
-   * @generated from enum value: NodeMachineState_Unknown = 0;
-   */
-  NodeMachineState_Unknown = 0,
-
-  /**
-   * @generated from enum value: NodeMachineState_Running = 1;
-   */
-  NodeMachineState_Running = 1,
-
-  /**
-   * @generated from enum value: NodeMachineState_Degraded = 2;
-   */
-  NodeMachineState_Degraded = 2,
-
-  /**
-   * @generated from enum value: NodeMachineState_Failed = 3;
-   */
-  NodeMachineState_Failed = 3,
-}
-
-/**
- * Describes the enum baepo.node.v1.NodeMachineState.
- */
-export declare const NodeMachineStateSchema: GenEnum<NodeMachineState>;
+export declare const NodeGetMachineResponseSchema: GenMessage<NodeGetMachineResponse>;
 
 /**
  * @generated from service baepo.node.v1.NodeService
@@ -192,7 +102,7 @@ export declare const NodeService: GenService<{
   startMachine: {
     methodKind: "unary";
     input: typeof NodeStartMachineRequestSchema;
-    output: typeof NodeStartMachineReplySchema;
+    output: typeof NodeStartMachineResponseSchema;
   },
   /**
    * @generated from rpc baepo.node.v1.NodeService.StopMachine
@@ -203,12 +113,12 @@ export declare const NodeService: GenService<{
     output: typeof EmptySchema;
   },
   /**
-   * @generated from rpc baepo.node.v1.NodeService.HealthcheckMachine
+   * @generated from rpc baepo.node.v1.NodeService.GetMachine
    */
-  healthcheckMachine: {
+  getMachine: {
     methodKind: "unary";
-    input: typeof NodeHealthcheckMachineRequestSchema;
-    output: typeof NodeHealthcheckMachineReplySchema;
+    input: typeof NodeGetMachineRequestSchema;
+    output: typeof NodeGetMachineResponseSchema;
   },
 }>;
 

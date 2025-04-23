@@ -3,11 +3,12 @@ syntax = "proto3";
 package baepo.api.v1;
 
 import "google/protobuf/empty.proto";
+import "baepo/node/v1/machine.proto";
 
 option go_package = "github.com/baepo-cloud/baepo-proto/go/baepo/api/v1";
 
 service NodeControllerService {
-  rpc Connect(stream NodeControllerConnectClientEvent) returns (stream NodeControllerConnectServerEvent);
+  rpc Events(stream NodeControllerConnectClientEvent) returns (stream NodeControllerConnectServerEvent);
 }
 
 message NodeControllerConnectServerEvent {
@@ -32,6 +33,7 @@ message NodeControllerConnectClientEvent {
   oneof event {
     RegisterRequest register = 1;
     StatsEvent stats = 2;
+    MachineStateChangeEvent machine_state_change = 3;
   }
 
   message RegisterRequest {
@@ -44,10 +46,15 @@ message NodeControllerConnectClientEvent {
   }
 
   message StatsEvent {
-    uint64 total_memory = 1;
-    uint64 used_memory = 2;
-    uint32 cpu_count = 3;
-    repeated string running_machine_ids = 4;
-    uint64 reserved_memory = 5;
+    uint64 total_memory_mb = 1;
+    uint64 used_memory_mb = 2;
+    uint64 reserved_memory_mb = 3;
+    uint32 cpu_count = 4;
+    map<string, baepo.node.v1.MachineState> machine_states = 5;
+  }
+
+  message MachineStateChangeEvent {
+    string machine_id = 1;
+    baepo.node.v1.MachineState state = 2;
   }
 }

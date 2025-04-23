@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package baepo.node.v1;
+
+import "google/protobuf/empty.proto";
+
+option go_package = "github.com/baepo-cloud/baepo-proto/go/baepo/node/v1";
+
+message MachineSpec {
+  string machine_id = 1;
+  uint32 cpus = 2;
+  uint64 memory_mb = 3;
+  repeated MachineContainerSpec containers = 4;
+  optional uint64 timeout = 5;
+}
+
+message MachineContainerSpec {
+  string container_id = 1;
+  string image = 2;
+  map<string, string> env = 4;
+  repeated string command = 5;
+  MachineContainerHealthcheckSpec healthcheck = 6;
+}
+
+message MachineContainerHealthcheckSpec {
+  int32 initial_delay_seconds = 1;
+  int32 period_seconds = 2;
+  oneof type {
+    HttpHealthcheckSpec http = 3;
+  }
+
+  message HttpHealthcheckSpec {
+    string method = 1;
+    string path = 2;
+    int32 port = 3;
+    map<string, string> headers = 4;
+  }
+}
+
+message Machine {
+  string machine_id = 1;
+  MachineState state = 2;
+  MachineDesiredState desired_state = 3;
+}
+
+enum MachineState {
+  MachineState_Unknown = 0;
+  MachineState_Pending = 1;
+  MachineState_Starting = 2;
+  MachineState_Running = 3;
+  MachineState_Degraded = 4;
+  MachineState_Error = 5;
+  MachineState_Terminating = 6;
+  MachineState_Terminated = 7;
+}
+
+enum MachineDesiredState {
+  MachineDesiredState_Unknown = 0;
+  MachineDesiredState_Pending = 1;
+  MachineDesiredState_Running = 2;
+  MachineDesiredState_Terminated = 3;
+}

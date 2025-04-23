@@ -4,6 +4,7 @@
 
 import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv1";
 import type { Message } from "@bufbuild/protobuf";
+import type { MachineState } from "../../node/v1/machine_pb";
 
 /**
  * Describes the file baepo/api/v1/node_controller.proto.
@@ -105,6 +106,12 @@ export declare type NodeControllerConnectClientEvent = Message<"baepo.api.v1.Nod
      */
     value: NodeControllerConnectClientEvent_StatsEvent;
     case: "stats";
+  } | {
+    /**
+     * @generated from field: baepo.api.v1.NodeControllerConnectClientEvent.MachineStateChangeEvent machine_state_change = 3;
+     */
+    value: NodeControllerConnectClientEvent_MachineStateChangeEvent;
+    case: "machineStateChange";
   } | { case: undefined; value?: undefined };
 };
 
@@ -160,29 +167,29 @@ export declare const NodeControllerConnectClientEvent_RegisterRequestSchema: Gen
  */
 export declare type NodeControllerConnectClientEvent_StatsEvent = Message<"baepo.api.v1.NodeControllerConnectClientEvent.StatsEvent"> & {
   /**
-   * @generated from field: uint64 total_memory = 1;
+   * @generated from field: uint64 total_memory_mb = 1;
    */
-  totalMemory: bigint;
+  totalMemoryMb: bigint;
 
   /**
-   * @generated from field: uint64 used_memory = 2;
+   * @generated from field: uint64 used_memory_mb = 2;
    */
-  usedMemory: bigint;
+  usedMemoryMb: bigint;
 
   /**
-   * @generated from field: uint32 cpu_count = 3;
+   * @generated from field: uint64 reserved_memory_mb = 3;
+   */
+  reservedMemoryMb: bigint;
+
+  /**
+   * @generated from field: uint32 cpu_count = 4;
    */
   cpuCount: number;
 
   /**
-   * @generated from field: repeated string running_machine_ids = 4;
+   * @generated from field: map<string, baepo.node.v1.MachineState> machine_states = 5;
    */
-  runningMachineIds: string[];
-
-  /**
-   * @generated from field: uint64 reserved_memory = 5;
-   */
-  reservedMemory: bigint;
+  machineStates: { [key: string]: MachineState };
 };
 
 /**
@@ -192,13 +199,34 @@ export declare type NodeControllerConnectClientEvent_StatsEvent = Message<"baepo
 export declare const NodeControllerConnectClientEvent_StatsEventSchema: GenMessage<NodeControllerConnectClientEvent_StatsEvent>;
 
 /**
+ * @generated from message baepo.api.v1.NodeControllerConnectClientEvent.MachineStateChangeEvent
+ */
+export declare type NodeControllerConnectClientEvent_MachineStateChangeEvent = Message<"baepo.api.v1.NodeControllerConnectClientEvent.MachineStateChangeEvent"> & {
+  /**
+   * @generated from field: string machine_id = 1;
+   */
+  machineId: string;
+
+  /**
+   * @generated from field: baepo.node.v1.MachineState state = 2;
+   */
+  state: MachineState;
+};
+
+/**
+ * Describes the message baepo.api.v1.NodeControllerConnectClientEvent.MachineStateChangeEvent.
+ * Use `create(NodeControllerConnectClientEvent_MachineStateChangeEventSchema)` to create a new message.
+ */
+export declare const NodeControllerConnectClientEvent_MachineStateChangeEventSchema: GenMessage<NodeControllerConnectClientEvent_MachineStateChangeEvent>;
+
+/**
  * @generated from service baepo.api.v1.NodeControllerService
  */
 export declare const NodeControllerService: GenService<{
   /**
-   * @generated from rpc baepo.api.v1.NodeControllerService.Connect
+   * @generated from rpc baepo.api.v1.NodeControllerService.Events
    */
-  connect: {
+  events: {
     methodKind: "bidi_streaming";
     input: typeof NodeControllerConnectClientEventSchema;
     output: typeof NodeControllerConnectServerEventSchema;
