@@ -218,6 +218,11 @@ export declare type NodeControllerClientEvent_Register = Message<"baepo.api.v1.N
    * @generated from field: string gateway_endpoint = 6;
    */
   gatewayEndpoint: string;
+
+  /**
+   * @generated from field: baepo.api.v1.NodeControllerClientEvent.Stats stats = 7;
+   */
+  stats?: NodeControllerClientEvent_Stats;
 };
 
 /**

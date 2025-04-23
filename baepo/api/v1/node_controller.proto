@@ -57,6 +57,7 @@ message NodeControllerClientEvent {
     string ip_address = 4;
     string api_endpoint = 5;
     string gateway_endpoint = 6;
+    Stats stats = 7;
   }
 
   message Stats {

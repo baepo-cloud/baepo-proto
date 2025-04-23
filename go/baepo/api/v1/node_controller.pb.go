@@ -469,13 +469,14 @@ func (x *NodeControllerServerEvent_MachineSpec) GetSpec() *v1.MachineSpec {
 }
 
 type NodeControllerClientEvent_Register struct {
-	state           protoimpl.MessageState `protogen:"open.v1"`
-	ClusterId       string                 `protobuf:"bytes,1,opt,name=cluster_id,json=clusterId,proto3" json:"cluster_id,omitempty"`
-	BootstrapToken  string                 `protobuf:"bytes,2,opt,name=bootstrap_token,json=bootstrapToken,proto3" json:"bootstrap_token,omitempty"`
-	NodeToken       *string                `protobuf:"bytes,3,opt,name=node_token,json=nodeToken,proto3,oneof" json:"node_token,omitempty"`
-	IpAddress       string                 `protobuf:"bytes,4,opt,name=ip_address,json=ipAddress,proto3" json:"ip_address,omitempty"`
-	ApiEndpoint     string                 `protobuf:"bytes,5,opt,name=api_endpoint,json=apiEndpoint,proto3" json:"api_endpoint,omitempty"`
-	GatewayEndpoint string                 `protobuf:"bytes,6,opt,name=gateway_endpoint,json=gatewayEndpoint,proto3" json:"gateway_endpoint,omitempty"`
+	state           protoimpl.MessageState           `protogen:"open.v1"`
+	ClusterId       string                           `protobuf:"bytes,1,opt,name=cluster_id,json=clusterId,proto3" json:"cluster_id,omitempty"`
+	BootstrapToken  string                           `protobuf:"bytes,2,opt,name=bootstrap_token,json=bootstrapToken,proto3" json:"bootstrap_token,omitempty"`
+	NodeToken       *string                          `protobuf:"bytes,3,opt,name=node_token,json=nodeToken,proto3,oneof" json:"node_token,omitempty"`
+	IpAddress       string                           `protobuf:"bytes,4,opt,name=ip_address,json=ipAddress,proto3" json:"ip_address,omitempty"`
+	ApiEndpoint     string                           `protobuf:"bytes,5,opt,name=api_endpoint,json=apiEndpoint,proto3" json:"api_endpoint,omitempty"`
+	GatewayEndpoint string                           `protobuf:"bytes,6,opt,name=gateway_endpoint,json=gatewayEndpoint,proto3" json:"gateway_endpoint,omitempty"`
+	Stats           *NodeControllerClientEvent_Stats `protobuf:"bytes,7,opt,name=stats,proto3" json:"stats,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
 }
@@ -550,6 +551,13 @@ func (x *NodeControllerClientEvent_Register) GetGatewayEndpoint() string {
 		return x.GatewayEndpoint
 	}
 	return ""
+}
+
+func (x *NodeControllerClientEvent_Register) GetStats() *NodeControllerClientEvent_Stats {
+	if x != nil {
+		return x.Stats
+	}
+	return nil
 }
 
 type NodeControllerClientEvent_Stats struct {
@@ -651,12 +659,12 @@ const file_baepo_api_v1_node_controller_proto_rawDesc = "" +
 	"machine_id\x18\x01 \x01(\tR\tmachineId\x12G\n" +
 	"\rdesired_state\x18\x02 \x01(\x0e2\".baepo.node.v1.MachineDesiredStateR\fdesiredState\x12.\n" +
 	"\x04spec\x18\x03 \x01(\v2\x1a.baepo.node.v1.MachineSpecR\x04specB\a\n" +
-	"\x05event\"\xad\x05\n" +
+	"\x05event\"\xf2\x05\n" +
 	"\x19NodeControllerClientEvent\x12Y\n" +
 	"\x0eregister_event\x18\x01 \x01(\v20.baepo.api.v1.NodeControllerClientEvent.RegisterH\x00R\rregisterEvent\x12P\n" +
 	"\vstats_event\x18\x02 \x01(\v2-.baepo.api.v1.NodeControllerClientEvent.StatsH\x00R\n" +
 	"statsEvent\x12B\n" +
-	"\rmachine_event\x18\x03 \x01(\v2\x1b.baepo.node.v1.MachineEventH\x00R\fmachineEvent\x1a\xf2\x01\n" +
+	"\rmachine_event\x18\x03 \x01(\v2\x1b.baepo.node.v1.MachineEventH\x00R\fmachineEvent\x1a\xb7\x02\n" +
 	"\bRegister\x12\x1d\n" +
 	"\n" +
 	"cluster_id\x18\x01 \x01(\tR\tclusterId\x12'\n" +
@@ -666,7 +674,8 @@ const file_baepo_api_v1_node_controller_proto_rawDesc = "" +
 	"\n" +
 	"ip_address\x18\x04 \x01(\tR\tipAddress\x12!\n" +
 	"\fapi_endpoint\x18\x05 \x01(\tR\vapiEndpoint\x12)\n" +
-	"\x10gateway_endpoint\x18\x06 \x01(\tR\x0fgatewayEndpointB\r\n" +
+	"\x10gateway_endpoint\x18\x06 \x01(\tR\x0fgatewayEndpoint\x12C\n" +
+	"\x05stats\x18\a \x01(\v2-.baepo.api.v1.NodeControllerClientEvent.StatsR\x05statsB\r\n" +
 	"\v_node_token\x1a\xa0\x01\n" +
 	"\x05Stats\x12&\n" +
 	"\x0ftotal_memory_mb\x18\x01 \x01(\x04R\rtotalMemoryMb\x12$\n" +
@@ -715,13 +724,14 @@ var file_baepo_api_v1_node_controller_proto_depIdxs = []int32{
 	9,  // 8: baepo.api.v1.NodeControllerServerEvent.UpdateMachineDesiredState.desired_state:type_name -> baepo.node.v1.MachineDesiredState
 	9,  // 9: baepo.api.v1.NodeControllerServerEvent.MachineSpec.desired_state:type_name -> baepo.node.v1.MachineDesiredState
 	10, // 10: baepo.api.v1.NodeControllerServerEvent.MachineSpec.spec:type_name -> baepo.node.v1.MachineSpec
-	1,  // 11: baepo.api.v1.NodeControllerService.Events:input_type -> baepo.api.v1.NodeControllerClientEvent
-	0,  // 12: baepo.api.v1.NodeControllerService.Events:output_type -> baepo.api.v1.NodeControllerServerEvent
-	12, // [12:13] is the sub-list for method output_type
-	11, // [11:12] is the sub-list for method input_type
-	11, // [11:11] is the sub-list for extension type_name
-	11, // [11:11] is the sub-list for extension extendee
-	0,  // [0:11] is the sub-list for field type_name
+	7,  // 11: baepo.api.v1.NodeControllerClientEvent.Register.stats:type_name -> baepo.api.v1.NodeControllerClientEvent.Stats
+	1,  // 12: baepo.api.v1.NodeControllerService.Events:input_type -> baepo.api.v1.NodeControllerClientEvent
+	0,  // 13: baepo.api.v1.NodeControllerService.Events:output_type -> baepo.api.v1.NodeControllerServerEvent
+	13, // [13:14] is the sub-list for method output_type
+	12, // [12:13] is the sub-list for method input_type
+	12, // [12:12] is the sub-list for extension type_name
+	12, // [12:12] is the sub-list for extension extendee
+	0,  // [0:12] is the sub-list for field type_name
 }
 
 func init() { file_baepo_api_v1_node_controller_proto_init() }
