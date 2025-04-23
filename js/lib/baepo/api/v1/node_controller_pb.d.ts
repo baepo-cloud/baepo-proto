@@ -4,7 +4,7 @@
 
 import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv1";
 import type { Message } from "@bufbuild/protobuf";
-import type { MachineState } from "../../node/v1/machine_pb";
+import type { MachineDesiredState, MachineState } from "../../node/v1/machine_pb";
 import type { Timestamp } from "@bufbuild/protobuf/wkt";
 
 /**
@@ -214,7 +214,12 @@ export declare type NodeControllerClientEvent_MachineStateChangeEvent = Message<
   state: MachineState;
 
   /**
-   * @generated from field: google.protobuf.Timestamp timestamp = 3;
+   * @generated from field: baepo.node.v1.MachineDesiredState desired_state = 3;
+   */
+  desiredState: MachineDesiredState;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp timestamp = 4;
    */
   timestamp?: Timestamp;
 };

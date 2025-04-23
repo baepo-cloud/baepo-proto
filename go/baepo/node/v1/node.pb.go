@@ -192,8 +192,9 @@ func (x *NodeGetMachineResponse) GetMachine() *Machine {
 
 type NodeCreateMachineRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Spec          *MachineSpec           `protobuf:"bytes,1,opt,name=spec,proto3" json:"spec,omitempty"`
-	DesiredState  MachineDesiredState    `protobuf:"varint,2,opt,name=desired_state,json=desiredState,proto3,enum=baepo.node.v1.MachineDesiredState" json:"desired_state,omitempty"`
+	MachineId     string                 `protobuf:"bytes,1,opt,name=machine_id,json=machineId,proto3" json:"machine_id,omitempty"`
+	Spec          *MachineSpec           `protobuf:"bytes,2,opt,name=spec,proto3" json:"spec,omitempty"`
+	DesiredState  MachineDesiredState    `protobuf:"varint,3,opt,name=desired_state,json=desiredState,proto3,enum=baepo.node.v1.MachineDesiredState" json:"desired_state,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -226,6 +227,13 @@ func (x *NodeCreateMachineRequest) ProtoReflect() protoreflect.Message {
 // Deprecated: Use NodeCreateMachineRequest.ProtoReflect.Descriptor instead.
 func (*NodeCreateMachineRequest) Descriptor() ([]byte, []int) {
 	return file_baepo_node_v1_node_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *NodeCreateMachineRequest) GetMachineId() string {
+	if x != nil {
+		return x.MachineId
+	}
+	return ""
 }
 
 func (x *NodeCreateMachineRequest) GetSpec() *MachineSpec {
@@ -394,10 +402,12 @@ const file_baepo_node_v1_node_proto_rawDesc = "" +
 	"\n" +
 	"machine_id\x18\x01 \x01(\tR\tmachineId\"J\n" +
 	"\x16NodeGetMachineResponse\x120\n" +
-	"\amachine\x18\x01 \x01(\v2\x16.baepo.node.v1.MachineR\amachine\"\x93\x01\n" +
-	"\x18NodeCreateMachineRequest\x12.\n" +
-	"\x04spec\x18\x01 \x01(\v2\x1a.baepo.node.v1.MachineSpecR\x04spec\x12G\n" +
-	"\rdesired_state\x18\x02 \x01(\x0e2\".baepo.node.v1.MachineDesiredStateR\fdesiredState\"M\n" +
+	"\amachine\x18\x01 \x01(\v2\x16.baepo.node.v1.MachineR\amachine\"\xb2\x01\n" +
+	"\x18NodeCreateMachineRequest\x12\x1d\n" +
+	"\n" +
+	"machine_id\x18\x01 \x01(\tR\tmachineId\x12.\n" +
+	"\x04spec\x18\x02 \x01(\v2\x1a.baepo.node.v1.MachineSpecR\x04spec\x12G\n" +
+	"\rdesired_state\x18\x03 \x01(\x0e2\".baepo.node.v1.MachineDesiredStateR\fdesiredState\"M\n" +
 	"\x19NodeCreateMachineResponse\x120\n" +
 	"\amachine\x18\x01 \x01(\v2\x16.baepo.node.v1.MachineR\amachine\"\x8e\x01\n" +
 	"$NodeUpdateMachineDesiredStateRequest\x12\x1d\n" +

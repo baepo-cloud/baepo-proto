@@ -140,11 +140,10 @@ func (MachineDesiredState) EnumDescriptor() ([]byte, []int) {
 
 type MachineSpec struct {
 	state         protoimpl.MessageState  `protogen:"open.v1"`
-	MachineId     string                  `protobuf:"bytes,1,opt,name=machine_id,json=machineId,proto3" json:"machine_id,omitempty"`
-	Cpus          uint32                  `protobuf:"varint,2,opt,name=cpus,proto3" json:"cpus,omitempty"`
-	MemoryMb      uint64                  `protobuf:"varint,3,opt,name=memory_mb,json=memoryMb,proto3" json:"memory_mb,omitempty"`
-	Containers    []*MachineContainerSpec `protobuf:"bytes,4,rep,name=containers,proto3" json:"containers,omitempty"`
-	Timeout       *uint64                 `protobuf:"varint,5,opt,name=timeout,proto3,oneof" json:"timeout,omitempty"`
+	Cpus          uint32                  `protobuf:"varint,1,opt,name=cpus,proto3" json:"cpus,omitempty"`
+	MemoryMb      uint64                  `protobuf:"varint,2,opt,name=memory_mb,json=memoryMb,proto3" json:"memory_mb,omitempty"`
+	Containers    []*MachineContainerSpec `protobuf:"bytes,3,rep,name=containers,proto3" json:"containers,omitempty"`
+	Timeout       *uint64                 `protobuf:"varint,4,opt,name=timeout,proto3,oneof" json:"timeout,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -179,13 +178,6 @@ func (*MachineSpec) Descriptor() ([]byte, []int) {
 	return file_baepo_node_v1_machine_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *MachineSpec) GetMachineId() string {
-	if x != nil {
-		return x.MachineId
-	}
-	return ""
-}
-
 func (x *MachineSpec) GetCpus() uint32 {
 	if x != nil {
 		return x.Cpus
@@ -216,11 +208,10 @@ func (x *MachineSpec) GetTimeout() uint64 {
 
 type MachineContainerSpec struct {
 	state         protoimpl.MessageState           `protogen:"open.v1"`
-	ContainerId   string                           `protobuf:"bytes,1,opt,name=container_id,json=containerId,proto3" json:"container_id,omitempty"`
-	Image         string                           `protobuf:"bytes,2,opt,name=image,proto3" json:"image,omitempty"`
-	Env           map[string]string                `protobuf:"bytes,4,rep,name=env,proto3" json:"env,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
-	Command       []string                         `protobuf:"bytes,5,rep,name=command,proto3" json:"command,omitempty"`
-	Healthcheck   *MachineContainerHealthcheckSpec `protobuf:"bytes,6,opt,name=healthcheck,proto3" json:"healthcheck,omitempty"`
+	Image         string                           `protobuf:"bytes,1,opt,name=image,proto3" json:"image,omitempty"`
+	Env           map[string]string                `protobuf:"bytes,2,rep,name=env,proto3" json:"env,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	Command       []string                         `protobuf:"bytes,3,rep,name=command,proto3" json:"command,omitempty"`
+	Healthcheck   *MachineContainerHealthcheckSpec `protobuf:"bytes,4,opt,name=healthcheck,proto3" json:"healthcheck,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -253,13 +244,6 @@ func (x *MachineContainerSpec) ProtoReflect() protoreflect.Message {
 // Deprecated: Use MachineContainerSpec.ProtoReflect.Descriptor instead.
 func (*MachineContainerSpec) Descriptor() ([]byte, []int) {
 	return file_baepo_node_v1_machine_proto_rawDescGZIP(), []int{1}
-}
-
-func (x *MachineContainerSpec) GetContainerId() string {
-	if x != nil {
-		return x.ContainerId
-	}
-	return ""
 }
 
 func (x *MachineContainerSpec) GetImage() string {
@@ -504,24 +488,21 @@ var File_baepo_node_v1_machine_proto protoreflect.FileDescriptor
 
 const file_baepo_node_v1_machine_proto_rawDesc = "" +
 	"\n" +
-	"\x1bbaepo/node/v1/machine.proto\x12\rbaepo.node.v1\x1a\x1bgoogle/protobuf/empty.proto\"\xcd\x01\n" +
-	"\vMachineSpec\x12\x1d\n" +
+	"\x1bbaepo/node/v1/machine.proto\x12\rbaepo.node.v1\x1a\x1bgoogle/protobuf/empty.proto\"\xae\x01\n" +
+	"\vMachineSpec\x12\x12\n" +
+	"\x04cpus\x18\x01 \x01(\rR\x04cpus\x12\x1b\n" +
+	"\tmemory_mb\x18\x02 \x01(\x04R\bmemoryMb\x12C\n" +
 	"\n" +
-	"machine_id\x18\x01 \x01(\tR\tmachineId\x12\x12\n" +
-	"\x04cpus\x18\x02 \x01(\rR\x04cpus\x12\x1b\n" +
-	"\tmemory_mb\x18\x03 \x01(\x04R\bmemoryMb\x12C\n" +
-	"\n" +
-	"containers\x18\x04 \x03(\v2#.baepo.node.v1.MachineContainerSpecR\n" +
+	"containers\x18\x03 \x03(\v2#.baepo.node.v1.MachineContainerSpecR\n" +
 	"containers\x12\x1d\n" +
-	"\atimeout\x18\x05 \x01(\x04H\x00R\atimeout\x88\x01\x01B\n" +
+	"\atimeout\x18\x04 \x01(\x04H\x00R\atimeout\x88\x01\x01B\n" +
 	"\n" +
-	"\b_timeout\"\xb3\x02\n" +
-	"\x14MachineContainerSpec\x12!\n" +
-	"\fcontainer_id\x18\x01 \x01(\tR\vcontainerId\x12\x14\n" +
-	"\x05image\x18\x02 \x01(\tR\x05image\x12>\n" +
-	"\x03env\x18\x04 \x03(\v2,.baepo.node.v1.MachineContainerSpec.EnvEntryR\x03env\x12\x18\n" +
-	"\acommand\x18\x05 \x03(\tR\acommand\x12P\n" +
-	"\vhealthcheck\x18\x06 \x01(\v2..baepo.node.v1.MachineContainerHealthcheckSpecR\vhealthcheck\x1a6\n" +
+	"\b_timeout\"\x90\x02\n" +
+	"\x14MachineContainerSpec\x12\x14\n" +
+	"\x05image\x18\x01 \x01(\tR\x05image\x12>\n" +
+	"\x03env\x18\x02 \x03(\v2,.baepo.node.v1.MachineContainerSpec.EnvEntryR\x03env\x12\x18\n" +
+	"\acommand\x18\x03 \x03(\tR\acommand\x12P\n" +
+	"\vhealthcheck\x18\x04 \x01(\v2..baepo.node.v1.MachineContainerHealthcheckSpecR\vhealthcheck\x1a6\n" +
 	"\bEnvEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\xdd\x03\n" +

@@ -33,8 +33,9 @@ message NodeGetMachineResponse {
 }
 
 message NodeCreateMachineRequest {
-  MachineSpec spec = 1;
-  MachineDesiredState desired_state = 2;
+  string machine_id = 1;
+  MachineSpec spec = 2;
+  MachineDesiredState desired_state = 3;
 }
 
 message NodeCreateMachineResponse {

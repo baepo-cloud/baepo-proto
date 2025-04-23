@@ -15,27 +15,22 @@ export declare const file_baepo_node_v1_machine: GenFile;
  */
 export declare type MachineSpec = Message<"baepo.node.v1.MachineSpec"> & {
   /**
-   * @generated from field: string machine_id = 1;
-   */
-  machineId: string;
-
-  /**
-   * @generated from field: uint32 cpus = 2;
+   * @generated from field: uint32 cpus = 1;
    */
   cpus: number;
 
   /**
-   * @generated from field: uint64 memory_mb = 3;
+   * @generated from field: uint64 memory_mb = 2;
    */
   memoryMb: bigint;
 
   /**
-   * @generated from field: repeated baepo.node.v1.MachineContainerSpec containers = 4;
+   * @generated from field: repeated baepo.node.v1.MachineContainerSpec containers = 3;
    */
   containers: MachineContainerSpec[];
 
   /**
-   * @generated from field: optional uint64 timeout = 5;
+   * @generated from field: optional uint64 timeout = 4;
    */
   timeout?: bigint;
 };
@@ -51,27 +46,22 @@ export declare const MachineSpecSchema: GenMessage<MachineSpec>;
  */
 export declare type MachineContainerSpec = Message<"baepo.node.v1.MachineContainerSpec"> & {
   /**
-   * @generated from field: string container_id = 1;
-   */
-  containerId: string;
-
-  /**
-   * @generated from field: string image = 2;
+   * @generated from field: string image = 1;
    */
   image: string;
 
   /**
-   * @generated from field: map<string, string> env = 4;
+   * @generated from field: map<string, string> env = 2;
    */
   env: { [key: string]: string };
 
   /**
-   * @generated from field: repeated string command = 5;
+   * @generated from field: repeated string command = 3;
    */
   command: string[];
 
   /**
-   * @generated from field: baepo.node.v1.MachineContainerHealthcheckSpec healthcheck = 6;
+   * @generated from field: baepo.node.v1.MachineContainerHealthcheckSpec healthcheck = 4;
    */
   healthcheck?: MachineContainerHealthcheckSpec;
 };

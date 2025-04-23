@@ -479,7 +479,8 @@ type NodeControllerClientEvent_MachineStateChangeEvent struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	MachineId     string                 `protobuf:"bytes,1,opt,name=machine_id,json=machineId,proto3" json:"machine_id,omitempty"`
 	State         v1.MachineState        `protobuf:"varint,2,opt,name=state,proto3,enum=baepo.node.v1.MachineState" json:"state,omitempty"`
-	Timestamp     *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
+	DesiredState  v1.MachineDesiredState `protobuf:"varint,3,opt,name=desired_state,json=desiredState,proto3,enum=baepo.node.v1.MachineDesiredState" json:"desired_state,omitempty"`
+	Timestamp     *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -528,6 +529,13 @@ func (x *NodeControllerClientEvent_MachineStateChangeEvent) GetState() v1.Machin
 	return v1.MachineState(0)
 }
 
+func (x *NodeControllerClientEvent_MachineStateChangeEvent) GetDesiredState() v1.MachineDesiredState {
+	if x != nil {
+		return x.DesiredState
+	}
+	return v1.MachineDesiredState(0)
+}
+
 func (x *NodeControllerClientEvent_MachineStateChangeEvent) GetTimestamp() *timestamppb.Timestamp {
 	if x != nil {
 		return x.Timestamp
@@ -553,7 +561,7 @@ const file_baepo_api_v1_node_controller_proto_rawDesc = "" +
 	"\n" +
 	"server_key\x18\x05 \x01(\fR\tserverKey\x1a\v\n" +
 	"\tPingEventB\a\n" +
-	"\x05event\"\xd5\b\n" +
+	"\x05event\"\x9e\t\n" +
 	"\x19NodeControllerClientEvent\x12U\n" +
 	"\bregister\x18\x01 \x01(\v27.baepo.api.v1.NodeControllerClientEvent.RegisterRequestH\x00R\bregister\x12J\n" +
 	"\x05stats\x18\x02 \x01(\v22.baepo.api.v1.NodeControllerClientEvent.StatsEventH\x00R\x05stats\x12s\n" +
@@ -578,12 +586,13 @@ const file_baepo_api_v1_node_controller_proto_rawDesc = "" +
 	"\x0emachine_states\x18\x05 \x03(\v2E.baepo.api.v1.NodeControllerClientEvent.StatsEvent.MachineStatesEntryR\rmachineStates\x1a]\n" +
 	"\x12MachineStatesEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x121\n" +
-	"\x05value\x18\x02 \x01(\x0e2\x1b.baepo.node.v1.MachineStateR\x05value:\x028\x01\x1a\xa5\x01\n" +
+	"\x05value\x18\x02 \x01(\x0e2\x1b.baepo.node.v1.MachineStateR\x05value:\x028\x01\x1a\xee\x01\n" +
 	"\x17MachineStateChangeEvent\x12\x1d\n" +
 	"\n" +
 	"machine_id\x18\x01 \x01(\tR\tmachineId\x121\n" +
-	"\x05state\x18\x02 \x01(\x0e2\x1b.baepo.node.v1.MachineStateR\x05state\x128\n" +
-	"\ttimestamp\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\ttimestampB\a\n" +
+	"\x05state\x18\x02 \x01(\x0e2\x1b.baepo.node.v1.MachineStateR\x05state\x12G\n" +
+	"\rdesired_state\x18\x03 \x01(\x0e2\".baepo.node.v1.MachineDesiredStateR\fdesiredState\x128\n" +
+	"\ttimestamp\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\ttimestampB\a\n" +
 	"\x05event2w\n" +
 	"\x15NodeControllerService\x12^\n" +
 	"\x06Events\x12'.baepo.api.v1.NodeControllerClientEvent\x1a'.baepo.api.v1.NodeControllerServerEvent(\x010\x01B4Z2github.com/baepo-cloud/baepo-proto/go/baepo/api/v1b\x06proto3"
@@ -611,7 +620,8 @@ var file_baepo_api_v1_node_controller_proto_goTypes = []any{
 	(*NodeControllerClientEvent_MachineStateChangeEvent)(nil), // 6: baepo.api.v1.NodeControllerClientEvent.MachineStateChangeEvent
 	nil,                           // 7: baepo.api.v1.NodeControllerClientEvent.StatsEvent.MachineStatesEntry
 	(v1.MachineState)(0),          // 8: baepo.node.v1.MachineState
-	(*timestamppb.Timestamp)(nil), // 9: google.protobuf.Timestamp
+	(v1.MachineDesiredState)(0),   // 9: baepo.node.v1.MachineDesiredState
+	(*timestamppb.Timestamp)(nil), // 10: google.protobuf.Timestamp
 }
 var file_baepo_api_v1_node_controller_proto_depIdxs = []int32{
 	2,  // 0: baepo.api.v1.NodeControllerServerEvent.register:type_name -> baepo.api.v1.NodeControllerServerEvent.RegisterResponse
@@ -621,15 +631,16 @@ var file_baepo_api_v1_node_controller_proto_depIdxs = []int32{
 	6,  // 4: baepo.api.v1.NodeControllerClientEvent.machine_state_change:type_name -> baepo.api.v1.NodeControllerClientEvent.MachineStateChangeEvent
 	7,  // 5: baepo.api.v1.NodeControllerClientEvent.StatsEvent.machine_states:type_name -> baepo.api.v1.NodeControllerClientEvent.StatsEvent.MachineStatesEntry
 	8,  // 6: baepo.api.v1.NodeControllerClientEvent.MachineStateChangeEvent.state:type_name -> baepo.node.v1.MachineState
-	9,  // 7: baepo.api.v1.NodeControllerClientEvent.MachineStateChangeEvent.timestamp:type_name -> google.protobuf.Timestamp
-	8,  // 8: baepo.api.v1.NodeControllerClientEvent.StatsEvent.MachineStatesEntry.value:type_name -> baepo.node.v1.MachineState
-	1,  // 9: baepo.api.v1.NodeControllerService.Events:input_type -> baepo.api.v1.NodeControllerClientEvent
-	0,  // 10: baepo.api.v1.NodeControllerService.Events:output_type -> baepo.api.v1.NodeControllerServerEvent
-	10, // [10:11] is the sub-list for method output_type
-	9,  // [9:10] is the sub-list for method input_type
-	9,  // [9:9] is the sub-list for extension type_name
-	9,  // [9:9] is the sub-list for extension extendee
-	0,  // [0:9] is the sub-list for field type_name
+	9,  // 7: baepo.api.v1.NodeControllerClientEvent.MachineStateChangeEvent.desired_state:type_name -> baepo.node.v1.MachineDesiredState
+	10, // 8: baepo.api.v1.NodeControllerClientEvent.MachineStateChangeEvent.timestamp:type_name -> google.protobuf.Timestamp
+	8,  // 9: baepo.api.v1.NodeControllerClientEvent.StatsEvent.MachineStatesEntry.value:type_name -> baepo.node.v1.MachineState
+	1,  // 10: baepo.api.v1.NodeControllerService.Events:input_type -> baepo.api.v1.NodeControllerClientEvent
+	0,  // 11: baepo.api.v1.NodeControllerService.Events:output_type -> baepo.api.v1.NodeControllerServerEvent
+	11, // [11:12] is the sub-list for method output_type
+	10, // [10:11] is the sub-list for method input_type
+	10, // [10:10] is the sub-list for extension type_name
+	10, // [10:10] is the sub-list for extension extendee
+	0,  // [0:10] is the sub-list for field type_name
 }
 
 func init() { file_baepo_api_v1_node_controller_proto_init() }

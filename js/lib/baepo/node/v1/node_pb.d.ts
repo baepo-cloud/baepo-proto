@@ -76,12 +76,17 @@ export declare const NodeGetMachineResponseSchema: GenMessage<NodeGetMachineResp
  */
 export declare type NodeCreateMachineRequest = Message<"baepo.node.v1.NodeCreateMachineRequest"> & {
   /**
-   * @generated from field: baepo.node.v1.MachineSpec spec = 1;
+   * @generated from field: string machine_id = 1;
+   */
+  machineId: string;
+
+  /**
+   * @generated from field: baepo.node.v1.MachineSpec spec = 2;
    */
   spec?: MachineSpec;
 
   /**
-   * @generated from field: baepo.node.v1.MachineDesiredState desired_state = 2;
+   * @generated from field: baepo.node.v1.MachineDesiredState desired_state = 3;
    */
   desiredState: MachineDesiredState;
 };
