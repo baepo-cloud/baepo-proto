@@ -3,62 +3,62 @@
 /* eslint-disable */
 
 import { fileDesc, messageDesc, serviceDesc } from "@bufbuild/protobuf/codegenv1";
-import { file_google_protobuf_empty } from "@bufbuild/protobuf/wkt";
+import { file_google_protobuf_timestamp } from "@bufbuild/protobuf/wkt";
 import { file_baepo_node_v1_machine } from "../../node/v1/machine_pb";
 
 /**
  * Describes the file baepo/api/v1/node_controller.proto.
  */
 export const file_baepo_api_v1_node_controller = /*@__PURE__*/
-  fileDesc("CiJiYWVwby9hcGkvdjEvbm9kZV9jb250cm9sbGVyLnByb3RvEgxiYWVwby5hcGkudjEi0QIKIE5vZGVDb250cm9sbGVyQ29ubmVjdFNlcnZlckV2ZW50ElMKCHJlZ2lzdGVyGAEgASgLMj8uYmFlcG8uYXBpLnYxLk5vZGVDb250cm9sbGVyQ29ubmVjdFNlcnZlckV2ZW50LlJlZ2lzdGVyUmVzcG9uc2VIABJICgRwaW5nGAIgASgLMjguYmFlcG8uYXBpLnYxLk5vZGVDb250cm9sbGVyQ29ubmVjdFNlcnZlckV2ZW50LlBpbmdFdmVudEgAGngKEFJlZ2lzdGVyUmVzcG9uc2USDwoHbm9kZV9pZBgBIAEoCRISCgpub2RlX3Rva2VuGAIgASgJEhYKDmF1dGhvcml0eV9jZXJ0GAMgASgMEhMKC3NlcnZlcl9jZXJ0GAQgASgMEhIKCnNlcnZlcl9rZXkYBSABKAwaCwoJUGluZ0V2ZW50QgcKBWV2ZW50IuMGCiBOb2RlQ29udHJvbGxlckNvbm5lY3RDbGllbnRFdmVudBJSCghyZWdpc3RlchgBIAEoCzI+LmJhZXBvLmFwaS52MS5Ob2RlQ29udHJvbGxlckNvbm5lY3RDbGllbnRFdmVudC5SZWdpc3RlclJlcXVlc3RIABJKCgVzdGF0cxgCIAEoCzI5LmJhZXBvLmFwaS52MS5Ob2RlQ29udHJvbGxlckNvbm5lY3RDbGllbnRFdmVudC5TdGF0c0V2ZW50SAASZgoUbWFjaGluZV9zdGF0ZV9jaGFuZ2UYAyABKAsyRi5iYWVwby5hcGkudjEuTm9kZUNvbnRyb2xsZXJDb25uZWN0Q2xpZW50RXZlbnQuTWFjaGluZVN0YXRlQ2hhbmdlRXZlbnRIABqqAQoPUmVnaXN0ZXJSZXF1ZXN0EhIKCmNsdXN0ZXJfaWQYASABKAkSFwoPYm9vdHN0cmFwX3Rva2VuGAIgASgJEhcKCm5vZGVfdG9rZW4YAyABKAlIAIgBARISCgppcF9hZGRyZXNzGAQgASgJEhQKDGFwaV9lbmRwb2ludBgFIAEoCRIYChBnYXRld2F5X2VuZHBvaW50GAYgASgJQg0KC19ub2RlX3Rva2VuGqUCCgpTdGF0c0V2ZW50EhcKD3RvdGFsX21lbW9yeV9tYhgBIAEoBBIWCg51c2VkX21lbW9yeV9tYhgCIAEoBBIaChJyZXNlcnZlZF9tZW1vcnlfbWIYAyABKAQSEQoJY3B1X2NvdW50GAQgASgNEmQKDm1hY2hpbmVfc3RhdGVzGAUgAygLMkwuYmFlcG8uYXBpLnYxLk5vZGVDb250cm9sbGVyQ29ubmVjdENsaWVudEV2ZW50LlN0YXRzRXZlbnQuTWFjaGluZVN0YXRlc0VudHJ5GlEKEk1hY2hpbmVTdGF0ZXNFbnRyeRILCgNrZXkYASABKAkSKgoFdmFsdWUYAiABKA4yGy5iYWVwby5ub2RlLnYxLk1hY2hpbmVTdGF0ZToCOAEaWQoXTWFjaGluZVN0YXRlQ2hhbmdlRXZlbnQSEgoKbWFjaGluZV9pZBgBIAEoCRIqCgVzdGF0ZRgCIAEoDjIbLmJhZXBvLm5vZGUudjEuTWFjaGluZVN0YXRlQgcKBWV2ZW50MoUBChVOb2RlQ29udHJvbGxlclNlcnZpY2USbAoGRXZlbnRzEi4uYmFlcG8uYXBpLnYxLk5vZGVDb250cm9sbGVyQ29ubmVjdENsaWVudEV2ZW50Gi4uYmFlcG8uYXBpLnYxLk5vZGVDb250cm9sbGVyQ29ubmVjdFNlcnZlckV2ZW50KAEwAUI0WjJnaXRodWIuY29tL2JhZXBvLWNsb3VkL2JhZXBvLXByb3RvL2dvL2JhZXBvL2FwaS92MWIGcHJvdG8z", [file_google_protobuf_empty, file_baepo_node_v1_machine]);
+  fileDesc("CiJiYWVwby9hcGkvdjEvbm9kZV9jb250cm9sbGVyLnByb3RvEgxiYWVwby5hcGkudjEivAIKGU5vZGVDb250cm9sbGVyU2VydmVyRXZlbnQSTAoIcmVnaXN0ZXIYASABKAsyOC5iYWVwby5hcGkudjEuTm9kZUNvbnRyb2xsZXJTZXJ2ZXJFdmVudC5SZWdpc3RlclJlc3BvbnNlSAASQQoEcGluZxgCIAEoCzIxLmJhZXBvLmFwaS52MS5Ob2RlQ29udHJvbGxlclNlcnZlckV2ZW50LlBpbmdFdmVudEgAGngKEFJlZ2lzdGVyUmVzcG9uc2USDwoHbm9kZV9pZBgBIAEoCRISCgpub2RlX3Rva2VuGAIgASgJEhYKDmF1dGhvcml0eV9jZXJ0GAMgASgMEhMKC3NlcnZlcl9jZXJ0GAQgASgMEhIKCnNlcnZlcl9rZXkYBSABKAwaCwoJUGluZ0V2ZW50QgcKBWV2ZW50IvAGChlOb2RlQ29udHJvbGxlckNsaWVudEV2ZW50EksKCHJlZ2lzdGVyGAEgASgLMjcuYmFlcG8uYXBpLnYxLk5vZGVDb250cm9sbGVyQ2xpZW50RXZlbnQuUmVnaXN0ZXJSZXF1ZXN0SAASQwoFc3RhdHMYAiABKAsyMi5iYWVwby5hcGkudjEuTm9kZUNvbnRyb2xsZXJDbGllbnRFdmVudC5TdGF0c0V2ZW50SAASXwoUbWFjaGluZV9zdGF0ZV9jaGFuZ2UYAyABKAsyPy5iYWVwby5hcGkudjEuTm9kZUNvbnRyb2xsZXJDbGllbnRFdmVudC5NYWNoaW5lU3RhdGVDaGFuZ2VFdmVudEgAGqoBCg9SZWdpc3RlclJlcXVlc3QSEgoKY2x1c3Rlcl9pZBgBIAEoCRIXCg9ib290c3RyYXBfdG9rZW4YAiABKAkSFwoKbm9kZV90b2tlbhgDIAEoCUgAiAEBEhIKCmlwX2FkZHJlc3MYBCABKAkSFAoMYXBpX2VuZHBvaW50GAUgASgJEhgKEGdhdGV3YXlfZW5kcG9pbnQYBiABKAlCDQoLX25vZGVfdG9rZW4angIKClN0YXRzRXZlbnQSFwoPdG90YWxfbWVtb3J5X21iGAEgASgEEhYKDnVzZWRfbWVtb3J5X21iGAIgASgEEhoKEnJlc2VydmVkX21lbW9yeV9tYhgDIAEoBBIRCgljcHVfY291bnQYBCABKA0SXQoObWFjaGluZV9zdGF0ZXMYBSADKAsyRS5iYWVwby5hcGkudjEuTm9kZUNvbnRyb2xsZXJDbGllbnRFdmVudC5TdGF0c0V2ZW50Lk1hY2hpbmVTdGF0ZXNFbnRyeRpRChJNYWNoaW5lU3RhdGVzRW50cnkSCwoDa2V5GAEgASgJEioKBXZhbHVlGAIgASgOMhsuYmFlcG8ubm9kZS52MS5NYWNoaW5lU3RhdGU6AjgBGogBChdNYWNoaW5lU3RhdGVDaGFuZ2VFdmVudBISCgptYWNoaW5lX2lkGAEgASgJEioKBXN0YXRlGAIgASgOMhsuYmFlcG8ubm9kZS52MS5NYWNoaW5lU3RhdGUSLQoJdGltZXN0YW1wGAMgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcEIHCgVldmVudDJ3ChVOb2RlQ29udHJvbGxlclNlcnZpY2USXgoGRXZlbnRzEicuYmFlcG8uYXBpLnYxLk5vZGVDb250cm9sbGVyQ2xpZW50RXZlbnQaJy5iYWVwby5hcGkudjEuTm9kZUNvbnRyb2xsZXJTZXJ2ZXJFdmVudCgBMAFCNFoyZ2l0aHViLmNvbS9iYWVwby1jbG91ZC9iYWVwby1wcm90by9nby9iYWVwby9hcGkvdjFiBnByb3RvMw", [file_google_protobuf_timestamp, file_baepo_node_v1_machine]);
 
 /**
- * Describes the message baepo.api.v1.NodeControllerConnectServerEvent.
- * Use `create(NodeControllerConnectServerEventSchema)` to create a new message.
+ * Describes the message baepo.api.v1.NodeControllerServerEvent.
+ * Use `create(NodeControllerServerEventSchema)` to create a new message.
  */
-export const NodeControllerConnectServerEventSchema = /*@__PURE__*/
+export const NodeControllerServerEventSchema = /*@__PURE__*/
   messageDesc(file_baepo_api_v1_node_controller, 0);
 
 /**
- * Describes the message baepo.api.v1.NodeControllerConnectServerEvent.RegisterResponse.
- * Use `create(NodeControllerConnectServerEvent_RegisterResponseSchema)` to create a new message.
+ * Describes the message baepo.api.v1.NodeControllerServerEvent.RegisterResponse.
+ * Use `create(NodeControllerServerEvent_RegisterResponseSchema)` to create a new message.
  */
-export const NodeControllerConnectServerEvent_RegisterResponseSchema = /*@__PURE__*/
+export const NodeControllerServerEvent_RegisterResponseSchema = /*@__PURE__*/
   messageDesc(file_baepo_api_v1_node_controller, 0, 0);
 
 /**
- * Describes the message baepo.api.v1.NodeControllerConnectServerEvent.PingEvent.
- * Use `create(NodeControllerConnectServerEvent_PingEventSchema)` to create a new message.
+ * Describes the message baepo.api.v1.NodeControllerServerEvent.PingEvent.
+ * Use `create(NodeControllerServerEvent_PingEventSchema)` to create a new message.
  */
-export const NodeControllerConnectServerEvent_PingEventSchema = /*@__PURE__*/
+export const NodeControllerServerEvent_PingEventSchema = /*@__PURE__*/
   messageDesc(file_baepo_api_v1_node_controller, 0, 1);
 
 /**
- * Describes the message baepo.api.v1.NodeControllerConnectClientEvent.
- * Use `create(NodeControllerConnectClientEventSchema)` to create a new message.
+ * Describes the message baepo.api.v1.NodeControllerClientEvent.
+ * Use `create(NodeControllerClientEventSchema)` to create a new message.
  */
-export const NodeControllerConnectClientEventSchema = /*@__PURE__*/
+export const NodeControllerClientEventSchema = /*@__PURE__*/
   messageDesc(file_baepo_api_v1_node_controller, 1);
 
 /**
- * Describes the message baepo.api.v1.NodeControllerConnectClientEvent.RegisterRequest.
- * Use `create(NodeControllerConnectClientEvent_RegisterRequestSchema)` to create a new message.
+ * Describes the message baepo.api.v1.NodeControllerClientEvent.RegisterRequest.
+ * Use `create(NodeControllerClientEvent_RegisterRequestSchema)` to create a new message.
  */
-export const NodeControllerConnectClientEvent_RegisterRequestSchema = /*@__PURE__*/
+export const NodeControllerClientEvent_RegisterRequestSchema = /*@__PURE__*/
   messageDesc(file_baepo_api_v1_node_controller, 1, 0);
 
 /**
- * Describes the message baepo.api.v1.NodeControllerConnectClientEvent.StatsEvent.
- * Use `create(NodeControllerConnectClientEvent_StatsEventSchema)` to create a new message.
+ * Describes the message baepo.api.v1.NodeControllerClientEvent.StatsEvent.
+ * Use `create(NodeControllerClientEvent_StatsEventSchema)` to create a new message.
  */
-export const NodeControllerConnectClientEvent_StatsEventSchema = /*@__PURE__*/
+export const NodeControllerClientEvent_StatsEventSchema = /*@__PURE__*/
   messageDesc(file_baepo_api_v1_node_controller, 1, 1);
 
 /**
- * Describes the message baepo.api.v1.NodeControllerConnectClientEvent.MachineStateChangeEvent.
- * Use `create(NodeControllerConnectClientEvent_MachineStateChangeEventSchema)` to create a new message.
+ * Describes the message baepo.api.v1.NodeControllerClientEvent.MachineStateChangeEvent.
+ * Use `create(NodeControllerClientEvent_MachineStateChangeEventSchema)` to create a new message.
  */
-export const NodeControllerConnectClientEvent_MachineStateChangeEventSchema = /*@__PURE__*/
+export const NodeControllerClientEvent_MachineStateChangeEventSchema = /*@__PURE__*/
   messageDesc(file_baepo_api_v1_node_controller, 1, 2);
 
 /**

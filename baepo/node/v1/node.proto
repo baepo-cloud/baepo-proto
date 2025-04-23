@@ -8,23 +8,20 @@ import "baepo/node/v1/machine.proto";
 option go_package = "github.com/baepo-cloud/baepo-proto/go/baepo/node/v1";
 
 service NodeService {
-  rpc StartMachine(NodeStartMachineRequest) returns (NodeStartMachineResponse);
-
-  rpc StopMachine(NodeStopMachineRequest) returns (google.protobuf.Empty);
+  rpc ListMachines(NodeListMachinesRequest) returns (NodeListMachinesResponse);
 
   rpc GetMachine(NodeGetMachineRequest) returns (NodeGetMachineResponse);
+
+  rpc CreateMachine(NodeCreateMachineRequest) returns (NodeCreateMachineResponse);
+
+  rpc UpdateMachineDesiredState(NodeUpdateMachineDesiredStateRequest) returns (NodeUpdateMachineDesiredStateResponse);
 }
 
-message NodeStartMachineRequest {
-  MachineSpec spec = 1;
+message NodeListMachinesRequest {
 }
 
-message NodeStartMachineResponse {
-  Machine machine = 1;
-}
-
-message NodeStopMachineRequest {
-  string machine_id = 1;
+message NodeListMachinesResponse {
+  repeated Machine machines = 1;
 }
 
 message NodeGetMachineRequest {
@@ -32,5 +29,23 @@ message NodeGetMachineRequest {
 }
 
 message NodeGetMachineResponse {
+  Machine machine = 1;
+}
+
+message NodeCreateMachineRequest {
+  MachineSpec spec = 1;
+  MachineDesiredState desired_state = 2;
+}
+
+message NodeCreateMachineResponse {
+  Machine machine = 1;
+}
+
+message NodeUpdateMachineDesiredStateRequest {
+  string machine_id = 1;
+  MachineDesiredState desired_state = 2;
+}
+
+message NodeUpdateMachineDesiredStateResponse {
   Machine machine = 1;
 }

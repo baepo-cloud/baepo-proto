@@ -2,16 +2,16 @@ syntax = "proto3";
 
 package baepo.api.v1;
 
-import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
 import "baepo/node/v1/machine.proto";
 
 option go_package = "github.com/baepo-cloud/baepo-proto/go/baepo/api/v1";
 
 service NodeControllerService {
-  rpc Events(stream NodeControllerConnectClientEvent) returns (stream NodeControllerConnectServerEvent);
+  rpc Events(stream NodeControllerClientEvent) returns (stream NodeControllerServerEvent);
 }
 
-message NodeControllerConnectServerEvent {
+message NodeControllerServerEvent {
   oneof event {
     RegisterResponse register = 1;
     PingEvent ping = 2;
@@ -29,7 +29,7 @@ message NodeControllerConnectServerEvent {
   }
 }
 
-message NodeControllerConnectClientEvent {
+message NodeControllerClientEvent {
   oneof event {
     RegisterRequest register = 1;
     StatsEvent stats = 2;
@@ -56,5 +56,6 @@ message NodeControllerConnectClientEvent {
   message MachineStateChangeEvent {
     string machine_id = 1;
     baepo.node.v1.MachineState state = 2;
+    google.protobuf.Timestamp timestamp = 3;
   }
 }

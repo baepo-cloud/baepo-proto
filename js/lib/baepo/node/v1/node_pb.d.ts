@@ -4,8 +4,7 @@
 
 import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv1";
 import type { Message } from "@bufbuild/protobuf";
-import type { Machine, MachineSpec } from "./machine_pb";
-import type { EmptySchema } from "@bufbuild/protobuf/wkt";
+import type { Machine, MachineDesiredState, MachineSpec } from "./machine_pb";
 
 /**
  * Describes the file baepo/node/v1/node.proto.
@@ -13,52 +12,32 @@ import type { EmptySchema } from "@bufbuild/protobuf/wkt";
 export declare const file_baepo_node_v1_node: GenFile;
 
 /**
- * @generated from message baepo.node.v1.NodeStartMachineRequest
+ * @generated from message baepo.node.v1.NodeListMachinesRequest
  */
-export declare type NodeStartMachineRequest = Message<"baepo.node.v1.NodeStartMachineRequest"> & {
-  /**
-   * @generated from field: baepo.node.v1.MachineSpec spec = 1;
-   */
-  spec?: MachineSpec;
+export declare type NodeListMachinesRequest = Message<"baepo.node.v1.NodeListMachinesRequest"> & {
 };
 
 /**
- * Describes the message baepo.node.v1.NodeStartMachineRequest.
- * Use `create(NodeStartMachineRequestSchema)` to create a new message.
+ * Describes the message baepo.node.v1.NodeListMachinesRequest.
+ * Use `create(NodeListMachinesRequestSchema)` to create a new message.
  */
-export declare const NodeStartMachineRequestSchema: GenMessage<NodeStartMachineRequest>;
+export declare const NodeListMachinesRequestSchema: GenMessage<NodeListMachinesRequest>;
 
 /**
- * @generated from message baepo.node.v1.NodeStartMachineResponse
+ * @generated from message baepo.node.v1.NodeListMachinesResponse
  */
-export declare type NodeStartMachineResponse = Message<"baepo.node.v1.NodeStartMachineResponse"> & {
+export declare type NodeListMachinesResponse = Message<"baepo.node.v1.NodeListMachinesResponse"> & {
   /**
-   * @generated from field: baepo.node.v1.Machine machine = 1;
+   * @generated from field: repeated baepo.node.v1.Machine machines = 1;
    */
-  machine?: Machine;
+  machines: Machine[];
 };
 
 /**
- * Describes the message baepo.node.v1.NodeStartMachineResponse.
- * Use `create(NodeStartMachineResponseSchema)` to create a new message.
+ * Describes the message baepo.node.v1.NodeListMachinesResponse.
+ * Use `create(NodeListMachinesResponseSchema)` to create a new message.
  */
-export declare const NodeStartMachineResponseSchema: GenMessage<NodeStartMachineResponse>;
-
-/**
- * @generated from message baepo.node.v1.NodeStopMachineRequest
- */
-export declare type NodeStopMachineRequest = Message<"baepo.node.v1.NodeStopMachineRequest"> & {
-  /**
-   * @generated from field: string machine_id = 1;
-   */
-  machineId: string;
-};
-
-/**
- * Describes the message baepo.node.v1.NodeStopMachineRequest.
- * Use `create(NodeStopMachineRequestSchema)` to create a new message.
- */
-export declare const NodeStopMachineRequestSchema: GenMessage<NodeStopMachineRequest>;
+export declare const NodeListMachinesResponseSchema: GenMessage<NodeListMachinesResponse>;
 
 /**
  * @generated from message baepo.node.v1.NodeGetMachineRequest
@@ -93,24 +72,90 @@ export declare type NodeGetMachineResponse = Message<"baepo.node.v1.NodeGetMachi
 export declare const NodeGetMachineResponseSchema: GenMessage<NodeGetMachineResponse>;
 
 /**
+ * @generated from message baepo.node.v1.NodeCreateMachineRequest
+ */
+export declare type NodeCreateMachineRequest = Message<"baepo.node.v1.NodeCreateMachineRequest"> & {
+  /**
+   * @generated from field: baepo.node.v1.MachineSpec spec = 1;
+   */
+  spec?: MachineSpec;
+
+  /**
+   * @generated from field: baepo.node.v1.MachineDesiredState desired_state = 2;
+   */
+  desiredState: MachineDesiredState;
+};
+
+/**
+ * Describes the message baepo.node.v1.NodeCreateMachineRequest.
+ * Use `create(NodeCreateMachineRequestSchema)` to create a new message.
+ */
+export declare const NodeCreateMachineRequestSchema: GenMessage<NodeCreateMachineRequest>;
+
+/**
+ * @generated from message baepo.node.v1.NodeCreateMachineResponse
+ */
+export declare type NodeCreateMachineResponse = Message<"baepo.node.v1.NodeCreateMachineResponse"> & {
+  /**
+   * @generated from field: baepo.node.v1.Machine machine = 1;
+   */
+  machine?: Machine;
+};
+
+/**
+ * Describes the message baepo.node.v1.NodeCreateMachineResponse.
+ * Use `create(NodeCreateMachineResponseSchema)` to create a new message.
+ */
+export declare const NodeCreateMachineResponseSchema: GenMessage<NodeCreateMachineResponse>;
+
+/**
+ * @generated from message baepo.node.v1.NodeUpdateMachineDesiredStateRequest
+ */
+export declare type NodeUpdateMachineDesiredStateRequest = Message<"baepo.node.v1.NodeUpdateMachineDesiredStateRequest"> & {
+  /**
+   * @generated from field: string machine_id = 1;
+   */
+  machineId: string;
+
+  /**
+   * @generated from field: baepo.node.v1.MachineDesiredState desired_state = 2;
+   */
+  desiredState: MachineDesiredState;
+};
+
+/**
+ * Describes the message baepo.node.v1.NodeUpdateMachineDesiredStateRequest.
+ * Use `create(NodeUpdateMachineDesiredStateRequestSchema)` to create a new message.
+ */
+export declare const NodeUpdateMachineDesiredStateRequestSchema: GenMessage<NodeUpdateMachineDesiredStateRequest>;
+
+/**
+ * @generated from message baepo.node.v1.NodeUpdateMachineDesiredStateResponse
+ */
+export declare type NodeUpdateMachineDesiredStateResponse = Message<"baepo.node.v1.NodeUpdateMachineDesiredStateResponse"> & {
+  /**
+   * @generated from field: baepo.node.v1.Machine machine = 1;
+   */
+  machine?: Machine;
+};
+
+/**
+ * Describes the message baepo.node.v1.NodeUpdateMachineDesiredStateResponse.
+ * Use `create(NodeUpdateMachineDesiredStateResponseSchema)` to create a new message.
+ */
+export declare const NodeUpdateMachineDesiredStateResponseSchema: GenMessage<NodeUpdateMachineDesiredStateResponse>;
+
+/**
  * @generated from service baepo.node.v1.NodeService
  */
 export declare const NodeService: GenService<{
   /**
-   * @generated from rpc baepo.node.v1.NodeService.StartMachine
+   * @generated from rpc baepo.node.v1.NodeService.ListMachines
    */
-  startMachine: {
+  listMachines: {
     methodKind: "unary";
-    input: typeof NodeStartMachineRequestSchema;
-    output: typeof NodeStartMachineResponseSchema;
-  },
-  /**
-   * @generated from rpc baepo.node.v1.NodeService.StopMachine
-   */
-  stopMachine: {
-    methodKind: "unary";
-    input: typeof NodeStopMachineRequestSchema;
-    output: typeof EmptySchema;
+    input: typeof NodeListMachinesRequestSchema;
+    output: typeof NodeListMachinesResponseSchema;
   },
   /**
    * @generated from rpc baepo.node.v1.NodeService.GetMachine
@@ -119,6 +164,22 @@ export declare const NodeService: GenService<{
     methodKind: "unary";
     input: typeof NodeGetMachineRequestSchema;
     output: typeof NodeGetMachineResponseSchema;
+  },
+  /**
+   * @generated from rpc baepo.node.v1.NodeService.CreateMachine
+   */
+  createMachine: {
+    methodKind: "unary";
+    input: typeof NodeCreateMachineRequestSchema;
+    output: typeof NodeCreateMachineResponseSchema;
+  },
+  /**
+   * @generated from rpc baepo.node.v1.NodeService.UpdateMachineDesiredState
+   */
+  updateMachineDesiredState: {
+    methodKind: "unary";
+    input: typeof NodeUpdateMachineDesiredStateRequestSchema;
+    output: typeof NodeUpdateMachineDesiredStateResponseSchema;
   },
 }>;
 

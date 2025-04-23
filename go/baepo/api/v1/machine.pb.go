@@ -88,7 +88,7 @@ type Machine struct {
 	Status             MachineStatus          `protobuf:"varint,3,opt,name=status,proto3,enum=baepo.api.v1.MachineStatus" json:"status,omitempty"`
 	NodeId             *string                `protobuf:"bytes,4,opt,name=node_id,json=nodeId,proto3,oneof" json:"node_id,omitempty"`
 	Spec               *MachineSpec           `protobuf:"bytes,5,opt,name=spec,proto3" json:"spec,omitempty"`
-	Timeout            *uint32                `protobuf:"varint,6,opt,name=timeout,proto3,oneof" json:"timeout,omitempty"`
+	Timeout            *uint64                `protobuf:"varint,6,opt,name=timeout,proto3,oneof" json:"timeout,omitempty"`
 	StartedAt          *timestamppb.Timestamp `protobuf:"bytes,7,opt,name=started_at,json=startedAt,proto3,oneof" json:"started_at,omitempty"`
 	ExpiresAt          *timestamppb.Timestamp `protobuf:"bytes,8,opt,name=expires_at,json=expiresAt,proto3,oneof" json:"expires_at,omitempty"`
 	TerminatedAt       *timestamppb.Timestamp `protobuf:"bytes,9,opt,name=terminated_at,json=terminatedAt,proto3,oneof" json:"terminated_at,omitempty"`
@@ -167,7 +167,7 @@ func (x *Machine) GetSpec() *MachineSpec {
 	return nil
 }
 
-func (x *Machine) GetTimeout() uint32 {
+func (x *Machine) GetTimeout() uint64 {
 	if x != nil && x.Timeout != nil {
 		return *x.Timeout
 	}
@@ -239,7 +239,7 @@ func (x *Machine) GetWorkspaceId() string {
 
 type MachineSpec struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	VCpus         uint32                 `protobuf:"varint,1,opt,name=v_cpus,json=vCpus,proto3" json:"v_cpus,omitempty"`
+	Cpus          uint32                 `protobuf:"varint,1,opt,name=cpus,proto3" json:"cpus,omitempty"`
 	MemoryMb      uint64                 `protobuf:"varint,2,opt,name=memory_mb,json=memoryMb,proto3" json:"memory_mb,omitempty"`
 	Env           map[string]string      `protobuf:"bytes,3,rep,name=env,proto3" json:"env,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
 	Image         string                 `protobuf:"bytes,4,opt,name=image,proto3" json:"image,omitempty"`
@@ -278,9 +278,9 @@ func (*MachineSpec) Descriptor() ([]byte, []int) {
 	return file_baepo_api_v1_machine_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *MachineSpec) GetVCpus() uint32 {
+func (x *MachineSpec) GetCpus() uint32 {
 	if x != nil {
-		return x.VCpus
+		return x.Cpus
 	}
 	return 0
 }
@@ -708,7 +708,7 @@ const file_baepo_api_v1_machine_proto_rawDesc = "" +
 	"\x06status\x18\x03 \x01(\x0e2\x1b.baepo.api.v1.MachineStatusR\x06status\x12\x1c\n" +
 	"\anode_id\x18\x04 \x01(\tH\x01R\x06nodeId\x88\x01\x01\x12-\n" +
 	"\x04spec\x18\x05 \x01(\v2\x19.baepo.api.v1.MachineSpecR\x04spec\x12\x1d\n" +
-	"\atimeout\x18\x06 \x01(\rH\x02R\atimeout\x88\x01\x01\x12>\n" +
+	"\atimeout\x18\x06 \x01(\x04H\x02R\atimeout\x88\x01\x01\x12>\n" +
 	"\n" +
 	"started_at\x18\a \x01(\v2\x1a.google.protobuf.TimestampH\x03R\tstartedAt\x88\x01\x01\x12>\n" +
 	"\n" +
@@ -735,9 +735,9 @@ const file_baepo_api_v1_machine_proto_rawDesc = "" +
 	"\v_expires_atB\x10\n" +
 	"\x0e_terminated_atB\x14\n" +
 	"\x12_termination_causeB\x16\n" +
-	"\x14_termination_details\"\xdf\x01\n" +
-	"\vMachineSpec\x12\x15\n" +
-	"\x06v_cpus\x18\x01 \x01(\rR\x05vCpus\x12\x1b\n" +
+	"\x14_termination_details\"\xdc\x01\n" +
+	"\vMachineSpec\x12\x12\n" +
+	"\x04cpus\x18\x01 \x01(\rR\x04cpus\x12\x1b\n" +
 	"\tmemory_mb\x18\x02 \x01(\x04R\bmemoryMb\x124\n" +
 	"\x03env\x18\x03 \x03(\v2\".baepo.api.v1.MachineSpec.EnvEntryR\x03env\x12\x14\n" +
 	"\x05image\x18\x04 \x01(\tR\x05image\x12\x18\n" +

@@ -41,9 +41,9 @@ export declare type Machine = Message<"baepo.api.v1.Machine"> & {
   spec?: MachineSpec;
 
   /**
-   * @generated from field: optional uint32 timeout = 6;
+   * @generated from field: optional uint64 timeout = 6;
    */
-  timeout?: number;
+  timeout?: bigint;
 
   /**
    * @generated from field: optional google.protobuf.Timestamp started_at = 7;
@@ -102,9 +102,9 @@ export declare const MachineSchema: GenMessage<Machine>;
  */
 export declare type MachineSpec = Message<"baepo.api.v1.MachineSpec"> & {
   /**
-   * @generated from field: uint32 v_cpus = 1;
+   * @generated from field: uint32 cpus = 1;
    */
-  vCpus: number;
+  cpus: number;
 
   /**
    * @generated from field: uint64 memory_mb = 2;

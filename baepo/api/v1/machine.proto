@@ -23,7 +23,7 @@ message Machine {
   MachineStatus status = 3;
   optional string node_id = 4;
   MachineSpec spec = 5;
-  optional uint32 timeout = 6;
+  optional uint64 timeout = 6;
   optional google.protobuf.Timestamp started_at = 7;
   optional google.protobuf.Timestamp expires_at = 8;
   optional google.protobuf.Timestamp terminated_at = 9;
@@ -36,7 +36,7 @@ message Machine {
 }
 
 message MachineSpec {
-  uint32 v_cpus = 1;
+  uint32 cpus = 1;
   uint64 memory_mb = 2;
   map<string, string> env = 3;
   string image = 4;
