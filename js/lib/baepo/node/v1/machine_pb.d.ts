@@ -241,3 +241,43 @@ export enum MachineDesiredState {
  */
 export declare const MachineDesiredStateSchema: GenEnum<MachineDesiredState>;
 
+/**
+ * @generated from enum baepo.node.v1.MachineTerminationCause
+ */
+export enum MachineTerminationCause {
+  /**
+   * @generated from enum value: MachineTerminationCause_Unknown = 0;
+   */
+  MachineTerminationCause_Unknown = 0,
+
+  /**
+   * @generated from enum value: MachineTerminationCause_HealthcheckFailed = 1;
+   */
+  MachineTerminationCause_HealthcheckFailed = 1,
+
+  /**
+   * @generated from enum value: MachineTerminationCause_ManuallyRequested = 2;
+   */
+  MachineTerminationCause_ManuallyRequested = 2,
+
+  /**
+   * @generated from enum value: MachineTerminationCause_InternalError = 3;
+   */
+  MachineTerminationCause_InternalError = 3,
+
+  /**
+   * @generated from enum value: MachineTerminationCause_NoNodeAvailable = 4;
+   */
+  MachineTerminationCause_NoNodeAvailable = 4,
+
+  /**
+   * @generated from enum value: MachineTerminationCause_Expired = 5;
+   */
+  MachineTerminationCause_Expired = 5,
+}
+
+/**
+ * Describes the enum baepo.node.v1.MachineTerminationCause.
+ */
+export declare const MachineTerminationCauseSchema: GenEnum<MachineTerminationCause>;
+

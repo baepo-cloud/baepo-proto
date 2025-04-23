@@ -138,6 +138,64 @@ func (MachineDesiredState) EnumDescriptor() ([]byte, []int) {
 	return file_baepo_node_v1_machine_proto_rawDescGZIP(), []int{1}
 }
 
+type MachineTerminationCause int32
+
+const (
+	MachineTerminationCause_MachineTerminationCause_Unknown           MachineTerminationCause = 0
+	MachineTerminationCause_MachineTerminationCause_HealthcheckFailed MachineTerminationCause = 1
+	MachineTerminationCause_MachineTerminationCause_ManuallyRequested MachineTerminationCause = 2
+	MachineTerminationCause_MachineTerminationCause_InternalError     MachineTerminationCause = 3
+	MachineTerminationCause_MachineTerminationCause_NoNodeAvailable   MachineTerminationCause = 4
+	MachineTerminationCause_MachineTerminationCause_Expired           MachineTerminationCause = 5
+)
+
+// Enum value maps for MachineTerminationCause.
+var (
+	MachineTerminationCause_name = map[int32]string{
+		0: "MachineTerminationCause_Unknown",
+		1: "MachineTerminationCause_HealthcheckFailed",
+		2: "MachineTerminationCause_ManuallyRequested",
+		3: "MachineTerminationCause_InternalError",
+		4: "MachineTerminationCause_NoNodeAvailable",
+		5: "MachineTerminationCause_Expired",
+	}
+	MachineTerminationCause_value = map[string]int32{
+		"MachineTerminationCause_Unknown":           0,
+		"MachineTerminationCause_HealthcheckFailed": 1,
+		"MachineTerminationCause_ManuallyRequested": 2,
+		"MachineTerminationCause_InternalError":     3,
+		"MachineTerminationCause_NoNodeAvailable":   4,
+		"MachineTerminationCause_Expired":           5,
+	}
+)
+
+func (x MachineTerminationCause) Enum() *MachineTerminationCause {
+	p := new(MachineTerminationCause)
+	*p = x
+	return p
+}
+
+func (x MachineTerminationCause) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (MachineTerminationCause) Descriptor() protoreflect.EnumDescriptor {
+	return file_baepo_node_v1_machine_proto_enumTypes[2].Descriptor()
+}
+
+func (MachineTerminationCause) Type() protoreflect.EnumType {
+	return &file_baepo_node_v1_machine_proto_enumTypes[2]
+}
+
+func (x MachineTerminationCause) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use MachineTerminationCause.Descriptor instead.
+func (MachineTerminationCause) EnumDescriptor() ([]byte, []int) {
+	return file_baepo_node_v1_machine_proto_rawDescGZIP(), []int{2}
+}
+
 type MachineSpec struct {
 	state         protoimpl.MessageState  `protogen:"open.v1"`
 	Cpus          uint32                  `protobuf:"varint,1,opt,name=cpus,proto3" json:"cpus,omitempty"`
@@ -537,7 +595,14 @@ const file_baepo_node_v1_machine_proto_rawDesc = "" +
 	"\x1bMachineDesiredState_Unknown\x10\x00\x12\x1f\n" +
 	"\x1bMachineDesiredState_Pending\x10\x01\x12\x1f\n" +
 	"\x1bMachineDesiredState_Running\x10\x02\x12\"\n" +
-	"\x1eMachineDesiredState_Terminated\x10\x03B5Z3github.com/baepo-cloud/baepo-proto/go/baepo/node/v1b\x06proto3"
+	"\x1eMachineDesiredState_Terminated\x10\x03*\x99\x02\n" +
+	"\x17MachineTerminationCause\x12#\n" +
+	"\x1fMachineTerminationCause_Unknown\x10\x00\x12-\n" +
+	")MachineTerminationCause_HealthcheckFailed\x10\x01\x12-\n" +
+	")MachineTerminationCause_ManuallyRequested\x10\x02\x12)\n" +
+	"%MachineTerminationCause_InternalError\x10\x03\x12+\n" +
+	"'MachineTerminationCause_NoNodeAvailable\x10\x04\x12#\n" +
+	"\x1fMachineTerminationCause_Expired\x10\x05B5Z3github.com/baepo-cloud/baepo-proto/go/baepo/node/v1b\x06proto3"
 
 var (
 	file_baepo_node_v1_machine_proto_rawDescOnce sync.Once
@@ -551,27 +616,28 @@ func file_baepo_node_v1_machine_proto_rawDescGZIP() []byte {
 	return file_baepo_node_v1_machine_proto_rawDescData
 }
 
-var file_baepo_node_v1_machine_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
+var file_baepo_node_v1_machine_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
 var file_baepo_node_v1_machine_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_baepo_node_v1_machine_proto_goTypes = []any{
 	(MachineState)(0),                       // 0: baepo.node.v1.MachineState
 	(MachineDesiredState)(0),                // 1: baepo.node.v1.MachineDesiredState
-	(*MachineSpec)(nil),                     // 2: baepo.node.v1.MachineSpec
-	(*MachineContainerSpec)(nil),            // 3: baepo.node.v1.MachineContainerSpec
-	(*MachineContainerHealthcheckSpec)(nil), // 4: baepo.node.v1.MachineContainerHealthcheckSpec
-	(*Machine)(nil),                         // 5: baepo.node.v1.Machine
-	nil,                                     // 6: baepo.node.v1.MachineContainerSpec.EnvEntry
-	(*MachineContainerHealthcheckSpec_HttpHealthcheckSpec)(nil), // 7: baepo.node.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec
-	nil, // 8: baepo.node.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec.HeadersEntry
+	(MachineTerminationCause)(0),            // 2: baepo.node.v1.MachineTerminationCause
+	(*MachineSpec)(nil),                     // 3: baepo.node.v1.MachineSpec
+	(*MachineContainerSpec)(nil),            // 4: baepo.node.v1.MachineContainerSpec
+	(*MachineContainerHealthcheckSpec)(nil), // 5: baepo.node.v1.MachineContainerHealthcheckSpec
+	(*Machine)(nil),                         // 6: baepo.node.v1.Machine
+	nil,                                     // 7: baepo.node.v1.MachineContainerSpec.EnvEntry
+	(*MachineContainerHealthcheckSpec_HttpHealthcheckSpec)(nil), // 8: baepo.node.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec
+	nil, // 9: baepo.node.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec.HeadersEntry
 }
 var file_baepo_node_v1_machine_proto_depIdxs = []int32{
-	3, // 0: baepo.node.v1.MachineSpec.containers:type_name -> baepo.node.v1.MachineContainerSpec
-	6, // 1: baepo.node.v1.MachineContainerSpec.env:type_name -> baepo.node.v1.MachineContainerSpec.EnvEntry
-	4, // 2: baepo.node.v1.MachineContainerSpec.healthcheck:type_name -> baepo.node.v1.MachineContainerHealthcheckSpec
-	7, // 3: baepo.node.v1.MachineContainerHealthcheckSpec.http:type_name -> baepo.node.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec
+	4, // 0: baepo.node.v1.MachineSpec.containers:type_name -> baepo.node.v1.MachineContainerSpec
+	7, // 1: baepo.node.v1.MachineContainerSpec.env:type_name -> baepo.node.v1.MachineContainerSpec.EnvEntry
+	5, // 2: baepo.node.v1.MachineContainerSpec.healthcheck:type_name -> baepo.node.v1.MachineContainerHealthcheckSpec
+	8, // 3: baepo.node.v1.MachineContainerHealthcheckSpec.http:type_name -> baepo.node.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec
 	0, // 4: baepo.node.v1.Machine.state:type_name -> baepo.node.v1.MachineState
 	1, // 5: baepo.node.v1.Machine.desired_state:type_name -> baepo.node.v1.MachineDesiredState
-	8, // 6: baepo.node.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec.headers:type_name -> baepo.node.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec.HeadersEntry
+	9, // 6: baepo.node.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec.headers:type_name -> baepo.node.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec.HeadersEntry
 	7, // [7:7] is the sub-list for method output_type
 	7, // [7:7] is the sub-list for method input_type
 	7, // [7:7] is the sub-list for extension type_name
@@ -593,7 +659,7 @@ func file_baepo_node_v1_machine_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_baepo_node_v1_machine_proto_rawDesc), len(file_baepo_node_v1_machine_proto_rawDesc)),
-			NumEnums:      2,
+			NumEnums:      3,
 			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   0,

@@ -2,8 +2,9 @@
 // @generated from file baepo/api/v1/machine.proto (package baepo.api.v1, syntax proto3)
 /* eslint-disable */
 
-import type { GenEnum, GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv1";
+import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv1";
 import type { Message } from "@bufbuild/protobuf";
+import type { MachineSpec, MachineState, MachineTerminationCause } from "../../node/v1/machine_pb";
 import type { Timestamp } from "@bufbuild/protobuf/wkt";
 
 /**
@@ -26,9 +27,14 @@ export declare type Machine = Message<"baepo.api.v1.Machine"> & {
   name?: string;
 
   /**
-   * @generated from field: baepo.api.v1.MachineStatus status = 3;
+   * @generated from field: baepo.node.v1.MachineState state = 3;
    */
-  status: MachineStatus;
+  state: MachineState;
+
+  /**
+   * @generated from field: baepo.node.v1.MachineState desired_state = 16;
+   */
+  desiredState: MachineState;
 
   /**
    * @generated from field: optional string node_id = 4;
@@ -36,7 +42,7 @@ export declare type Machine = Message<"baepo.api.v1.Machine"> & {
   nodeId?: string;
 
   /**
-   * @generated from field: baepo.api.v1.MachineSpec spec = 5;
+   * @generated from field: baepo.node.v1.MachineSpec spec = 5;
    */
   spec?: MachineSpec;
 
@@ -61,9 +67,9 @@ export declare type Machine = Message<"baepo.api.v1.Machine"> & {
   terminatedAt?: Timestamp;
 
   /**
-   * @generated from field: optional string termination_cause = 10;
+   * @generated from field: optional baepo.node.v1.MachineTerminationCause termination_cause = 10;
    */
-  terminationCause?: string;
+  terminationCause?: MachineTerminationCause;
 
   /**
    * @generated from field: optional string termination_details = 11;
@@ -96,42 +102,6 @@ export declare type Machine = Message<"baepo.api.v1.Machine"> & {
  * Use `create(MachineSchema)` to create a new message.
  */
 export declare const MachineSchema: GenMessage<Machine>;
-
-/**
- * @generated from message baepo.api.v1.MachineSpec
- */
-export declare type MachineSpec = Message<"baepo.api.v1.MachineSpec"> & {
-  /**
-   * @generated from field: uint32 cpus = 1;
-   */
-  cpus: number;
-
-  /**
-   * @generated from field: uint64 memory_mb = 2;
-   */
-  memoryMb: bigint;
-
-  /**
-   * @generated from field: map<string, string> env = 3;
-   */
-  env: { [key: string]: string };
-
-  /**
-   * @generated from field: string image = 4;
-   */
-  image: string;
-
-  /**
-   * @generated from field: repeated string command = 5;
-   */
-  command: string[];
-};
-
-/**
- * Describes the message baepo.api.v1.MachineSpec.
- * Use `create(MachineSpecSchema)` to create a new message.
- */
-export declare const MachineSpecSchema: GenMessage<MachineSpec>;
 
 /**
  * @generated from message baepo.api.v1.MachineListRequest
@@ -217,7 +187,7 @@ export declare type MachineCreateRequest = Message<"baepo.api.v1.MachineCreateRe
   timeout?: number;
 
   /**
-   * @generated from field: baepo.api.v1.MachineSpec spec = 4;
+   * @generated from field: baepo.node.v1.MachineSpec spec = 4;
    */
   spec?: MachineSpec;
 
@@ -225,6 +195,11 @@ export declare type MachineCreateRequest = Message<"baepo.api.v1.MachineCreateRe
    * @generated from field: map<string, string> metadata = 5;
    */
   metadata: { [key: string]: string };
+
+  /**
+   * @generated from field: bool start = 6;
+   */
+  start: boolean;
 };
 
 /**
@@ -248,6 +223,38 @@ export declare type MachineCreateResponse = Message<"baepo.api.v1.MachineCreateR
  * Use `create(MachineCreateResponseSchema)` to create a new message.
  */
 export declare const MachineCreateResponseSchema: GenMessage<MachineCreateResponse>;
+
+/**
+ * @generated from message baepo.api.v1.MachineStartRequest
+ */
+export declare type MachineStartRequest = Message<"baepo.api.v1.MachineStartRequest"> & {
+  /**
+   * @generated from field: string machine_id = 1;
+   */
+  machineId: string;
+};
+
+/**
+ * Describes the message baepo.api.v1.MachineStartRequest.
+ * Use `create(MachineStartRequestSchema)` to create a new message.
+ */
+export declare const MachineStartRequestSchema: GenMessage<MachineStartRequest>;
+
+/**
+ * @generated from message baepo.api.v1.MachineStartResponse
+ */
+export declare type MachineStartResponse = Message<"baepo.api.v1.MachineStartResponse"> & {
+  /**
+   * @generated from field: baepo.api.v1.Machine machine = 1;
+   */
+  machine?: Machine;
+};
+
+/**
+ * Describes the message baepo.api.v1.MachineStartResponse.
+ * Use `create(MachineStartResponseSchema)` to create a new message.
+ */
+export declare const MachineStartResponseSchema: GenMessage<MachineStartResponse>;
 
 /**
  * @generated from message baepo.api.v1.MachineTerminateRequest
@@ -282,46 +289,6 @@ export declare type MachineTerminateResponse = Message<"baepo.api.v1.MachineTerm
 export declare const MachineTerminateResponseSchema: GenMessage<MachineTerminateResponse>;
 
 /**
- * @generated from enum baepo.api.v1.MachineStatus
- */
-export enum MachineStatus {
-  /**
-   * @generated from enum value: MachineStatus_Unknown = 0;
-   */
-  MachineStatus_Unknown = 0,
-
-  /**
-   * @generated from enum value: MachineStatus_Scheduling = 1;
-   */
-  MachineStatus_Scheduling = 1,
-
-  /**
-   * @generated from enum value: MachineStatus_Starting = 2;
-   */
-  MachineStatus_Starting = 2,
-
-  /**
-   * @generated from enum value: MachineStatus_Running = 3;
-   */
-  MachineStatus_Running = 3,
-
-  /**
-   * @generated from enum value: MachineStatus_Terminating = 4;
-   */
-  MachineStatus_Terminating = 4,
-
-  /**
-   * @generated from enum value: MachineStatus_Terminated = 5;
-   */
-  MachineStatus_Terminated = 5,
-}
-
-/**
- * Describes the enum baepo.api.v1.MachineStatus.
- */
-export declare const MachineStatusSchema: GenEnum<MachineStatus>;
-
-/**
  * @generated from service baepo.api.v1.MachineService
  */
 export declare const MachineService: GenService<{
@@ -348,6 +315,14 @@ export declare const MachineService: GenService<{
     methodKind: "unary";
     input: typeof MachineCreateRequestSchema;
     output: typeof MachineCreateResponseSchema;
+  },
+  /**
+   * @generated from rpc baepo.api.v1.MachineService.Start
+   */
+  start: {
+    methodKind: "unary";
+    input: typeof MachineStartRequestSchema;
+    output: typeof MachineStartResponseSchema;
   },
   /**
    * @generated from rpc baepo.api.v1.MachineService.Terminate

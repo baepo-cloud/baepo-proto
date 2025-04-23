@@ -39,6 +39,8 @@ const (
 	MachineServiceFindByIdProcedure = "/baepo.api.v1.MachineService/FindById"
 	// MachineServiceCreateProcedure is the fully-qualified name of the MachineService's Create RPC.
 	MachineServiceCreateProcedure = "/baepo.api.v1.MachineService/Create"
+	// MachineServiceStartProcedure is the fully-qualified name of the MachineService's Start RPC.
+	MachineServiceStartProcedure = "/baepo.api.v1.MachineService/Start"
 	// MachineServiceTerminateProcedure is the fully-qualified name of the MachineService's Terminate
 	// RPC.
 	MachineServiceTerminateProcedure = "/baepo.api.v1.MachineService/Terminate"
@@ -49,6 +51,7 @@ type MachineServiceClient interface {
 	List(context.Context, *connect.Request[v1.MachineListRequest]) (*connect.Response[v1.MachineListResponse], error)
 	FindById(context.Context, *connect.Request[v1.MachineFindByIdRequest]) (*connect.Response[v1.MachineFindByIdResponse], error)
 	Create(context.Context, *connect.Request[v1.MachineCreateRequest]) (*connect.Response[v1.MachineCreateResponse], error)
+	Start(context.Context, *connect.Request[v1.MachineStartRequest]) (*connect.Response[v1.MachineStartResponse], error)
 	Terminate(context.Context, *connect.Request[v1.MachineTerminateRequest]) (*connect.Response[v1.MachineTerminateResponse], error)
 }
 
@@ -81,6 +84,12 @@ func NewMachineServiceClient(httpClient connect.HTTPClient, baseURL string, opts
 			connect.WithSchema(machineServiceMethods.ByName("Create")),
 			connect.WithClientOptions(opts...),
 		),
+		start: connect.NewClient[v1.MachineStartRequest, v1.MachineStartResponse](
+			httpClient,
+			baseURL+MachineServiceStartProcedure,
+			connect.WithSchema(machineServiceMethods.ByName("Start")),
+			connect.WithClientOptions(opts...),
+		),
 		terminate: connect.NewClient[v1.MachineTerminateRequest, v1.MachineTerminateResponse](
 			httpClient,
 			baseURL+MachineServiceTerminateProcedure,
@@ -95,6 +104,7 @@ type machineServiceClient struct {
 	list      *connect.Client[v1.MachineListRequest, v1.MachineListResponse]
 	findById  *connect.Client[v1.MachineFindByIdRequest, v1.MachineFindByIdResponse]
 	create    *connect.Client[v1.MachineCreateRequest, v1.MachineCreateResponse]
+	start     *connect.Client[v1.MachineStartRequest, v1.MachineStartResponse]
 	terminate *connect.Client[v1.MachineTerminateRequest, v1.MachineTerminateResponse]
 }
 
@@ -113,6 +123,11 @@ func (c *machineServiceClient) Create(ctx context.Context, req *connect.Request[
 	return c.create.CallUnary(ctx, req)
 }
 
+// Start calls baepo.api.v1.MachineService.Start.
+func (c *machineServiceClient) Start(ctx context.Context, req *connect.Request[v1.MachineStartRequest]) (*connect.Response[v1.MachineStartResponse], error) {
+	return c.start.CallUnary(ctx, req)
+}
+
 // Terminate calls baepo.api.v1.MachineService.Terminate.
 func (c *machineServiceClient) Terminate(ctx context.Context, req *connect.Request[v1.MachineTerminateRequest]) (*connect.Response[v1.MachineTerminateResponse], error) {
 	return c.terminate.CallUnary(ctx, req)
@@ -123,6 +138,7 @@ type MachineServiceHandler interface {
 	List(context.Context, *connect.Request[v1.MachineListRequest]) (*connect.Response[v1.MachineListResponse], error)
 	FindById(context.Context, *connect.Request[v1.MachineFindByIdRequest]) (*connect.Response[v1.MachineFindByIdResponse], error)
 	Create(context.Context, *connect.Request[v1.MachineCreateRequest]) (*connect.Response[v1.MachineCreateResponse], error)
+	Start(context.Context, *connect.Request[v1.MachineStartRequest]) (*connect.Response[v1.MachineStartResponse], error)
 	Terminate(context.Context, *connect.Request[v1.MachineTerminateRequest]) (*connect.Response[v1.MachineTerminateResponse], error)
 }
 
@@ -151,6 +167,12 @@ func NewMachineServiceHandler(svc MachineServiceHandler, opts ...connect.Handler
 		connect.WithSchema(machineServiceMethods.ByName("Create")),
 		connect.WithHandlerOptions(opts...),
 	)
+	machineServiceStartHandler := connect.NewUnaryHandler(
+		MachineServiceStartProcedure,
+		svc.Start,
+		connect.WithSchema(machineServiceMethods.ByName("Start")),
+		connect.WithHandlerOptions(opts...),
+	)
 	machineServiceTerminateHandler := connect.NewUnaryHandler(
 		MachineServiceTerminateProcedure,
 		svc.Terminate,
@@ -165,6 +187,8 @@ func NewMachineServiceHandler(svc MachineServiceHandler, opts ...connect.Handler
 			machineServiceFindByIdHandler.ServeHTTP(w, r)
 		case MachineServiceCreateProcedure:
 			machineServiceCreateHandler.ServeHTTP(w, r)
+		case MachineServiceStartProcedure:
+			machineServiceStartHandler.ServeHTTP(w, r)
 		case MachineServiceTerminateProcedure:
 			machineServiceTerminateHandler.ServeHTTP(w, r)
 		default:
@@ -186,6 +210,10 @@ func (UnimplementedMachineServiceHandler) FindById(context.Context, *connect.Req
 
 func (UnimplementedMachineServiceHandler) Create(context.Context, *connect.Request[v1.MachineCreateRequest]) (*connect.Response[v1.MachineCreateResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("baepo.api.v1.MachineService.Create is not implemented"))
+}
+
+func (UnimplementedMachineServiceHandler) Start(context.Context, *connect.Request[v1.MachineStartRequest]) (*connect.Response[v1.MachineStartResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("baepo.api.v1.MachineService.Start is not implemented"))
 }
 
 func (UnimplementedMachineServiceHandler) Terminate(context.Context, *connect.Request[v1.MachineTerminateRequest]) (*connect.Response[v1.MachineTerminateResponse], error) {

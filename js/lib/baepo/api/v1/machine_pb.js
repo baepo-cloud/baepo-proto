@@ -2,14 +2,15 @@
 // @generated from file baepo/api/v1/machine.proto (package baepo.api.v1, syntax proto3)
 /* eslint-disable */
 
-import { enumDesc, fileDesc, messageDesc, serviceDesc, tsEnum } from "@bufbuild/protobuf/codegenv1";
+import { fileDesc, messageDesc, serviceDesc } from "@bufbuild/protobuf/codegenv1";
 import { file_google_protobuf_empty, file_google_protobuf_timestamp } from "@bufbuild/protobuf/wkt";
+import { file_baepo_node_v1_machine } from "../../node/v1/machine_pb";
 
 /**
  * Describes the file baepo/api/v1/machine.proto.
  */
 export const file_baepo_api_v1_machine = /*@__PURE__*/
-  fileDesc("ChpiYWVwby9hcGkvdjEvbWFjaGluZS5wcm90bxIMYmFlcG8uYXBpLnYxIusFCgdNYWNoaW5lEgoKAmlkGAEgASgJEhEKBG5hbWUYAiABKAlIAIgBARIrCgZzdGF0dXMYAyABKA4yGy5iYWVwby5hcGkudjEuTWFjaGluZVN0YXR1cxIUCgdub2RlX2lkGAQgASgJSAGIAQESJwoEc3BlYxgFIAEoCzIZLmJhZXBvLmFwaS52MS5NYWNoaW5lU3BlYxIUCgd0aW1lb3V0GAYgASgESAKIAQESMwoKc3RhcnRlZF9hdBgHIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBIA4gBARIzCgpleHBpcmVzX2F0GAggASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcEgEiAEBEjYKDXRlcm1pbmF0ZWRfYXQYCSABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wSAWIAQESHgoRdGVybWluYXRpb25fY2F1c2UYCiABKAlIBogBARIgChN0ZXJtaW5hdGlvbl9kZXRhaWxzGAsgASgJSAeIAQESNQoIbWV0YWRhdGEYDCADKAsyIy5iYWVwby5hcGkudjEuTWFjaGluZS5NZXRhZGF0YUVudHJ5Ei4KCmNyZWF0ZWRfYXQYDSABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEi4KCnVwZGF0ZWRfYXQYDiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEhQKDHdvcmtzcGFjZV9pZBgPIAEoCRovCg1NZXRhZGF0YUVudHJ5EgsKA2tleRgBIAEoCRINCgV2YWx1ZRgCIAEoCToCOAFCBwoFX25hbWVCCgoIX25vZGVfaWRCCgoIX3RpbWVvdXRCDQoLX3N0YXJ0ZWRfYXRCDQoLX2V4cGlyZXNfYXRCEAoOX3Rlcm1pbmF0ZWRfYXRCFAoSX3Rlcm1pbmF0aW9uX2NhdXNlQhYKFF90ZXJtaW5hdGlvbl9kZXRhaWxzIqsBCgtNYWNoaW5lU3BlYxIMCgRjcHVzGAEgASgNEhEKCW1lbW9yeV9tYhgCIAEoBBIvCgNlbnYYAyADKAsyIi5iYWVwby5hcGkudjEuTWFjaGluZVNwZWMuRW52RW50cnkSDQoFaW1hZ2UYBCABKAkSDwoHY29tbWFuZBgFIAMoCRoqCghFbnZFbnRyeRILCgNrZXkYASABKAkSDQoFdmFsdWUYAiABKAk6AjgBIioKEk1hY2hpbmVMaXN0UmVxdWVzdBIUCgx3b3Jrc3BhY2VfaWQYASABKAkiPgoTTWFjaGluZUxpc3RSZXNwb25zZRInCghtYWNoaW5lcxgBIAMoCzIVLmJhZXBvLmFwaS52MS5NYWNoaW5lIiwKFk1hY2hpbmVGaW5kQnlJZFJlcXVlc3QSEgoKbWFjaGluZV9pZBgBIAEoCSJBChdNYWNoaW5lRmluZEJ5SWRSZXNwb25zZRImCgdtYWNoaW5lGAEgASgLMhUuYmFlcG8uYXBpLnYxLk1hY2hpbmUiiAIKFE1hY2hpbmVDcmVhdGVSZXF1ZXN0EhQKDHdvcmtzcGFjZV9pZBgBIAEoCRIRCgRuYW1lGAIgASgJSACIAQESFAoHdGltZW91dBgDIAEoDUgBiAEBEicKBHNwZWMYBCABKAsyGS5iYWVwby5hcGkudjEuTWFjaGluZVNwZWMSQgoIbWV0YWRhdGEYBSADKAsyMC5iYWVwby5hcGkudjEuTWFjaGluZUNyZWF0ZVJlcXVlc3QuTWV0YWRhdGFFbnRyeRovCg1NZXRhZGF0YUVudHJ5EgsKA2tleRgBIAEoCRINCgV2YWx1ZRgCIAEoCToCOAFCBwoFX25hbWVCCgoIX3RpbWVvdXQiPwoVTWFjaGluZUNyZWF0ZVJlc3BvbnNlEiYKB21hY2hpbmUYASABKAsyFS5iYWVwby5hcGkudjEuTWFjaGluZSItChdNYWNoaW5lVGVybWluYXRlUmVxdWVzdBISCgptYWNoaW5lX2lkGAEgASgJIkIKGE1hY2hpbmVUZXJtaW5hdGVSZXNwb25zZRImCgdtYWNoaW5lGAEgASgLMhUuYmFlcG8uYXBpLnYxLk1hY2hpbmUqvAEKDU1hY2hpbmVTdGF0dXMSGQoVTWFjaGluZVN0YXR1c19Vbmtub3duEAASHAoYTWFjaGluZVN0YXR1c19TY2hlZHVsaW5nEAESGgoWTWFjaGluZVN0YXR1c19TdGFydGluZxACEhkKFU1hY2hpbmVTdGF0dXNfUnVubmluZxADEh0KGU1hY2hpbmVTdGF0dXNfVGVybWluYXRpbmcQBBIcChhNYWNoaW5lU3RhdHVzX1Rlcm1pbmF0ZWQQBTLlAgoOTWFjaGluZVNlcnZpY2USSwoETGlzdBIgLmJhZXBvLmFwaS52MS5NYWNoaW5lTGlzdFJlcXVlc3QaIS5iYWVwby5hcGkudjEuTWFjaGluZUxpc3RSZXNwb25zZRJXCghGaW5kQnlJZBIkLmJhZXBvLmFwaS52MS5NYWNoaW5lRmluZEJ5SWRSZXF1ZXN0GiUuYmFlcG8uYXBpLnYxLk1hY2hpbmVGaW5kQnlJZFJlc3BvbnNlElEKBkNyZWF0ZRIiLmJhZXBvLmFwaS52MS5NYWNoaW5lQ3JlYXRlUmVxdWVzdBojLmJhZXBvLmFwaS52MS5NYWNoaW5lQ3JlYXRlUmVzcG9uc2USWgoJVGVybWluYXRlEiUuYmFlcG8uYXBpLnYxLk1hY2hpbmVUZXJtaW5hdGVSZXF1ZXN0GiYuYmFlcG8uYXBpLnYxLk1hY2hpbmVUZXJtaW5hdGVSZXNwb25zZUI0WjJnaXRodWIuY29tL2JhZXBvLWNsb3VkL2JhZXBvLXByb3RvL2dvL2JhZXBvL2FwaS92MWIGcHJvdG8z", [file_google_protobuf_empty, file_google_protobuf_timestamp]);
+  fileDesc("ChpiYWVwby9hcGkvdjEvbWFjaGluZS5wcm90bxIMYmFlcG8uYXBpLnYxIscGCgdNYWNoaW5lEgoKAmlkGAEgASgJEhEKBG5hbWUYAiABKAlIAIgBARIqCgVzdGF0ZRgDIAEoDjIbLmJhZXBvLm5vZGUudjEuTWFjaGluZVN0YXRlEjIKDWRlc2lyZWRfc3RhdGUYECABKA4yGy5iYWVwby5ub2RlLnYxLk1hY2hpbmVTdGF0ZRIUCgdub2RlX2lkGAQgASgJSAGIAQESKAoEc3BlYxgFIAEoCzIaLmJhZXBvLm5vZGUudjEuTWFjaGluZVNwZWMSFAoHdGltZW91dBgGIAEoBEgCiAEBEjMKCnN0YXJ0ZWRfYXQYByABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wSAOIAQESMwoKZXhwaXJlc19hdBgIIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBIBIgBARI2Cg10ZXJtaW5hdGVkX2F0GAkgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcEgFiAEBEkYKEXRlcm1pbmF0aW9uX2NhdXNlGAogASgOMiYuYmFlcG8ubm9kZS52MS5NYWNoaW5lVGVybWluYXRpb25DYXVzZUgGiAEBEiAKE3Rlcm1pbmF0aW9uX2RldGFpbHMYCyABKAlIB4gBARI1CghtZXRhZGF0YRgMIAMoCzIjLmJhZXBvLmFwaS52MS5NYWNoaW5lLk1ldGFkYXRhRW50cnkSLgoKY3JlYXRlZF9hdBgNIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASLgoKdXBkYXRlZF9hdBgOIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASFAoMd29ya3NwYWNlX2lkGA8gASgJGi8KDU1ldGFkYXRhRW50cnkSCwoDa2V5GAEgASgJEg0KBXZhbHVlGAIgASgJOgI4AUIHCgVfbmFtZUIKCghfbm9kZV9pZEIKCghfdGltZW91dEINCgtfc3RhcnRlZF9hdEINCgtfZXhwaXJlc19hdEIQCg5fdGVybWluYXRlZF9hdEIUChJfdGVybWluYXRpb25fY2F1c2VCFgoUX3Rlcm1pbmF0aW9uX2RldGFpbHMiKgoSTWFjaGluZUxpc3RSZXF1ZXN0EhQKDHdvcmtzcGFjZV9pZBgBIAEoCSI+ChNNYWNoaW5lTGlzdFJlc3BvbnNlEicKCG1hY2hpbmVzGAEgAygLMhUuYmFlcG8uYXBpLnYxLk1hY2hpbmUiLAoWTWFjaGluZUZpbmRCeUlkUmVxdWVzdBISCgptYWNoaW5lX2lkGAEgASgJIkEKF01hY2hpbmVGaW5kQnlJZFJlc3BvbnNlEiYKB21hY2hpbmUYASABKAsyFS5iYWVwby5hcGkudjEuTWFjaGluZSKYAgoUTWFjaGluZUNyZWF0ZVJlcXVlc3QSFAoMd29ya3NwYWNlX2lkGAEgASgJEhEKBG5hbWUYAiABKAlIAIgBARIUCgd0aW1lb3V0GAMgASgNSAGIAQESKAoEc3BlYxgEIAEoCzIaLmJhZXBvLm5vZGUudjEuTWFjaGluZVNwZWMSQgoIbWV0YWRhdGEYBSADKAsyMC5iYWVwby5hcGkudjEuTWFjaGluZUNyZWF0ZVJlcXVlc3QuTWV0YWRhdGFFbnRyeRINCgVzdGFydBgGIAEoCBovCg1NZXRhZGF0YUVudHJ5EgsKA2tleRgBIAEoCRINCgV2YWx1ZRgCIAEoCToCOAFCBwoFX25hbWVCCgoIX3RpbWVvdXQiPwoVTWFjaGluZUNyZWF0ZVJlc3BvbnNlEiYKB21hY2hpbmUYASABKAsyFS5iYWVwby5hcGkudjEuTWFjaGluZSIpChNNYWNoaW5lU3RhcnRSZXF1ZXN0EhIKCm1hY2hpbmVfaWQYASABKAkiPgoUTWFjaGluZVN0YXJ0UmVzcG9uc2USJgoHbWFjaGluZRgBIAEoCzIVLmJhZXBvLmFwaS52MS5NYWNoaW5lIi0KF01hY2hpbmVUZXJtaW5hdGVSZXF1ZXN0EhIKCm1hY2hpbmVfaWQYASABKAkiQgoYTWFjaGluZVRlcm1pbmF0ZVJlc3BvbnNlEiYKB21hY2hpbmUYASABKAsyFS5iYWVwby5hcGkudjEuTWFjaGluZTK1AwoOTWFjaGluZVNlcnZpY2USSwoETGlzdBIgLmJhZXBvLmFwaS52MS5NYWNoaW5lTGlzdFJlcXVlc3QaIS5iYWVwby5hcGkudjEuTWFjaGluZUxpc3RSZXNwb25zZRJXCghGaW5kQnlJZBIkLmJhZXBvLmFwaS52MS5NYWNoaW5lRmluZEJ5SWRSZXF1ZXN0GiUuYmFlcG8uYXBpLnYxLk1hY2hpbmVGaW5kQnlJZFJlc3BvbnNlElEKBkNyZWF0ZRIiLmJhZXBvLmFwaS52MS5NYWNoaW5lQ3JlYXRlUmVxdWVzdBojLmJhZXBvLmFwaS52MS5NYWNoaW5lQ3JlYXRlUmVzcG9uc2USTgoFU3RhcnQSIS5iYWVwby5hcGkudjEuTWFjaGluZVN0YXJ0UmVxdWVzdBoiLmJhZXBvLmFwaS52MS5NYWNoaW5lU3RhcnRSZXNwb25zZRJaCglUZXJtaW5hdGUSJS5iYWVwby5hcGkudjEuTWFjaGluZVRlcm1pbmF0ZVJlcXVlc3QaJi5iYWVwby5hcGkudjEuTWFjaGluZVRlcm1pbmF0ZVJlc3BvbnNlQjRaMmdpdGh1Yi5jb20vYmFlcG8tY2xvdWQvYmFlcG8tcHJvdG8vZ28vYmFlcG8vYXBpL3YxYgZwcm90bzM", [file_google_protobuf_empty, file_google_protobuf_timestamp, file_baepo_node_v1_machine]);
 
 /**
  * Describes the message baepo.api.v1.Machine.
@@ -19,79 +20,74 @@ export const MachineSchema = /*@__PURE__*/
   messageDesc(file_baepo_api_v1_machine, 0);
 
 /**
- * Describes the message baepo.api.v1.MachineSpec.
- * Use `create(MachineSpecSchema)` to create a new message.
- */
-export const MachineSpecSchema = /*@__PURE__*/
-  messageDesc(file_baepo_api_v1_machine, 1);
-
-/**
  * Describes the message baepo.api.v1.MachineListRequest.
  * Use `create(MachineListRequestSchema)` to create a new message.
  */
 export const MachineListRequestSchema = /*@__PURE__*/
-  messageDesc(file_baepo_api_v1_machine, 2);
+  messageDesc(file_baepo_api_v1_machine, 1);
 
 /**
  * Describes the message baepo.api.v1.MachineListResponse.
  * Use `create(MachineListResponseSchema)` to create a new message.
  */
 export const MachineListResponseSchema = /*@__PURE__*/
-  messageDesc(file_baepo_api_v1_machine, 3);
+  messageDesc(file_baepo_api_v1_machine, 2);
 
 /**
  * Describes the message baepo.api.v1.MachineFindByIdRequest.
  * Use `create(MachineFindByIdRequestSchema)` to create a new message.
  */
 export const MachineFindByIdRequestSchema = /*@__PURE__*/
-  messageDesc(file_baepo_api_v1_machine, 4);
+  messageDesc(file_baepo_api_v1_machine, 3);
 
 /**
  * Describes the message baepo.api.v1.MachineFindByIdResponse.
  * Use `create(MachineFindByIdResponseSchema)` to create a new message.
  */
 export const MachineFindByIdResponseSchema = /*@__PURE__*/
-  messageDesc(file_baepo_api_v1_machine, 5);
+  messageDesc(file_baepo_api_v1_machine, 4);
 
 /**
  * Describes the message baepo.api.v1.MachineCreateRequest.
  * Use `create(MachineCreateRequestSchema)` to create a new message.
  */
 export const MachineCreateRequestSchema = /*@__PURE__*/
-  messageDesc(file_baepo_api_v1_machine, 6);
+  messageDesc(file_baepo_api_v1_machine, 5);
 
 /**
  * Describes the message baepo.api.v1.MachineCreateResponse.
  * Use `create(MachineCreateResponseSchema)` to create a new message.
  */
 export const MachineCreateResponseSchema = /*@__PURE__*/
+  messageDesc(file_baepo_api_v1_machine, 6);
+
+/**
+ * Describes the message baepo.api.v1.MachineStartRequest.
+ * Use `create(MachineStartRequestSchema)` to create a new message.
+ */
+export const MachineStartRequestSchema = /*@__PURE__*/
   messageDesc(file_baepo_api_v1_machine, 7);
+
+/**
+ * Describes the message baepo.api.v1.MachineStartResponse.
+ * Use `create(MachineStartResponseSchema)` to create a new message.
+ */
+export const MachineStartResponseSchema = /*@__PURE__*/
+  messageDesc(file_baepo_api_v1_machine, 8);
 
 /**
  * Describes the message baepo.api.v1.MachineTerminateRequest.
  * Use `create(MachineTerminateRequestSchema)` to create a new message.
  */
 export const MachineTerminateRequestSchema = /*@__PURE__*/
-  messageDesc(file_baepo_api_v1_machine, 8);
+  messageDesc(file_baepo_api_v1_machine, 9);
 
 /**
  * Describes the message baepo.api.v1.MachineTerminateResponse.
  * Use `create(MachineTerminateResponseSchema)` to create a new message.
  */
 export const MachineTerminateResponseSchema = /*@__PURE__*/
-  messageDesc(file_baepo_api_v1_machine, 9);
-
-/**
- * Describes the enum baepo.api.v1.MachineStatus.
- */
-export const MachineStatusSchema = /*@__PURE__*/
-  enumDesc(file_baepo_api_v1_machine, 0);
-
-/**
- * @generated from enum baepo.api.v1.MachineStatus
- */
-export const MachineStatus = /*@__PURE__*/
-  tsEnum(MachineStatusSchema);
+  messageDesc(file_baepo_api_v1_machine, 10);
 
 /**
  * @generated from service baepo.api.v1.MachineService

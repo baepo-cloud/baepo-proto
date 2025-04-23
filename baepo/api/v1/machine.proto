@@ -4,6 +4,7 @@ package baepo.api.v1;
 
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
+import "baepo/node/v1/machine.proto";
 
 option go_package = "github.com/baepo-cloud/baepo-proto/go/baepo/api/v1";
 
@@ -14,42 +15,28 @@ service MachineService {
 
   rpc Create(MachineCreateRequest) returns (MachineCreateResponse);
 
+  rpc Start(MachineStartRequest) returns (MachineStartResponse);
+
   rpc Terminate(MachineTerminateRequest) returns (MachineTerminateResponse);
 }
 
 message Machine {
   string id = 1;
   optional string name = 2;
-  MachineStatus status = 3;
+  baepo.node.v1.MachineState state = 3;
+  baepo.node.v1.MachineState desired_state = 16;
   optional string node_id = 4;
-  MachineSpec spec = 5;
+  baepo.node.v1.MachineSpec spec = 5;
   optional uint64 timeout = 6;
   optional google.protobuf.Timestamp started_at = 7;
   optional google.protobuf.Timestamp expires_at = 8;
   optional google.protobuf.Timestamp terminated_at = 9;
-  optional string termination_cause = 10;
+  optional baepo.node.v1.MachineTerminationCause termination_cause = 10;
   optional string termination_details = 11;
   map<string, string> metadata = 12;
   google.protobuf.Timestamp created_at = 13;
   google.protobuf.Timestamp updated_at = 14;
   string workspace_id = 15;
-}
-
-message MachineSpec {
-  uint32 cpus = 1;
-  uint64 memory_mb = 2;
-  map<string, string> env = 3;
-  string image = 4;
-  repeated string command = 5;
-}
-
-enum MachineStatus {
-  MachineStatus_Unknown = 0;
-  MachineStatus_Scheduling = 1;
-  MachineStatus_Starting = 2;
-  MachineStatus_Running = 3;
-  MachineStatus_Terminating = 4;
-  MachineStatus_Terminated = 5;
 }
 
 message MachineListRequest {
@@ -72,11 +59,20 @@ message MachineCreateRequest {
   string workspace_id = 1;
   optional string name = 2;
   optional uint32 timeout = 3;
-  MachineSpec spec = 4;
+  baepo.node.v1.MachineSpec spec = 4;
   map<string, string> metadata = 5;
+  bool start = 6;
 }
 
 message MachineCreateResponse {
+  Machine machine = 1;
+}
+
+message MachineStartRequest {
+  string machine_id = 1;
+}
+
+message MachineStartResponse {
   Machine machine = 1;
 }
 

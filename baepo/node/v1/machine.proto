@@ -58,3 +58,12 @@ enum MachineDesiredState {
   MachineDesiredState_Running = 2;
   MachineDesiredState_Terminated = 3;
 }
+
+enum MachineTerminationCause {
+  MachineTerminationCause_Unknown = 0;
+  MachineTerminationCause_HealthcheckFailed = 1;
+  MachineTerminationCause_ManuallyRequested = 2;
+  MachineTerminationCause_InternalError = 3;
+  MachineTerminationCause_NoNodeAvailable = 4;
+  MachineTerminationCause_Expired = 5;
+}
