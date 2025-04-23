@@ -10,6 +10,7 @@ import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	_ "google.golang.org/protobuf/types/known/emptypb"
+	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -474,6 +475,114 @@ func (x *Machine) GetDesiredState() MachineDesiredState {
 	return MachineDesiredState_MachineDesiredState_Unknown
 }
 
+type MachineEvent struct {
+	state              protoimpl.MessageState   `protogen:"open.v1"`
+	MachineId          string                   `protobuf:"bytes,1,opt,name=machine_id,json=machineId,proto3" json:"machine_id,omitempty"`
+	State              MachineState             `protobuf:"varint,2,opt,name=state,proto3,enum=baepo.node.v1.MachineState" json:"state,omitempty"`
+	DesiredState       MachineDesiredState      `protobuf:"varint,3,opt,name=desired_state,json=desiredState,proto3,enum=baepo.node.v1.MachineDesiredState" json:"desired_state,omitempty"`
+	StartedAt          *timestamppb.Timestamp   `protobuf:"bytes,4,opt,name=started_at,json=startedAt,proto3,oneof" json:"started_at,omitempty"`
+	ExpiresAt          *timestamppb.Timestamp   `protobuf:"bytes,5,opt,name=expires_at,json=expiresAt,proto3,oneof" json:"expires_at,omitempty"`
+	TerminatedAt       *timestamppb.Timestamp   `protobuf:"bytes,6,opt,name=terminated_at,json=terminatedAt,proto3,oneof" json:"terminated_at,omitempty"`
+	TerminationCause   *MachineTerminationCause `protobuf:"varint,7,opt,name=termination_cause,json=terminationCause,proto3,enum=baepo.node.v1.MachineTerminationCause,oneof" json:"termination_cause,omitempty"`
+	TerminationDetails *string                  `protobuf:"bytes,8,opt,name=termination_details,json=terminationDetails,proto3,oneof" json:"termination_details,omitempty"`
+	Timestamp          *timestamppb.Timestamp   `protobuf:"bytes,9,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
+	unknownFields      protoimpl.UnknownFields
+	sizeCache          protoimpl.SizeCache
+}
+
+func (x *MachineEvent) Reset() {
+	*x = MachineEvent{}
+	mi := &file_baepo_node_v1_machine_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MachineEvent) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MachineEvent) ProtoMessage() {}
+
+func (x *MachineEvent) ProtoReflect() protoreflect.Message {
+	mi := &file_baepo_node_v1_machine_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MachineEvent.ProtoReflect.Descriptor instead.
+func (*MachineEvent) Descriptor() ([]byte, []int) {
+	return file_baepo_node_v1_machine_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *MachineEvent) GetMachineId() string {
+	if x != nil {
+		return x.MachineId
+	}
+	return ""
+}
+
+func (x *MachineEvent) GetState() MachineState {
+	if x != nil {
+		return x.State
+	}
+	return MachineState_MachineState_Unknown
+}
+
+func (x *MachineEvent) GetDesiredState() MachineDesiredState {
+	if x != nil {
+		return x.DesiredState
+	}
+	return MachineDesiredState_MachineDesiredState_Unknown
+}
+
+func (x *MachineEvent) GetStartedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.StartedAt
+	}
+	return nil
+}
+
+func (x *MachineEvent) GetExpiresAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.ExpiresAt
+	}
+	return nil
+}
+
+func (x *MachineEvent) GetTerminatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.TerminatedAt
+	}
+	return nil
+}
+
+func (x *MachineEvent) GetTerminationCause() MachineTerminationCause {
+	if x != nil && x.TerminationCause != nil {
+		return *x.TerminationCause
+	}
+	return MachineTerminationCause_MachineTerminationCause_Unknown
+}
+
+func (x *MachineEvent) GetTerminationDetails() string {
+	if x != nil && x.TerminationDetails != nil {
+		return *x.TerminationDetails
+	}
+	return ""
+}
+
+func (x *MachineEvent) GetTimestamp() *timestamppb.Timestamp {
+	if x != nil {
+		return x.Timestamp
+	}
+	return nil
+}
+
 type MachineContainerHealthcheckSpec_HttpHealthcheckSpec struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Method        string                 `protobuf:"bytes,1,opt,name=method,proto3" json:"method,omitempty"`
@@ -486,7 +595,7 @@ type MachineContainerHealthcheckSpec_HttpHealthcheckSpec struct {
 
 func (x *MachineContainerHealthcheckSpec_HttpHealthcheckSpec) Reset() {
 	*x = MachineContainerHealthcheckSpec_HttpHealthcheckSpec{}
-	mi := &file_baepo_node_v1_machine_proto_msgTypes[5]
+	mi := &file_baepo_node_v1_machine_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -498,7 +607,7 @@ func (x *MachineContainerHealthcheckSpec_HttpHealthcheckSpec) String() string {
 func (*MachineContainerHealthcheckSpec_HttpHealthcheckSpec) ProtoMessage() {}
 
 func (x *MachineContainerHealthcheckSpec_HttpHealthcheckSpec) ProtoReflect() protoreflect.Message {
-	mi := &file_baepo_node_v1_machine_proto_msgTypes[5]
+	mi := &file_baepo_node_v1_machine_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -546,7 +655,7 @@ var File_baepo_node_v1_machine_proto protoreflect.FileDescriptor
 
 const file_baepo_node_v1_machine_proto_rawDesc = "" +
 	"\n" +
-	"\x1bbaepo/node/v1/machine.proto\x12\rbaepo.node.v1\x1a\x1bgoogle/protobuf/empty.proto\"\xae\x01\n" +
+	"\x1bbaepo/node/v1/machine.proto\x12\rbaepo.node.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xae\x01\n" +
 	"\vMachineSpec\x12\x12\n" +
 	"\x04cpus\x18\x01 \x01(\rR\x04cpus\x12\x1b\n" +
 	"\tmemory_mb\x18\x02 \x01(\x04R\bmemoryMb\x12C\n" +
@@ -581,7 +690,25 @@ const file_baepo_node_v1_machine_proto_rawDesc = "" +
 	"\n" +
 	"machine_id\x18\x01 \x01(\tR\tmachineId\x121\n" +
 	"\x05state\x18\x02 \x01(\x0e2\x1b.baepo.node.v1.MachineStateR\x05state\x12G\n" +
-	"\rdesired_state\x18\x03 \x01(\x0e2\".baepo.node.v1.MachineDesiredStateR\fdesiredState*\xe5\x01\n" +
+	"\rdesired_state\x18\x03 \x01(\x0e2\".baepo.node.v1.MachineDesiredStateR\fdesiredState\"\x97\x05\n" +
+	"\fMachineEvent\x12\x1d\n" +
+	"\n" +
+	"machine_id\x18\x01 \x01(\tR\tmachineId\x121\n" +
+	"\x05state\x18\x02 \x01(\x0e2\x1b.baepo.node.v1.MachineStateR\x05state\x12G\n" +
+	"\rdesired_state\x18\x03 \x01(\x0e2\".baepo.node.v1.MachineDesiredStateR\fdesiredState\x12>\n" +
+	"\n" +
+	"started_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampH\x00R\tstartedAt\x88\x01\x01\x12>\n" +
+	"\n" +
+	"expires_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampH\x01R\texpiresAt\x88\x01\x01\x12D\n" +
+	"\rterminated_at\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampH\x02R\fterminatedAt\x88\x01\x01\x12X\n" +
+	"\x11termination_cause\x18\a \x01(\x0e2&.baepo.node.v1.MachineTerminationCauseH\x03R\x10terminationCause\x88\x01\x01\x124\n" +
+	"\x13termination_details\x18\b \x01(\tH\x04R\x12terminationDetails\x88\x01\x01\x128\n" +
+	"\ttimestamp\x18\t \x01(\v2\x1a.google.protobuf.TimestampR\ttimestampB\r\n" +
+	"\v_started_atB\r\n" +
+	"\v_expires_atB\x10\n" +
+	"\x0e_terminated_atB\x14\n" +
+	"\x12_termination_causeB\x16\n" +
+	"\x14_termination_details*\xe5\x01\n" +
 	"\fMachineState\x12\x18\n" +
 	"\x14MachineState_Unknown\x10\x00\x12\x18\n" +
 	"\x14MachineState_Pending\x10\x01\x12\x19\n" +
@@ -617,7 +744,7 @@ func file_baepo_node_v1_machine_proto_rawDescGZIP() []byte {
 }
 
 var file_baepo_node_v1_machine_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
-var file_baepo_node_v1_machine_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+var file_baepo_node_v1_machine_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_baepo_node_v1_machine_proto_goTypes = []any{
 	(MachineState)(0),                       // 0: baepo.node.v1.MachineState
 	(MachineDesiredState)(0),                // 1: baepo.node.v1.MachineDesiredState
@@ -626,23 +753,32 @@ var file_baepo_node_v1_machine_proto_goTypes = []any{
 	(*MachineContainerSpec)(nil),            // 4: baepo.node.v1.MachineContainerSpec
 	(*MachineContainerHealthcheckSpec)(nil), // 5: baepo.node.v1.MachineContainerHealthcheckSpec
 	(*Machine)(nil),                         // 6: baepo.node.v1.Machine
-	nil,                                     // 7: baepo.node.v1.MachineContainerSpec.EnvEntry
-	(*MachineContainerHealthcheckSpec_HttpHealthcheckSpec)(nil), // 8: baepo.node.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec
-	nil, // 9: baepo.node.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec.HeadersEntry
+	(*MachineEvent)(nil),                    // 7: baepo.node.v1.MachineEvent
+	nil,                                     // 8: baepo.node.v1.MachineContainerSpec.EnvEntry
+	(*MachineContainerHealthcheckSpec_HttpHealthcheckSpec)(nil), // 9: baepo.node.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec
+	nil,                           // 10: baepo.node.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec.HeadersEntry
+	(*timestamppb.Timestamp)(nil), // 11: google.protobuf.Timestamp
 }
 var file_baepo_node_v1_machine_proto_depIdxs = []int32{
-	4, // 0: baepo.node.v1.MachineSpec.containers:type_name -> baepo.node.v1.MachineContainerSpec
-	7, // 1: baepo.node.v1.MachineContainerSpec.env:type_name -> baepo.node.v1.MachineContainerSpec.EnvEntry
-	5, // 2: baepo.node.v1.MachineContainerSpec.healthcheck:type_name -> baepo.node.v1.MachineContainerHealthcheckSpec
-	8, // 3: baepo.node.v1.MachineContainerHealthcheckSpec.http:type_name -> baepo.node.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec
-	0, // 4: baepo.node.v1.Machine.state:type_name -> baepo.node.v1.MachineState
-	1, // 5: baepo.node.v1.Machine.desired_state:type_name -> baepo.node.v1.MachineDesiredState
-	9, // 6: baepo.node.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec.headers:type_name -> baepo.node.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec.HeadersEntry
-	7, // [7:7] is the sub-list for method output_type
-	7, // [7:7] is the sub-list for method input_type
-	7, // [7:7] is the sub-list for extension type_name
-	7, // [7:7] is the sub-list for extension extendee
-	0, // [0:7] is the sub-list for field type_name
+	4,  // 0: baepo.node.v1.MachineSpec.containers:type_name -> baepo.node.v1.MachineContainerSpec
+	8,  // 1: baepo.node.v1.MachineContainerSpec.env:type_name -> baepo.node.v1.MachineContainerSpec.EnvEntry
+	5,  // 2: baepo.node.v1.MachineContainerSpec.healthcheck:type_name -> baepo.node.v1.MachineContainerHealthcheckSpec
+	9,  // 3: baepo.node.v1.MachineContainerHealthcheckSpec.http:type_name -> baepo.node.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec
+	0,  // 4: baepo.node.v1.Machine.state:type_name -> baepo.node.v1.MachineState
+	1,  // 5: baepo.node.v1.Machine.desired_state:type_name -> baepo.node.v1.MachineDesiredState
+	0,  // 6: baepo.node.v1.MachineEvent.state:type_name -> baepo.node.v1.MachineState
+	1,  // 7: baepo.node.v1.MachineEvent.desired_state:type_name -> baepo.node.v1.MachineDesiredState
+	11, // 8: baepo.node.v1.MachineEvent.started_at:type_name -> google.protobuf.Timestamp
+	11, // 9: baepo.node.v1.MachineEvent.expires_at:type_name -> google.protobuf.Timestamp
+	11, // 10: baepo.node.v1.MachineEvent.terminated_at:type_name -> google.protobuf.Timestamp
+	2,  // 11: baepo.node.v1.MachineEvent.termination_cause:type_name -> baepo.node.v1.MachineTerminationCause
+	11, // 12: baepo.node.v1.MachineEvent.timestamp:type_name -> google.protobuf.Timestamp
+	10, // 13: baepo.node.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec.headers:type_name -> baepo.node.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec.HeadersEntry
+	14, // [14:14] is the sub-list for method output_type
+	14, // [14:14] is the sub-list for method input_type
+	14, // [14:14] is the sub-list for extension type_name
+	14, // [14:14] is the sub-list for extension extendee
+	0,  // [0:14] is the sub-list for field type_name
 }
 
 func init() { file_baepo_node_v1_machine_proto_init() }
@@ -654,13 +790,14 @@ func file_baepo_node_v1_machine_proto_init() {
 	file_baepo_node_v1_machine_proto_msgTypes[2].OneofWrappers = []any{
 		(*MachineContainerHealthcheckSpec_Http)(nil),
 	}
+	file_baepo_node_v1_machine_proto_msgTypes[4].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_baepo_node_v1_machine_proto_rawDesc), len(file_baepo_node_v1_machine_proto_rawDesc)),
 			NumEnums:      3,
-			NumMessages:   7,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

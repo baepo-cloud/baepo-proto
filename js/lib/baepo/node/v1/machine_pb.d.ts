@@ -4,6 +4,7 @@
 
 import type { GenEnum, GenFile, GenMessage } from "@bufbuild/protobuf/codegenv1";
 import type { Message } from "@bufbuild/protobuf";
+import type { Timestamp } from "@bufbuild/protobuf/wkt";
 
 /**
  * Describes the file baepo/node/v1/machine.proto.
@@ -160,6 +161,62 @@ export declare type Machine = Message<"baepo.node.v1.Machine"> & {
  * Use `create(MachineSchema)` to create a new message.
  */
 export declare const MachineSchema: GenMessage<Machine>;
+
+/**
+ * @generated from message baepo.node.v1.MachineEvent
+ */
+export declare type MachineEvent = Message<"baepo.node.v1.MachineEvent"> & {
+  /**
+   * @generated from field: string machine_id = 1;
+   */
+  machineId: string;
+
+  /**
+   * @generated from field: baepo.node.v1.MachineState state = 2;
+   */
+  state: MachineState;
+
+  /**
+   * @generated from field: baepo.node.v1.MachineDesiredState desired_state = 3;
+   */
+  desiredState: MachineDesiredState;
+
+  /**
+   * @generated from field: optional google.protobuf.Timestamp started_at = 4;
+   */
+  startedAt?: Timestamp;
+
+  /**
+   * @generated from field: optional google.protobuf.Timestamp expires_at = 5;
+   */
+  expiresAt?: Timestamp;
+
+  /**
+   * @generated from field: optional google.protobuf.Timestamp terminated_at = 6;
+   */
+  terminatedAt?: Timestamp;
+
+  /**
+   * @generated from field: optional baepo.node.v1.MachineTerminationCause termination_cause = 7;
+   */
+  terminationCause?: MachineTerminationCause;
+
+  /**
+   * @generated from field: optional string termination_details = 8;
+   */
+  terminationDetails?: string;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp timestamp = 9;
+   */
+  timestamp?: Timestamp;
+};
+
+/**
+ * Describes the message baepo.node.v1.MachineEvent.
+ * Use `create(MachineEventSchema)` to create a new message.
+ */
+export declare const MachineEventSchema: GenMessage<MachineEvent>;
 
 /**
  * @generated from enum baepo.node.v1.MachineState

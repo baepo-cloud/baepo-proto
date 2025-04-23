@@ -13,30 +13,44 @@ service NodeControllerService {
 
 message NodeControllerServerEvent {
   oneof event {
-    RegisterResponse register = 1;
+    RegistrationCompleted registration_completed_event = 1;
     Ping ping_event = 2;
+    MachineSpec create_machine_event = 3;
+    UpdateMachineDesiredState update_machine_desired_state_event = 4;
   }
 
-  message RegisterResponse {
+  message RegistrationCompleted {
     string node_id = 1;
     string node_token = 2;
     bytes authority_cert = 3;
     bytes server_cert = 4;
     bytes server_key = 5;
+    repeated MachineSpec expected_machines = 6;
   }
 
   message Ping {
+  }
+
+  message UpdateMachineDesiredState {
+    string machine_id = 1;
+    baepo.node.v1.MachineDesiredState desired_state = 2;
+  }
+
+  message MachineSpec {
+    string machine_id = 1;
+    baepo.node.v1.MachineDesiredState desired_state = 2;
+    baepo.node.v1.MachineSpec spec = 3;
   }
 }
 
 message NodeControllerClientEvent {
   oneof event {
-    RegisterRequest register = 1;
+    Register register_event = 1;
     Stats stats_event = 2;
-    MachineStateChange machine_state_change_event = 3;
+    baepo.node.v1.MachineEvent machine_event = 3;
   }
 
-  message RegisterRequest {
+  message Register {
     string cluster_id = 1;
     string bootstrap_token = 2;
     optional string node_token = 3;
@@ -50,12 +64,5 @@ message NodeControllerClientEvent {
     uint64 used_memory_mb = 2;
     uint64 reserved_memory_mb = 3;
     uint32 cpu_count = 4;
-  }
-
-  message MachineStateChange {
-    string machine_id = 1;
-    baepo.node.v1.MachineState state = 2;
-    baepo.node.v1.MachineDesiredState desired_state = 3;
-    google.protobuf.Timestamp timestamp = 4;
   }
 }

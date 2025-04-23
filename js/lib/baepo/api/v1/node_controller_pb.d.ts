@@ -4,8 +4,7 @@
 
 import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv1";
 import type { Message } from "@bufbuild/protobuf";
-import type { MachineDesiredState, MachineState } from "../../node/v1/machine_pb";
-import type { Timestamp } from "@bufbuild/protobuf/wkt";
+import type { MachineDesiredState, MachineEvent, MachineSpec } from "../../node/v1/machine_pb";
 
 /**
  * Describes the file baepo/api/v1/node_controller.proto.
@@ -21,16 +20,28 @@ export declare type NodeControllerServerEvent = Message<"baepo.api.v1.NodeContro
    */
   event: {
     /**
-     * @generated from field: baepo.api.v1.NodeControllerServerEvent.RegisterResponse register = 1;
+     * @generated from field: baepo.api.v1.NodeControllerServerEvent.RegistrationCompleted registration_completed_event = 1;
      */
-    value: NodeControllerServerEvent_RegisterResponse;
-    case: "register";
+    value: NodeControllerServerEvent_RegistrationCompleted;
+    case: "registrationCompletedEvent";
   } | {
     /**
      * @generated from field: baepo.api.v1.NodeControllerServerEvent.Ping ping_event = 2;
      */
     value: NodeControllerServerEvent_Ping;
     case: "pingEvent";
+  } | {
+    /**
+     * @generated from field: baepo.api.v1.NodeControllerServerEvent.MachineSpec create_machine_event = 3;
+     */
+    value: NodeControllerServerEvent_MachineSpec;
+    case: "createMachineEvent";
+  } | {
+    /**
+     * @generated from field: baepo.api.v1.NodeControllerServerEvent.UpdateMachineDesiredState update_machine_desired_state_event = 4;
+     */
+    value: NodeControllerServerEvent_UpdateMachineDesiredState;
+    case: "updateMachineDesiredStateEvent";
   } | { case: undefined; value?: undefined };
 };
 
@@ -41,9 +52,9 @@ export declare type NodeControllerServerEvent = Message<"baepo.api.v1.NodeContro
 export declare const NodeControllerServerEventSchema: GenMessage<NodeControllerServerEvent>;
 
 /**
- * @generated from message baepo.api.v1.NodeControllerServerEvent.RegisterResponse
+ * @generated from message baepo.api.v1.NodeControllerServerEvent.RegistrationCompleted
  */
-export declare type NodeControllerServerEvent_RegisterResponse = Message<"baepo.api.v1.NodeControllerServerEvent.RegisterResponse"> & {
+export declare type NodeControllerServerEvent_RegistrationCompleted = Message<"baepo.api.v1.NodeControllerServerEvent.RegistrationCompleted"> & {
   /**
    * @generated from field: string node_id = 1;
    */
@@ -68,13 +79,18 @@ export declare type NodeControllerServerEvent_RegisterResponse = Message<"baepo.
    * @generated from field: bytes server_key = 5;
    */
   serverKey: Uint8Array;
+
+  /**
+   * @generated from field: repeated baepo.api.v1.NodeControllerServerEvent.MachineSpec expected_machines = 6;
+   */
+  expectedMachines: NodeControllerServerEvent_MachineSpec[];
 };
 
 /**
- * Describes the message baepo.api.v1.NodeControllerServerEvent.RegisterResponse.
- * Use `create(NodeControllerServerEvent_RegisterResponseSchema)` to create a new message.
+ * Describes the message baepo.api.v1.NodeControllerServerEvent.RegistrationCompleted.
+ * Use `create(NodeControllerServerEvent_RegistrationCompletedSchema)` to create a new message.
  */
-export declare const NodeControllerServerEvent_RegisterResponseSchema: GenMessage<NodeControllerServerEvent_RegisterResponse>;
+export declare const NodeControllerServerEvent_RegistrationCompletedSchema: GenMessage<NodeControllerServerEvent_RegistrationCompleted>;
 
 /**
  * @generated from message baepo.api.v1.NodeControllerServerEvent.Ping
@@ -89,6 +105,53 @@ export declare type NodeControllerServerEvent_Ping = Message<"baepo.api.v1.NodeC
 export declare const NodeControllerServerEvent_PingSchema: GenMessage<NodeControllerServerEvent_Ping>;
 
 /**
+ * @generated from message baepo.api.v1.NodeControllerServerEvent.UpdateMachineDesiredState
+ */
+export declare type NodeControllerServerEvent_UpdateMachineDesiredState = Message<"baepo.api.v1.NodeControllerServerEvent.UpdateMachineDesiredState"> & {
+  /**
+   * @generated from field: string machine_id = 1;
+   */
+  machineId: string;
+
+  /**
+   * @generated from field: baepo.node.v1.MachineDesiredState desired_state = 2;
+   */
+  desiredState: MachineDesiredState;
+};
+
+/**
+ * Describes the message baepo.api.v1.NodeControllerServerEvent.UpdateMachineDesiredState.
+ * Use `create(NodeControllerServerEvent_UpdateMachineDesiredStateSchema)` to create a new message.
+ */
+export declare const NodeControllerServerEvent_UpdateMachineDesiredStateSchema: GenMessage<NodeControllerServerEvent_UpdateMachineDesiredState>;
+
+/**
+ * @generated from message baepo.api.v1.NodeControllerServerEvent.MachineSpec
+ */
+export declare type NodeControllerServerEvent_MachineSpec = Message<"baepo.api.v1.NodeControllerServerEvent.MachineSpec"> & {
+  /**
+   * @generated from field: string machine_id = 1;
+   */
+  machineId: string;
+
+  /**
+   * @generated from field: baepo.node.v1.MachineDesiredState desired_state = 2;
+   */
+  desiredState: MachineDesiredState;
+
+  /**
+   * @generated from field: baepo.node.v1.MachineSpec spec = 3;
+   */
+  spec?: MachineSpec;
+};
+
+/**
+ * Describes the message baepo.api.v1.NodeControllerServerEvent.MachineSpec.
+ * Use `create(NodeControllerServerEvent_MachineSpecSchema)` to create a new message.
+ */
+export declare const NodeControllerServerEvent_MachineSpecSchema: GenMessage<NodeControllerServerEvent_MachineSpec>;
+
+/**
  * @generated from message baepo.api.v1.NodeControllerClientEvent
  */
 export declare type NodeControllerClientEvent = Message<"baepo.api.v1.NodeControllerClientEvent"> & {
@@ -97,10 +160,10 @@ export declare type NodeControllerClientEvent = Message<"baepo.api.v1.NodeContro
    */
   event: {
     /**
-     * @generated from field: baepo.api.v1.NodeControllerClientEvent.RegisterRequest register = 1;
+     * @generated from field: baepo.api.v1.NodeControllerClientEvent.Register register_event = 1;
      */
-    value: NodeControllerClientEvent_RegisterRequest;
-    case: "register";
+    value: NodeControllerClientEvent_Register;
+    case: "registerEvent";
   } | {
     /**
      * @generated from field: baepo.api.v1.NodeControllerClientEvent.Stats stats_event = 2;
@@ -109,10 +172,10 @@ export declare type NodeControllerClientEvent = Message<"baepo.api.v1.NodeContro
     case: "statsEvent";
   } | {
     /**
-     * @generated from field: baepo.api.v1.NodeControllerClientEvent.MachineStateChange machine_state_change_event = 3;
+     * @generated from field: baepo.node.v1.MachineEvent machine_event = 3;
      */
-    value: NodeControllerClientEvent_MachineStateChange;
-    case: "machineStateChangeEvent";
+    value: MachineEvent;
+    case: "machineEvent";
   } | { case: undefined; value?: undefined };
 };
 
@@ -123,9 +186,9 @@ export declare type NodeControllerClientEvent = Message<"baepo.api.v1.NodeContro
 export declare const NodeControllerClientEventSchema: GenMessage<NodeControllerClientEvent>;
 
 /**
- * @generated from message baepo.api.v1.NodeControllerClientEvent.RegisterRequest
+ * @generated from message baepo.api.v1.NodeControllerClientEvent.Register
  */
-export declare type NodeControllerClientEvent_RegisterRequest = Message<"baepo.api.v1.NodeControllerClientEvent.RegisterRequest"> & {
+export declare type NodeControllerClientEvent_Register = Message<"baepo.api.v1.NodeControllerClientEvent.Register"> & {
   /**
    * @generated from field: string cluster_id = 1;
    */
@@ -158,10 +221,10 @@ export declare type NodeControllerClientEvent_RegisterRequest = Message<"baepo.a
 };
 
 /**
- * Describes the message baepo.api.v1.NodeControllerClientEvent.RegisterRequest.
- * Use `create(NodeControllerClientEvent_RegisterRequestSchema)` to create a new message.
+ * Describes the message baepo.api.v1.NodeControllerClientEvent.Register.
+ * Use `create(NodeControllerClientEvent_RegisterSchema)` to create a new message.
  */
-export declare const NodeControllerClientEvent_RegisterRequestSchema: GenMessage<NodeControllerClientEvent_RegisterRequest>;
+export declare const NodeControllerClientEvent_RegisterSchema: GenMessage<NodeControllerClientEvent_Register>;
 
 /**
  * @generated from message baepo.api.v1.NodeControllerClientEvent.Stats
@@ -193,37 +256,6 @@ export declare type NodeControllerClientEvent_Stats = Message<"baepo.api.v1.Node
  * Use `create(NodeControllerClientEvent_StatsSchema)` to create a new message.
  */
 export declare const NodeControllerClientEvent_StatsSchema: GenMessage<NodeControllerClientEvent_Stats>;
-
-/**
- * @generated from message baepo.api.v1.NodeControllerClientEvent.MachineStateChange
- */
-export declare type NodeControllerClientEvent_MachineStateChange = Message<"baepo.api.v1.NodeControllerClientEvent.MachineStateChange"> & {
-  /**
-   * @generated from field: string machine_id = 1;
-   */
-  machineId: string;
-
-  /**
-   * @generated from field: baepo.node.v1.MachineState state = 2;
-   */
-  state: MachineState;
-
-  /**
-   * @generated from field: baepo.node.v1.MachineDesiredState desired_state = 3;
-   */
-  desiredState: MachineDesiredState;
-
-  /**
-   * @generated from field: google.protobuf.Timestamp timestamp = 4;
-   */
-  timestamp?: Timestamp;
-};
-
-/**
- * Describes the message baepo.api.v1.NodeControllerClientEvent.MachineStateChange.
- * Use `create(NodeControllerClientEvent_MachineStateChangeSchema)` to create a new message.
- */
-export declare const NodeControllerClientEvent_MachineStateChangeSchema: GenMessage<NodeControllerClientEvent_MachineStateChange>;
 
 /**
  * @generated from service baepo.api.v1.NodeControllerService

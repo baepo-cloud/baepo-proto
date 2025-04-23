@@ -182,22 +182,17 @@ export declare type MachineCreateRequest = Message<"baepo.api.v1.MachineCreateRe
   name?: string;
 
   /**
-   * @generated from field: optional uint32 timeout = 3;
-   */
-  timeout?: number;
-
-  /**
-   * @generated from field: baepo.node.v1.MachineSpec spec = 4;
+   * @generated from field: baepo.node.v1.MachineSpec spec = 3;
    */
   spec?: MachineSpec;
 
   /**
-   * @generated from field: map<string, string> metadata = 5;
+   * @generated from field: map<string, string> metadata = 4;
    */
   metadata: { [key: string]: string };
 
   /**
-   * @generated from field: bool start = 6;
+   * @generated from field: bool start = 5;
    */
   start: boolean;
 };

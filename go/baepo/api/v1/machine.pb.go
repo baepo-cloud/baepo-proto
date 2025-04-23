@@ -368,10 +368,9 @@ type MachineCreateRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	WorkspaceId   string                 `protobuf:"bytes,1,opt,name=workspace_id,json=workspaceId,proto3" json:"workspace_id,omitempty"`
 	Name          *string                `protobuf:"bytes,2,opt,name=name,proto3,oneof" json:"name,omitempty"`
-	Timeout       *uint32                `protobuf:"varint,3,opt,name=timeout,proto3,oneof" json:"timeout,omitempty"`
-	Spec          *v1.MachineSpec        `protobuf:"bytes,4,opt,name=spec,proto3" json:"spec,omitempty"`
-	Metadata      map[string]string      `protobuf:"bytes,5,rep,name=metadata,proto3" json:"metadata,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
-	Start         bool                   `protobuf:"varint,6,opt,name=start,proto3" json:"start,omitempty"`
+	Spec          *v1.MachineSpec        `protobuf:"bytes,3,opt,name=spec,proto3" json:"spec,omitempty"`
+	Metadata      map[string]string      `protobuf:"bytes,4,rep,name=metadata,proto3" json:"metadata,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	Start         bool                   `protobuf:"varint,5,opt,name=start,proto3" json:"start,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -418,13 +417,6 @@ func (x *MachineCreateRequest) GetName() string {
 		return *x.Name
 	}
 	return ""
-}
-
-func (x *MachineCreateRequest) GetTimeout() uint32 {
-	if x != nil && x.Timeout != nil {
-		return *x.Timeout
-	}
-	return 0
 }
 
 func (x *MachineCreateRequest) GetSpec() *v1.MachineSpec {
@@ -716,20 +708,17 @@ const file_baepo_api_v1_machine_proto_rawDesc = "" +
 	"\n" +
 	"machine_id\x18\x01 \x01(\tR\tmachineId\"J\n" +
 	"\x17MachineFindByIdResponse\x12/\n" +
-	"\amachine\x18\x01 \x01(\v2\x15.baepo.api.v1.MachineR\amachine\"\xd7\x02\n" +
+	"\amachine\x18\x01 \x01(\v2\x15.baepo.api.v1.MachineR\amachine\"\xac\x02\n" +
 	"\x14MachineCreateRequest\x12!\n" +
 	"\fworkspace_id\x18\x01 \x01(\tR\vworkspaceId\x12\x17\n" +
-	"\x04name\x18\x02 \x01(\tH\x00R\x04name\x88\x01\x01\x12\x1d\n" +
-	"\atimeout\x18\x03 \x01(\rH\x01R\atimeout\x88\x01\x01\x12.\n" +
-	"\x04spec\x18\x04 \x01(\v2\x1a.baepo.node.v1.MachineSpecR\x04spec\x12L\n" +
-	"\bmetadata\x18\x05 \x03(\v20.baepo.api.v1.MachineCreateRequest.MetadataEntryR\bmetadata\x12\x14\n" +
-	"\x05start\x18\x06 \x01(\bR\x05start\x1a;\n" +
+	"\x04name\x18\x02 \x01(\tH\x00R\x04name\x88\x01\x01\x12.\n" +
+	"\x04spec\x18\x03 \x01(\v2\x1a.baepo.node.v1.MachineSpecR\x04spec\x12L\n" +
+	"\bmetadata\x18\x04 \x03(\v20.baepo.api.v1.MachineCreateRequest.MetadataEntryR\bmetadata\x12\x14\n" +
+	"\x05start\x18\x05 \x01(\bR\x05start\x1a;\n" +
 	"\rMetadataEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01B\a\n" +
-	"\x05_nameB\n" +
-	"\n" +
-	"\b_timeout\"H\n" +
+	"\x05_name\"H\n" +
 	"\x15MachineCreateResponse\x12/\n" +
 	"\amachine\x18\x01 \x01(\v2\x15.baepo.api.v1.MachineR\amachine\"4\n" +
 	"\x13MachineStartRequest\x12\x1d\n" +

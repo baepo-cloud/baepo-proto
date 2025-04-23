@@ -3,6 +3,7 @@ syntax = "proto3";
 package baepo.node.v1;
 
 import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
 
 option go_package = "github.com/baepo-cloud/baepo-proto/go/baepo/node/v1";
 
@@ -39,6 +40,18 @@ message Machine {
   string machine_id = 1;
   MachineState state = 2;
   MachineDesiredState desired_state = 3;
+}
+
+message MachineEvent {
+  string machine_id = 1;
+  MachineState state = 2;
+  MachineDesiredState desired_state = 3;
+  optional google.protobuf.Timestamp started_at = 4;
+  optional google.protobuf.Timestamp expires_at = 5;
+  optional google.protobuf.Timestamp terminated_at = 6;
+  optional MachineTerminationCause termination_cause = 7;
+  optional string termination_details = 8;
+  google.protobuf.Timestamp timestamp = 9;
 }
 
 enum MachineState {

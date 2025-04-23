@@ -58,10 +58,9 @@ message MachineFindByIdResponse {
 message MachineCreateRequest {
   string workspace_id = 1;
   optional string name = 2;
-  optional uint32 timeout = 3;
-  baepo.node.v1.MachineSpec spec = 4;
-  map<string, string> metadata = 5;
-  bool start = 6;
+  baepo.node.v1.MachineSpec spec = 3;
+  map<string, string> metadata = 4;
+  bool start = 5;
 }
 
 message MachineCreateResponse {
