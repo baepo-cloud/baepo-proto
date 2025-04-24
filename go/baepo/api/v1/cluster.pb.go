@@ -4,7 +4,7 @@
 // 	protoc        (unknown)
 // source: baepo/api/v1/cluster.proto
 
-package v1
+package apiv1pb
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -424,7 +424,7 @@ const file_baepo_api_v1_cluster_proto_rawDesc = "" +
 	"\x0eClusterService\x12K\n" +
 	"\x04List\x12 .baepo.api.v1.ClusterListRequest\x1a!.baepo.api.v1.ClusterListResponse\x12Q\n" +
 	"\x06Create\x12\".baepo.api.v1.ClusterCreateRequest\x1a#.baepo.api.v1.ClusterCreateResponse\x12Q\n" +
-	"\x06Delete\x12\".baepo.api.v1.ClusterDeleteRequest\x1a#.baepo.api.v1.ClusterDeleteResponseB4Z2github.com/baepo-cloud/baepo-proto/go/baepo/api/v1b\x06proto3"
+	"\x06Delete\x12\".baepo.api.v1.ClusterDeleteRequest\x1a#.baepo.api.v1.ClusterDeleteResponseB<Z:github.com/baepo-cloud/baepo-proto/go/baepo/api/v1;apiv1pbb\x06proto3"
 
 var (
 	file_baepo_api_v1_cluster_proto_rawDescOnce sync.Once

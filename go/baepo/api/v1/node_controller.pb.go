@@ -4,10 +4,10 @@
 // 	protoc        (unknown)
 // source: baepo/api/v1/node_controller.proto
 
-package v1
+package apiv1pb
 
 import (
-	v1 "github.com/baepo-cloud/baepo-proto/go/baepo/node/v1"
+	v1 "github.com/baepo-cloud/baepo-proto/go/baepo/core/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	_ "google.golang.org/protobuf/types/known/timestamppb"
@@ -359,7 +359,7 @@ func (*NodeControllerServerEvent_Ping) Descriptor() ([]byte, []int) {
 type NodeControllerServerEvent_UpdateMachineDesiredState struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	MachineId     string                 `protobuf:"bytes,1,opt,name=machine_id,json=machineId,proto3" json:"machine_id,omitempty"`
-	DesiredState  v1.MachineDesiredState `protobuf:"varint,2,opt,name=desired_state,json=desiredState,proto3,enum=baepo.node.v1.MachineDesiredState" json:"desired_state,omitempty"`
+	DesiredState  v1.MachineDesiredState `protobuf:"varint,2,opt,name=desired_state,json=desiredState,proto3,enum=baepo.core.v1.MachineDesiredState" json:"desired_state,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -411,7 +411,7 @@ func (x *NodeControllerServerEvent_UpdateMachineDesiredState) GetDesiredState() 
 type NodeControllerServerEvent_MachineSpec struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	MachineId     string                 `protobuf:"bytes,1,opt,name=machine_id,json=machineId,proto3" json:"machine_id,omitempty"`
-	DesiredState  v1.MachineDesiredState `protobuf:"varint,2,opt,name=desired_state,json=desiredState,proto3,enum=baepo.node.v1.MachineDesiredState" json:"desired_state,omitempty"`
+	DesiredState  v1.MachineDesiredState `protobuf:"varint,2,opt,name=desired_state,json=desiredState,proto3,enum=baepo.core.v1.MachineDesiredState" json:"desired_state,omitempty"`
 	Spec          *v1.MachineSpec        `protobuf:"bytes,3,opt,name=spec,proto3" json:"spec,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -632,7 +632,7 @@ var File_baepo_api_v1_node_controller_proto protoreflect.FileDescriptor
 
 const file_baepo_api_v1_node_controller_proto_rawDesc = "" +
 	"\n" +
-	"\"baepo/api/v1/node_controller.proto\x12\fbaepo.api.v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bbaepo/node/v1/machine.proto\"\xc3\b\n" +
+	"\"baepo/api/v1/node_controller.proto\x12\fbaepo.api.v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bbaepo/core/v1/machine.proto\"\xc3\b\n" +
 	"\x19NodeControllerServerEvent\x12\x81\x01\n" +
 	"\x1cregistration_completed_event\x18\x01 \x01(\v2=.baepo.api.v1.NodeControllerServerEvent.RegistrationCompletedH\x00R\x1aregistrationCompletedEvent\x12M\n" +
 	"\n" +
@@ -653,18 +653,18 @@ const file_baepo_api_v1_node_controller_proto_rawDesc = "" +
 	"\x19UpdateMachineDesiredState\x12\x1d\n" +
 	"\n" +
 	"machine_id\x18\x01 \x01(\tR\tmachineId\x12G\n" +
-	"\rdesired_state\x18\x02 \x01(\x0e2\".baepo.node.v1.MachineDesiredStateR\fdesiredState\x1a\xa5\x01\n" +
+	"\rdesired_state\x18\x02 \x01(\x0e2\".baepo.core.v1.MachineDesiredStateR\fdesiredState\x1a\xa5\x01\n" +
 	"\vMachineSpec\x12\x1d\n" +
 	"\n" +
 	"machine_id\x18\x01 \x01(\tR\tmachineId\x12G\n" +
-	"\rdesired_state\x18\x02 \x01(\x0e2\".baepo.node.v1.MachineDesiredStateR\fdesiredState\x12.\n" +
-	"\x04spec\x18\x03 \x01(\v2\x1a.baepo.node.v1.MachineSpecR\x04specB\a\n" +
+	"\rdesired_state\x18\x02 \x01(\x0e2\".baepo.core.v1.MachineDesiredStateR\fdesiredState\x12.\n" +
+	"\x04spec\x18\x03 \x01(\v2\x1a.baepo.core.v1.MachineSpecR\x04specB\a\n" +
 	"\x05event\"\xf2\x05\n" +
 	"\x19NodeControllerClientEvent\x12Y\n" +
 	"\x0eregister_event\x18\x01 \x01(\v20.baepo.api.v1.NodeControllerClientEvent.RegisterH\x00R\rregisterEvent\x12P\n" +
 	"\vstats_event\x18\x02 \x01(\v2-.baepo.api.v1.NodeControllerClientEvent.StatsH\x00R\n" +
 	"statsEvent\x12B\n" +
-	"\rmachine_event\x18\x03 \x01(\v2\x1b.baepo.node.v1.MachineEventH\x00R\fmachineEvent\x1a\xb7\x02\n" +
+	"\rmachine_event\x18\x03 \x01(\v2\x1b.baepo.core.v1.MachineEventH\x00R\fmachineEvent\x1a\xb7\x02\n" +
 	"\bRegister\x12\x1d\n" +
 	"\n" +
 	"cluster_id\x18\x01 \x01(\tR\tclusterId\x12'\n" +
@@ -684,7 +684,7 @@ const file_baepo_api_v1_node_controller_proto_rawDesc = "" +
 	"\tcpu_count\x18\x04 \x01(\rR\bcpuCountB\a\n" +
 	"\x05event2w\n" +
 	"\x15NodeControllerService\x12^\n" +
-	"\x06Events\x12'.baepo.api.v1.NodeControllerClientEvent\x1a'.baepo.api.v1.NodeControllerServerEvent(\x010\x01B4Z2github.com/baepo-cloud/baepo-proto/go/baepo/api/v1b\x06proto3"
+	"\x06Events\x12'.baepo.api.v1.NodeControllerClientEvent\x1a'.baepo.api.v1.NodeControllerServerEvent(\x010\x01B<Z:github.com/baepo-cloud/baepo-proto/go/baepo/api/v1;apiv1pbb\x06proto3"
 
 var (
 	file_baepo_api_v1_node_controller_proto_rawDescOnce sync.Once
@@ -708,9 +708,9 @@ var file_baepo_api_v1_node_controller_proto_goTypes = []any{
 	(*NodeControllerServerEvent_MachineSpec)(nil),               // 5: baepo.api.v1.NodeControllerServerEvent.MachineSpec
 	(*NodeControllerClientEvent_Register)(nil),                  // 6: baepo.api.v1.NodeControllerClientEvent.Register
 	(*NodeControllerClientEvent_Stats)(nil),                     // 7: baepo.api.v1.NodeControllerClientEvent.Stats
-	(*v1.MachineEvent)(nil),                                     // 8: baepo.node.v1.MachineEvent
-	(v1.MachineDesiredState)(0),                                 // 9: baepo.node.v1.MachineDesiredState
-	(*v1.MachineSpec)(nil),                                      // 10: baepo.node.v1.MachineSpec
+	(*v1.MachineEvent)(nil),                                     // 8: baepo.core.v1.MachineEvent
+	(v1.MachineDesiredState)(0),                                 // 9: baepo.core.v1.MachineDesiredState
+	(*v1.MachineSpec)(nil),                                      // 10: baepo.core.v1.MachineSpec
 }
 var file_baepo_api_v1_node_controller_proto_depIdxs = []int32{
 	2,  // 0: baepo.api.v1.NodeControllerServerEvent.registration_completed_event:type_name -> baepo.api.v1.NodeControllerServerEvent.RegistrationCompleted
@@ -719,11 +719,11 @@ var file_baepo_api_v1_node_controller_proto_depIdxs = []int32{
 	4,  // 3: baepo.api.v1.NodeControllerServerEvent.update_machine_desired_state_event:type_name -> baepo.api.v1.NodeControllerServerEvent.UpdateMachineDesiredState
 	6,  // 4: baepo.api.v1.NodeControllerClientEvent.register_event:type_name -> baepo.api.v1.NodeControllerClientEvent.Register
 	7,  // 5: baepo.api.v1.NodeControllerClientEvent.stats_event:type_name -> baepo.api.v1.NodeControllerClientEvent.Stats
-	8,  // 6: baepo.api.v1.NodeControllerClientEvent.machine_event:type_name -> baepo.node.v1.MachineEvent
+	8,  // 6: baepo.api.v1.NodeControllerClientEvent.machine_event:type_name -> baepo.core.v1.MachineEvent
 	5,  // 7: baepo.api.v1.NodeControllerServerEvent.RegistrationCompleted.expected_machines:type_name -> baepo.api.v1.NodeControllerServerEvent.MachineSpec
-	9,  // 8: baepo.api.v1.NodeControllerServerEvent.UpdateMachineDesiredState.desired_state:type_name -> baepo.node.v1.MachineDesiredState
-	9,  // 9: baepo.api.v1.NodeControllerServerEvent.MachineSpec.desired_state:type_name -> baepo.node.v1.MachineDesiredState
-	10, // 10: baepo.api.v1.NodeControllerServerEvent.MachineSpec.spec:type_name -> baepo.node.v1.MachineSpec
+	9,  // 8: baepo.api.v1.NodeControllerServerEvent.UpdateMachineDesiredState.desired_state:type_name -> baepo.core.v1.MachineDesiredState
+	9,  // 9: baepo.api.v1.NodeControllerServerEvent.MachineSpec.desired_state:type_name -> baepo.core.v1.MachineDesiredState
+	10, // 10: baepo.api.v1.NodeControllerServerEvent.MachineSpec.spec:type_name -> baepo.core.v1.MachineSpec
 	7,  // 11: baepo.api.v1.NodeControllerClientEvent.Register.stats:type_name -> baepo.api.v1.NodeControllerClientEvent.Stats
 	1,  // 12: baepo.api.v1.NodeControllerService.Events:input_type -> baepo.api.v1.NodeControllerClientEvent
 	0,  // 13: baepo.api.v1.NodeControllerService.Events:output_type -> baepo.api.v1.NodeControllerServerEvent

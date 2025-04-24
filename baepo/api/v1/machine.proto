@@ -4,9 +4,9 @@ package baepo.api.v1;
 
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
-import "baepo/node/v1/machine.proto";
+import "baepo/core/v1/machine.proto";
 
-option go_package = "github.com/baepo-cloud/baepo-proto/go/baepo/api/v1";
+option go_package = "github.com/baepo-cloud/baepo-proto/go/baepo/api/v1;apiv1pb";
 
 service MachineService {
   rpc List(MachineListRequest) returns (MachineListResponse);
@@ -23,15 +23,14 @@ service MachineService {
 message Machine {
   string id = 1;
   optional string name = 2;
-  baepo.node.v1.MachineState state = 3;
-  baepo.node.v1.MachineState desired_state = 16;
+  baepo.core.v1.MachineState state = 3;
   optional string node_id = 4;
-  baepo.node.v1.MachineSpec spec = 5;
-  optional uint64 timeout = 6;
+  baepo.core.v1.MachineSpec spec = 5;
+  baepo.core.v1.MachineState desired_state = 6;
   optional google.protobuf.Timestamp started_at = 7;
   optional google.protobuf.Timestamp expires_at = 8;
   optional google.protobuf.Timestamp terminated_at = 9;
-  optional baepo.node.v1.MachineTerminationCause termination_cause = 10;
+  optional baepo.core.v1.MachineTerminationCause termination_cause = 10;
   optional string termination_details = 11;
   map<string, string> metadata = 12;
   google.protobuf.Timestamp created_at = 13;
@@ -58,7 +57,7 @@ message MachineFindByIdResponse {
 message MachineCreateRequest {
   string workspace_id = 1;
   optional string name = 2;
-  baepo.node.v1.MachineSpec spec = 3;
+  baepo.core.v1.MachineSpec spec = 3;
   map<string, string> metadata = 4;
   bool start = 5;
 }

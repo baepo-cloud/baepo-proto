@@ -2,7 +2,7 @@
 //
 // Source: baepo/node/v1/node.proto
 
-package v1connect
+package nodev1pbconnect
 
 import (
 	connect "connectrpc.com/connect"
@@ -38,20 +38,12 @@ const (
 	NodeServiceListMachinesProcedure = "/baepo.node.v1.NodeService/ListMachines"
 	// NodeServiceGetMachineProcedure is the fully-qualified name of the NodeService's GetMachine RPC.
 	NodeServiceGetMachineProcedure = "/baepo.node.v1.NodeService/GetMachine"
-	// NodeServiceCreateMachineProcedure is the fully-qualified name of the NodeService's CreateMachine
-	// RPC.
-	NodeServiceCreateMachineProcedure = "/baepo.node.v1.NodeService/CreateMachine"
-	// NodeServiceUpdateMachineDesiredStateProcedure is the fully-qualified name of the NodeService's
-	// UpdateMachineDesiredState RPC.
-	NodeServiceUpdateMachineDesiredStateProcedure = "/baepo.node.v1.NodeService/UpdateMachineDesiredState"
 )
 
 // NodeServiceClient is a client for the baepo.node.v1.NodeService service.
 type NodeServiceClient interface {
 	ListMachines(context.Context, *connect.Request[v1.NodeListMachinesRequest]) (*connect.Response[v1.NodeListMachinesResponse], error)
 	GetMachine(context.Context, *connect.Request[v1.NodeGetMachineRequest]) (*connect.Response[v1.NodeGetMachineResponse], error)
-	CreateMachine(context.Context, *connect.Request[v1.NodeCreateMachineRequest]) (*connect.Response[v1.NodeCreateMachineResponse], error)
-	UpdateMachineDesiredState(context.Context, *connect.Request[v1.NodeUpdateMachineDesiredStateRequest]) (*connect.Response[v1.NodeUpdateMachineDesiredStateResponse], error)
 }
 
 // NewNodeServiceClient constructs a client for the baepo.node.v1.NodeService service. By default,
@@ -77,27 +69,13 @@ func NewNodeServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 			connect.WithSchema(nodeServiceMethods.ByName("GetMachine")),
 			connect.WithClientOptions(opts...),
 		),
-		createMachine: connect.NewClient[v1.NodeCreateMachineRequest, v1.NodeCreateMachineResponse](
-			httpClient,
-			baseURL+NodeServiceCreateMachineProcedure,
-			connect.WithSchema(nodeServiceMethods.ByName("CreateMachine")),
-			connect.WithClientOptions(opts...),
-		),
-		updateMachineDesiredState: connect.NewClient[v1.NodeUpdateMachineDesiredStateRequest, v1.NodeUpdateMachineDesiredStateResponse](
-			httpClient,
-			baseURL+NodeServiceUpdateMachineDesiredStateProcedure,
-			connect.WithSchema(nodeServiceMethods.ByName("UpdateMachineDesiredState")),
-			connect.WithClientOptions(opts...),
-		),
 	}
 }
 
 // nodeServiceClient implements NodeServiceClient.
 type nodeServiceClient struct {
-	listMachines              *connect.Client[v1.NodeListMachinesRequest, v1.NodeListMachinesResponse]
-	getMachine                *connect.Client[v1.NodeGetMachineRequest, v1.NodeGetMachineResponse]
-	createMachine             *connect.Client[v1.NodeCreateMachineRequest, v1.NodeCreateMachineResponse]
-	updateMachineDesiredState *connect.Client[v1.NodeUpdateMachineDesiredStateRequest, v1.NodeUpdateMachineDesiredStateResponse]
+	listMachines *connect.Client[v1.NodeListMachinesRequest, v1.NodeListMachinesResponse]
+	getMachine   *connect.Client[v1.NodeGetMachineRequest, v1.NodeGetMachineResponse]
 }
 
 // ListMachines calls baepo.node.v1.NodeService.ListMachines.
@@ -110,22 +88,10 @@ func (c *nodeServiceClient) GetMachine(ctx context.Context, req *connect.Request
 	return c.getMachine.CallUnary(ctx, req)
 }
 
-// CreateMachine calls baepo.node.v1.NodeService.CreateMachine.
-func (c *nodeServiceClient) CreateMachine(ctx context.Context, req *connect.Request[v1.NodeCreateMachineRequest]) (*connect.Response[v1.NodeCreateMachineResponse], error) {
-	return c.createMachine.CallUnary(ctx, req)
-}
-
-// UpdateMachineDesiredState calls baepo.node.v1.NodeService.UpdateMachineDesiredState.
-func (c *nodeServiceClient) UpdateMachineDesiredState(ctx context.Context, req *connect.Request[v1.NodeUpdateMachineDesiredStateRequest]) (*connect.Response[v1.NodeUpdateMachineDesiredStateResponse], error) {
-	return c.updateMachineDesiredState.CallUnary(ctx, req)
-}
-
 // NodeServiceHandler is an implementation of the baepo.node.v1.NodeService service.
 type NodeServiceHandler interface {
 	ListMachines(context.Context, *connect.Request[v1.NodeListMachinesRequest]) (*connect.Response[v1.NodeListMachinesResponse], error)
 	GetMachine(context.Context, *connect.Request[v1.NodeGetMachineRequest]) (*connect.Response[v1.NodeGetMachineResponse], error)
-	CreateMachine(context.Context, *connect.Request[v1.NodeCreateMachineRequest]) (*connect.Response[v1.NodeCreateMachineResponse], error)
-	UpdateMachineDesiredState(context.Context, *connect.Request[v1.NodeUpdateMachineDesiredStateRequest]) (*connect.Response[v1.NodeUpdateMachineDesiredStateResponse], error)
 }
 
 // NewNodeServiceHandler builds an HTTP handler from the service implementation. It returns the path
@@ -147,28 +113,12 @@ func NewNodeServiceHandler(svc NodeServiceHandler, opts ...connect.HandlerOption
 		connect.WithSchema(nodeServiceMethods.ByName("GetMachine")),
 		connect.WithHandlerOptions(opts...),
 	)
-	nodeServiceCreateMachineHandler := connect.NewUnaryHandler(
-		NodeServiceCreateMachineProcedure,
-		svc.CreateMachine,
-		connect.WithSchema(nodeServiceMethods.ByName("CreateMachine")),
-		connect.WithHandlerOptions(opts...),
-	)
-	nodeServiceUpdateMachineDesiredStateHandler := connect.NewUnaryHandler(
-		NodeServiceUpdateMachineDesiredStateProcedure,
-		svc.UpdateMachineDesiredState,
-		connect.WithSchema(nodeServiceMethods.ByName("UpdateMachineDesiredState")),
-		connect.WithHandlerOptions(opts...),
-	)
 	return "/baepo.node.v1.NodeService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case NodeServiceListMachinesProcedure:
 			nodeServiceListMachinesHandler.ServeHTTP(w, r)
 		case NodeServiceGetMachineProcedure:
 			nodeServiceGetMachineHandler.ServeHTTP(w, r)
-		case NodeServiceCreateMachineProcedure:
-			nodeServiceCreateMachineHandler.ServeHTTP(w, r)
-		case NodeServiceUpdateMachineDesiredStateProcedure:
-			nodeServiceUpdateMachineDesiredStateHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -184,12 +134,4 @@ func (UnimplementedNodeServiceHandler) ListMachines(context.Context, *connect.Re
 
 func (UnimplementedNodeServiceHandler) GetMachine(context.Context, *connect.Request[v1.NodeGetMachineRequest]) (*connect.Response[v1.NodeGetMachineResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("baepo.node.v1.NodeService.GetMachine is not implemented"))
-}
-
-func (UnimplementedNodeServiceHandler) CreateMachine(context.Context, *connect.Request[v1.NodeCreateMachineRequest]) (*connect.Response[v1.NodeCreateMachineResponse], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("baepo.node.v1.NodeService.CreateMachine is not implemented"))
-}
-
-func (UnimplementedNodeServiceHandler) UpdateMachineDesiredState(context.Context, *connect.Request[v1.NodeUpdateMachineDesiredStateRequest]) (*connect.Response[v1.NodeUpdateMachineDesiredStateResponse], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("baepo.node.v1.NodeService.UpdateMachineDesiredState is not implemented"))
 }

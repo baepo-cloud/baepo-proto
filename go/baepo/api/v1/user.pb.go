@@ -4,7 +4,7 @@
 // 	protoc        (unknown)
 // source: baepo/api/v1/user.proto
 
-package v1
+package apiv1pb
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -177,7 +177,7 @@ const file_baepo_api_v1_user_proto_rawDesc = "" +
 	"\x0eUserMeResponse\x12&\n" +
 	"\x04user\x18\x01 \x01(\v2\x12.baepo.api.v1.UserR\x04user2I\n" +
 	"\vUserService\x12:\n" +
-	"\x02Me\x12\x16.google.protobuf.Empty\x1a\x1c.baepo.api.v1.UserMeResponseB4Z2github.com/baepo-cloud/baepo-proto/go/baepo/api/v1b\x06proto3"
+	"\x02Me\x12\x16.google.protobuf.Empty\x1a\x1c.baepo.api.v1.UserMeResponseB<Z:github.com/baepo-cloud/baepo-proto/go/baepo/api/v1;apiv1pbb\x06proto3"
 
 var (
 	file_baepo_api_v1_user_proto_rawDescOnce sync.Once

@@ -4,7 +4,7 @@
 // 	protoc        (unknown)
 // source: baepo/api/v1/auth.proto
 
-package v1
+package apiv1pb
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -271,7 +271,7 @@ const file_baepo_api_v1_auth_proto_rawDesc = "" +
 	"secret_key\x18\x02 \x01(\tR\tsecretKey2\xaa\x01\n" +
 	"\vAuthService\x12Q\n" +
 	"\bRegister\x12!.baepo.api.v1.AuthRegisterRequest\x1a\".baepo.api.v1.AuthRegisterResponse\x12H\n" +
-	"\x05Login\x12\x1e.baepo.api.v1.AuthLoginRequest\x1a\x1f.baepo.api.v1.AuthLoginResponseB4Z2github.com/baepo-cloud/baepo-proto/go/baepo/api/v1b\x06proto3"
+	"\x05Login\x12\x1e.baepo.api.v1.AuthLoginRequest\x1a\x1f.baepo.api.v1.AuthLoginResponseB<Z:github.com/baepo-cloud/baepo-proto/go/baepo/api/v1;apiv1pbb\x06proto3"
 
 var (
 	file_baepo_api_v1_auth_proto_rawDescOnce sync.Once

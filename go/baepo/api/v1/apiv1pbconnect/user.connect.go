@@ -2,7 +2,7 @@
 //
 // Source: baepo/api/v1/user.proto
 
-package v1connect
+package apiv1pbconnect
 
 import (
 	connect "connectrpc.com/connect"
