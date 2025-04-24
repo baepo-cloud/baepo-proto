@@ -4,12 +4,38 @@
 
 import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv1";
 import type { Message } from "@bufbuild/protobuf";
-import type { Machine } from "../../core/v1/machine_pb.js";
+import type { MachineDesiredState, MachineState } from "../../core/v1/machine_pb.js";
 
 /**
  * Describes the file baepo/node/v1/node.proto.
  */
 export declare const file_baepo_node_v1_node: GenFile;
+
+/**
+ * @generated from message baepo.node.v1.Machine
+ */
+export declare type Machine = Message<"baepo.node.v1.Machine"> & {
+  /**
+   * @generated from field: string machine_id = 1;
+   */
+  machineId: string;
+
+  /**
+   * @generated from field: baepo.core.v1.MachineState state = 2;
+   */
+  state: MachineState;
+
+  /**
+   * @generated from field: baepo.core.v1.MachineDesiredState desired_state = 3;
+   */
+  desiredState: MachineDesiredState;
+};
+
+/**
+ * Describes the message baepo.node.v1.Machine.
+ * Use `create(MachineSchema)` to create a new message.
+ */
+export declare const MachineSchema: GenMessage<Machine>;
 
 /**
  * @generated from message baepo.node.v1.NodeListMachinesRequest
@@ -28,7 +54,7 @@ export declare const NodeListMachinesRequestSchema: GenMessage<NodeListMachinesR
  */
 export declare type NodeListMachinesResponse = Message<"baepo.node.v1.NodeListMachinesResponse"> & {
   /**
-   * @generated from field: repeated baepo.core.v1.Machine machines = 1;
+   * @generated from field: repeated baepo.node.v1.Machine machines = 1;
    */
   machines: Machine[];
 };
@@ -60,7 +86,7 @@ export declare const NodeGetMachineRequestSchema: GenMessage<NodeGetMachineReque
  */
 export declare type NodeGetMachineResponse = Message<"baepo.node.v1.NodeGetMachineResponse"> & {
   /**
-   * @generated from field: baepo.core.v1.Machine machine = 1;
+   * @generated from field: baepo.node.v1.Machine machine = 1;
    */
   machine?: Machine;
 };

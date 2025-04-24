@@ -36,12 +36,6 @@ message MachineContainerHealthcheckSpec {
   }
 }
 
-message Machine {
-  string machine_id = 1;
-  MachineState state = 2;
-  MachineDesiredState desired_state = 3;
-}
-
 message MachineEvent {
   google.protobuf.Timestamp timestamp = 1;
   string machine_id = 2;

@@ -10,35 +10,42 @@ import { file_baepo_core_v1_machine } from "../../core/v1/machine_pb.js";
  * Describes the file baepo/node/v1/node.proto.
  */
 export const file_baepo_node_v1_node = /*@__PURE__*/
-  fileDesc("ChhiYWVwby9ub2RlL3YxL25vZGUucHJvdG8SDWJhZXBvLm5vZGUudjEiGQoXTm9kZUxpc3RNYWNoaW5lc1JlcXVlc3QiRAoYTm9kZUxpc3RNYWNoaW5lc1Jlc3BvbnNlEigKCG1hY2hpbmVzGAEgAygLMhYuYmFlcG8uY29yZS52MS5NYWNoaW5lIisKFU5vZGVHZXRNYWNoaW5lUmVxdWVzdBISCgptYWNoaW5lX2lkGAEgASgJIkEKFk5vZGVHZXRNYWNoaW5lUmVzcG9uc2USJwoHbWFjaGluZRgBIAEoCzIWLmJhZXBvLmNvcmUudjEuTWFjaGluZTLJAQoLTm9kZVNlcnZpY2USXwoMTGlzdE1hY2hpbmVzEiYuYmFlcG8ubm9kZS52MS5Ob2RlTGlzdE1hY2hpbmVzUmVxdWVzdBonLmJhZXBvLm5vZGUudjEuTm9kZUxpc3RNYWNoaW5lc1Jlc3BvbnNlElkKCkdldE1hY2hpbmUSJC5iYWVwby5ub2RlLnYxLk5vZGVHZXRNYWNoaW5lUmVxdWVzdBolLmJhZXBvLm5vZGUudjEuTm9kZUdldE1hY2hpbmVSZXNwb25zZUI+WjxnaXRodWIuY29tL2JhZXBvLWNsb3VkL2JhZXBvLXByb3RvL2dvL2JhZXBvL25vZGUvdjE7bm9kZXYxcGJiBnByb3RvMw", [file_google_protobuf_empty, file_baepo_core_v1_machine]);
+  fileDesc("ChhiYWVwby9ub2RlL3YxL25vZGUucHJvdG8SDWJhZXBvLm5vZGUudjEihAEKB01hY2hpbmUSEgoKbWFjaGluZV9pZBgBIAEoCRIqCgVzdGF0ZRgCIAEoDjIbLmJhZXBvLmNvcmUudjEuTWFjaGluZVN0YXRlEjkKDWRlc2lyZWRfc3RhdGUYAyABKA4yIi5iYWVwby5jb3JlLnYxLk1hY2hpbmVEZXNpcmVkU3RhdGUiGQoXTm9kZUxpc3RNYWNoaW5lc1JlcXVlc3QiRAoYTm9kZUxpc3RNYWNoaW5lc1Jlc3BvbnNlEigKCG1hY2hpbmVzGAEgAygLMhYuYmFlcG8ubm9kZS52MS5NYWNoaW5lIisKFU5vZGVHZXRNYWNoaW5lUmVxdWVzdBISCgptYWNoaW5lX2lkGAEgASgJIkEKFk5vZGVHZXRNYWNoaW5lUmVzcG9uc2USJwoHbWFjaGluZRgBIAEoCzIWLmJhZXBvLm5vZGUudjEuTWFjaGluZTLJAQoLTm9kZVNlcnZpY2USXwoMTGlzdE1hY2hpbmVzEiYuYmFlcG8ubm9kZS52MS5Ob2RlTGlzdE1hY2hpbmVzUmVxdWVzdBonLmJhZXBvLm5vZGUudjEuTm9kZUxpc3RNYWNoaW5lc1Jlc3BvbnNlElkKCkdldE1hY2hpbmUSJC5iYWVwby5ub2RlLnYxLk5vZGVHZXRNYWNoaW5lUmVxdWVzdBolLmJhZXBvLm5vZGUudjEuTm9kZUdldE1hY2hpbmVSZXNwb25zZUI+WjxnaXRodWIuY29tL2JhZXBvLWNsb3VkL2JhZXBvLXByb3RvL2dvL2JhZXBvL25vZGUvdjE7bm9kZXYxcGJiBnByb3RvMw", [file_google_protobuf_empty, file_baepo_core_v1_machine]);
+
+/**
+ * Describes the message baepo.node.v1.Machine.
+ * Use `create(MachineSchema)` to create a new message.
+ */
+export const MachineSchema = /*@__PURE__*/
+  messageDesc(file_baepo_node_v1_node, 0);
 
 /**
  * Describes the message baepo.node.v1.NodeListMachinesRequest.
  * Use `create(NodeListMachinesRequestSchema)` to create a new message.
  */
 export const NodeListMachinesRequestSchema = /*@__PURE__*/
-  messageDesc(file_baepo_node_v1_node, 0);
+  messageDesc(file_baepo_node_v1_node, 1);
 
 /**
  * Describes the message baepo.node.v1.NodeListMachinesResponse.
  * Use `create(NodeListMachinesResponseSchema)` to create a new message.
  */
 export const NodeListMachinesResponseSchema = /*@__PURE__*/
-  messageDesc(file_baepo_node_v1_node, 1);
+  messageDesc(file_baepo_node_v1_node, 2);
 
 /**
  * Describes the message baepo.node.v1.NodeGetMachineRequest.
  * Use `create(NodeGetMachineRequestSchema)` to create a new message.
  */
 export const NodeGetMachineRequestSchema = /*@__PURE__*/
-  messageDesc(file_baepo_node_v1_node, 2);
+  messageDesc(file_baepo_node_v1_node, 3);
 
 /**
  * Describes the message baepo.node.v1.NodeGetMachineResponse.
  * Use `create(NodeGetMachineResponseSchema)` to create a new message.
  */
 export const NodeGetMachineResponseSchema = /*@__PURE__*/
-  messageDesc(file_baepo_node_v1_node, 3);
+  messageDesc(file_baepo_node_v1_node, 4);
 
 /**
  * @generated from service baepo.node.v1.NodeService

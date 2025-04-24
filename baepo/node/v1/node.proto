@@ -13,11 +13,17 @@ service NodeService {
   rpc GetMachine(NodeGetMachineRequest) returns (NodeGetMachineResponse);
 }
 
+message Machine {
+  string machine_id = 1;
+  baepo.core.v1.MachineState state = 2;
+  baepo.core.v1.MachineDesiredState desired_state = 3;
+}
+
 message NodeListMachinesRequest {
 }
 
 message NodeListMachinesResponse {
-  repeated baepo.core.v1.Machine machines = 1;
+  repeated Machine machines = 1;
 }
 
 message NodeGetMachineRequest {
@@ -25,5 +31,5 @@ message NodeGetMachineRequest {
 }
 
 message NodeGetMachineResponse {
-  baepo.core.v1.Machine machine = 1;
+  Machine machine = 1;
 }

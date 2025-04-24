@@ -137,32 +137,6 @@ export declare type MachineContainerHealthcheckSpec_HttpHealthcheckSpec = Messag
 export declare const MachineContainerHealthcheckSpec_HttpHealthcheckSpecSchema: GenMessage<MachineContainerHealthcheckSpec_HttpHealthcheckSpec>;
 
 /**
- * @generated from message baepo.core.v1.Machine
- */
-export declare type Machine = Message<"baepo.core.v1.Machine"> & {
-  /**
-   * @generated from field: string machine_id = 1;
-   */
-  machineId: string;
-
-  /**
-   * @generated from field: baepo.core.v1.MachineState state = 2;
-   */
-  state: MachineState;
-
-  /**
-   * @generated from field: baepo.core.v1.MachineDesiredState desired_state = 3;
-   */
-  desiredState: MachineDesiredState;
-};
-
-/**
- * Describes the message baepo.core.v1.Machine.
- * Use `create(MachineSchema)` to create a new message.
- */
-export declare const MachineSchema: GenMessage<Machine>;
-
-/**
  * @generated from message baepo.core.v1.MachineEvent
  */
 export declare type MachineEvent = Message<"baepo.core.v1.MachineEvent"> & {

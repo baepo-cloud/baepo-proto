@@ -23,6 +23,66 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type Machine struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	MachineId     string                 `protobuf:"bytes,1,opt,name=machine_id,json=machineId,proto3" json:"machine_id,omitempty"`
+	State         v1.MachineState        `protobuf:"varint,2,opt,name=state,proto3,enum=baepo.core.v1.MachineState" json:"state,omitempty"`
+	DesiredState  v1.MachineDesiredState `protobuf:"varint,3,opt,name=desired_state,json=desiredState,proto3,enum=baepo.core.v1.MachineDesiredState" json:"desired_state,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Machine) Reset() {
+	*x = Machine{}
+	mi := &file_baepo_node_v1_node_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Machine) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Machine) ProtoMessage() {}
+
+func (x *Machine) ProtoReflect() protoreflect.Message {
+	mi := &file_baepo_node_v1_node_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Machine.ProtoReflect.Descriptor instead.
+func (*Machine) Descriptor() ([]byte, []int) {
+	return file_baepo_node_v1_node_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *Machine) GetMachineId() string {
+	if x != nil {
+		return x.MachineId
+	}
+	return ""
+}
+
+func (x *Machine) GetState() v1.MachineState {
+	if x != nil {
+		return x.State
+	}
+	return v1.MachineState(0)
+}
+
+func (x *Machine) GetDesiredState() v1.MachineDesiredState {
+	if x != nil {
+		return x.DesiredState
+	}
+	return v1.MachineDesiredState(0)
+}
+
 type NodeListMachinesRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	unknownFields protoimpl.UnknownFields
@@ -31,7 +91,7 @@ type NodeListMachinesRequest struct {
 
 func (x *NodeListMachinesRequest) Reset() {
 	*x = NodeListMachinesRequest{}
-	mi := &file_baepo_node_v1_node_proto_msgTypes[0]
+	mi := &file_baepo_node_v1_node_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -43,7 +103,7 @@ func (x *NodeListMachinesRequest) String() string {
 func (*NodeListMachinesRequest) ProtoMessage() {}
 
 func (x *NodeListMachinesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_baepo_node_v1_node_proto_msgTypes[0]
+	mi := &file_baepo_node_v1_node_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -56,19 +116,19 @@ func (x *NodeListMachinesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use NodeListMachinesRequest.ProtoReflect.Descriptor instead.
 func (*NodeListMachinesRequest) Descriptor() ([]byte, []int) {
-	return file_baepo_node_v1_node_proto_rawDescGZIP(), []int{0}
+	return file_baepo_node_v1_node_proto_rawDescGZIP(), []int{1}
 }
 
 type NodeListMachinesResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Machines      []*v1.Machine          `protobuf:"bytes,1,rep,name=machines,proto3" json:"machines,omitempty"`
+	Machines      []*Machine             `protobuf:"bytes,1,rep,name=machines,proto3" json:"machines,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *NodeListMachinesResponse) Reset() {
 	*x = NodeListMachinesResponse{}
-	mi := &file_baepo_node_v1_node_proto_msgTypes[1]
+	mi := &file_baepo_node_v1_node_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -80,7 +140,7 @@ func (x *NodeListMachinesResponse) String() string {
 func (*NodeListMachinesResponse) ProtoMessage() {}
 
 func (x *NodeListMachinesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_baepo_node_v1_node_proto_msgTypes[1]
+	mi := &file_baepo_node_v1_node_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -93,10 +153,10 @@ func (x *NodeListMachinesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use NodeListMachinesResponse.ProtoReflect.Descriptor instead.
 func (*NodeListMachinesResponse) Descriptor() ([]byte, []int) {
-	return file_baepo_node_v1_node_proto_rawDescGZIP(), []int{1}
+	return file_baepo_node_v1_node_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *NodeListMachinesResponse) GetMachines() []*v1.Machine {
+func (x *NodeListMachinesResponse) GetMachines() []*Machine {
 	if x != nil {
 		return x.Machines
 	}
@@ -112,7 +172,7 @@ type NodeGetMachineRequest struct {
 
 func (x *NodeGetMachineRequest) Reset() {
 	*x = NodeGetMachineRequest{}
-	mi := &file_baepo_node_v1_node_proto_msgTypes[2]
+	mi := &file_baepo_node_v1_node_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -124,7 +184,7 @@ func (x *NodeGetMachineRequest) String() string {
 func (*NodeGetMachineRequest) ProtoMessage() {}
 
 func (x *NodeGetMachineRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_baepo_node_v1_node_proto_msgTypes[2]
+	mi := &file_baepo_node_v1_node_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -137,7 +197,7 @@ func (x *NodeGetMachineRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use NodeGetMachineRequest.ProtoReflect.Descriptor instead.
 func (*NodeGetMachineRequest) Descriptor() ([]byte, []int) {
-	return file_baepo_node_v1_node_proto_rawDescGZIP(), []int{2}
+	return file_baepo_node_v1_node_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *NodeGetMachineRequest) GetMachineId() string {
@@ -149,14 +209,14 @@ func (x *NodeGetMachineRequest) GetMachineId() string {
 
 type NodeGetMachineResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Machine       *v1.Machine            `protobuf:"bytes,1,opt,name=machine,proto3" json:"machine,omitempty"`
+	Machine       *Machine               `protobuf:"bytes,1,opt,name=machine,proto3" json:"machine,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *NodeGetMachineResponse) Reset() {
 	*x = NodeGetMachineResponse{}
-	mi := &file_baepo_node_v1_node_proto_msgTypes[3]
+	mi := &file_baepo_node_v1_node_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -168,7 +228,7 @@ func (x *NodeGetMachineResponse) String() string {
 func (*NodeGetMachineResponse) ProtoMessage() {}
 
 func (x *NodeGetMachineResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_baepo_node_v1_node_proto_msgTypes[3]
+	mi := &file_baepo_node_v1_node_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -181,10 +241,10 @@ func (x *NodeGetMachineResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use NodeGetMachineResponse.ProtoReflect.Descriptor instead.
 func (*NodeGetMachineResponse) Descriptor() ([]byte, []int) {
-	return file_baepo_node_v1_node_proto_rawDescGZIP(), []int{3}
+	return file_baepo_node_v1_node_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *NodeGetMachineResponse) GetMachine() *v1.Machine {
+func (x *NodeGetMachineResponse) GetMachine() *Machine {
 	if x != nil {
 		return x.Machine
 	}
@@ -195,15 +255,20 @@ var File_baepo_node_v1_node_proto protoreflect.FileDescriptor
 
 const file_baepo_node_v1_node_proto_rawDesc = "" +
 	"\n" +
-	"\x18baepo/node/v1/node.proto\x12\rbaepo.node.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1bbaepo/core/v1/machine.proto\"\x19\n" +
+	"\x18baepo/node/v1/node.proto\x12\rbaepo.node.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1bbaepo/core/v1/machine.proto\"\xa4\x01\n" +
+	"\aMachine\x12\x1d\n" +
+	"\n" +
+	"machine_id\x18\x01 \x01(\tR\tmachineId\x121\n" +
+	"\x05state\x18\x02 \x01(\x0e2\x1b.baepo.core.v1.MachineStateR\x05state\x12G\n" +
+	"\rdesired_state\x18\x03 \x01(\x0e2\".baepo.core.v1.MachineDesiredStateR\fdesiredState\"\x19\n" +
 	"\x17NodeListMachinesRequest\"N\n" +
 	"\x18NodeListMachinesResponse\x122\n" +
-	"\bmachines\x18\x01 \x03(\v2\x16.baepo.core.v1.MachineR\bmachines\"6\n" +
+	"\bmachines\x18\x01 \x03(\v2\x16.baepo.node.v1.MachineR\bmachines\"6\n" +
 	"\x15NodeGetMachineRequest\x12\x1d\n" +
 	"\n" +
 	"machine_id\x18\x01 \x01(\tR\tmachineId\"J\n" +
 	"\x16NodeGetMachineResponse\x120\n" +
-	"\amachine\x18\x01 \x01(\v2\x16.baepo.core.v1.MachineR\amachine2\xc9\x01\n" +
+	"\amachine\x18\x01 \x01(\v2\x16.baepo.node.v1.MachineR\amachine2\xc9\x01\n" +
 	"\vNodeService\x12_\n" +
 	"\fListMachines\x12&.baepo.node.v1.NodeListMachinesRequest\x1a'.baepo.node.v1.NodeListMachinesResponse\x12Y\n" +
 	"\n" +
@@ -221,26 +286,30 @@ func file_baepo_node_v1_node_proto_rawDescGZIP() []byte {
 	return file_baepo_node_v1_node_proto_rawDescData
 }
 
-var file_baepo_node_v1_node_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_baepo_node_v1_node_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_baepo_node_v1_node_proto_goTypes = []any{
-	(*NodeListMachinesRequest)(nil),  // 0: baepo.node.v1.NodeListMachinesRequest
-	(*NodeListMachinesResponse)(nil), // 1: baepo.node.v1.NodeListMachinesResponse
-	(*NodeGetMachineRequest)(nil),    // 2: baepo.node.v1.NodeGetMachineRequest
-	(*NodeGetMachineResponse)(nil),   // 3: baepo.node.v1.NodeGetMachineResponse
-	(*v1.Machine)(nil),               // 4: baepo.core.v1.Machine
+	(*Machine)(nil),                  // 0: baepo.node.v1.Machine
+	(*NodeListMachinesRequest)(nil),  // 1: baepo.node.v1.NodeListMachinesRequest
+	(*NodeListMachinesResponse)(nil), // 2: baepo.node.v1.NodeListMachinesResponse
+	(*NodeGetMachineRequest)(nil),    // 3: baepo.node.v1.NodeGetMachineRequest
+	(*NodeGetMachineResponse)(nil),   // 4: baepo.node.v1.NodeGetMachineResponse
+	(v1.MachineState)(0),             // 5: baepo.core.v1.MachineState
+	(v1.MachineDesiredState)(0),      // 6: baepo.core.v1.MachineDesiredState
 }
 var file_baepo_node_v1_node_proto_depIdxs = []int32{
-	4, // 0: baepo.node.v1.NodeListMachinesResponse.machines:type_name -> baepo.core.v1.Machine
-	4, // 1: baepo.node.v1.NodeGetMachineResponse.machine:type_name -> baepo.core.v1.Machine
-	0, // 2: baepo.node.v1.NodeService.ListMachines:input_type -> baepo.node.v1.NodeListMachinesRequest
-	2, // 3: baepo.node.v1.NodeService.GetMachine:input_type -> baepo.node.v1.NodeGetMachineRequest
-	1, // 4: baepo.node.v1.NodeService.ListMachines:output_type -> baepo.node.v1.NodeListMachinesResponse
-	3, // 5: baepo.node.v1.NodeService.GetMachine:output_type -> baepo.node.v1.NodeGetMachineResponse
-	4, // [4:6] is the sub-list for method output_type
-	2, // [2:4] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	5, // 0: baepo.node.v1.Machine.state:type_name -> baepo.core.v1.MachineState
+	6, // 1: baepo.node.v1.Machine.desired_state:type_name -> baepo.core.v1.MachineDesiredState
+	0, // 2: baepo.node.v1.NodeListMachinesResponse.machines:type_name -> baepo.node.v1.Machine
+	0, // 3: baepo.node.v1.NodeGetMachineResponse.machine:type_name -> baepo.node.v1.Machine
+	1, // 4: baepo.node.v1.NodeService.ListMachines:input_type -> baepo.node.v1.NodeListMachinesRequest
+	3, // 5: baepo.node.v1.NodeService.GetMachine:input_type -> baepo.node.v1.NodeGetMachineRequest
+	2, // 6: baepo.node.v1.NodeService.ListMachines:output_type -> baepo.node.v1.NodeListMachinesResponse
+	4, // 7: baepo.node.v1.NodeService.GetMachine:output_type -> baepo.node.v1.NodeGetMachineResponse
+	6, // [6:8] is the sub-list for method output_type
+	4, // [4:6] is the sub-list for method input_type
+	4, // [4:4] is the sub-list for extension type_name
+	4, // [4:4] is the sub-list for extension extendee
+	0, // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_baepo_node_v1_node_proto_init() }
@@ -254,7 +323,7 @@ func file_baepo_node_v1_node_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_baepo_node_v1_node_proto_rawDesc), len(file_baepo_node_v1_node_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   4,
+			NumMessages:   5,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
