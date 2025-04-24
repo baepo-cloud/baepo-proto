@@ -4,7 +4,7 @@
 
 import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv1";
 import type { Message } from "@bufbuild/protobuf";
-import type { MachineSpec, MachineState, MachineTerminationCause } from "../../core/v1/machine_pb.js";
+import type { MachineDesiredState, MachineSpec, MachineState, MachineTerminationCause } from "../../core/v1/machine_pb.js";
 import type { Timestamp } from "@bufbuild/protobuf/wkt";
 
 /**
@@ -42,9 +42,9 @@ export declare type Machine = Message<"baepo.api.v1.Machine"> & {
   spec?: MachineSpec;
 
   /**
-   * @generated from field: baepo.core.v1.MachineState desired_state = 6;
+   * @generated from field: baepo.core.v1.MachineDesiredState desired_state = 6;
    */
-  desiredState: MachineState;
+  desiredState: MachineDesiredState;
 
   /**
    * @generated from field: optional google.protobuf.Timestamp started_at = 7;
