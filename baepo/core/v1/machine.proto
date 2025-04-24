@@ -43,15 +43,47 @@ message Machine {
 }
 
 message MachineEvent {
-  string machine_id = 1;
-  MachineState state = 2;
-  MachineDesiredState desired_state = 3;
-  optional google.protobuf.Timestamp started_at = 4;
-  optional google.protobuf.Timestamp expires_at = 5;
-  optional google.protobuf.Timestamp terminated_at = 6;
-  optional MachineTerminationCause termination_cause = 7;
-  optional string termination_details = 8;
-  google.protobuf.Timestamp timestamp = 9;
+  google.protobuf.Timestamp timestamp = 1;
+  string machine_id = 2;
+  oneof event {
+    StateChanged state_changed_event = 3;
+    Started started = 4;
+    Terminated terminated_event = 5;
+    DesiredStateChanged desired_state_changed_event = 6;
+    ReconciliationStarted reconciliation_started_event = 7;
+    ReconciliationCompleted reconciliation_completed_event = 8;
+    Healthcheck healthcheck_event = 9;
+  }
+
+  message StateChanged {
+    MachineState state = 1;
+  }
+
+  message Started {
+    optional google.protobuf.Timestamp expires_at = 1;
+  }
+
+  message Terminated {
+    MachineTerminationCause cause = 1;
+    optional string termination_details = 2;
+  }
+
+  message DesiredStateChanged {
+    MachineDesiredState desired_state = 1;
+  }
+
+  message ReconciliationStarted {
+    MachineDesiredState desired_state = 1;
+  }
+
+  message ReconciliationCompleted {
+    MachineDesiredState desired_state = 1;
+    optional string error = 2;
+  }
+
+  message Healthcheck {
+    optional string error = 1;
+  }
 }
 
 enum MachineState {

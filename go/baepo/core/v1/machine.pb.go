@@ -476,18 +476,21 @@ func (x *Machine) GetDesiredState() MachineDesiredState {
 }
 
 type MachineEvent struct {
-	state              protoimpl.MessageState   `protogen:"open.v1"`
-	MachineId          string                   `protobuf:"bytes,1,opt,name=machine_id,json=machineId,proto3" json:"machine_id,omitempty"`
-	State              MachineState             `protobuf:"varint,2,opt,name=state,proto3,enum=baepo.core.v1.MachineState" json:"state,omitempty"`
-	DesiredState       MachineDesiredState      `protobuf:"varint,3,opt,name=desired_state,json=desiredState,proto3,enum=baepo.core.v1.MachineDesiredState" json:"desired_state,omitempty"`
-	StartedAt          *timestamppb.Timestamp   `protobuf:"bytes,4,opt,name=started_at,json=startedAt,proto3,oneof" json:"started_at,omitempty"`
-	ExpiresAt          *timestamppb.Timestamp   `protobuf:"bytes,5,opt,name=expires_at,json=expiresAt,proto3,oneof" json:"expires_at,omitempty"`
-	TerminatedAt       *timestamppb.Timestamp   `protobuf:"bytes,6,opt,name=terminated_at,json=terminatedAt,proto3,oneof" json:"terminated_at,omitempty"`
-	TerminationCause   *MachineTerminationCause `protobuf:"varint,7,opt,name=termination_cause,json=terminationCause,proto3,enum=baepo.core.v1.MachineTerminationCause,oneof" json:"termination_cause,omitempty"`
-	TerminationDetails *string                  `protobuf:"bytes,8,opt,name=termination_details,json=terminationDetails,proto3,oneof" json:"termination_details,omitempty"`
-	Timestamp          *timestamppb.Timestamp   `protobuf:"bytes,9,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
-	unknownFields      protoimpl.UnknownFields
-	sizeCache          protoimpl.SizeCache
+	state     protoimpl.MessageState `protogen:"open.v1"`
+	Timestamp *timestamppb.Timestamp `protobuf:"bytes,1,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
+	MachineId string                 `protobuf:"bytes,2,opt,name=machine_id,json=machineId,proto3" json:"machine_id,omitempty"`
+	// Types that are valid to be assigned to Event:
+	//
+	//	*MachineEvent_StateChangedEvent
+	//	*MachineEvent_Started_
+	//	*MachineEvent_TerminatedEvent
+	//	*MachineEvent_DesiredStateChangedEvent
+	//	*MachineEvent_ReconciliationStartedEvent
+	//	*MachineEvent_ReconciliationCompletedEvent
+	//	*MachineEvent_HealthcheckEvent
+	Event         isMachineEvent_Event `protobuf_oneof:"event"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *MachineEvent) Reset() {
@@ -520,6 +523,13 @@ func (*MachineEvent) Descriptor() ([]byte, []int) {
 	return file_baepo_core_v1_machine_proto_rawDescGZIP(), []int{4}
 }
 
+func (x *MachineEvent) GetTimestamp() *timestamppb.Timestamp {
+	if x != nil {
+		return x.Timestamp
+	}
+	return nil
+}
+
 func (x *MachineEvent) GetMachineId() string {
 	if x != nil {
 		return x.MachineId
@@ -527,61 +537,121 @@ func (x *MachineEvent) GetMachineId() string {
 	return ""
 }
 
-func (x *MachineEvent) GetState() MachineState {
+func (x *MachineEvent) GetEvent() isMachineEvent_Event {
 	if x != nil {
-		return x.State
-	}
-	return MachineState_MachineState_Unknown
-}
-
-func (x *MachineEvent) GetDesiredState() MachineDesiredState {
-	if x != nil {
-		return x.DesiredState
-	}
-	return MachineDesiredState_MachineDesiredState_Unknown
-}
-
-func (x *MachineEvent) GetStartedAt() *timestamppb.Timestamp {
-	if x != nil {
-		return x.StartedAt
+		return x.Event
 	}
 	return nil
 }
 
-func (x *MachineEvent) GetExpiresAt() *timestamppb.Timestamp {
+func (x *MachineEvent) GetStateChangedEvent() *MachineEvent_StateChanged {
 	if x != nil {
-		return x.ExpiresAt
+		if x, ok := x.Event.(*MachineEvent_StateChangedEvent); ok {
+			return x.StateChangedEvent
+		}
 	}
 	return nil
 }
 
-func (x *MachineEvent) GetTerminatedAt() *timestamppb.Timestamp {
+func (x *MachineEvent) GetStarted() *MachineEvent_Started {
 	if x != nil {
-		return x.TerminatedAt
+		if x, ok := x.Event.(*MachineEvent_Started_); ok {
+			return x.Started
+		}
 	}
 	return nil
 }
 
-func (x *MachineEvent) GetTerminationCause() MachineTerminationCause {
-	if x != nil && x.TerminationCause != nil {
-		return *x.TerminationCause
-	}
-	return MachineTerminationCause_MachineTerminationCause_Unknown
-}
-
-func (x *MachineEvent) GetTerminationDetails() string {
-	if x != nil && x.TerminationDetails != nil {
-		return *x.TerminationDetails
-	}
-	return ""
-}
-
-func (x *MachineEvent) GetTimestamp() *timestamppb.Timestamp {
+func (x *MachineEvent) GetTerminatedEvent() *MachineEvent_Terminated {
 	if x != nil {
-		return x.Timestamp
+		if x, ok := x.Event.(*MachineEvent_TerminatedEvent); ok {
+			return x.TerminatedEvent
+		}
 	}
 	return nil
 }
+
+func (x *MachineEvent) GetDesiredStateChangedEvent() *MachineEvent_DesiredStateChanged {
+	if x != nil {
+		if x, ok := x.Event.(*MachineEvent_DesiredStateChangedEvent); ok {
+			return x.DesiredStateChangedEvent
+		}
+	}
+	return nil
+}
+
+func (x *MachineEvent) GetReconciliationStartedEvent() *MachineEvent_ReconciliationStarted {
+	if x != nil {
+		if x, ok := x.Event.(*MachineEvent_ReconciliationStartedEvent); ok {
+			return x.ReconciliationStartedEvent
+		}
+	}
+	return nil
+}
+
+func (x *MachineEvent) GetReconciliationCompletedEvent() *MachineEvent_ReconciliationCompleted {
+	if x != nil {
+		if x, ok := x.Event.(*MachineEvent_ReconciliationCompletedEvent); ok {
+			return x.ReconciliationCompletedEvent
+		}
+	}
+	return nil
+}
+
+func (x *MachineEvent) GetHealthcheckEvent() *MachineEvent_Healthcheck {
+	if x != nil {
+		if x, ok := x.Event.(*MachineEvent_HealthcheckEvent); ok {
+			return x.HealthcheckEvent
+		}
+	}
+	return nil
+}
+
+type isMachineEvent_Event interface {
+	isMachineEvent_Event()
+}
+
+type MachineEvent_StateChangedEvent struct {
+	StateChangedEvent *MachineEvent_StateChanged `protobuf:"bytes,3,opt,name=state_changed_event,json=stateChangedEvent,proto3,oneof"`
+}
+
+type MachineEvent_Started_ struct {
+	Started *MachineEvent_Started `protobuf:"bytes,4,opt,name=started,proto3,oneof"`
+}
+
+type MachineEvent_TerminatedEvent struct {
+	TerminatedEvent *MachineEvent_Terminated `protobuf:"bytes,5,opt,name=terminated_event,json=terminatedEvent,proto3,oneof"`
+}
+
+type MachineEvent_DesiredStateChangedEvent struct {
+	DesiredStateChangedEvent *MachineEvent_DesiredStateChanged `protobuf:"bytes,6,opt,name=desired_state_changed_event,json=desiredStateChangedEvent,proto3,oneof"`
+}
+
+type MachineEvent_ReconciliationStartedEvent struct {
+	ReconciliationStartedEvent *MachineEvent_ReconciliationStarted `protobuf:"bytes,7,opt,name=reconciliation_started_event,json=reconciliationStartedEvent,proto3,oneof"`
+}
+
+type MachineEvent_ReconciliationCompletedEvent struct {
+	ReconciliationCompletedEvent *MachineEvent_ReconciliationCompleted `protobuf:"bytes,8,opt,name=reconciliation_completed_event,json=reconciliationCompletedEvent,proto3,oneof"`
+}
+
+type MachineEvent_HealthcheckEvent struct {
+	HealthcheckEvent *MachineEvent_Healthcheck `protobuf:"bytes,9,opt,name=healthcheck_event,json=healthcheckEvent,proto3,oneof"`
+}
+
+func (*MachineEvent_StateChangedEvent) isMachineEvent_Event() {}
+
+func (*MachineEvent_Started_) isMachineEvent_Event() {}
+
+func (*MachineEvent_TerminatedEvent) isMachineEvent_Event() {}
+
+func (*MachineEvent_DesiredStateChangedEvent) isMachineEvent_Event() {}
+
+func (*MachineEvent_ReconciliationStartedEvent) isMachineEvent_Event() {}
+
+func (*MachineEvent_ReconciliationCompletedEvent) isMachineEvent_Event() {}
+
+func (*MachineEvent_HealthcheckEvent) isMachineEvent_Event() {}
 
 type MachineContainerHealthcheckSpec_HttpHealthcheckSpec struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
@@ -651,6 +721,330 @@ func (x *MachineContainerHealthcheckSpec_HttpHealthcheckSpec) GetHeaders() map[s
 	return nil
 }
 
+type MachineEvent_StateChanged struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	State         MachineState           `protobuf:"varint,1,opt,name=state,proto3,enum=baepo.core.v1.MachineState" json:"state,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MachineEvent_StateChanged) Reset() {
+	*x = MachineEvent_StateChanged{}
+	mi := &file_baepo_core_v1_machine_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MachineEvent_StateChanged) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MachineEvent_StateChanged) ProtoMessage() {}
+
+func (x *MachineEvent_StateChanged) ProtoReflect() protoreflect.Message {
+	mi := &file_baepo_core_v1_machine_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MachineEvent_StateChanged.ProtoReflect.Descriptor instead.
+func (*MachineEvent_StateChanged) Descriptor() ([]byte, []int) {
+	return file_baepo_core_v1_machine_proto_rawDescGZIP(), []int{4, 0}
+}
+
+func (x *MachineEvent_StateChanged) GetState() MachineState {
+	if x != nil {
+		return x.State
+	}
+	return MachineState_MachineState_Unknown
+}
+
+type MachineEvent_Started struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ExpiresAt     *timestamppb.Timestamp `protobuf:"bytes,1,opt,name=expires_at,json=expiresAt,proto3,oneof" json:"expires_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MachineEvent_Started) Reset() {
+	*x = MachineEvent_Started{}
+	mi := &file_baepo_core_v1_machine_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MachineEvent_Started) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MachineEvent_Started) ProtoMessage() {}
+
+func (x *MachineEvent_Started) ProtoReflect() protoreflect.Message {
+	mi := &file_baepo_core_v1_machine_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MachineEvent_Started.ProtoReflect.Descriptor instead.
+func (*MachineEvent_Started) Descriptor() ([]byte, []int) {
+	return file_baepo_core_v1_machine_proto_rawDescGZIP(), []int{4, 1}
+}
+
+func (x *MachineEvent_Started) GetExpiresAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.ExpiresAt
+	}
+	return nil
+}
+
+type MachineEvent_Terminated struct {
+	state              protoimpl.MessageState  `protogen:"open.v1"`
+	Cause              MachineTerminationCause `protobuf:"varint,1,opt,name=cause,proto3,enum=baepo.core.v1.MachineTerminationCause" json:"cause,omitempty"`
+	TerminationDetails *string                 `protobuf:"bytes,2,opt,name=termination_details,json=terminationDetails,proto3,oneof" json:"termination_details,omitempty"`
+	unknownFields      protoimpl.UnknownFields
+	sizeCache          protoimpl.SizeCache
+}
+
+func (x *MachineEvent_Terminated) Reset() {
+	*x = MachineEvent_Terminated{}
+	mi := &file_baepo_core_v1_machine_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MachineEvent_Terminated) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MachineEvent_Terminated) ProtoMessage() {}
+
+func (x *MachineEvent_Terminated) ProtoReflect() protoreflect.Message {
+	mi := &file_baepo_core_v1_machine_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MachineEvent_Terminated.ProtoReflect.Descriptor instead.
+func (*MachineEvent_Terminated) Descriptor() ([]byte, []int) {
+	return file_baepo_core_v1_machine_proto_rawDescGZIP(), []int{4, 2}
+}
+
+func (x *MachineEvent_Terminated) GetCause() MachineTerminationCause {
+	if x != nil {
+		return x.Cause
+	}
+	return MachineTerminationCause_MachineTerminationCause_Unknown
+}
+
+func (x *MachineEvent_Terminated) GetTerminationDetails() string {
+	if x != nil && x.TerminationDetails != nil {
+		return *x.TerminationDetails
+	}
+	return ""
+}
+
+type MachineEvent_DesiredStateChanged struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	DesiredState  MachineDesiredState    `protobuf:"varint,1,opt,name=desired_state,json=desiredState,proto3,enum=baepo.core.v1.MachineDesiredState" json:"desired_state,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MachineEvent_DesiredStateChanged) Reset() {
+	*x = MachineEvent_DesiredStateChanged{}
+	mi := &file_baepo_core_v1_machine_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MachineEvent_DesiredStateChanged) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MachineEvent_DesiredStateChanged) ProtoMessage() {}
+
+func (x *MachineEvent_DesiredStateChanged) ProtoReflect() protoreflect.Message {
+	mi := &file_baepo_core_v1_machine_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MachineEvent_DesiredStateChanged.ProtoReflect.Descriptor instead.
+func (*MachineEvent_DesiredStateChanged) Descriptor() ([]byte, []int) {
+	return file_baepo_core_v1_machine_proto_rawDescGZIP(), []int{4, 3}
+}
+
+func (x *MachineEvent_DesiredStateChanged) GetDesiredState() MachineDesiredState {
+	if x != nil {
+		return x.DesiredState
+	}
+	return MachineDesiredState_MachineDesiredState_Unknown
+}
+
+type MachineEvent_ReconciliationStarted struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	DesiredState  MachineDesiredState    `protobuf:"varint,1,opt,name=desired_state,json=desiredState,proto3,enum=baepo.core.v1.MachineDesiredState" json:"desired_state,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MachineEvent_ReconciliationStarted) Reset() {
+	*x = MachineEvent_ReconciliationStarted{}
+	mi := &file_baepo_core_v1_machine_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MachineEvent_ReconciliationStarted) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MachineEvent_ReconciliationStarted) ProtoMessage() {}
+
+func (x *MachineEvent_ReconciliationStarted) ProtoReflect() protoreflect.Message {
+	mi := &file_baepo_core_v1_machine_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MachineEvent_ReconciliationStarted.ProtoReflect.Descriptor instead.
+func (*MachineEvent_ReconciliationStarted) Descriptor() ([]byte, []int) {
+	return file_baepo_core_v1_machine_proto_rawDescGZIP(), []int{4, 4}
+}
+
+func (x *MachineEvent_ReconciliationStarted) GetDesiredState() MachineDesiredState {
+	if x != nil {
+		return x.DesiredState
+	}
+	return MachineDesiredState_MachineDesiredState_Unknown
+}
+
+type MachineEvent_ReconciliationCompleted struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	DesiredState  MachineDesiredState    `protobuf:"varint,1,opt,name=desired_state,json=desiredState,proto3,enum=baepo.core.v1.MachineDesiredState" json:"desired_state,omitempty"`
+	Error         *string                `protobuf:"bytes,2,opt,name=error,proto3,oneof" json:"error,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MachineEvent_ReconciliationCompleted) Reset() {
+	*x = MachineEvent_ReconciliationCompleted{}
+	mi := &file_baepo_core_v1_machine_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MachineEvent_ReconciliationCompleted) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MachineEvent_ReconciliationCompleted) ProtoMessage() {}
+
+func (x *MachineEvent_ReconciliationCompleted) ProtoReflect() protoreflect.Message {
+	mi := &file_baepo_core_v1_machine_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MachineEvent_ReconciliationCompleted.ProtoReflect.Descriptor instead.
+func (*MachineEvent_ReconciliationCompleted) Descriptor() ([]byte, []int) {
+	return file_baepo_core_v1_machine_proto_rawDescGZIP(), []int{4, 5}
+}
+
+func (x *MachineEvent_ReconciliationCompleted) GetDesiredState() MachineDesiredState {
+	if x != nil {
+		return x.DesiredState
+	}
+	return MachineDesiredState_MachineDesiredState_Unknown
+}
+
+func (x *MachineEvent_ReconciliationCompleted) GetError() string {
+	if x != nil && x.Error != nil {
+		return *x.Error
+	}
+	return ""
+}
+
+type MachineEvent_Healthcheck struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Error         *string                `protobuf:"bytes,1,opt,name=error,proto3,oneof" json:"error,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MachineEvent_Healthcheck) Reset() {
+	*x = MachineEvent_Healthcheck{}
+	mi := &file_baepo_core_v1_machine_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MachineEvent_Healthcheck) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MachineEvent_Healthcheck) ProtoMessage() {}
+
+func (x *MachineEvent_Healthcheck) ProtoReflect() protoreflect.Message {
+	mi := &file_baepo_core_v1_machine_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MachineEvent_Healthcheck.ProtoReflect.Descriptor instead.
+func (*MachineEvent_Healthcheck) Descriptor() ([]byte, []int) {
+	return file_baepo_core_v1_machine_proto_rawDescGZIP(), []int{4, 6}
+}
+
+func (x *MachineEvent_Healthcheck) GetError() string {
+	if x != nil && x.Error != nil {
+		return *x.Error
+	}
+	return ""
+}
+
 var File_baepo_core_v1_machine_proto protoreflect.FileDescriptor
 
 const file_baepo_core_v1_machine_proto_rawDesc = "" +
@@ -690,25 +1084,41 @@ const file_baepo_core_v1_machine_proto_rawDesc = "" +
 	"\n" +
 	"machine_id\x18\x01 \x01(\tR\tmachineId\x121\n" +
 	"\x05state\x18\x02 \x01(\x0e2\x1b.baepo.core.v1.MachineStateR\x05state\x12G\n" +
-	"\rdesired_state\x18\x03 \x01(\x0e2\".baepo.core.v1.MachineDesiredStateR\fdesiredState\"\x97\x05\n" +
-	"\fMachineEvent\x12\x1d\n" +
+	"\rdesired_state\x18\x03 \x01(\x0e2\".baepo.core.v1.MachineDesiredStateR\fdesiredState\"\xd8\v\n" +
+	"\fMachineEvent\x128\n" +
+	"\ttimestamp\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\ttimestamp\x12\x1d\n" +
 	"\n" +
-	"machine_id\x18\x01 \x01(\tR\tmachineId\x121\n" +
-	"\x05state\x18\x02 \x01(\x0e2\x1b.baepo.core.v1.MachineStateR\x05state\x12G\n" +
-	"\rdesired_state\x18\x03 \x01(\x0e2\".baepo.core.v1.MachineDesiredStateR\fdesiredState\x12>\n" +
+	"machine_id\x18\x02 \x01(\tR\tmachineId\x12Z\n" +
+	"\x13state_changed_event\x18\x03 \x01(\v2(.baepo.core.v1.MachineEvent.StateChangedH\x00R\x11stateChangedEvent\x12?\n" +
+	"\astarted\x18\x04 \x01(\v2#.baepo.core.v1.MachineEvent.StartedH\x00R\astarted\x12S\n" +
+	"\x10terminated_event\x18\x05 \x01(\v2&.baepo.core.v1.MachineEvent.TerminatedH\x00R\x0fterminatedEvent\x12p\n" +
+	"\x1bdesired_state_changed_event\x18\x06 \x01(\v2/.baepo.core.v1.MachineEvent.DesiredStateChangedH\x00R\x18desiredStateChangedEvent\x12u\n" +
+	"\x1creconciliation_started_event\x18\a \x01(\v21.baepo.core.v1.MachineEvent.ReconciliationStartedH\x00R\x1areconciliationStartedEvent\x12{\n" +
+	"\x1ereconciliation_completed_event\x18\b \x01(\v23.baepo.core.v1.MachineEvent.ReconciliationCompletedH\x00R\x1creconciliationCompletedEvent\x12V\n" +
+	"\x11healthcheck_event\x18\t \x01(\v2'.baepo.core.v1.MachineEvent.HealthcheckH\x00R\x10healthcheckEvent\x1aA\n" +
+	"\fStateChanged\x121\n" +
+	"\x05state\x18\x01 \x01(\x0e2\x1b.baepo.core.v1.MachineStateR\x05state\x1aX\n" +
+	"\aStarted\x12>\n" +
 	"\n" +
-	"started_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampH\x00R\tstartedAt\x88\x01\x01\x12>\n" +
+	"expires_at\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampH\x00R\texpiresAt\x88\x01\x01B\r\n" +
+	"\v_expires_at\x1a\x98\x01\n" +
 	"\n" +
-	"expires_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampH\x01R\texpiresAt\x88\x01\x01\x12D\n" +
-	"\rterminated_at\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampH\x02R\fterminatedAt\x88\x01\x01\x12X\n" +
-	"\x11termination_cause\x18\a \x01(\x0e2&.baepo.core.v1.MachineTerminationCauseH\x03R\x10terminationCause\x88\x01\x01\x124\n" +
-	"\x13termination_details\x18\b \x01(\tH\x04R\x12terminationDetails\x88\x01\x01\x128\n" +
-	"\ttimestamp\x18\t \x01(\v2\x1a.google.protobuf.TimestampR\ttimestampB\r\n" +
-	"\v_started_atB\r\n" +
-	"\v_expires_atB\x10\n" +
-	"\x0e_terminated_atB\x14\n" +
-	"\x12_termination_causeB\x16\n" +
-	"\x14_termination_details*\xe5\x01\n" +
+	"Terminated\x12<\n" +
+	"\x05cause\x18\x01 \x01(\x0e2&.baepo.core.v1.MachineTerminationCauseR\x05cause\x124\n" +
+	"\x13termination_details\x18\x02 \x01(\tH\x00R\x12terminationDetails\x88\x01\x01B\x16\n" +
+	"\x14_termination_details\x1a^\n" +
+	"\x13DesiredStateChanged\x12G\n" +
+	"\rdesired_state\x18\x01 \x01(\x0e2\".baepo.core.v1.MachineDesiredStateR\fdesiredState\x1a`\n" +
+	"\x15ReconciliationStarted\x12G\n" +
+	"\rdesired_state\x18\x01 \x01(\x0e2\".baepo.core.v1.MachineDesiredStateR\fdesiredState\x1a\x87\x01\n" +
+	"\x17ReconciliationCompleted\x12G\n" +
+	"\rdesired_state\x18\x01 \x01(\x0e2\".baepo.core.v1.MachineDesiredStateR\fdesiredState\x12\x19\n" +
+	"\x05error\x18\x02 \x01(\tH\x00R\x05error\x88\x01\x01B\b\n" +
+	"\x06_error\x1a2\n" +
+	"\vHealthcheck\x12\x19\n" +
+	"\x05error\x18\x01 \x01(\tH\x00R\x05error\x88\x01\x01B\b\n" +
+	"\x06_errorB\a\n" +
+	"\x05event*\xe5\x01\n" +
 	"\fMachineState\x12\x18\n" +
 	"\x14MachineState_Unknown\x10\x00\x12\x18\n" +
 	"\x14MachineState_Pending\x10\x01\x12\x19\n" +
@@ -744,7 +1154,7 @@ func file_baepo_core_v1_machine_proto_rawDescGZIP() []byte {
 }
 
 var file_baepo_core_v1_machine_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
-var file_baepo_core_v1_machine_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_baepo_core_v1_machine_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
 var file_baepo_core_v1_machine_proto_goTypes = []any{
 	(MachineState)(0),                       // 0: baepo.core.v1.MachineState
 	(MachineDesiredState)(0),                // 1: baepo.core.v1.MachineDesiredState
@@ -756,8 +1166,15 @@ var file_baepo_core_v1_machine_proto_goTypes = []any{
 	(*MachineEvent)(nil),                    // 7: baepo.core.v1.MachineEvent
 	nil,                                     // 8: baepo.core.v1.MachineContainerSpec.EnvEntry
 	(*MachineContainerHealthcheckSpec_HttpHealthcheckSpec)(nil), // 9: baepo.core.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec
-	nil,                           // 10: baepo.core.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec.HeadersEntry
-	(*timestamppb.Timestamp)(nil), // 11: google.protobuf.Timestamp
+	nil,                                          // 10: baepo.core.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec.HeadersEntry
+	(*MachineEvent_StateChanged)(nil),            // 11: baepo.core.v1.MachineEvent.StateChanged
+	(*MachineEvent_Started)(nil),                 // 12: baepo.core.v1.MachineEvent.Started
+	(*MachineEvent_Terminated)(nil),              // 13: baepo.core.v1.MachineEvent.Terminated
+	(*MachineEvent_DesiredStateChanged)(nil),     // 14: baepo.core.v1.MachineEvent.DesiredStateChanged
+	(*MachineEvent_ReconciliationStarted)(nil),   // 15: baepo.core.v1.MachineEvent.ReconciliationStarted
+	(*MachineEvent_ReconciliationCompleted)(nil), // 16: baepo.core.v1.MachineEvent.ReconciliationCompleted
+	(*MachineEvent_Healthcheck)(nil),             // 17: baepo.core.v1.MachineEvent.Healthcheck
+	(*timestamppb.Timestamp)(nil),                // 18: google.protobuf.Timestamp
 }
 var file_baepo_core_v1_machine_proto_depIdxs = []int32{
 	4,  // 0: baepo.core.v1.MachineSpec.containers:type_name -> baepo.core.v1.MachineContainerSpec
@@ -766,19 +1183,26 @@ var file_baepo_core_v1_machine_proto_depIdxs = []int32{
 	9,  // 3: baepo.core.v1.MachineContainerHealthcheckSpec.http:type_name -> baepo.core.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec
 	0,  // 4: baepo.core.v1.Machine.state:type_name -> baepo.core.v1.MachineState
 	1,  // 5: baepo.core.v1.Machine.desired_state:type_name -> baepo.core.v1.MachineDesiredState
-	0,  // 6: baepo.core.v1.MachineEvent.state:type_name -> baepo.core.v1.MachineState
-	1,  // 7: baepo.core.v1.MachineEvent.desired_state:type_name -> baepo.core.v1.MachineDesiredState
-	11, // 8: baepo.core.v1.MachineEvent.started_at:type_name -> google.protobuf.Timestamp
-	11, // 9: baepo.core.v1.MachineEvent.expires_at:type_name -> google.protobuf.Timestamp
-	11, // 10: baepo.core.v1.MachineEvent.terminated_at:type_name -> google.protobuf.Timestamp
-	2,  // 11: baepo.core.v1.MachineEvent.termination_cause:type_name -> baepo.core.v1.MachineTerminationCause
-	11, // 12: baepo.core.v1.MachineEvent.timestamp:type_name -> google.protobuf.Timestamp
-	10, // 13: baepo.core.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec.headers:type_name -> baepo.core.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec.HeadersEntry
-	14, // [14:14] is the sub-list for method output_type
-	14, // [14:14] is the sub-list for method input_type
-	14, // [14:14] is the sub-list for extension type_name
-	14, // [14:14] is the sub-list for extension extendee
-	0,  // [0:14] is the sub-list for field type_name
+	18, // 6: baepo.core.v1.MachineEvent.timestamp:type_name -> google.protobuf.Timestamp
+	11, // 7: baepo.core.v1.MachineEvent.state_changed_event:type_name -> baepo.core.v1.MachineEvent.StateChanged
+	12, // 8: baepo.core.v1.MachineEvent.started:type_name -> baepo.core.v1.MachineEvent.Started
+	13, // 9: baepo.core.v1.MachineEvent.terminated_event:type_name -> baepo.core.v1.MachineEvent.Terminated
+	14, // 10: baepo.core.v1.MachineEvent.desired_state_changed_event:type_name -> baepo.core.v1.MachineEvent.DesiredStateChanged
+	15, // 11: baepo.core.v1.MachineEvent.reconciliation_started_event:type_name -> baepo.core.v1.MachineEvent.ReconciliationStarted
+	16, // 12: baepo.core.v1.MachineEvent.reconciliation_completed_event:type_name -> baepo.core.v1.MachineEvent.ReconciliationCompleted
+	17, // 13: baepo.core.v1.MachineEvent.healthcheck_event:type_name -> baepo.core.v1.MachineEvent.Healthcheck
+	10, // 14: baepo.core.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec.headers:type_name -> baepo.core.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec.HeadersEntry
+	0,  // 15: baepo.core.v1.MachineEvent.StateChanged.state:type_name -> baepo.core.v1.MachineState
+	18, // 16: baepo.core.v1.MachineEvent.Started.expires_at:type_name -> google.protobuf.Timestamp
+	2,  // 17: baepo.core.v1.MachineEvent.Terminated.cause:type_name -> baepo.core.v1.MachineTerminationCause
+	1,  // 18: baepo.core.v1.MachineEvent.DesiredStateChanged.desired_state:type_name -> baepo.core.v1.MachineDesiredState
+	1,  // 19: baepo.core.v1.MachineEvent.ReconciliationStarted.desired_state:type_name -> baepo.core.v1.MachineDesiredState
+	1,  // 20: baepo.core.v1.MachineEvent.ReconciliationCompleted.desired_state:type_name -> baepo.core.v1.MachineDesiredState
+	21, // [21:21] is the sub-list for method output_type
+	21, // [21:21] is the sub-list for method input_type
+	21, // [21:21] is the sub-list for extension type_name
+	21, // [21:21] is the sub-list for extension extendee
+	0,  // [0:21] is the sub-list for field type_name
 }
 
 func init() { file_baepo_core_v1_machine_proto_init() }
@@ -790,14 +1214,26 @@ func file_baepo_core_v1_machine_proto_init() {
 	file_baepo_core_v1_machine_proto_msgTypes[2].OneofWrappers = []any{
 		(*MachineContainerHealthcheckSpec_Http)(nil),
 	}
-	file_baepo_core_v1_machine_proto_msgTypes[4].OneofWrappers = []any{}
+	file_baepo_core_v1_machine_proto_msgTypes[4].OneofWrappers = []any{
+		(*MachineEvent_StateChangedEvent)(nil),
+		(*MachineEvent_Started_)(nil),
+		(*MachineEvent_TerminatedEvent)(nil),
+		(*MachineEvent_DesiredStateChangedEvent)(nil),
+		(*MachineEvent_ReconciliationStartedEvent)(nil),
+		(*MachineEvent_ReconciliationCompletedEvent)(nil),
+		(*MachineEvent_HealthcheckEvent)(nil),
+	}
+	file_baepo_core_v1_machine_proto_msgTypes[9].OneofWrappers = []any{}
+	file_baepo_core_v1_machine_proto_msgTypes[10].OneofWrappers = []any{}
+	file_baepo_core_v1_machine_proto_msgTypes[13].OneofWrappers = []any{}
+	file_baepo_core_v1_machine_proto_msgTypes[14].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_baepo_core_v1_machine_proto_rawDesc), len(file_baepo_core_v1_machine_proto_rawDesc)),
 			NumEnums:      3,
-			NumMessages:   8,
+			NumMessages:   15,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
