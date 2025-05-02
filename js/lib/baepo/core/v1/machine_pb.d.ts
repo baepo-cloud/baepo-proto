@@ -47,22 +47,27 @@ export declare const MachineSpecSchema: GenMessage<MachineSpec>;
  */
 export declare type MachineContainerSpec = Message<"baepo.core.v1.MachineContainerSpec"> & {
   /**
-   * @generated from field: string image = 1;
+   * @generated from field: string name = 1;
+   */
+  name: string;
+
+  /**
+   * @generated from field: string image = 2;
    */
   image: string;
 
   /**
-   * @generated from field: map<string, string> env = 2;
+   * @generated from field: map<string, string> env = 3;
    */
   env: { [key: string]: string };
 
   /**
-   * @generated from field: repeated string command = 3;
+   * @generated from field: repeated string command = 4;
    */
   command: string[];
 
   /**
-   * @generated from field: baepo.core.v1.MachineContainerHealthcheckSpec healthcheck = 4;
+   * @generated from field: baepo.core.v1.MachineContainerHealthcheckSpec healthcheck = 5;
    */
   healthcheck?: MachineContainerHealthcheckSpec;
 };

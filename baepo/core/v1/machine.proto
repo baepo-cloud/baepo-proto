@@ -15,10 +15,11 @@ message MachineSpec {
 }
 
 message MachineContainerSpec {
-  string image = 1;
-  map<string, string> env = 2;
-  repeated string command = 3;
-  MachineContainerHealthcheckSpec healthcheck = 4;
+  string name = 1;
+  string image = 2;
+  map<string, string> env = 3;
+  repeated string command = 4;
+  MachineContainerHealthcheckSpec healthcheck = 5;
 }
 
 message MachineContainerHealthcheckSpec {

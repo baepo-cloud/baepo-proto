@@ -60,6 +60,10 @@ message MachineCreateRequest {
   baepo.core.v1.MachineSpec spec = 3;
   map<string, string> metadata = 4;
   bool start = 5;
+  oneof placement {
+    string node_id = 6;
+    string cluster_id = 7;
+  }
 }
 
 message MachineCreateResponse {

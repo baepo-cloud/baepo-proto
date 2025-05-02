@@ -357,12 +357,17 @@ func (x *MachineFindByIdResponse) GetMachine() *Machine {
 }
 
 type MachineCreateRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	WorkspaceId   string                 `protobuf:"bytes,1,opt,name=workspace_id,json=workspaceId,proto3" json:"workspace_id,omitempty"`
-	Name          *string                `protobuf:"bytes,2,opt,name=name,proto3,oneof" json:"name,omitempty"`
-	Spec          *v1.MachineSpec        `protobuf:"bytes,3,opt,name=spec,proto3" json:"spec,omitempty"`
-	Metadata      map[string]string      `protobuf:"bytes,4,rep,name=metadata,proto3" json:"metadata,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
-	Start         bool                   `protobuf:"varint,5,opt,name=start,proto3" json:"start,omitempty"`
+	state       protoimpl.MessageState `protogen:"open.v1"`
+	WorkspaceId string                 `protobuf:"bytes,1,opt,name=workspace_id,json=workspaceId,proto3" json:"workspace_id,omitempty"`
+	Name        *string                `protobuf:"bytes,2,opt,name=name,proto3,oneof" json:"name,omitempty"`
+	Spec        *v1.MachineSpec        `protobuf:"bytes,3,opt,name=spec,proto3" json:"spec,omitempty"`
+	Metadata    map[string]string      `protobuf:"bytes,4,rep,name=metadata,proto3" json:"metadata,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	Start       bool                   `protobuf:"varint,5,opt,name=start,proto3" json:"start,omitempty"`
+	// Types that are valid to be assigned to Placement:
+	//
+	//	*MachineCreateRequest_NodeId
+	//	*MachineCreateRequest_ClusterId
+	Placement     isMachineCreateRequest_Placement `protobuf_oneof:"placement"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -431,6 +436,47 @@ func (x *MachineCreateRequest) GetStart() bool {
 	}
 	return false
 }
+
+func (x *MachineCreateRequest) GetPlacement() isMachineCreateRequest_Placement {
+	if x != nil {
+		return x.Placement
+	}
+	return nil
+}
+
+func (x *MachineCreateRequest) GetNodeId() string {
+	if x != nil {
+		if x, ok := x.Placement.(*MachineCreateRequest_NodeId); ok {
+			return x.NodeId
+		}
+	}
+	return ""
+}
+
+func (x *MachineCreateRequest) GetClusterId() string {
+	if x != nil {
+		if x, ok := x.Placement.(*MachineCreateRequest_ClusterId); ok {
+			return x.ClusterId
+		}
+	}
+	return ""
+}
+
+type isMachineCreateRequest_Placement interface {
+	isMachineCreateRequest_Placement()
+}
+
+type MachineCreateRequest_NodeId struct {
+	NodeId string `protobuf:"bytes,6,opt,name=node_id,json=nodeId,proto3,oneof"`
+}
+
+type MachineCreateRequest_ClusterId struct {
+	ClusterId string `protobuf:"bytes,7,opt,name=cluster_id,json=clusterId,proto3,oneof"`
+}
+
+func (*MachineCreateRequest_NodeId) isMachineCreateRequest_Placement() {}
+
+func (*MachineCreateRequest_ClusterId) isMachineCreateRequest_Placement() {}
 
 type MachineCreateResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
@@ -697,16 +743,20 @@ const file_baepo_api_v1_machine_proto_rawDesc = "" +
 	"\n" +
 	"machine_id\x18\x01 \x01(\tR\tmachineId\"J\n" +
 	"\x17MachineFindByIdResponse\x12/\n" +
-	"\amachine\x18\x01 \x01(\v2\x15.baepo.api.v1.MachineR\amachine\"\xac\x02\n" +
+	"\amachine\x18\x01 \x01(\v2\x15.baepo.api.v1.MachineR\amachine\"\xf5\x02\n" +
 	"\x14MachineCreateRequest\x12!\n" +
 	"\fworkspace_id\x18\x01 \x01(\tR\vworkspaceId\x12\x17\n" +
-	"\x04name\x18\x02 \x01(\tH\x00R\x04name\x88\x01\x01\x12.\n" +
+	"\x04name\x18\x02 \x01(\tH\x01R\x04name\x88\x01\x01\x12.\n" +
 	"\x04spec\x18\x03 \x01(\v2\x1a.baepo.core.v1.MachineSpecR\x04spec\x12L\n" +
 	"\bmetadata\x18\x04 \x03(\v20.baepo.api.v1.MachineCreateRequest.MetadataEntryR\bmetadata\x12\x14\n" +
-	"\x05start\x18\x05 \x01(\bR\x05start\x1a;\n" +
+	"\x05start\x18\x05 \x01(\bR\x05start\x12\x19\n" +
+	"\anode_id\x18\x06 \x01(\tH\x00R\x06nodeId\x12\x1f\n" +
+	"\n" +
+	"cluster_id\x18\a \x01(\tH\x00R\tclusterId\x1a;\n" +
 	"\rMetadataEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01B\a\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01B\v\n" +
+	"\tplacementB\a\n" +
 	"\x05_name\"H\n" +
 	"\x15MachineCreateResponse\x12/\n" +
 	"\amachine\x18\x01 \x01(\v2\x15.baepo.api.v1.MachineR\amachine\"4\n" +
@@ -801,7 +851,10 @@ func file_baepo_api_v1_machine_proto_init() {
 		return
 	}
 	file_baepo_api_v1_machine_proto_msgTypes[0].OneofWrappers = []any{}
-	file_baepo_api_v1_machine_proto_msgTypes[5].OneofWrappers = []any{}
+	file_baepo_api_v1_machine_proto_msgTypes[5].OneofWrappers = []any{
+		(*MachineCreateRequest_NodeId)(nil),
+		(*MachineCreateRequest_ClusterId)(nil),
+	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{

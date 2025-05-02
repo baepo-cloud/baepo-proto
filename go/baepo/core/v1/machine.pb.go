@@ -267,10 +267,11 @@ func (x *MachineSpec) GetTimeout() uint64 {
 
 type MachineContainerSpec struct {
 	state         protoimpl.MessageState           `protogen:"open.v1"`
-	Image         string                           `protobuf:"bytes,1,opt,name=image,proto3" json:"image,omitempty"`
-	Env           map[string]string                `protobuf:"bytes,2,rep,name=env,proto3" json:"env,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
-	Command       []string                         `protobuf:"bytes,3,rep,name=command,proto3" json:"command,omitempty"`
-	Healthcheck   *MachineContainerHealthcheckSpec `protobuf:"bytes,4,opt,name=healthcheck,proto3" json:"healthcheck,omitempty"`
+	Name          string                           `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Image         string                           `protobuf:"bytes,2,opt,name=image,proto3" json:"image,omitempty"`
+	Env           map[string]string                `protobuf:"bytes,3,rep,name=env,proto3" json:"env,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	Command       []string                         `protobuf:"bytes,4,rep,name=command,proto3" json:"command,omitempty"`
+	Healthcheck   *MachineContainerHealthcheckSpec `protobuf:"bytes,5,opt,name=healthcheck,proto3" json:"healthcheck,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -303,6 +304,13 @@ func (x *MachineContainerSpec) ProtoReflect() protoreflect.Message {
 // Deprecated: Use MachineContainerSpec.ProtoReflect.Descriptor instead.
 func (*MachineContainerSpec) Descriptor() ([]byte, []int) {
 	return file_baepo_core_v1_machine_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *MachineContainerSpec) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
 }
 
 func (x *MachineContainerSpec) GetImage() string {
@@ -998,12 +1006,13 @@ const file_baepo_core_v1_machine_proto_rawDesc = "" +
 	"containers\x12\x1d\n" +
 	"\atimeout\x18\x04 \x01(\x04H\x00R\atimeout\x88\x01\x01B\n" +
 	"\n" +
-	"\b_timeout\"\x90\x02\n" +
-	"\x14MachineContainerSpec\x12\x14\n" +
-	"\x05image\x18\x01 \x01(\tR\x05image\x12>\n" +
-	"\x03env\x18\x02 \x03(\v2,.baepo.core.v1.MachineContainerSpec.EnvEntryR\x03env\x12\x18\n" +
-	"\acommand\x18\x03 \x03(\tR\acommand\x12P\n" +
-	"\vhealthcheck\x18\x04 \x01(\v2..baepo.core.v1.MachineContainerHealthcheckSpecR\vhealthcheck\x1a6\n" +
+	"\b_timeout\"\xa4\x02\n" +
+	"\x14MachineContainerSpec\x12\x12\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x12\x14\n" +
+	"\x05image\x18\x02 \x01(\tR\x05image\x12>\n" +
+	"\x03env\x18\x03 \x03(\v2,.baepo.core.v1.MachineContainerSpec.EnvEntryR\x03env\x12\x18\n" +
+	"\acommand\x18\x04 \x03(\tR\acommand\x12P\n" +
+	"\vhealthcheck\x18\x05 \x01(\v2..baepo.core.v1.MachineContainerHealthcheckSpecR\vhealthcheck\x1a6\n" +
 	"\bEnvEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\xdd\x03\n" +

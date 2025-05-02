@@ -190,6 +190,23 @@ export declare type MachineCreateRequest = Message<"baepo.api.v1.MachineCreateRe
    * @generated from field: bool start = 5;
    */
   start: boolean;
+
+  /**
+   * @generated from oneof baepo.api.v1.MachineCreateRequest.placement
+   */
+  placement: {
+    /**
+     * @generated from field: string node_id = 6;
+     */
+    value: string;
+    case: "nodeId";
+  } | {
+    /**
+     * @generated from field: string cluster_id = 7;
+     */
+    value: string;
+    case: "clusterId";
+  } | { case: undefined; value?: undefined };
 };
 
 /**
