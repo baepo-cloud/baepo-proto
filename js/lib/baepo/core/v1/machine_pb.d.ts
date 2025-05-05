@@ -75,6 +75,11 @@ export declare type MachineContainerSpec = Message<"baepo.core.v1.MachineContain
    * @generated from field: optional string working_dir = 6;
    */
   workingDir?: string;
+
+  /**
+   * @generated from field: baepo.core.v1.MachineContainerRestartSpec restart = 7;
+   */
+  restart?: MachineContainerRestartSpec;
 };
 
 /**
@@ -82,6 +87,57 @@ export declare type MachineContainerSpec = Message<"baepo.core.v1.MachineContain
  * Use `create(MachineContainerSpecSchema)` to create a new message.
  */
 export declare const MachineContainerSpecSchema: GenMessage<MachineContainerSpec>;
+
+/**
+ * @generated from message baepo.core.v1.MachineContainerRestartSpec
+ */
+export declare type MachineContainerRestartSpec = Message<"baepo.core.v1.MachineContainerRestartSpec"> & {
+  /**
+   * @generated from field: baepo.core.v1.MachineContainerRestartSpec.Policy policy = 1;
+   */
+  policy: MachineContainerRestartSpec_Policy;
+
+  /**
+   * @generated from field: int32 max_retries = 2;
+   */
+  maxRetries: number;
+};
+
+/**
+ * Describes the message baepo.core.v1.MachineContainerRestartSpec.
+ * Use `create(MachineContainerRestartSpecSchema)` to create a new message.
+ */
+export declare const MachineContainerRestartSpecSchema: GenMessage<MachineContainerRestartSpec>;
+
+/**
+ * @generated from enum baepo.core.v1.MachineContainerRestartSpec.Policy
+ */
+export enum MachineContainerRestartSpec_Policy {
+  /**
+   * @generated from enum value: Policy_Unknown = 0;
+   */
+  Unknown = 0,
+
+  /**
+   * @generated from enum value: Policy_No = 1;
+   */
+  No = 1,
+
+  /**
+   * @generated from enum value: Policy_OnFailure = 2;
+   */
+  OnFailure = 2,
+
+  /**
+   * @generated from enum value: Policy_Always = 3;
+   */
+  Always = 3,
+}
+
+/**
+ * Describes the enum baepo.core.v1.MachineContainerRestartSpec.Policy.
+ */
+export declare const MachineContainerRestartSpec_PolicySchema: GenEnum<MachineContainerRestartSpec_Policy>;
 
 /**
  * @generated from message baepo.core.v1.MachineContainerHealthcheckSpec

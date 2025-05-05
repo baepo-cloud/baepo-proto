@@ -21,6 +21,19 @@ message MachineContainerSpec {
   repeated string command = 4;
   MachineContainerHealthcheckSpec healthcheck = 5;
   optional string working_dir = 6;
+  MachineContainerRestartSpec restart = 7;
+}
+
+message MachineContainerRestartSpec {
+  Policy policy = 1;
+  int32 max_retries = 2;
+
+  enum Policy {
+    Policy_Unknown = 0;
+    Policy_No = 1;
+    Policy_OnFailure = 2;
+    Policy_Always = 3;
+  }
 }
 
 message MachineContainerHealthcheckSpec {
