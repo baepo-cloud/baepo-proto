@@ -1,11 +1,11 @@
 syntax = "proto3";
 
-package baepo.initd.v1;
+package baepo.node.v1;
 
 import "google/protobuf/empty.proto";
 
-option go_package = "github.com/baepo-cloud/baepo-proto/go/baepo/initd/v1;initdv1pb";
+option go_package = "github.com/baepo-cloud/baepo-proto/go/baepo/node/v1;nodev1pb";
 
-service InitD {
+service Init {
   rpc Healthcheck(google.protobuf.Empty) returns (google.protobuf.Empty);
 }

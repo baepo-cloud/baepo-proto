@@ -70,6 +70,11 @@ export declare type MachineContainerSpec = Message<"baepo.core.v1.MachineContain
    * @generated from field: baepo.core.v1.MachineContainerHealthcheckSpec healthcheck = 5;
    */
   healthcheck?: MachineContainerHealthcheckSpec;
+
+  /**
+   * @generated from field: optional string working_dir = 6;
+   */
+  workingDir?: string;
 };
 
 /**

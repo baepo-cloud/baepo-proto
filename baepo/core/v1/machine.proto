@@ -20,6 +20,7 @@ message MachineContainerSpec {
   map<string, string> env = 3;
   repeated string command = 4;
   MachineContainerHealthcheckSpec healthcheck = 5;
+  optional string working_dir = 6;
 }
 
 message MachineContainerHealthcheckSpec {
