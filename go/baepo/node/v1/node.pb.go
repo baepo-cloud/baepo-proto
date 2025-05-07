@@ -11,6 +11,7 @@ import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	_ "google.golang.org/protobuf/types/known/emptypb"
+	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -255,6 +256,7 @@ type NodeGetMachineLogsRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	MachineId     string                 `protobuf:"bytes,1,opt,name=machine_id,json=machineId,proto3" json:"machine_id,omitempty"`
 	ContainerName *string                `protobuf:"bytes,2,opt,name=container_name,json=containerName,proto3,oneof" json:"container_name,omitempty"`
+	Follow        bool                   `protobuf:"varint,3,opt,name=follow,proto3" json:"follow,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -303,11 +305,19 @@ func (x *NodeGetMachineLogsRequest) GetContainerName() string {
 	return ""
 }
 
+func (x *NodeGetMachineLogsRequest) GetFollow() bool {
+	if x != nil {
+		return x.Follow
+	}
+	return false
+}
+
 type NodeGetMachineLogsResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Fd            uint32                 `protobuf:"varint,1,opt,name=fd,proto3" json:"fd,omitempty"`
-	ContainerName *string                `protobuf:"bytes,2,opt,name=container_name,json=containerName,proto3,oneof" json:"container_name,omitempty"`
+	Error         bool                   `protobuf:"varint,1,opt,name=error,proto3" json:"error,omitempty"`
+	ContainerName string                 `protobuf:"bytes,2,opt,name=container_name,json=containerName,proto3" json:"container_name,omitempty"`
 	Content       []byte                 `protobuf:"bytes,3,opt,name=content,proto3" json:"content,omitempty"`
+	Timestamp     *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -342,16 +352,16 @@ func (*NodeGetMachineLogsResponse) Descriptor() ([]byte, []int) {
 	return file_baepo_node_v1_node_proto_rawDescGZIP(), []int{6}
 }
 
-func (x *NodeGetMachineLogsResponse) GetFd() uint32 {
+func (x *NodeGetMachineLogsResponse) GetError() bool {
 	if x != nil {
-		return x.Fd
+		return x.Error
 	}
-	return 0
+	return false
 }
 
 func (x *NodeGetMachineLogsResponse) GetContainerName() string {
-	if x != nil && x.ContainerName != nil {
-		return *x.ContainerName
+	if x != nil {
+		return x.ContainerName
 	}
 	return ""
 }
@@ -363,11 +373,18 @@ func (x *NodeGetMachineLogsResponse) GetContent() []byte {
 	return nil
 }
 
+func (x *NodeGetMachineLogsResponse) GetTimestamp() *timestamppb.Timestamp {
+	if x != nil {
+		return x.Timestamp
+	}
+	return nil
+}
+
 var File_baepo_node_v1_node_proto protoreflect.FileDescriptor
 
 const file_baepo_node_v1_node_proto_rawDesc = "" +
 	"\n" +
-	"\x18baepo/node/v1/node.proto\x12\rbaepo.node.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1bbaepo/core/v1/machine.proto\"\xa4\x01\n" +
+	"\x18baepo/node/v1/node.proto\x12\rbaepo.node.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bbaepo/core/v1/machine.proto\"\xa4\x01\n" +
 	"\aMachine\x12\x1d\n" +
 	"\n" +
 	"machine_id\x18\x01 \x01(\tR\tmachineId\x121\n" +
@@ -380,17 +397,18 @@ const file_baepo_node_v1_node_proto_rawDesc = "" +
 	"\n" +
 	"machine_id\x18\x01 \x01(\tR\tmachineId\"J\n" +
 	"\x16NodeGetMachineResponse\x120\n" +
-	"\amachine\x18\x01 \x01(\v2\x16.baepo.node.v1.MachineR\amachine\"y\n" +
+	"\amachine\x18\x01 \x01(\v2\x16.baepo.node.v1.MachineR\amachine\"\x91\x01\n" +
 	"\x19NodeGetMachineLogsRequest\x12\x1d\n" +
 	"\n" +
 	"machine_id\x18\x01 \x01(\tR\tmachineId\x12*\n" +
-	"\x0econtainer_name\x18\x02 \x01(\tH\x00R\rcontainerName\x88\x01\x01B\x11\n" +
-	"\x0f_container_name\"\x85\x01\n" +
-	"\x1aNodeGetMachineLogsResponse\x12\x0e\n" +
-	"\x02fd\x18\x01 \x01(\rR\x02fd\x12*\n" +
-	"\x0econtainer_name\x18\x02 \x01(\tH\x00R\rcontainerName\x88\x01\x01\x12\x18\n" +
-	"\acontent\x18\x03 \x01(\fR\acontentB\x11\n" +
-	"\x0f_container_name2\xb2\x02\n" +
+	"\x0econtainer_name\x18\x02 \x01(\tH\x00R\rcontainerName\x88\x01\x01\x12\x16\n" +
+	"\x06follow\x18\x03 \x01(\bR\x06followB\x11\n" +
+	"\x0f_container_name\"\xad\x01\n" +
+	"\x1aNodeGetMachineLogsResponse\x12\x14\n" +
+	"\x05error\x18\x01 \x01(\bR\x05error\x12%\n" +
+	"\x0econtainer_name\x18\x02 \x01(\tR\rcontainerName\x12\x18\n" +
+	"\acontent\x18\x03 \x01(\fR\acontent\x128\n" +
+	"\ttimestamp\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\ttimestamp2\xb2\x02\n" +
 	"\vNodeService\x12_\n" +
 	"\fListMachines\x12&.baepo.node.v1.NodeListMachinesRequest\x1a'.baepo.node.v1.NodeListMachinesResponse\x12Y\n" +
 	"\n" +
@@ -420,23 +438,25 @@ var file_baepo_node_v1_node_proto_goTypes = []any{
 	(*NodeGetMachineLogsResponse)(nil), // 6: baepo.node.v1.NodeGetMachineLogsResponse
 	(v1.MachineState)(0),               // 7: baepo.core.v1.MachineState
 	(v1.MachineDesiredState)(0),        // 8: baepo.core.v1.MachineDesiredState
+	(*timestamppb.Timestamp)(nil),      // 9: google.protobuf.Timestamp
 }
 var file_baepo_node_v1_node_proto_depIdxs = []int32{
 	7, // 0: baepo.node.v1.Machine.state:type_name -> baepo.core.v1.MachineState
 	8, // 1: baepo.node.v1.Machine.desired_state:type_name -> baepo.core.v1.MachineDesiredState
 	0, // 2: baepo.node.v1.NodeListMachinesResponse.machines:type_name -> baepo.node.v1.Machine
 	0, // 3: baepo.node.v1.NodeGetMachineResponse.machine:type_name -> baepo.node.v1.Machine
-	1, // 4: baepo.node.v1.NodeService.ListMachines:input_type -> baepo.node.v1.NodeListMachinesRequest
-	3, // 5: baepo.node.v1.NodeService.GetMachine:input_type -> baepo.node.v1.NodeGetMachineRequest
-	5, // 6: baepo.node.v1.NodeService.GetMachineLogs:input_type -> baepo.node.v1.NodeGetMachineLogsRequest
-	2, // 7: baepo.node.v1.NodeService.ListMachines:output_type -> baepo.node.v1.NodeListMachinesResponse
-	4, // 8: baepo.node.v1.NodeService.GetMachine:output_type -> baepo.node.v1.NodeGetMachineResponse
-	6, // 9: baepo.node.v1.NodeService.GetMachineLogs:output_type -> baepo.node.v1.NodeGetMachineLogsResponse
-	7, // [7:10] is the sub-list for method output_type
-	4, // [4:7] is the sub-list for method input_type
-	4, // [4:4] is the sub-list for extension type_name
-	4, // [4:4] is the sub-list for extension extendee
-	0, // [0:4] is the sub-list for field type_name
+	9, // 4: baepo.node.v1.NodeGetMachineLogsResponse.timestamp:type_name -> google.protobuf.Timestamp
+	1, // 5: baepo.node.v1.NodeService.ListMachines:input_type -> baepo.node.v1.NodeListMachinesRequest
+	3, // 6: baepo.node.v1.NodeService.GetMachine:input_type -> baepo.node.v1.NodeGetMachineRequest
+	5, // 7: baepo.node.v1.NodeService.GetMachineLogs:input_type -> baepo.node.v1.NodeGetMachineLogsRequest
+	2, // 8: baepo.node.v1.NodeService.ListMachines:output_type -> baepo.node.v1.NodeListMachinesResponse
+	4, // 9: baepo.node.v1.NodeService.GetMachine:output_type -> baepo.node.v1.NodeGetMachineResponse
+	6, // 10: baepo.node.v1.NodeService.GetMachineLogs:output_type -> baepo.node.v1.NodeGetMachineLogsResponse
+	8, // [8:11] is the sub-list for method output_type
+	5, // [5:8] is the sub-list for method input_type
+	5, // [5:5] is the sub-list for extension type_name
+	5, // [5:5] is the sub-list for extension extendee
+	0, // [0:5] is the sub-list for field type_name
 }
 
 func init() { file_baepo_node_v1_node_proto_init() }
@@ -445,7 +465,6 @@ func file_baepo_node_v1_node_proto_init() {
 		return
 	}
 	file_baepo_node_v1_node_proto_msgTypes[5].OneofWrappers = []any{}
-	file_baepo_node_v1_node_proto_msgTypes[6].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{

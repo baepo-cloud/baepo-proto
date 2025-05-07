@@ -308,6 +308,11 @@ export declare type MachineLogsRequest = Message<"baepo.api.v1.MachineLogsReques
    * @generated from field: optional string container_name = 2;
    */
   containerName?: string;
+
+  /**
+   * @generated from field: bool follow = 3;
+   */
+  follow: boolean;
 };
 
 /**
@@ -321,19 +326,24 @@ export declare const MachineLogsRequestSchema: GenMessage<MachineLogsRequest>;
  */
 export declare type MachineLogsResponse = Message<"baepo.api.v1.MachineLogsResponse"> & {
   /**
-   * @generated from field: uint32 fd = 1;
+   * @generated from field: bool error = 1;
    */
-  fd: number;
+  error: boolean;
 
   /**
-   * @generated from field: optional string container_name = 2;
+   * @generated from field: string container_name = 2;
    */
-  containerName?: string;
+  containerName: string;
 
   /**
    * @generated from field: bytes content = 3;
    */
   content: Uint8Array;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp timestamp = 4;
+   */
+  timestamp?: Timestamp;
 };
 
 /**

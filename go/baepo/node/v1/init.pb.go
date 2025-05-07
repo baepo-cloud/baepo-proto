@@ -10,6 +10,7 @@ import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
+	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -25,6 +26,7 @@ const (
 type InitGetLogsRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	ContainerName *string                `protobuf:"bytes,1,opt,name=container_name,json=containerName,proto3,oneof" json:"container_name,omitempty"`
+	Follow        bool                   `protobuf:"varint,2,opt,name=follow,proto3" json:"follow,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -66,11 +68,19 @@ func (x *InitGetLogsRequest) GetContainerName() string {
 	return ""
 }
 
+func (x *InitGetLogsRequest) GetFollow() bool {
+	if x != nil {
+		return x.Follow
+	}
+	return false
+}
+
 type InitGetLogsResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Fd            uint32                 `protobuf:"varint,1,opt,name=fd,proto3" json:"fd,omitempty"`
-	ContainerName *string                `protobuf:"bytes,2,opt,name=container_name,json=containerName,proto3,oneof" json:"container_name,omitempty"`
+	Error         bool                   `protobuf:"varint,1,opt,name=error,proto3" json:"error,omitempty"`
+	ContainerName string                 `protobuf:"bytes,2,opt,name=container_name,json=containerName,proto3" json:"container_name,omitempty"`
 	Content       []byte                 `protobuf:"bytes,3,opt,name=content,proto3" json:"content,omitempty"`
+	Timestamp     *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -105,16 +115,16 @@ func (*InitGetLogsResponse) Descriptor() ([]byte, []int) {
 	return file_baepo_node_v1_init_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *InitGetLogsResponse) GetFd() uint32 {
+func (x *InitGetLogsResponse) GetError() bool {
 	if x != nil {
-		return x.Fd
+		return x.Error
 	}
-	return 0
+	return false
 }
 
 func (x *InitGetLogsResponse) GetContainerName() string {
-	if x != nil && x.ContainerName != nil {
-		return *x.ContainerName
+	if x != nil {
+		return x.ContainerName
 	}
 	return ""
 }
@@ -126,19 +136,27 @@ func (x *InitGetLogsResponse) GetContent() []byte {
 	return nil
 }
 
+func (x *InitGetLogsResponse) GetTimestamp() *timestamppb.Timestamp {
+	if x != nil {
+		return x.Timestamp
+	}
+	return nil
+}
+
 var File_baepo_node_v1_init_proto protoreflect.FileDescriptor
 
 const file_baepo_node_v1_init_proto_rawDesc = "" +
 	"\n" +
-	"\x18baepo/node/v1/init.proto\x12\rbaepo.node.v1\x1a\x1bgoogle/protobuf/empty.proto\"S\n" +
+	"\x18baepo/node/v1/init.proto\x12\rbaepo.node.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"k\n" +
 	"\x12InitGetLogsRequest\x12*\n" +
-	"\x0econtainer_name\x18\x01 \x01(\tH\x00R\rcontainerName\x88\x01\x01B\x11\n" +
-	"\x0f_container_name\"~\n" +
-	"\x13InitGetLogsResponse\x12\x0e\n" +
-	"\x02fd\x18\x01 \x01(\rR\x02fd\x12*\n" +
-	"\x0econtainer_name\x18\x02 \x01(\tH\x00R\rcontainerName\x88\x01\x01\x12\x18\n" +
-	"\acontent\x18\x03 \x01(\fR\acontentB\x11\n" +
-	"\x0f_container_name2\x99\x01\n" +
+	"\x0econtainer_name\x18\x01 \x01(\tH\x00R\rcontainerName\x88\x01\x01\x12\x16\n" +
+	"\x06follow\x18\x02 \x01(\bR\x06followB\x11\n" +
+	"\x0f_container_name\"\xa6\x01\n" +
+	"\x13InitGetLogsResponse\x12\x14\n" +
+	"\x05error\x18\x01 \x01(\bR\x05error\x12%\n" +
+	"\x0econtainer_name\x18\x02 \x01(\tR\rcontainerName\x12\x18\n" +
+	"\acontent\x18\x03 \x01(\fR\acontent\x128\n" +
+	"\ttimestamp\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\ttimestamp2\x99\x01\n" +
 	"\x04Init\x12R\n" +
 	"\aGetLogs\x12!.baepo.node.v1.InitGetLogsRequest\x1a\".baepo.node.v1.InitGetLogsResponse0\x01\x12=\n" +
 	"\vHealthcheck\x12\x16.google.protobuf.Empty\x1a\x16.google.protobuf.EmptyB>Z<github.com/baepo-cloud/baepo-proto/go/baepo/node/v1;nodev1pbb\x06proto3"
@@ -157,20 +175,22 @@ func file_baepo_node_v1_init_proto_rawDescGZIP() []byte {
 
 var file_baepo_node_v1_init_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_baepo_node_v1_init_proto_goTypes = []any{
-	(*InitGetLogsRequest)(nil),  // 0: baepo.node.v1.InitGetLogsRequest
-	(*InitGetLogsResponse)(nil), // 1: baepo.node.v1.InitGetLogsResponse
-	(*emptypb.Empty)(nil),       // 2: google.protobuf.Empty
+	(*InitGetLogsRequest)(nil),    // 0: baepo.node.v1.InitGetLogsRequest
+	(*InitGetLogsResponse)(nil),   // 1: baepo.node.v1.InitGetLogsResponse
+	(*timestamppb.Timestamp)(nil), // 2: google.protobuf.Timestamp
+	(*emptypb.Empty)(nil),         // 3: google.protobuf.Empty
 }
 var file_baepo_node_v1_init_proto_depIdxs = []int32{
-	0, // 0: baepo.node.v1.Init.GetLogs:input_type -> baepo.node.v1.InitGetLogsRequest
-	2, // 1: baepo.node.v1.Init.Healthcheck:input_type -> google.protobuf.Empty
-	1, // 2: baepo.node.v1.Init.GetLogs:output_type -> baepo.node.v1.InitGetLogsResponse
-	2, // 3: baepo.node.v1.Init.Healthcheck:output_type -> google.protobuf.Empty
-	2, // [2:4] is the sub-list for method output_type
-	0, // [0:2] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	2, // 0: baepo.node.v1.InitGetLogsResponse.timestamp:type_name -> google.protobuf.Timestamp
+	0, // 1: baepo.node.v1.Init.GetLogs:input_type -> baepo.node.v1.InitGetLogsRequest
+	3, // 2: baepo.node.v1.Init.Healthcheck:input_type -> google.protobuf.Empty
+	1, // 3: baepo.node.v1.Init.GetLogs:output_type -> baepo.node.v1.InitGetLogsResponse
+	3, // 4: baepo.node.v1.Init.Healthcheck:output_type -> google.protobuf.Empty
+	3, // [3:5] is the sub-list for method output_type
+	1, // [1:3] is the sub-list for method input_type
+	1, // [1:1] is the sub-list for extension type_name
+	1, // [1:1] is the sub-list for extension extendee
+	0, // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_baepo_node_v1_init_proto_init() }
@@ -179,7 +199,6 @@ func file_baepo_node_v1_init_proto_init() {
 		return
 	}
 	file_baepo_node_v1_init_proto_msgTypes[0].OneofWrappers = []any{}
-	file_baepo_node_v1_init_proto_msgTypes[1].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{

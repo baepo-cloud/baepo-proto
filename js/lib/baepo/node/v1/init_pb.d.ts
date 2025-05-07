@@ -4,7 +4,7 @@
 
 import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv1";
 import type { Message } from "@bufbuild/protobuf";
-import type { EmptySchema } from "@bufbuild/protobuf/wkt";
+import type { EmptySchema, Timestamp } from "@bufbuild/protobuf/wkt";
 
 /**
  * Describes the file baepo/node/v1/init.proto.
@@ -19,6 +19,11 @@ export declare type InitGetLogsRequest = Message<"baepo.node.v1.InitGetLogsReque
    * @generated from field: optional string container_name = 1;
    */
   containerName?: string;
+
+  /**
+   * @generated from field: bool follow = 2;
+   */
+  follow: boolean;
 };
 
 /**
@@ -32,19 +37,24 @@ export declare const InitGetLogsRequestSchema: GenMessage<InitGetLogsRequest>;
  */
 export declare type InitGetLogsResponse = Message<"baepo.node.v1.InitGetLogsResponse"> & {
   /**
-   * @generated from field: uint32 fd = 1;
+   * @generated from field: bool error = 1;
    */
-  fd: number;
+  error: boolean;
 
   /**
-   * @generated from field: optional string container_name = 2;
+   * @generated from field: string container_name = 2;
    */
-  containerName?: string;
+  containerName: string;
 
   /**
    * @generated from field: bytes content = 3;
    */
   content: Uint8Array;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp timestamp = 4;
+   */
+  timestamp?: Timestamp;
 };
 
 /**

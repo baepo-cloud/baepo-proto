@@ -91,10 +91,12 @@ message MachineTerminateResponse {
 message MachineLogsRequest {
   string machine_id = 1;
   optional string container_name = 2;
+  bool follow = 3;
 }
 
 message MachineLogsResponse {
-  uint32 fd = 1;
-  optional string container_name = 2;
+  bool error = 1;
+  string container_name = 2;
   bytes content = 3;
+  google.protobuf.Timestamp timestamp = 4;
 }

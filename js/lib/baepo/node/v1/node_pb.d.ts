@@ -5,6 +5,7 @@
 import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv1";
 import type { Message } from "@bufbuild/protobuf";
 import type { MachineDesiredState, MachineState } from "../../core/v1/machine_pb.js";
+import type { Timestamp } from "@bufbuild/protobuf/wkt";
 
 /**
  * Describes the file baepo/node/v1/node.proto.
@@ -110,6 +111,11 @@ export declare type NodeGetMachineLogsRequest = Message<"baepo.node.v1.NodeGetMa
    * @generated from field: optional string container_name = 2;
    */
   containerName?: string;
+
+  /**
+   * @generated from field: bool follow = 3;
+   */
+  follow: boolean;
 };
 
 /**
@@ -123,19 +129,24 @@ export declare const NodeGetMachineLogsRequestSchema: GenMessage<NodeGetMachineL
  */
 export declare type NodeGetMachineLogsResponse = Message<"baepo.node.v1.NodeGetMachineLogsResponse"> & {
   /**
-   * @generated from field: uint32 fd = 1;
+   * @generated from field: bool error = 1;
    */
-  fd: number;
+  error: boolean;
 
   /**
-   * @generated from field: optional string container_name = 2;
+   * @generated from field: string container_name = 2;
    */
-  containerName?: string;
+  containerName: string;
 
   /**
    * @generated from field: bytes content = 3;
    */
   content: Uint8Array;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp timestamp = 4;
+   */
+  timestamp?: Timestamp;
 };
 
 /**
