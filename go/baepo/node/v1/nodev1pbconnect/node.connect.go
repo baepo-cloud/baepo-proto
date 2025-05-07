@@ -38,12 +38,16 @@ const (
 	NodeServiceListMachinesProcedure = "/baepo.node.v1.NodeService/ListMachines"
 	// NodeServiceGetMachineProcedure is the fully-qualified name of the NodeService's GetMachine RPC.
 	NodeServiceGetMachineProcedure = "/baepo.node.v1.NodeService/GetMachine"
+	// NodeServiceGetMachineLogsProcedure is the fully-qualified name of the NodeService's
+	// GetMachineLogs RPC.
+	NodeServiceGetMachineLogsProcedure = "/baepo.node.v1.NodeService/GetMachineLogs"
 )
 
 // NodeServiceClient is a client for the baepo.node.v1.NodeService service.
 type NodeServiceClient interface {
 	ListMachines(context.Context, *connect.Request[v1.NodeListMachinesRequest]) (*connect.Response[v1.NodeListMachinesResponse], error)
 	GetMachine(context.Context, *connect.Request[v1.NodeGetMachineRequest]) (*connect.Response[v1.NodeGetMachineResponse], error)
+	GetMachineLogs(context.Context, *connect.Request[v1.NodeGetMachineLogsRequest]) (*connect.ServerStreamForClient[v1.NodeGetMachineLogsResponse], error)
 }
 
 // NewNodeServiceClient constructs a client for the baepo.node.v1.NodeService service. By default,
@@ -69,13 +73,20 @@ func NewNodeServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 			connect.WithSchema(nodeServiceMethods.ByName("GetMachine")),
 			connect.WithClientOptions(opts...),
 		),
+		getMachineLogs: connect.NewClient[v1.NodeGetMachineLogsRequest, v1.NodeGetMachineLogsResponse](
+			httpClient,
+			baseURL+NodeServiceGetMachineLogsProcedure,
+			connect.WithSchema(nodeServiceMethods.ByName("GetMachineLogs")),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
 // nodeServiceClient implements NodeServiceClient.
 type nodeServiceClient struct {
-	listMachines *connect.Client[v1.NodeListMachinesRequest, v1.NodeListMachinesResponse]
-	getMachine   *connect.Client[v1.NodeGetMachineRequest, v1.NodeGetMachineResponse]
+	listMachines   *connect.Client[v1.NodeListMachinesRequest, v1.NodeListMachinesResponse]
+	getMachine     *connect.Client[v1.NodeGetMachineRequest, v1.NodeGetMachineResponse]
+	getMachineLogs *connect.Client[v1.NodeGetMachineLogsRequest, v1.NodeGetMachineLogsResponse]
 }
 
 // ListMachines calls baepo.node.v1.NodeService.ListMachines.
@@ -88,10 +99,16 @@ func (c *nodeServiceClient) GetMachine(ctx context.Context, req *connect.Request
 	return c.getMachine.CallUnary(ctx, req)
 }
 
+// GetMachineLogs calls baepo.node.v1.NodeService.GetMachineLogs.
+func (c *nodeServiceClient) GetMachineLogs(ctx context.Context, req *connect.Request[v1.NodeGetMachineLogsRequest]) (*connect.ServerStreamForClient[v1.NodeGetMachineLogsResponse], error) {
+	return c.getMachineLogs.CallServerStream(ctx, req)
+}
+
 // NodeServiceHandler is an implementation of the baepo.node.v1.NodeService service.
 type NodeServiceHandler interface {
 	ListMachines(context.Context, *connect.Request[v1.NodeListMachinesRequest]) (*connect.Response[v1.NodeListMachinesResponse], error)
 	GetMachine(context.Context, *connect.Request[v1.NodeGetMachineRequest]) (*connect.Response[v1.NodeGetMachineResponse], error)
+	GetMachineLogs(context.Context, *connect.Request[v1.NodeGetMachineLogsRequest], *connect.ServerStream[v1.NodeGetMachineLogsResponse]) error
 }
 
 // NewNodeServiceHandler builds an HTTP handler from the service implementation. It returns the path
@@ -113,12 +130,20 @@ func NewNodeServiceHandler(svc NodeServiceHandler, opts ...connect.HandlerOption
 		connect.WithSchema(nodeServiceMethods.ByName("GetMachine")),
 		connect.WithHandlerOptions(opts...),
 	)
+	nodeServiceGetMachineLogsHandler := connect.NewServerStreamHandler(
+		NodeServiceGetMachineLogsProcedure,
+		svc.GetMachineLogs,
+		connect.WithSchema(nodeServiceMethods.ByName("GetMachineLogs")),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/baepo.node.v1.NodeService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case NodeServiceListMachinesProcedure:
 			nodeServiceListMachinesHandler.ServeHTTP(w, r)
 		case NodeServiceGetMachineProcedure:
 			nodeServiceGetMachineHandler.ServeHTTP(w, r)
+		case NodeServiceGetMachineLogsProcedure:
+			nodeServiceGetMachineLogsHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -134,4 +159,8 @@ func (UnimplementedNodeServiceHandler) ListMachines(context.Context, *connect.Re
 
 func (UnimplementedNodeServiceHandler) GetMachine(context.Context, *connect.Request[v1.NodeGetMachineRequest]) (*connect.Response[v1.NodeGetMachineResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("baepo.node.v1.NodeService.GetMachine is not implemented"))
+}
+
+func (UnimplementedNodeServiceHandler) GetMachineLogs(context.Context, *connect.Request[v1.NodeGetMachineLogsRequest], *connect.ServerStream[v1.NodeGetMachineLogsResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("baepo.node.v1.NodeService.GetMachineLogs is not implemented"))
 }

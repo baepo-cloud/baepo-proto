@@ -7,5 +7,17 @@ import "google/protobuf/empty.proto";
 option go_package = "github.com/baepo-cloud/baepo-proto/go/baepo/node/v1;nodev1pb";
 
 service Init {
+  rpc GetLogs(InitGetLogsRequest) returns (stream InitGetLogsResponse);
+
   rpc Healthcheck(google.protobuf.Empty) returns (google.protobuf.Empty);
+}
+
+message InitGetLogsRequest {
+  optional string container_name = 1;
+}
+
+message InitGetLogsResponse {
+  uint32 fd = 1;
+  optional string container_name = 2;
+  bytes content = 3;
 }

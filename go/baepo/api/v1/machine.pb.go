@@ -698,6 +698,118 @@ func (x *MachineTerminateResponse) GetMachine() *Machine {
 	return nil
 }
 
+type MachineLogsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	MachineId     string                 `protobuf:"bytes,1,opt,name=machine_id,json=machineId,proto3" json:"machine_id,omitempty"`
+	ContainerName *string                `protobuf:"bytes,2,opt,name=container_name,json=containerName,proto3,oneof" json:"container_name,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MachineLogsRequest) Reset() {
+	*x = MachineLogsRequest{}
+	mi := &file_baepo_api_v1_machine_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MachineLogsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MachineLogsRequest) ProtoMessage() {}
+
+func (x *MachineLogsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_baepo_api_v1_machine_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MachineLogsRequest.ProtoReflect.Descriptor instead.
+func (*MachineLogsRequest) Descriptor() ([]byte, []int) {
+	return file_baepo_api_v1_machine_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *MachineLogsRequest) GetMachineId() string {
+	if x != nil {
+		return x.MachineId
+	}
+	return ""
+}
+
+func (x *MachineLogsRequest) GetContainerName() string {
+	if x != nil && x.ContainerName != nil {
+		return *x.ContainerName
+	}
+	return ""
+}
+
+type MachineLogsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Fd            uint32                 `protobuf:"varint,1,opt,name=fd,proto3" json:"fd,omitempty"`
+	ContainerName *string                `protobuf:"bytes,2,opt,name=container_name,json=containerName,proto3,oneof" json:"container_name,omitempty"`
+	Content       []byte                 `protobuf:"bytes,3,opt,name=content,proto3" json:"content,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MachineLogsResponse) Reset() {
+	*x = MachineLogsResponse{}
+	mi := &file_baepo_api_v1_machine_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MachineLogsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MachineLogsResponse) ProtoMessage() {}
+
+func (x *MachineLogsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_baepo_api_v1_machine_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MachineLogsResponse.ProtoReflect.Descriptor instead.
+func (*MachineLogsResponse) Descriptor() ([]byte, []int) {
+	return file_baepo_api_v1_machine_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *MachineLogsResponse) GetFd() uint32 {
+	if x != nil {
+		return x.Fd
+	}
+	return 0
+}
+
+func (x *MachineLogsResponse) GetContainerName() string {
+	if x != nil && x.ContainerName != nil {
+		return *x.ContainerName
+	}
+	return ""
+}
+
+func (x *MachineLogsResponse) GetContent() []byte {
+	if x != nil {
+		return x.Content
+	}
+	return nil
+}
+
 var File_baepo_api_v1_machine_proto protoreflect.FileDescriptor
 
 const file_baepo_api_v1_machine_proto_rawDesc = "" +
@@ -769,13 +881,24 @@ const file_baepo_api_v1_machine_proto_rawDesc = "" +
 	"\n" +
 	"machine_id\x18\x01 \x01(\tR\tmachineId\"K\n" +
 	"\x18MachineTerminateResponse\x12/\n" +
-	"\amachine\x18\x01 \x01(\v2\x15.baepo.api.v1.MachineR\amachine2\xb5\x03\n" +
+	"\amachine\x18\x01 \x01(\v2\x15.baepo.api.v1.MachineR\amachine\"r\n" +
+	"\x12MachineLogsRequest\x12\x1d\n" +
+	"\n" +
+	"machine_id\x18\x01 \x01(\tR\tmachineId\x12*\n" +
+	"\x0econtainer_name\x18\x02 \x01(\tH\x00R\rcontainerName\x88\x01\x01B\x11\n" +
+	"\x0f_container_name\"~\n" +
+	"\x13MachineLogsResponse\x12\x0e\n" +
+	"\x02fd\x18\x01 \x01(\rR\x02fd\x12*\n" +
+	"\x0econtainer_name\x18\x02 \x01(\tH\x00R\rcontainerName\x88\x01\x01\x12\x18\n" +
+	"\acontent\x18\x03 \x01(\fR\acontentB\x11\n" +
+	"\x0f_container_name2\x84\x04\n" +
 	"\x0eMachineService\x12K\n" +
 	"\x04List\x12 .baepo.api.v1.MachineListRequest\x1a!.baepo.api.v1.MachineListResponse\x12W\n" +
 	"\bFindById\x12$.baepo.api.v1.MachineFindByIdRequest\x1a%.baepo.api.v1.MachineFindByIdResponse\x12Q\n" +
 	"\x06Create\x12\".baepo.api.v1.MachineCreateRequest\x1a#.baepo.api.v1.MachineCreateResponse\x12N\n" +
 	"\x05Start\x12!.baepo.api.v1.MachineStartRequest\x1a\".baepo.api.v1.MachineStartResponse\x12Z\n" +
-	"\tTerminate\x12%.baepo.api.v1.MachineTerminateRequest\x1a&.baepo.api.v1.MachineTerminateResponseB<Z:github.com/baepo-cloud/baepo-proto/go/baepo/api/v1;apiv1pbb\x06proto3"
+	"\tTerminate\x12%.baepo.api.v1.MachineTerminateRequest\x1a&.baepo.api.v1.MachineTerminateResponse\x12M\n" +
+	"\x04Logs\x12 .baepo.api.v1.MachineLogsRequest\x1a!.baepo.api.v1.MachineLogsResponse0\x01B<Z:github.com/baepo-cloud/baepo-proto/go/baepo/api/v1;apiv1pbb\x06proto3"
 
 var (
 	file_baepo_api_v1_machine_proto_rawDescOnce sync.Once
@@ -789,7 +912,7 @@ func file_baepo_api_v1_machine_proto_rawDescGZIP() []byte {
 	return file_baepo_api_v1_machine_proto_rawDescData
 }
 
-var file_baepo_api_v1_machine_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
+var file_baepo_api_v1_machine_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
 var file_baepo_api_v1_machine_proto_goTypes = []any{
 	(*Machine)(nil),                  // 0: baepo.api.v1.Machine
 	(*MachineListRequest)(nil),       // 1: baepo.api.v1.MachineListRequest
@@ -802,29 +925,31 @@ var file_baepo_api_v1_machine_proto_goTypes = []any{
 	(*MachineStartResponse)(nil),     // 8: baepo.api.v1.MachineStartResponse
 	(*MachineTerminateRequest)(nil),  // 9: baepo.api.v1.MachineTerminateRequest
 	(*MachineTerminateResponse)(nil), // 10: baepo.api.v1.MachineTerminateResponse
-	nil,                              // 11: baepo.api.v1.Machine.MetadataEntry
-	nil,                              // 12: baepo.api.v1.MachineCreateRequest.MetadataEntry
-	(v1.MachineState)(0),             // 13: baepo.core.v1.MachineState
-	(*v1.MachineSpec)(nil),           // 14: baepo.core.v1.MachineSpec
-	(v1.MachineDesiredState)(0),      // 15: baepo.core.v1.MachineDesiredState
-	(*timestamppb.Timestamp)(nil),    // 16: google.protobuf.Timestamp
-	(v1.MachineTerminationCause)(0),  // 17: baepo.core.v1.MachineTerminationCause
+	(*MachineLogsRequest)(nil),       // 11: baepo.api.v1.MachineLogsRequest
+	(*MachineLogsResponse)(nil),      // 12: baepo.api.v1.MachineLogsResponse
+	nil,                              // 13: baepo.api.v1.Machine.MetadataEntry
+	nil,                              // 14: baepo.api.v1.MachineCreateRequest.MetadataEntry
+	(v1.MachineState)(0),             // 15: baepo.core.v1.MachineState
+	(*v1.MachineSpec)(nil),           // 16: baepo.core.v1.MachineSpec
+	(v1.MachineDesiredState)(0),      // 17: baepo.core.v1.MachineDesiredState
+	(*timestamppb.Timestamp)(nil),    // 18: google.protobuf.Timestamp
+	(v1.MachineTerminationCause)(0),  // 19: baepo.core.v1.MachineTerminationCause
 }
 var file_baepo_api_v1_machine_proto_depIdxs = []int32{
-	13, // 0: baepo.api.v1.Machine.state:type_name -> baepo.core.v1.MachineState
-	14, // 1: baepo.api.v1.Machine.spec:type_name -> baepo.core.v1.MachineSpec
-	15, // 2: baepo.api.v1.Machine.desired_state:type_name -> baepo.core.v1.MachineDesiredState
-	16, // 3: baepo.api.v1.Machine.started_at:type_name -> google.protobuf.Timestamp
-	16, // 4: baepo.api.v1.Machine.expires_at:type_name -> google.protobuf.Timestamp
-	16, // 5: baepo.api.v1.Machine.terminated_at:type_name -> google.protobuf.Timestamp
-	17, // 6: baepo.api.v1.Machine.termination_cause:type_name -> baepo.core.v1.MachineTerminationCause
-	11, // 7: baepo.api.v1.Machine.metadata:type_name -> baepo.api.v1.Machine.MetadataEntry
-	16, // 8: baepo.api.v1.Machine.created_at:type_name -> google.protobuf.Timestamp
-	16, // 9: baepo.api.v1.Machine.updated_at:type_name -> google.protobuf.Timestamp
+	15, // 0: baepo.api.v1.Machine.state:type_name -> baepo.core.v1.MachineState
+	16, // 1: baepo.api.v1.Machine.spec:type_name -> baepo.core.v1.MachineSpec
+	17, // 2: baepo.api.v1.Machine.desired_state:type_name -> baepo.core.v1.MachineDesiredState
+	18, // 3: baepo.api.v1.Machine.started_at:type_name -> google.protobuf.Timestamp
+	18, // 4: baepo.api.v1.Machine.expires_at:type_name -> google.protobuf.Timestamp
+	18, // 5: baepo.api.v1.Machine.terminated_at:type_name -> google.protobuf.Timestamp
+	19, // 6: baepo.api.v1.Machine.termination_cause:type_name -> baepo.core.v1.MachineTerminationCause
+	13, // 7: baepo.api.v1.Machine.metadata:type_name -> baepo.api.v1.Machine.MetadataEntry
+	18, // 8: baepo.api.v1.Machine.created_at:type_name -> google.protobuf.Timestamp
+	18, // 9: baepo.api.v1.Machine.updated_at:type_name -> google.protobuf.Timestamp
 	0,  // 10: baepo.api.v1.MachineListResponse.machines:type_name -> baepo.api.v1.Machine
 	0,  // 11: baepo.api.v1.MachineFindByIdResponse.machine:type_name -> baepo.api.v1.Machine
-	14, // 12: baepo.api.v1.MachineCreateRequest.spec:type_name -> baepo.core.v1.MachineSpec
-	12, // 13: baepo.api.v1.MachineCreateRequest.metadata:type_name -> baepo.api.v1.MachineCreateRequest.MetadataEntry
+	16, // 12: baepo.api.v1.MachineCreateRequest.spec:type_name -> baepo.core.v1.MachineSpec
+	14, // 13: baepo.api.v1.MachineCreateRequest.metadata:type_name -> baepo.api.v1.MachineCreateRequest.MetadataEntry
 	0,  // 14: baepo.api.v1.MachineCreateResponse.machine:type_name -> baepo.api.v1.Machine
 	0,  // 15: baepo.api.v1.MachineStartResponse.machine:type_name -> baepo.api.v1.Machine
 	0,  // 16: baepo.api.v1.MachineTerminateResponse.machine:type_name -> baepo.api.v1.Machine
@@ -833,13 +958,15 @@ var file_baepo_api_v1_machine_proto_depIdxs = []int32{
 	5,  // 19: baepo.api.v1.MachineService.Create:input_type -> baepo.api.v1.MachineCreateRequest
 	7,  // 20: baepo.api.v1.MachineService.Start:input_type -> baepo.api.v1.MachineStartRequest
 	9,  // 21: baepo.api.v1.MachineService.Terminate:input_type -> baepo.api.v1.MachineTerminateRequest
-	2,  // 22: baepo.api.v1.MachineService.List:output_type -> baepo.api.v1.MachineListResponse
-	4,  // 23: baepo.api.v1.MachineService.FindById:output_type -> baepo.api.v1.MachineFindByIdResponse
-	6,  // 24: baepo.api.v1.MachineService.Create:output_type -> baepo.api.v1.MachineCreateResponse
-	8,  // 25: baepo.api.v1.MachineService.Start:output_type -> baepo.api.v1.MachineStartResponse
-	10, // 26: baepo.api.v1.MachineService.Terminate:output_type -> baepo.api.v1.MachineTerminateResponse
-	22, // [22:27] is the sub-list for method output_type
-	17, // [17:22] is the sub-list for method input_type
+	11, // 22: baepo.api.v1.MachineService.Logs:input_type -> baepo.api.v1.MachineLogsRequest
+	2,  // 23: baepo.api.v1.MachineService.List:output_type -> baepo.api.v1.MachineListResponse
+	4,  // 24: baepo.api.v1.MachineService.FindById:output_type -> baepo.api.v1.MachineFindByIdResponse
+	6,  // 25: baepo.api.v1.MachineService.Create:output_type -> baepo.api.v1.MachineCreateResponse
+	8,  // 26: baepo.api.v1.MachineService.Start:output_type -> baepo.api.v1.MachineStartResponse
+	10, // 27: baepo.api.v1.MachineService.Terminate:output_type -> baepo.api.v1.MachineTerminateResponse
+	12, // 28: baepo.api.v1.MachineService.Logs:output_type -> baepo.api.v1.MachineLogsResponse
+	23, // [23:29] is the sub-list for method output_type
+	17, // [17:23] is the sub-list for method input_type
 	17, // [17:17] is the sub-list for extension type_name
 	17, // [17:17] is the sub-list for extension extendee
 	0,  // [0:17] is the sub-list for field type_name
@@ -855,13 +982,15 @@ func file_baepo_api_v1_machine_proto_init() {
 		(*MachineCreateRequest_NodeId)(nil),
 		(*MachineCreateRequest_ClusterId)(nil),
 	}
+	file_baepo_api_v1_machine_proto_msgTypes[11].OneofWrappers = []any{}
+	file_baepo_api_v1_machine_proto_msgTypes[12].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_baepo_api_v1_machine_proto_rawDesc), len(file_baepo_api_v1_machine_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   13,
+			NumMessages:   15,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

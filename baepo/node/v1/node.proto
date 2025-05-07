@@ -11,6 +11,8 @@ service NodeService {
   rpc ListMachines(NodeListMachinesRequest) returns (NodeListMachinesResponse);
 
   rpc GetMachine(NodeGetMachineRequest) returns (NodeGetMachineResponse);
+
+  rpc GetMachineLogs(NodeGetMachineLogsRequest) returns (stream NodeGetMachineLogsResponse);
 }
 
 message Machine {
@@ -32,4 +34,15 @@ message NodeGetMachineRequest {
 
 message NodeGetMachineResponse {
   Machine machine = 1;
+}
+
+message NodeGetMachineLogsRequest {
+  string machine_id = 1;
+  optional string container_name = 2;
+}
+
+message NodeGetMachineLogsResponse {
+  uint32 fd = 1;
+  optional string container_name = 2;
+  bytes content = 3;
 }

@@ -34,12 +34,15 @@ const (
 // reflection-formatted method names, remove the leading slash and convert the remaining slash to a
 // period.
 const (
+	// InitGetLogsProcedure is the fully-qualified name of the Init's GetLogs RPC.
+	InitGetLogsProcedure = "/baepo.node.v1.Init/GetLogs"
 	// InitHealthcheckProcedure is the fully-qualified name of the Init's Healthcheck RPC.
 	InitHealthcheckProcedure = "/baepo.node.v1.Init/Healthcheck"
 )
 
 // InitClient is a client for the baepo.node.v1.Init service.
 type InitClient interface {
+	GetLogs(context.Context, *connect.Request[v1.InitGetLogsRequest]) (*connect.ServerStreamForClient[v1.InitGetLogsResponse], error)
 	Healthcheck(context.Context, *connect.Request[emptypb.Empty]) (*connect.Response[emptypb.Empty], error)
 }
 
@@ -54,6 +57,12 @@ func NewInitClient(httpClient connect.HTTPClient, baseURL string, opts ...connec
 	baseURL = strings.TrimRight(baseURL, "/")
 	initMethods := v1.File_baepo_node_v1_init_proto.Services().ByName("Init").Methods()
 	return &initClient{
+		getLogs: connect.NewClient[v1.InitGetLogsRequest, v1.InitGetLogsResponse](
+			httpClient,
+			baseURL+InitGetLogsProcedure,
+			connect.WithSchema(initMethods.ByName("GetLogs")),
+			connect.WithClientOptions(opts...),
+		),
 		healthcheck: connect.NewClient[emptypb.Empty, emptypb.Empty](
 			httpClient,
 			baseURL+InitHealthcheckProcedure,
@@ -65,7 +74,13 @@ func NewInitClient(httpClient connect.HTTPClient, baseURL string, opts ...connec
 
 // initClient implements InitClient.
 type initClient struct {
+	getLogs     *connect.Client[v1.InitGetLogsRequest, v1.InitGetLogsResponse]
 	healthcheck *connect.Client[emptypb.Empty, emptypb.Empty]
+}
+
+// GetLogs calls baepo.node.v1.Init.GetLogs.
+func (c *initClient) GetLogs(ctx context.Context, req *connect.Request[v1.InitGetLogsRequest]) (*connect.ServerStreamForClient[v1.InitGetLogsResponse], error) {
+	return c.getLogs.CallServerStream(ctx, req)
 }
 
 // Healthcheck calls baepo.node.v1.Init.Healthcheck.
@@ -75,6 +90,7 @@ func (c *initClient) Healthcheck(ctx context.Context, req *connect.Request[empty
 
 // InitHandler is an implementation of the baepo.node.v1.Init service.
 type InitHandler interface {
+	GetLogs(context.Context, *connect.Request[v1.InitGetLogsRequest], *connect.ServerStream[v1.InitGetLogsResponse]) error
 	Healthcheck(context.Context, *connect.Request[emptypb.Empty]) (*connect.Response[emptypb.Empty], error)
 }
 
@@ -85,6 +101,12 @@ type InitHandler interface {
 // and JSON codecs. They also support gzip compression.
 func NewInitHandler(svc InitHandler, opts ...connect.HandlerOption) (string, http.Handler) {
 	initMethods := v1.File_baepo_node_v1_init_proto.Services().ByName("Init").Methods()
+	initGetLogsHandler := connect.NewServerStreamHandler(
+		InitGetLogsProcedure,
+		svc.GetLogs,
+		connect.WithSchema(initMethods.ByName("GetLogs")),
+		connect.WithHandlerOptions(opts...),
+	)
 	initHealthcheckHandler := connect.NewUnaryHandler(
 		InitHealthcheckProcedure,
 		svc.Healthcheck,
@@ -93,6 +115,8 @@ func NewInitHandler(svc InitHandler, opts ...connect.HandlerOption) (string, htt
 	)
 	return "/baepo.node.v1.Init/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
+		case InitGetLogsProcedure:
+			initGetLogsHandler.ServeHTTP(w, r)
 		case InitHealthcheckProcedure:
 			initHealthcheckHandler.ServeHTTP(w, r)
 		default:
@@ -103,6 +127,10 @@ func NewInitHandler(svc InitHandler, opts ...connect.HandlerOption) (string, htt
 
 // UnimplementedInitHandler returns CodeUnimplemented from all methods.
 type UnimplementedInitHandler struct{}
+
+func (UnimplementedInitHandler) GetLogs(context.Context, *connect.Request[v1.InitGetLogsRequest], *connect.ServerStream[v1.InitGetLogsResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("baepo.node.v1.Init.GetLogs is not implemented"))
+}
 
 func (UnimplementedInitHandler) Healthcheck(context.Context, *connect.Request[emptypb.Empty]) (*connect.Response[emptypb.Empty], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("baepo.node.v1.Init.Healthcheck is not implemented"))

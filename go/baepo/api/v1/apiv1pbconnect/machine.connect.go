@@ -44,6 +44,8 @@ const (
 	// MachineServiceTerminateProcedure is the fully-qualified name of the MachineService's Terminate
 	// RPC.
 	MachineServiceTerminateProcedure = "/baepo.api.v1.MachineService/Terminate"
+	// MachineServiceLogsProcedure is the fully-qualified name of the MachineService's Logs RPC.
+	MachineServiceLogsProcedure = "/baepo.api.v1.MachineService/Logs"
 )
 
 // MachineServiceClient is a client for the baepo.api.v1.MachineService service.
@@ -53,6 +55,7 @@ type MachineServiceClient interface {
 	Create(context.Context, *connect.Request[v1.MachineCreateRequest]) (*connect.Response[v1.MachineCreateResponse], error)
 	Start(context.Context, *connect.Request[v1.MachineStartRequest]) (*connect.Response[v1.MachineStartResponse], error)
 	Terminate(context.Context, *connect.Request[v1.MachineTerminateRequest]) (*connect.Response[v1.MachineTerminateResponse], error)
+	Logs(context.Context, *connect.Request[v1.MachineLogsRequest]) (*connect.ServerStreamForClient[v1.MachineLogsResponse], error)
 }
 
 // NewMachineServiceClient constructs a client for the baepo.api.v1.MachineService service. By
@@ -96,6 +99,12 @@ func NewMachineServiceClient(httpClient connect.HTTPClient, baseURL string, opts
 			connect.WithSchema(machineServiceMethods.ByName("Terminate")),
 			connect.WithClientOptions(opts...),
 		),
+		logs: connect.NewClient[v1.MachineLogsRequest, v1.MachineLogsResponse](
+			httpClient,
+			baseURL+MachineServiceLogsProcedure,
+			connect.WithSchema(machineServiceMethods.ByName("Logs")),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
@@ -106,6 +115,7 @@ type machineServiceClient struct {
 	create    *connect.Client[v1.MachineCreateRequest, v1.MachineCreateResponse]
 	start     *connect.Client[v1.MachineStartRequest, v1.MachineStartResponse]
 	terminate *connect.Client[v1.MachineTerminateRequest, v1.MachineTerminateResponse]
+	logs      *connect.Client[v1.MachineLogsRequest, v1.MachineLogsResponse]
 }
 
 // List calls baepo.api.v1.MachineService.List.
@@ -133,6 +143,11 @@ func (c *machineServiceClient) Terminate(ctx context.Context, req *connect.Reque
 	return c.terminate.CallUnary(ctx, req)
 }
 
+// Logs calls baepo.api.v1.MachineService.Logs.
+func (c *machineServiceClient) Logs(ctx context.Context, req *connect.Request[v1.MachineLogsRequest]) (*connect.ServerStreamForClient[v1.MachineLogsResponse], error) {
+	return c.logs.CallServerStream(ctx, req)
+}
+
 // MachineServiceHandler is an implementation of the baepo.api.v1.MachineService service.
 type MachineServiceHandler interface {
 	List(context.Context, *connect.Request[v1.MachineListRequest]) (*connect.Response[v1.MachineListResponse], error)
@@ -140,6 +155,7 @@ type MachineServiceHandler interface {
 	Create(context.Context, *connect.Request[v1.MachineCreateRequest]) (*connect.Response[v1.MachineCreateResponse], error)
 	Start(context.Context, *connect.Request[v1.MachineStartRequest]) (*connect.Response[v1.MachineStartResponse], error)
 	Terminate(context.Context, *connect.Request[v1.MachineTerminateRequest]) (*connect.Response[v1.MachineTerminateResponse], error)
+	Logs(context.Context, *connect.Request[v1.MachineLogsRequest], *connect.ServerStream[v1.MachineLogsResponse]) error
 }
 
 // NewMachineServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -179,6 +195,12 @@ func NewMachineServiceHandler(svc MachineServiceHandler, opts ...connect.Handler
 		connect.WithSchema(machineServiceMethods.ByName("Terminate")),
 		connect.WithHandlerOptions(opts...),
 	)
+	machineServiceLogsHandler := connect.NewServerStreamHandler(
+		MachineServiceLogsProcedure,
+		svc.Logs,
+		connect.WithSchema(machineServiceMethods.ByName("Logs")),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/baepo.api.v1.MachineService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case MachineServiceListProcedure:
@@ -191,6 +213,8 @@ func NewMachineServiceHandler(svc MachineServiceHandler, opts ...connect.Handler
 			machineServiceStartHandler.ServeHTTP(w, r)
 		case MachineServiceTerminateProcedure:
 			machineServiceTerminateHandler.ServeHTTP(w, r)
+		case MachineServiceLogsProcedure:
+			machineServiceLogsHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -218,4 +242,8 @@ func (UnimplementedMachineServiceHandler) Start(context.Context, *connect.Reques
 
 func (UnimplementedMachineServiceHandler) Terminate(context.Context, *connect.Request[v1.MachineTerminateRequest]) (*connect.Response[v1.MachineTerminateResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("baepo.api.v1.MachineService.Terminate is not implemented"))
+}
+
+func (UnimplementedMachineServiceHandler) Logs(context.Context, *connect.Request[v1.MachineLogsRequest], *connect.ServerStream[v1.MachineLogsResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("baepo.api.v1.MachineService.Logs is not implemented"))
 }

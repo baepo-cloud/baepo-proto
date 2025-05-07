@@ -18,6 +18,8 @@ service MachineService {
   rpc Start(MachineStartRequest) returns (MachineStartResponse);
 
   rpc Terminate(MachineTerminateRequest) returns (MachineTerminateResponse);
+
+  rpc Logs(MachineLogsRequest) returns (stream MachineLogsResponse);
 }
 
 message Machine {
@@ -84,4 +86,15 @@ message MachineTerminateRequest {
 
 message MachineTerminateResponse {
   Machine machine = 1;
+}
+
+message MachineLogsRequest {
+  string machine_id = 1;
+  optional string container_name = 2;
+}
+
+message MachineLogsResponse {
+  uint32 fd = 1;
+  optional string container_name = 2;
+  bytes content = 3;
 }

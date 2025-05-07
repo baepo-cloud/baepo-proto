@@ -2,7 +2,8 @@
 // @generated from file baepo/node/v1/init.proto (package baepo.node.v1, syntax proto3)
 /* eslint-disable */
 
-import type { GenFile, GenService } from "@bufbuild/protobuf/codegenv1";
+import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv1";
+import type { Message } from "@bufbuild/protobuf";
 import type { EmptySchema } from "@bufbuild/protobuf/wkt";
 
 /**
@@ -11,9 +12,59 @@ import type { EmptySchema } from "@bufbuild/protobuf/wkt";
 export declare const file_baepo_node_v1_init: GenFile;
 
 /**
+ * @generated from message baepo.node.v1.InitGetLogsRequest
+ */
+export declare type InitGetLogsRequest = Message<"baepo.node.v1.InitGetLogsRequest"> & {
+  /**
+   * @generated from field: optional string container_name = 1;
+   */
+  containerName?: string;
+};
+
+/**
+ * Describes the message baepo.node.v1.InitGetLogsRequest.
+ * Use `create(InitGetLogsRequestSchema)` to create a new message.
+ */
+export declare const InitGetLogsRequestSchema: GenMessage<InitGetLogsRequest>;
+
+/**
+ * @generated from message baepo.node.v1.InitGetLogsResponse
+ */
+export declare type InitGetLogsResponse = Message<"baepo.node.v1.InitGetLogsResponse"> & {
+  /**
+   * @generated from field: uint32 fd = 1;
+   */
+  fd: number;
+
+  /**
+   * @generated from field: optional string container_name = 2;
+   */
+  containerName?: string;
+
+  /**
+   * @generated from field: bytes content = 3;
+   */
+  content: Uint8Array;
+};
+
+/**
+ * Describes the message baepo.node.v1.InitGetLogsResponse.
+ * Use `create(InitGetLogsResponseSchema)` to create a new message.
+ */
+export declare const InitGetLogsResponseSchema: GenMessage<InitGetLogsResponse>;
+
+/**
  * @generated from service baepo.node.v1.Init
  */
 export declare const Init: GenService<{
+  /**
+   * @generated from rpc baepo.node.v1.Init.GetLogs
+   */
+  getLogs: {
+    methodKind: "server_streaming";
+    input: typeof InitGetLogsRequestSchema;
+    output: typeof InitGetLogsResponseSchema;
+  },
   /**
    * @generated from rpc baepo.node.v1.Init.Healthcheck
    */

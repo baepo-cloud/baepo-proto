@@ -2,14 +2,28 @@
 // @generated from file baepo/node/v1/init.proto (package baepo.node.v1, syntax proto3)
 /* eslint-disable */
 
-import { fileDesc, serviceDesc } from "@bufbuild/protobuf/codegenv1";
+import { fileDesc, messageDesc, serviceDesc } from "@bufbuild/protobuf/codegenv1";
 import { file_google_protobuf_empty } from "@bufbuild/protobuf/wkt";
 
 /**
  * Describes the file baepo/node/v1/init.proto.
  */
 export const file_baepo_node_v1_init = /*@__PURE__*/
-  fileDesc("ChhiYWVwby9ub2RlL3YxL2luaXQucHJvdG8SDWJhZXBvLm5vZGUudjEyRQoESW5pdBI9CgtIZWFsdGhjaGVjaxIWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eRoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eUI+WjxnaXRodWIuY29tL2JhZXBvLWNsb3VkL2JhZXBvLXByb3RvL2dvL2JhZXBvL25vZGUvdjE7bm9kZXYxcGJiBnByb3RvMw", [file_google_protobuf_empty]);
+  fileDesc("ChhiYWVwby9ub2RlL3YxL2luaXQucHJvdG8SDWJhZXBvLm5vZGUudjEiRAoSSW5pdEdldExvZ3NSZXF1ZXN0EhsKDmNvbnRhaW5lcl9uYW1lGAEgASgJSACIAQFCEQoPX2NvbnRhaW5lcl9uYW1lImIKE0luaXRHZXRMb2dzUmVzcG9uc2USCgoCZmQYASABKA0SGwoOY29udGFpbmVyX25hbWUYAiABKAlIAIgBARIPCgdjb250ZW50GAMgASgMQhEKD19jb250YWluZXJfbmFtZTKZAQoESW5pdBJSCgdHZXRMb2dzEiEuYmFlcG8ubm9kZS52MS5Jbml0R2V0TG9nc1JlcXVlc3QaIi5iYWVwby5ub2RlLnYxLkluaXRHZXRMb2dzUmVzcG9uc2UwARI9CgtIZWFsdGhjaGVjaxIWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eRoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eUI+WjxnaXRodWIuY29tL2JhZXBvLWNsb3VkL2JhZXBvLXByb3RvL2dvL2JhZXBvL25vZGUvdjE7bm9kZXYxcGJiBnByb3RvMw", [file_google_protobuf_empty]);
+
+/**
+ * Describes the message baepo.node.v1.InitGetLogsRequest.
+ * Use `create(InitGetLogsRequestSchema)` to create a new message.
+ */
+export const InitGetLogsRequestSchema = /*@__PURE__*/
+  messageDesc(file_baepo_node_v1_init, 0);
+
+/**
+ * Describes the message baepo.node.v1.InitGetLogsResponse.
+ * Use `create(InitGetLogsResponseSchema)` to create a new message.
+ */
+export const InitGetLogsResponseSchema = /*@__PURE__*/
+  messageDesc(file_baepo_node_v1_init, 1);
 
 /**
  * @generated from service baepo.node.v1.Init

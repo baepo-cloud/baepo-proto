@@ -296,6 +296,53 @@ export declare type MachineTerminateResponse = Message<"baepo.api.v1.MachineTerm
 export declare const MachineTerminateResponseSchema: GenMessage<MachineTerminateResponse>;
 
 /**
+ * @generated from message baepo.api.v1.MachineLogsRequest
+ */
+export declare type MachineLogsRequest = Message<"baepo.api.v1.MachineLogsRequest"> & {
+  /**
+   * @generated from field: string machine_id = 1;
+   */
+  machineId: string;
+
+  /**
+   * @generated from field: optional string container_name = 2;
+   */
+  containerName?: string;
+};
+
+/**
+ * Describes the message baepo.api.v1.MachineLogsRequest.
+ * Use `create(MachineLogsRequestSchema)` to create a new message.
+ */
+export declare const MachineLogsRequestSchema: GenMessage<MachineLogsRequest>;
+
+/**
+ * @generated from message baepo.api.v1.MachineLogsResponse
+ */
+export declare type MachineLogsResponse = Message<"baepo.api.v1.MachineLogsResponse"> & {
+  /**
+   * @generated from field: uint32 fd = 1;
+   */
+  fd: number;
+
+  /**
+   * @generated from field: optional string container_name = 2;
+   */
+  containerName?: string;
+
+  /**
+   * @generated from field: bytes content = 3;
+   */
+  content: Uint8Array;
+};
+
+/**
+ * Describes the message baepo.api.v1.MachineLogsResponse.
+ * Use `create(MachineLogsResponseSchema)` to create a new message.
+ */
+export declare const MachineLogsResponseSchema: GenMessage<MachineLogsResponse>;
+
+/**
  * @generated from service baepo.api.v1.MachineService
  */
 export declare const MachineService: GenService<{
@@ -338,6 +385,14 @@ export declare const MachineService: GenService<{
     methodKind: "unary";
     input: typeof MachineTerminateRequestSchema;
     output: typeof MachineTerminateResponseSchema;
+  },
+  /**
+   * @generated from rpc baepo.api.v1.MachineService.Logs
+   */
+  logs: {
+    methodKind: "server_streaming";
+    input: typeof MachineLogsRequestSchema;
+    output: typeof MachineLogsResponseSchema;
   },
 }>;
 

@@ -98,6 +98,53 @@ export declare type NodeGetMachineResponse = Message<"baepo.node.v1.NodeGetMachi
 export declare const NodeGetMachineResponseSchema: GenMessage<NodeGetMachineResponse>;
 
 /**
+ * @generated from message baepo.node.v1.NodeGetMachineLogsRequest
+ */
+export declare type NodeGetMachineLogsRequest = Message<"baepo.node.v1.NodeGetMachineLogsRequest"> & {
+  /**
+   * @generated from field: string machine_id = 1;
+   */
+  machineId: string;
+
+  /**
+   * @generated from field: optional string container_name = 2;
+   */
+  containerName?: string;
+};
+
+/**
+ * Describes the message baepo.node.v1.NodeGetMachineLogsRequest.
+ * Use `create(NodeGetMachineLogsRequestSchema)` to create a new message.
+ */
+export declare const NodeGetMachineLogsRequestSchema: GenMessage<NodeGetMachineLogsRequest>;
+
+/**
+ * @generated from message baepo.node.v1.NodeGetMachineLogsResponse
+ */
+export declare type NodeGetMachineLogsResponse = Message<"baepo.node.v1.NodeGetMachineLogsResponse"> & {
+  /**
+   * @generated from field: uint32 fd = 1;
+   */
+  fd: number;
+
+  /**
+   * @generated from field: optional string container_name = 2;
+   */
+  containerName?: string;
+
+  /**
+   * @generated from field: bytes content = 3;
+   */
+  content: Uint8Array;
+};
+
+/**
+ * Describes the message baepo.node.v1.NodeGetMachineLogsResponse.
+ * Use `create(NodeGetMachineLogsResponseSchema)` to create a new message.
+ */
+export declare const NodeGetMachineLogsResponseSchema: GenMessage<NodeGetMachineLogsResponse>;
+
+/**
  * @generated from service baepo.node.v1.NodeService
  */
 export declare const NodeService: GenService<{
@@ -116,6 +163,14 @@ export declare const NodeService: GenService<{
     methodKind: "unary";
     input: typeof NodeGetMachineRequestSchema;
     output: typeof NodeGetMachineResponseSchema;
+  },
+  /**
+   * @generated from rpc baepo.node.v1.NodeService.GetMachineLogs
+   */
+  getMachineLogs: {
+    methodKind: "server_streaming";
+    input: typeof NodeGetMachineLogsRequestSchema;
+    output: typeof NodeGetMachineLogsResponseSchema;
   },
 }>;
 
