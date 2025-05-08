@@ -4,12 +4,13 @@
 
 import { fileDesc, messageDesc, serviceDesc } from "@bufbuild/protobuf/codegenv1";
 import { file_google_protobuf_empty, file_google_protobuf_timestamp } from "@bufbuild/protobuf/wkt";
+import { file_baepo_core_v1_machine } from "../../core/v1/machine_pb.js";
 
 /**
  * Describes the file baepo/node/v1/init.proto.
  */
 export const file_baepo_node_v1_init = /*@__PURE__*/
-  fileDesc("ChhiYWVwby9ub2RlL3YxL2luaXQucHJvdG8SDWJhZXBvLm5vZGUudjEiVAoSSW5pdEdldExvZ3NSZXF1ZXN0EhsKDmNvbnRhaW5lcl9uYW1lGAEgASgJSACIAQESDgoGZm9sbG93GAIgASgIQhEKD19jb250YWluZXJfbmFtZSJ8ChNJbml0R2V0TG9nc1Jlc3BvbnNlEg0KBWVycm9yGAEgASgIEhYKDmNvbnRhaW5lcl9uYW1lGAIgASgJEg8KB2NvbnRlbnQYAyABKAwSLQoJdGltZXN0YW1wGAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcDKZAQoESW5pdBJSCgdHZXRMb2dzEiEuYmFlcG8ubm9kZS52MS5Jbml0R2V0TG9nc1JlcXVlc3QaIi5iYWVwby5ub2RlLnYxLkluaXRHZXRMb2dzUmVzcG9uc2UwARI9CgtIZWFsdGhjaGVjaxIWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eRoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eUI+WjxnaXRodWIuY29tL2JhZXBvLWNsb3VkL2JhZXBvLXByb3RvL2dvL2JhZXBvL25vZGUvdjE7bm9kZXYxcGJiBnByb3RvMw", [file_google_protobuf_empty, file_google_protobuf_timestamp]);
+  fileDesc("ChhiYWVwby9ub2RlL3YxL2luaXQucHJvdG8SDWJhZXBvLm5vZGUudjEiVAoSSW5pdEdldExvZ3NSZXF1ZXN0EhsKDmNvbnRhaW5lcl9uYW1lGAEgASgJSACIAQESDgoGZm9sbG93GAIgASgIQhEKD19jb250YWluZXJfbmFtZSJ8ChNJbml0R2V0TG9nc1Jlc3BvbnNlEg0KBWVycm9yGAEgASgIEhYKDmNvbnRhaW5lcl9uYW1lGAIgASgJEg8KB2NvbnRlbnQYAyABKAwSLQoJdGltZXN0YW1wGAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCLLBAoSSW5pdEV2ZW50c1Jlc3BvbnNlEi0KCXRpbWVzdGFtcBgBIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASXwoXY29udGFpbmVyX3N0YXRlX2NoYW5nZWQYAiABKAsyPC5iYWVwby5ub2RlLnYxLkluaXRFdmVudHNSZXNwb25zZS5Db250YWluZXJTdGF0ZUNoYW5nZWRFdmVudEgAGpsDChpDb250YWluZXJTdGF0ZUNoYW5nZWRFdmVudBIWCg5jb250YWluZXJfbmFtZRgBIAEoCRIzCgVzdGF0ZRgCIAEoDjIkLmJhZXBvLmNvcmUudjEuTWFjaGluZUNvbnRhaW5lclN0YXRlEjMKCnN0YXJ0ZWRfYXQYAyABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wSACIAQESMgoJZXhpdGVkX2F0GAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcEgBiAEBEhYKCWV4aXRfY29kZRgFIAEoBUgCiAEBEhcKCmV4aXRfZXJyb3IYBiABKAlIA4gBARIPCgdoZWFsdGh5GAcgASgIEh4KEWhlYWx0aGNoZWNrX2Vycm9yGAggASgJSASIAQESFQoNcmVzdGFydF9jb3VudBgJIAEoBUINCgtfc3RhcnRlZF9hdEIMCgpfZXhpdGVkX2F0QgwKCl9leGl0X2NvZGVCDQoLX2V4aXRfZXJyb3JCFAoSX2hlYWx0aGNoZWNrX2Vycm9yQgcKBWV2ZW50MqEBCgRJbml0ElIKB0dldExvZ3MSIS5iYWVwby5ub2RlLnYxLkluaXRHZXRMb2dzUmVxdWVzdBoiLmJhZXBvLm5vZGUudjEuSW5pdEdldExvZ3NSZXNwb25zZTABEkUKBkV2ZW50cxIWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eRohLmJhZXBvLm5vZGUudjEuSW5pdEV2ZW50c1Jlc3BvbnNlMAFCPlo8Z2l0aHViLmNvbS9iYWVwby1jbG91ZC9iYWVwby1wcm90by9nby9iYWVwby9ub2RlL3YxO25vZGV2MXBiYgZwcm90bzM", [file_google_protobuf_empty, file_google_protobuf_timestamp, file_baepo_core_v1_machine]);
 
 /**
  * Describes the message baepo.node.v1.InitGetLogsRequest.
@@ -24,6 +25,20 @@ export const InitGetLogsRequestSchema = /*@__PURE__*/
  */
 export const InitGetLogsResponseSchema = /*@__PURE__*/
   messageDesc(file_baepo_node_v1_init, 1);
+
+/**
+ * Describes the message baepo.node.v1.InitEventsResponse.
+ * Use `create(InitEventsResponseSchema)` to create a new message.
+ */
+export const InitEventsResponseSchema = /*@__PURE__*/
+  messageDesc(file_baepo_node_v1_init, 2);
+
+/**
+ * Describes the message baepo.node.v1.InitEventsResponse.ContainerStateChangedEvent.
+ * Use `create(InitEventsResponse_ContainerStateChangedEventSchema)` to create a new message.
+ */
+export const InitEventsResponse_ContainerStateChangedEventSchema = /*@__PURE__*/
+  messageDesc(file_baepo_node_v1_init, 2, 0);
 
 /**
  * @generated from service baepo.node.v1.Init

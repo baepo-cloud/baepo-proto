@@ -36,14 +36,14 @@ const (
 const (
 	// InitGetLogsProcedure is the fully-qualified name of the Init's GetLogs RPC.
 	InitGetLogsProcedure = "/baepo.node.v1.Init/GetLogs"
-	// InitHealthcheckProcedure is the fully-qualified name of the Init's Healthcheck RPC.
-	InitHealthcheckProcedure = "/baepo.node.v1.Init/Healthcheck"
+	// InitEventsProcedure is the fully-qualified name of the Init's Events RPC.
+	InitEventsProcedure = "/baepo.node.v1.Init/Events"
 )
 
 // InitClient is a client for the baepo.node.v1.Init service.
 type InitClient interface {
 	GetLogs(context.Context, *connect.Request[v1.InitGetLogsRequest]) (*connect.ServerStreamForClient[v1.InitGetLogsResponse], error)
-	Healthcheck(context.Context, *connect.Request[emptypb.Empty]) (*connect.Response[emptypb.Empty], error)
+	Events(context.Context, *connect.Request[emptypb.Empty]) (*connect.ServerStreamForClient[v1.InitEventsResponse], error)
 }
 
 // NewInitClient constructs a client for the baepo.node.v1.Init service. By default, it uses the
@@ -63,10 +63,10 @@ func NewInitClient(httpClient connect.HTTPClient, baseURL string, opts ...connec
 			connect.WithSchema(initMethods.ByName("GetLogs")),
 			connect.WithClientOptions(opts...),
 		),
-		healthcheck: connect.NewClient[emptypb.Empty, emptypb.Empty](
+		events: connect.NewClient[emptypb.Empty, v1.InitEventsResponse](
 			httpClient,
-			baseURL+InitHealthcheckProcedure,
-			connect.WithSchema(initMethods.ByName("Healthcheck")),
+			baseURL+InitEventsProcedure,
+			connect.WithSchema(initMethods.ByName("Events")),
 			connect.WithClientOptions(opts...),
 		),
 	}
@@ -74,8 +74,8 @@ func NewInitClient(httpClient connect.HTTPClient, baseURL string, opts ...connec
 
 // initClient implements InitClient.
 type initClient struct {
-	getLogs     *connect.Client[v1.InitGetLogsRequest, v1.InitGetLogsResponse]
-	healthcheck *connect.Client[emptypb.Empty, emptypb.Empty]
+	getLogs *connect.Client[v1.InitGetLogsRequest, v1.InitGetLogsResponse]
+	events  *connect.Client[emptypb.Empty, v1.InitEventsResponse]
 }
 
 // GetLogs calls baepo.node.v1.Init.GetLogs.
@@ -83,15 +83,15 @@ func (c *initClient) GetLogs(ctx context.Context, req *connect.Request[v1.InitGe
 	return c.getLogs.CallServerStream(ctx, req)
 }
 
-// Healthcheck calls baepo.node.v1.Init.Healthcheck.
-func (c *initClient) Healthcheck(ctx context.Context, req *connect.Request[emptypb.Empty]) (*connect.Response[emptypb.Empty], error) {
-	return c.healthcheck.CallUnary(ctx, req)
+// Events calls baepo.node.v1.Init.Events.
+func (c *initClient) Events(ctx context.Context, req *connect.Request[emptypb.Empty]) (*connect.ServerStreamForClient[v1.InitEventsResponse], error) {
+	return c.events.CallServerStream(ctx, req)
 }
 
 // InitHandler is an implementation of the baepo.node.v1.Init service.
 type InitHandler interface {
 	GetLogs(context.Context, *connect.Request[v1.InitGetLogsRequest], *connect.ServerStream[v1.InitGetLogsResponse]) error
-	Healthcheck(context.Context, *connect.Request[emptypb.Empty]) (*connect.Response[emptypb.Empty], error)
+	Events(context.Context, *connect.Request[emptypb.Empty], *connect.ServerStream[v1.InitEventsResponse]) error
 }
 
 // NewInitHandler builds an HTTP handler from the service implementation. It returns the path on
@@ -107,18 +107,18 @@ func NewInitHandler(svc InitHandler, opts ...connect.HandlerOption) (string, htt
 		connect.WithSchema(initMethods.ByName("GetLogs")),
 		connect.WithHandlerOptions(opts...),
 	)
-	initHealthcheckHandler := connect.NewUnaryHandler(
-		InitHealthcheckProcedure,
-		svc.Healthcheck,
-		connect.WithSchema(initMethods.ByName("Healthcheck")),
+	initEventsHandler := connect.NewServerStreamHandler(
+		InitEventsProcedure,
+		svc.Events,
+		connect.WithSchema(initMethods.ByName("Events")),
 		connect.WithHandlerOptions(opts...),
 	)
 	return "/baepo.node.v1.Init/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case InitGetLogsProcedure:
 			initGetLogsHandler.ServeHTTP(w, r)
-		case InitHealthcheckProcedure:
-			initHealthcheckHandler.ServeHTTP(w, r)
+		case InitEventsProcedure:
+			initEventsHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -132,6 +132,6 @@ func (UnimplementedInitHandler) GetLogs(context.Context, *connect.Request[v1.Ini
 	return connect.NewError(connect.CodeUnimplemented, errors.New("baepo.node.v1.Init.GetLogs is not implemented"))
 }
 
-func (UnimplementedInitHandler) Healthcheck(context.Context, *connect.Request[emptypb.Empty]) (*connect.Response[emptypb.Empty], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("baepo.node.v1.Init.Healthcheck is not implemented"))
+func (UnimplementedInitHandler) Events(context.Context, *connect.Request[emptypb.Empty], *connect.ServerStream[v1.InitEventsResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("baepo.node.v1.Init.Events is not implemented"))
 }

@@ -512,3 +512,28 @@ export enum MachineTerminationCause {
  */
 export declare const MachineTerminationCauseSchema: GenEnum<MachineTerminationCause>;
 
+/**
+ * @generated from enum baepo.core.v1.MachineContainerState
+ */
+export enum MachineContainerState {
+  /**
+   * @generated from enum value: MachineContainerState_Unknown = 0;
+   */
+  MachineContainerState_Unknown = 0,
+
+  /**
+   * @generated from enum value: MachineContainerState_Running = 1;
+   */
+  MachineContainerState_Running = 1,
+
+  /**
+   * @generated from enum value: MachineContainerState_Exited = 2;
+   */
+  MachineContainerState_Exited = 2,
+}
+
+/**
+ * Describes the enum baepo.core.v1.MachineContainerState.
+ */
+export declare const MachineContainerStateSchema: GenEnum<MachineContainerState>;
+

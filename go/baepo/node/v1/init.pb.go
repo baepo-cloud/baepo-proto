@@ -7,6 +7,7 @@
 package nodev1pb
 
 import (
+	v1 "github.com/baepo-cloud/baepo-proto/go/baepo/core/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
@@ -143,11 +144,193 @@ func (x *InitGetLogsResponse) GetTimestamp() *timestamppb.Timestamp {
 	return nil
 }
 
+type InitEventsResponse struct {
+	state     protoimpl.MessageState `protogen:"open.v1"`
+	Timestamp *timestamppb.Timestamp `protobuf:"bytes,1,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
+	// Types that are valid to be assigned to Event:
+	//
+	//	*InitEventsResponse_ContainerStateChanged
+	Event         isInitEventsResponse_Event `protobuf_oneof:"event"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *InitEventsResponse) Reset() {
+	*x = InitEventsResponse{}
+	mi := &file_baepo_node_v1_init_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *InitEventsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InitEventsResponse) ProtoMessage() {}
+
+func (x *InitEventsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_baepo_node_v1_init_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InitEventsResponse.ProtoReflect.Descriptor instead.
+func (*InitEventsResponse) Descriptor() ([]byte, []int) {
+	return file_baepo_node_v1_init_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *InitEventsResponse) GetTimestamp() *timestamppb.Timestamp {
+	if x != nil {
+		return x.Timestamp
+	}
+	return nil
+}
+
+func (x *InitEventsResponse) GetEvent() isInitEventsResponse_Event {
+	if x != nil {
+		return x.Event
+	}
+	return nil
+}
+
+func (x *InitEventsResponse) GetContainerStateChanged() *InitEventsResponse_ContainerStateChangedEvent {
+	if x != nil {
+		if x, ok := x.Event.(*InitEventsResponse_ContainerStateChanged); ok {
+			return x.ContainerStateChanged
+		}
+	}
+	return nil
+}
+
+type isInitEventsResponse_Event interface {
+	isInitEventsResponse_Event()
+}
+
+type InitEventsResponse_ContainerStateChanged struct {
+	ContainerStateChanged *InitEventsResponse_ContainerStateChangedEvent `protobuf:"bytes,2,opt,name=container_state_changed,json=containerStateChanged,proto3,oneof"`
+}
+
+func (*InitEventsResponse_ContainerStateChanged) isInitEventsResponse_Event() {}
+
+type InitEventsResponse_ContainerStateChangedEvent struct {
+	state            protoimpl.MessageState   `protogen:"open.v1"`
+	ContainerName    string                   `protobuf:"bytes,1,opt,name=container_name,json=containerName,proto3" json:"container_name,omitempty"`
+	State            v1.MachineContainerState `protobuf:"varint,2,opt,name=state,proto3,enum=baepo.core.v1.MachineContainerState" json:"state,omitempty"`
+	StartedAt        *timestamppb.Timestamp   `protobuf:"bytes,3,opt,name=started_at,json=startedAt,proto3,oneof" json:"started_at,omitempty"`
+	ExitedAt         *timestamppb.Timestamp   `protobuf:"bytes,4,opt,name=exited_at,json=exitedAt,proto3,oneof" json:"exited_at,omitempty"`
+	ExitCode         *int32                   `protobuf:"varint,5,opt,name=exit_code,json=exitCode,proto3,oneof" json:"exit_code,omitempty"`
+	ExitError        *string                  `protobuf:"bytes,6,opt,name=exit_error,json=exitError,proto3,oneof" json:"exit_error,omitempty"`
+	Healthy          bool                     `protobuf:"varint,7,opt,name=healthy,proto3" json:"healthy,omitempty"`
+	HealthcheckError *string                  `protobuf:"bytes,8,opt,name=healthcheck_error,json=healthcheckError,proto3,oneof" json:"healthcheck_error,omitempty"`
+	RestartCount     int32                    `protobuf:"varint,9,opt,name=restart_count,json=restartCount,proto3" json:"restart_count,omitempty"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
+}
+
+func (x *InitEventsResponse_ContainerStateChangedEvent) Reset() {
+	*x = InitEventsResponse_ContainerStateChangedEvent{}
+	mi := &file_baepo_node_v1_init_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *InitEventsResponse_ContainerStateChangedEvent) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InitEventsResponse_ContainerStateChangedEvent) ProtoMessage() {}
+
+func (x *InitEventsResponse_ContainerStateChangedEvent) ProtoReflect() protoreflect.Message {
+	mi := &file_baepo_node_v1_init_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InitEventsResponse_ContainerStateChangedEvent.ProtoReflect.Descriptor instead.
+func (*InitEventsResponse_ContainerStateChangedEvent) Descriptor() ([]byte, []int) {
+	return file_baepo_node_v1_init_proto_rawDescGZIP(), []int{2, 0}
+}
+
+func (x *InitEventsResponse_ContainerStateChangedEvent) GetContainerName() string {
+	if x != nil {
+		return x.ContainerName
+	}
+	return ""
+}
+
+func (x *InitEventsResponse_ContainerStateChangedEvent) GetState() v1.MachineContainerState {
+	if x != nil {
+		return x.State
+	}
+	return v1.MachineContainerState(0)
+}
+
+func (x *InitEventsResponse_ContainerStateChangedEvent) GetStartedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.StartedAt
+	}
+	return nil
+}
+
+func (x *InitEventsResponse_ContainerStateChangedEvent) GetExitedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.ExitedAt
+	}
+	return nil
+}
+
+func (x *InitEventsResponse_ContainerStateChangedEvent) GetExitCode() int32 {
+	if x != nil && x.ExitCode != nil {
+		return *x.ExitCode
+	}
+	return 0
+}
+
+func (x *InitEventsResponse_ContainerStateChangedEvent) GetExitError() string {
+	if x != nil && x.ExitError != nil {
+		return *x.ExitError
+	}
+	return ""
+}
+
+func (x *InitEventsResponse_ContainerStateChangedEvent) GetHealthy() bool {
+	if x != nil {
+		return x.Healthy
+	}
+	return false
+}
+
+func (x *InitEventsResponse_ContainerStateChangedEvent) GetHealthcheckError() string {
+	if x != nil && x.HealthcheckError != nil {
+		return *x.HealthcheckError
+	}
+	return ""
+}
+
+func (x *InitEventsResponse_ContainerStateChangedEvent) GetRestartCount() int32 {
+	if x != nil {
+		return x.RestartCount
+	}
+	return 0
+}
+
 var File_baepo_node_v1_init_proto protoreflect.FileDescriptor
 
 const file_baepo_node_v1_init_proto_rawDesc = "" +
 	"\n" +
-	"\x18baepo/node/v1/init.proto\x12\rbaepo.node.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"k\n" +
+	"\x18baepo/node/v1/init.proto\x12\rbaepo.node.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bbaepo/core/v1/machine.proto\"k\n" +
 	"\x12InitGetLogsRequest\x12*\n" +
 	"\x0econtainer_name\x18\x01 \x01(\tH\x00R\rcontainerName\x88\x01\x01\x12\x16\n" +
 	"\x06follow\x18\x02 \x01(\bR\x06followB\x11\n" +
@@ -156,10 +339,33 @@ const file_baepo_node_v1_init_proto_rawDesc = "" +
 	"\x05error\x18\x01 \x01(\bR\x05error\x12%\n" +
 	"\x0econtainer_name\x18\x02 \x01(\tR\rcontainerName\x12\x18\n" +
 	"\acontent\x18\x03 \x01(\fR\acontent\x128\n" +
-	"\ttimestamp\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\ttimestamp2\x99\x01\n" +
+	"\ttimestamp\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\ttimestamp\"\xd6\x05\n" +
+	"\x12InitEventsResponse\x128\n" +
+	"\ttimestamp\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\ttimestamp\x12v\n" +
+	"\x17container_state_changed\x18\x02 \x01(\v2<.baepo.node.v1.InitEventsResponse.ContainerStateChangedEventH\x00R\x15containerStateChanged\x1a\x84\x04\n" +
+	"\x1aContainerStateChangedEvent\x12%\n" +
+	"\x0econtainer_name\x18\x01 \x01(\tR\rcontainerName\x12:\n" +
+	"\x05state\x18\x02 \x01(\x0e2$.baepo.core.v1.MachineContainerStateR\x05state\x12>\n" +
+	"\n" +
+	"started_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampH\x00R\tstartedAt\x88\x01\x01\x12<\n" +
+	"\texited_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampH\x01R\bexitedAt\x88\x01\x01\x12 \n" +
+	"\texit_code\x18\x05 \x01(\x05H\x02R\bexitCode\x88\x01\x01\x12\"\n" +
+	"\n" +
+	"exit_error\x18\x06 \x01(\tH\x03R\texitError\x88\x01\x01\x12\x18\n" +
+	"\ahealthy\x18\a \x01(\bR\ahealthy\x120\n" +
+	"\x11healthcheck_error\x18\b \x01(\tH\x04R\x10healthcheckError\x88\x01\x01\x12#\n" +
+	"\rrestart_count\x18\t \x01(\x05R\frestartCountB\r\n" +
+	"\v_started_atB\f\n" +
+	"\n" +
+	"_exited_atB\f\n" +
+	"\n" +
+	"_exit_codeB\r\n" +
+	"\v_exit_errorB\x14\n" +
+	"\x12_healthcheck_errorB\a\n" +
+	"\x05event2\xa1\x01\n" +
 	"\x04Init\x12R\n" +
-	"\aGetLogs\x12!.baepo.node.v1.InitGetLogsRequest\x1a\".baepo.node.v1.InitGetLogsResponse0\x01\x12=\n" +
-	"\vHealthcheck\x12\x16.google.protobuf.Empty\x1a\x16.google.protobuf.EmptyB>Z<github.com/baepo-cloud/baepo-proto/go/baepo/node/v1;nodev1pbb\x06proto3"
+	"\aGetLogs\x12!.baepo.node.v1.InitGetLogsRequest\x1a\".baepo.node.v1.InitGetLogsResponse0\x01\x12E\n" +
+	"\x06Events\x12\x16.google.protobuf.Empty\x1a!.baepo.node.v1.InitEventsResponse0\x01B>Z<github.com/baepo-cloud/baepo-proto/go/baepo/node/v1;nodev1pbb\x06proto3"
 
 var (
 	file_baepo_node_v1_init_proto_rawDescOnce sync.Once
@@ -173,24 +379,32 @@ func file_baepo_node_v1_init_proto_rawDescGZIP() []byte {
 	return file_baepo_node_v1_init_proto_rawDescData
 }
 
-var file_baepo_node_v1_init_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_baepo_node_v1_init_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_baepo_node_v1_init_proto_goTypes = []any{
-	(*InitGetLogsRequest)(nil),    // 0: baepo.node.v1.InitGetLogsRequest
-	(*InitGetLogsResponse)(nil),   // 1: baepo.node.v1.InitGetLogsResponse
-	(*timestamppb.Timestamp)(nil), // 2: google.protobuf.Timestamp
-	(*emptypb.Empty)(nil),         // 3: google.protobuf.Empty
+	(*InitGetLogsRequest)(nil),                            // 0: baepo.node.v1.InitGetLogsRequest
+	(*InitGetLogsResponse)(nil),                           // 1: baepo.node.v1.InitGetLogsResponse
+	(*InitEventsResponse)(nil),                            // 2: baepo.node.v1.InitEventsResponse
+	(*InitEventsResponse_ContainerStateChangedEvent)(nil), // 3: baepo.node.v1.InitEventsResponse.ContainerStateChangedEvent
+	(*timestamppb.Timestamp)(nil),                         // 4: google.protobuf.Timestamp
+	(v1.MachineContainerState)(0),                         // 5: baepo.core.v1.MachineContainerState
+	(*emptypb.Empty)(nil),                                 // 6: google.protobuf.Empty
 }
 var file_baepo_node_v1_init_proto_depIdxs = []int32{
-	2, // 0: baepo.node.v1.InitGetLogsResponse.timestamp:type_name -> google.protobuf.Timestamp
-	0, // 1: baepo.node.v1.Init.GetLogs:input_type -> baepo.node.v1.InitGetLogsRequest
-	3, // 2: baepo.node.v1.Init.Healthcheck:input_type -> google.protobuf.Empty
-	1, // 3: baepo.node.v1.Init.GetLogs:output_type -> baepo.node.v1.InitGetLogsResponse
-	3, // 4: baepo.node.v1.Init.Healthcheck:output_type -> google.protobuf.Empty
-	3, // [3:5] is the sub-list for method output_type
-	1, // [1:3] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	4, // 0: baepo.node.v1.InitGetLogsResponse.timestamp:type_name -> google.protobuf.Timestamp
+	4, // 1: baepo.node.v1.InitEventsResponse.timestamp:type_name -> google.protobuf.Timestamp
+	3, // 2: baepo.node.v1.InitEventsResponse.container_state_changed:type_name -> baepo.node.v1.InitEventsResponse.ContainerStateChangedEvent
+	5, // 3: baepo.node.v1.InitEventsResponse.ContainerStateChangedEvent.state:type_name -> baepo.core.v1.MachineContainerState
+	4, // 4: baepo.node.v1.InitEventsResponse.ContainerStateChangedEvent.started_at:type_name -> google.protobuf.Timestamp
+	4, // 5: baepo.node.v1.InitEventsResponse.ContainerStateChangedEvent.exited_at:type_name -> google.protobuf.Timestamp
+	0, // 6: baepo.node.v1.Init.GetLogs:input_type -> baepo.node.v1.InitGetLogsRequest
+	6, // 7: baepo.node.v1.Init.Events:input_type -> google.protobuf.Empty
+	1, // 8: baepo.node.v1.Init.GetLogs:output_type -> baepo.node.v1.InitGetLogsResponse
+	2, // 9: baepo.node.v1.Init.Events:output_type -> baepo.node.v1.InitEventsResponse
+	8, // [8:10] is the sub-list for method output_type
+	6, // [6:8] is the sub-list for method input_type
+	6, // [6:6] is the sub-list for extension type_name
+	6, // [6:6] is the sub-list for extension extendee
+	0, // [0:6] is the sub-list for field type_name
 }
 
 func init() { file_baepo_node_v1_init_proto_init() }
@@ -199,13 +413,17 @@ func file_baepo_node_v1_init_proto_init() {
 		return
 	}
 	file_baepo_node_v1_init_proto_msgTypes[0].OneofWrappers = []any{}
+	file_baepo_node_v1_init_proto_msgTypes[2].OneofWrappers = []any{
+		(*InitEventsResponse_ContainerStateChanged)(nil),
+	}
+	file_baepo_node_v1_init_proto_msgTypes[3].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_baepo_node_v1_init_proto_rawDesc), len(file_baepo_node_v1_init_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

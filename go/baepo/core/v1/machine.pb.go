@@ -197,6 +197,55 @@ func (MachineTerminationCause) EnumDescriptor() ([]byte, []int) {
 	return file_baepo_core_v1_machine_proto_rawDescGZIP(), []int{2}
 }
 
+type MachineContainerState int32
+
+const (
+	MachineContainerState_MachineContainerState_Unknown MachineContainerState = 0
+	MachineContainerState_MachineContainerState_Running MachineContainerState = 1
+	MachineContainerState_MachineContainerState_Exited  MachineContainerState = 2
+)
+
+// Enum value maps for MachineContainerState.
+var (
+	MachineContainerState_name = map[int32]string{
+		0: "MachineContainerState_Unknown",
+		1: "MachineContainerState_Running",
+		2: "MachineContainerState_Exited",
+	}
+	MachineContainerState_value = map[string]int32{
+		"MachineContainerState_Unknown": 0,
+		"MachineContainerState_Running": 1,
+		"MachineContainerState_Exited":  2,
+	}
+)
+
+func (x MachineContainerState) Enum() *MachineContainerState {
+	p := new(MachineContainerState)
+	*p = x
+	return p
+}
+
+func (x MachineContainerState) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (MachineContainerState) Descriptor() protoreflect.EnumDescriptor {
+	return file_baepo_core_v1_machine_proto_enumTypes[3].Descriptor()
+}
+
+func (MachineContainerState) Type() protoreflect.EnumType {
+	return &file_baepo_core_v1_machine_proto_enumTypes[3]
+}
+
+func (x MachineContainerState) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use MachineContainerState.Descriptor instead.
+func (MachineContainerState) EnumDescriptor() ([]byte, []int) {
+	return file_baepo_core_v1_machine_proto_rawDescGZIP(), []int{3}
+}
+
 type MachineContainerRestartSpec_Policy int32
 
 const (
@@ -233,11 +282,11 @@ func (x MachineContainerRestartSpec_Policy) String() string {
 }
 
 func (MachineContainerRestartSpec_Policy) Descriptor() protoreflect.EnumDescriptor {
-	return file_baepo_core_v1_machine_proto_enumTypes[3].Descriptor()
+	return file_baepo_core_v1_machine_proto_enumTypes[4].Descriptor()
 }
 
 func (MachineContainerRestartSpec_Policy) Type() protoreflect.EnumType {
-	return &file_baepo_core_v1_machine_proto_enumTypes[3]
+	return &file_baepo_core_v1_machine_proto_enumTypes[4]
 }
 
 func (x MachineContainerRestartSpec_Policy) Number() protoreflect.EnumNumber {
@@ -1216,7 +1265,11 @@ const file_baepo_core_v1_machine_proto_rawDesc = "" +
 	")MachineTerminationCause_ManuallyRequested\x10\x02\x12)\n" +
 	"%MachineTerminationCause_InternalError\x10\x03\x12+\n" +
 	"'MachineTerminationCause_NoNodeAvailable\x10\x04\x12#\n" +
-	"\x1fMachineTerminationCause_Expired\x10\x05B>Z<github.com/baepo-cloud/baepo-proto/go/baepo/core/v1;corev1pbb\x06proto3"
+	"\x1fMachineTerminationCause_Expired\x10\x05*\x7f\n" +
+	"\x15MachineContainerState\x12!\n" +
+	"\x1dMachineContainerState_Unknown\x10\x00\x12!\n" +
+	"\x1dMachineContainerState_Running\x10\x01\x12 \n" +
+	"\x1cMachineContainerState_Exited\x10\x02B>Z<github.com/baepo-cloud/baepo-proto/go/baepo/core/v1;corev1pbb\x06proto3"
 
 var (
 	file_baepo_core_v1_machine_proto_rawDescOnce sync.Once
@@ -1230,48 +1283,49 @@ func file_baepo_core_v1_machine_proto_rawDescGZIP() []byte {
 	return file_baepo_core_v1_machine_proto_rawDescData
 }
 
-var file_baepo_core_v1_machine_proto_enumTypes = make([]protoimpl.EnumInfo, 4)
+var file_baepo_core_v1_machine_proto_enumTypes = make([]protoimpl.EnumInfo, 5)
 var file_baepo_core_v1_machine_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
 var file_baepo_core_v1_machine_proto_goTypes = []any{
 	(MachineState)(0),                       // 0: baepo.core.v1.MachineState
 	(MachineDesiredState)(0),                // 1: baepo.core.v1.MachineDesiredState
 	(MachineTerminationCause)(0),            // 2: baepo.core.v1.MachineTerminationCause
-	(MachineContainerRestartSpec_Policy)(0), // 3: baepo.core.v1.MachineContainerRestartSpec.Policy
-	(*MachineSpec)(nil),                     // 4: baepo.core.v1.MachineSpec
-	(*MachineContainerSpec)(nil),            // 5: baepo.core.v1.MachineContainerSpec
-	(*MachineContainerRestartSpec)(nil),     // 6: baepo.core.v1.MachineContainerRestartSpec
-	(*MachineContainerHealthcheckSpec)(nil), // 7: baepo.core.v1.MachineContainerHealthcheckSpec
-	(*MachineEvent)(nil),                    // 8: baepo.core.v1.MachineEvent
-	nil,                                     // 9: baepo.core.v1.MachineContainerSpec.EnvEntry
-	(*MachineContainerHealthcheckSpec_HttpHealthcheckSpec)(nil), // 10: baepo.core.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec
-	nil,                                          // 11: baepo.core.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec.HeadersEntry
-	(*MachineEvent_StateChanged)(nil),            // 12: baepo.core.v1.MachineEvent.StateChanged
-	(*MachineEvent_Started)(nil),                 // 13: baepo.core.v1.MachineEvent.Started
-	(*MachineEvent_Terminated)(nil),              // 14: baepo.core.v1.MachineEvent.Terminated
-	(*MachineEvent_DesiredStateChanged)(nil),     // 15: baepo.core.v1.MachineEvent.DesiredStateChanged
-	(*MachineEvent_ReconciliationStarted)(nil),   // 16: baepo.core.v1.MachineEvent.ReconciliationStarted
-	(*MachineEvent_ReconciliationCompleted)(nil), // 17: baepo.core.v1.MachineEvent.ReconciliationCompleted
-	(*MachineEvent_Healthcheck)(nil),             // 18: baepo.core.v1.MachineEvent.Healthcheck
-	(*timestamppb.Timestamp)(nil),                // 19: google.protobuf.Timestamp
+	(MachineContainerState)(0),              // 3: baepo.core.v1.MachineContainerState
+	(MachineContainerRestartSpec_Policy)(0), // 4: baepo.core.v1.MachineContainerRestartSpec.Policy
+	(*MachineSpec)(nil),                     // 5: baepo.core.v1.MachineSpec
+	(*MachineContainerSpec)(nil),            // 6: baepo.core.v1.MachineContainerSpec
+	(*MachineContainerRestartSpec)(nil),     // 7: baepo.core.v1.MachineContainerRestartSpec
+	(*MachineContainerHealthcheckSpec)(nil), // 8: baepo.core.v1.MachineContainerHealthcheckSpec
+	(*MachineEvent)(nil),                    // 9: baepo.core.v1.MachineEvent
+	nil,                                     // 10: baepo.core.v1.MachineContainerSpec.EnvEntry
+	(*MachineContainerHealthcheckSpec_HttpHealthcheckSpec)(nil), // 11: baepo.core.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec
+	nil,                                          // 12: baepo.core.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec.HeadersEntry
+	(*MachineEvent_StateChanged)(nil),            // 13: baepo.core.v1.MachineEvent.StateChanged
+	(*MachineEvent_Started)(nil),                 // 14: baepo.core.v1.MachineEvent.Started
+	(*MachineEvent_Terminated)(nil),              // 15: baepo.core.v1.MachineEvent.Terminated
+	(*MachineEvent_DesiredStateChanged)(nil),     // 16: baepo.core.v1.MachineEvent.DesiredStateChanged
+	(*MachineEvent_ReconciliationStarted)(nil),   // 17: baepo.core.v1.MachineEvent.ReconciliationStarted
+	(*MachineEvent_ReconciliationCompleted)(nil), // 18: baepo.core.v1.MachineEvent.ReconciliationCompleted
+	(*MachineEvent_Healthcheck)(nil),             // 19: baepo.core.v1.MachineEvent.Healthcheck
+	(*timestamppb.Timestamp)(nil),                // 20: google.protobuf.Timestamp
 }
 var file_baepo_core_v1_machine_proto_depIdxs = []int32{
-	5,  // 0: baepo.core.v1.MachineSpec.containers:type_name -> baepo.core.v1.MachineContainerSpec
-	9,  // 1: baepo.core.v1.MachineContainerSpec.env:type_name -> baepo.core.v1.MachineContainerSpec.EnvEntry
-	7,  // 2: baepo.core.v1.MachineContainerSpec.healthcheck:type_name -> baepo.core.v1.MachineContainerHealthcheckSpec
-	6,  // 3: baepo.core.v1.MachineContainerSpec.restart:type_name -> baepo.core.v1.MachineContainerRestartSpec
-	3,  // 4: baepo.core.v1.MachineContainerRestartSpec.policy:type_name -> baepo.core.v1.MachineContainerRestartSpec.Policy
-	10, // 5: baepo.core.v1.MachineContainerHealthcheckSpec.http:type_name -> baepo.core.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec
-	19, // 6: baepo.core.v1.MachineEvent.timestamp:type_name -> google.protobuf.Timestamp
-	12, // 7: baepo.core.v1.MachineEvent.state_changed_event:type_name -> baepo.core.v1.MachineEvent.StateChanged
-	13, // 8: baepo.core.v1.MachineEvent.started:type_name -> baepo.core.v1.MachineEvent.Started
-	14, // 9: baepo.core.v1.MachineEvent.terminated_event:type_name -> baepo.core.v1.MachineEvent.Terminated
-	15, // 10: baepo.core.v1.MachineEvent.desired_state_changed_event:type_name -> baepo.core.v1.MachineEvent.DesiredStateChanged
-	16, // 11: baepo.core.v1.MachineEvent.reconciliation_started_event:type_name -> baepo.core.v1.MachineEvent.ReconciliationStarted
-	17, // 12: baepo.core.v1.MachineEvent.reconciliation_completed_event:type_name -> baepo.core.v1.MachineEvent.ReconciliationCompleted
-	18, // 13: baepo.core.v1.MachineEvent.healthcheck_event:type_name -> baepo.core.v1.MachineEvent.Healthcheck
-	11, // 14: baepo.core.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec.headers:type_name -> baepo.core.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec.HeadersEntry
+	6,  // 0: baepo.core.v1.MachineSpec.containers:type_name -> baepo.core.v1.MachineContainerSpec
+	10, // 1: baepo.core.v1.MachineContainerSpec.env:type_name -> baepo.core.v1.MachineContainerSpec.EnvEntry
+	8,  // 2: baepo.core.v1.MachineContainerSpec.healthcheck:type_name -> baepo.core.v1.MachineContainerHealthcheckSpec
+	7,  // 3: baepo.core.v1.MachineContainerSpec.restart:type_name -> baepo.core.v1.MachineContainerRestartSpec
+	4,  // 4: baepo.core.v1.MachineContainerRestartSpec.policy:type_name -> baepo.core.v1.MachineContainerRestartSpec.Policy
+	11, // 5: baepo.core.v1.MachineContainerHealthcheckSpec.http:type_name -> baepo.core.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec
+	20, // 6: baepo.core.v1.MachineEvent.timestamp:type_name -> google.protobuf.Timestamp
+	13, // 7: baepo.core.v1.MachineEvent.state_changed_event:type_name -> baepo.core.v1.MachineEvent.StateChanged
+	14, // 8: baepo.core.v1.MachineEvent.started:type_name -> baepo.core.v1.MachineEvent.Started
+	15, // 9: baepo.core.v1.MachineEvent.terminated_event:type_name -> baepo.core.v1.MachineEvent.Terminated
+	16, // 10: baepo.core.v1.MachineEvent.desired_state_changed_event:type_name -> baepo.core.v1.MachineEvent.DesiredStateChanged
+	17, // 11: baepo.core.v1.MachineEvent.reconciliation_started_event:type_name -> baepo.core.v1.MachineEvent.ReconciliationStarted
+	18, // 12: baepo.core.v1.MachineEvent.reconciliation_completed_event:type_name -> baepo.core.v1.MachineEvent.ReconciliationCompleted
+	19, // 13: baepo.core.v1.MachineEvent.healthcheck_event:type_name -> baepo.core.v1.MachineEvent.Healthcheck
+	12, // 14: baepo.core.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec.headers:type_name -> baepo.core.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec.HeadersEntry
 	0,  // 15: baepo.core.v1.MachineEvent.StateChanged.state:type_name -> baepo.core.v1.MachineState
-	19, // 16: baepo.core.v1.MachineEvent.Started.expires_at:type_name -> google.protobuf.Timestamp
+	20, // 16: baepo.core.v1.MachineEvent.Started.expires_at:type_name -> google.protobuf.Timestamp
 	2,  // 17: baepo.core.v1.MachineEvent.Terminated.cause:type_name -> baepo.core.v1.MachineTerminationCause
 	1,  // 18: baepo.core.v1.MachineEvent.DesiredStateChanged.desired_state:type_name -> baepo.core.v1.MachineDesiredState
 	1,  // 19: baepo.core.v1.MachineEvent.ReconciliationStarted.desired_state:type_name -> baepo.core.v1.MachineDesiredState
@@ -1311,7 +1365,7 @@ func file_baepo_core_v1_machine_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_baepo_core_v1_machine_proto_rawDesc), len(file_baepo_core_v1_machine_proto_rawDesc)),
-			NumEnums:      4,
+			NumEnums:      5,
 			NumMessages:   15,
 			NumExtensions: 0,
 			NumServices:   0,

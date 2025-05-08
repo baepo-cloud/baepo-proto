@@ -5,6 +5,7 @@
 import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv1";
 import type { Message } from "@bufbuild/protobuf";
 import type { EmptySchema, Timestamp } from "@bufbuild/protobuf/wkt";
+import type { MachineContainerState } from "../../core/v1/machine_pb.js";
 
 /**
  * Describes the file baepo/node/v1/init.proto.
@@ -64,6 +65,89 @@ export declare type InitGetLogsResponse = Message<"baepo.node.v1.InitGetLogsResp
 export declare const InitGetLogsResponseSchema: GenMessage<InitGetLogsResponse>;
 
 /**
+ * @generated from message baepo.node.v1.InitEventsResponse
+ */
+export declare type InitEventsResponse = Message<"baepo.node.v1.InitEventsResponse"> & {
+  /**
+   * @generated from field: google.protobuf.Timestamp timestamp = 1;
+   */
+  timestamp?: Timestamp;
+
+  /**
+   * @generated from oneof baepo.node.v1.InitEventsResponse.event
+   */
+  event: {
+    /**
+     * @generated from field: baepo.node.v1.InitEventsResponse.ContainerStateChangedEvent container_state_changed = 2;
+     */
+    value: InitEventsResponse_ContainerStateChangedEvent;
+    case: "containerStateChanged";
+  } | { case: undefined; value?: undefined };
+};
+
+/**
+ * Describes the message baepo.node.v1.InitEventsResponse.
+ * Use `create(InitEventsResponseSchema)` to create a new message.
+ */
+export declare const InitEventsResponseSchema: GenMessage<InitEventsResponse>;
+
+/**
+ * @generated from message baepo.node.v1.InitEventsResponse.ContainerStateChangedEvent
+ */
+export declare type InitEventsResponse_ContainerStateChangedEvent = Message<"baepo.node.v1.InitEventsResponse.ContainerStateChangedEvent"> & {
+  /**
+   * @generated from field: string container_name = 1;
+   */
+  containerName: string;
+
+  /**
+   * @generated from field: baepo.core.v1.MachineContainerState state = 2;
+   */
+  state: MachineContainerState;
+
+  /**
+   * @generated from field: optional google.protobuf.Timestamp started_at = 3;
+   */
+  startedAt?: Timestamp;
+
+  /**
+   * @generated from field: optional google.protobuf.Timestamp exited_at = 4;
+   */
+  exitedAt?: Timestamp;
+
+  /**
+   * @generated from field: optional int32 exit_code = 5;
+   */
+  exitCode?: number;
+
+  /**
+   * @generated from field: optional string exit_error = 6;
+   */
+  exitError?: string;
+
+  /**
+   * @generated from field: bool healthy = 7;
+   */
+  healthy: boolean;
+
+  /**
+   * @generated from field: optional string healthcheck_error = 8;
+   */
+  healthcheckError?: string;
+
+  /**
+   * @generated from field: int32 restart_count = 9;
+   */
+  restartCount: number;
+};
+
+/**
+ * Describes the message baepo.node.v1.InitEventsResponse.ContainerStateChangedEvent.
+ * Use `create(InitEventsResponse_ContainerStateChangedEventSchema)` to create a new message.
+ */
+export declare const InitEventsResponse_ContainerStateChangedEventSchema: GenMessage<InitEventsResponse_ContainerStateChangedEvent>;
+
+/**
  * @generated from service baepo.node.v1.Init
  */
 export declare const Init: GenService<{
@@ -76,12 +160,12 @@ export declare const Init: GenService<{
     output: typeof InitGetLogsResponseSchema;
   },
   /**
-   * @generated from rpc baepo.node.v1.Init.Healthcheck
+   * @generated from rpc baepo.node.v1.Init.Events
    */
-  healthcheck: {
-    methodKind: "unary";
+  events: {
+    methodKind: "server_streaming";
     input: typeof EmptySchema;
-    output: typeof EmptySchema;
+    output: typeof InitEventsResponseSchema;
   },
 }>;
 

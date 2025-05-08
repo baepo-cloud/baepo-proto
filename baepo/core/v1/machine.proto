@@ -121,3 +121,9 @@ enum MachineTerminationCause {
   MachineTerminationCause_NoNodeAvailable = 4;
   MachineTerminationCause_Expired = 5;
 }
+
+enum MachineContainerState {
+  MachineContainerState_Unknown = 0;
+  MachineContainerState_Running = 1;
+  MachineContainerState_Exited = 2;
+}
