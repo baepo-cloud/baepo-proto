@@ -207,9 +207,9 @@ export declare const MachineContainerHealthcheckSpec_HttpHealthcheckSpecSchema: 
  */
 export declare type MachineEvent = Message<"baepo.core.v1.MachineEvent"> & {
   /**
-   * @generated from field: google.protobuf.Timestamp timestamp = 1;
+   * @generated from field: string event_id = 1;
    */
-  timestamp?: Timestamp;
+  eventId: string;
 
   /**
    * @generated from field: string machine_id = 2;
@@ -217,49 +217,54 @@ export declare type MachineEvent = Message<"baepo.core.v1.MachineEvent"> & {
   machineId: string;
 
   /**
+   * @generated from field: google.protobuf.Timestamp timestamp = 3;
+   */
+  timestamp?: Timestamp;
+
+  /**
    * @generated from oneof baepo.core.v1.MachineEvent.event
    */
   event: {
     /**
-     * @generated from field: baepo.core.v1.MachineEvent.StateChanged state_changed_event = 3;
+     * @generated from field: baepo.core.v1.MachineEvent.StateChangedEvent state_changed = 4;
      */
-    value: MachineEvent_StateChanged;
-    case: "stateChangedEvent";
+    value: MachineEvent_StateChangedEvent;
+    case: "stateChanged";
   } | {
     /**
-     * @generated from field: baepo.core.v1.MachineEvent.Started started = 4;
+     * @generated from field: baepo.core.v1.MachineEvent.StartedEvent started = 5;
      */
-    value: MachineEvent_Started;
+    value: MachineEvent_StartedEvent;
     case: "started";
   } | {
     /**
-     * @generated from field: baepo.core.v1.MachineEvent.Terminated terminated_event = 5;
+     * @generated from field: baepo.core.v1.MachineEvent.TerminatedEvent terminated = 6;
      */
-    value: MachineEvent_Terminated;
-    case: "terminatedEvent";
+    value: MachineEvent_TerminatedEvent;
+    case: "terminated";
   } | {
     /**
-     * @generated from field: baepo.core.v1.MachineEvent.DesiredStateChanged desired_state_changed_event = 6;
+     * @generated from field: baepo.core.v1.MachineEvent.DesiredStateChangedEvent desired_state_changed = 7;
      */
-    value: MachineEvent_DesiredStateChanged;
-    case: "desiredStateChangedEvent";
+    value: MachineEvent_DesiredStateChangedEvent;
+    case: "desiredStateChanged";
   } | {
     /**
-     * @generated from field: baepo.core.v1.MachineEvent.ReconciliationStarted reconciliation_started_event = 7;
+     * @generated from field: baepo.core.v1.MachineEvent.ReconciliationStartedEvent reconciliation_started = 8;
      */
-    value: MachineEvent_ReconciliationStarted;
-    case: "reconciliationStartedEvent";
+    value: MachineEvent_ReconciliationStartedEvent;
+    case: "reconciliationStarted";
   } | {
     /**
-     * @generated from field: baepo.core.v1.MachineEvent.ReconciliationCompleted reconciliation_completed_event = 8;
+     * @generated from field: baepo.core.v1.MachineEvent.ReconciliationCompletedEvent reconciliation_completed = 9;
      */
-    value: MachineEvent_ReconciliationCompleted;
-    case: "reconciliationCompletedEvent";
+    value: MachineEvent_ReconciliationCompletedEvent;
+    case: "reconciliationCompleted";
   } | {
     /**
-     * @generated from field: baepo.core.v1.MachineEvent.Healthcheck healthcheck_event = 9;
+     * @generated from field: baepo.core.v1.MachineEvent.ContainerStateChangedEvent healthcheck_event = 10;
      */
-    value: MachineEvent_Healthcheck;
+    value: MachineEvent_ContainerStateChangedEvent;
     case: "healthcheckEvent";
   } | { case: undefined; value?: undefined };
 };
@@ -271,9 +276,9 @@ export declare type MachineEvent = Message<"baepo.core.v1.MachineEvent"> & {
 export declare const MachineEventSchema: GenMessage<MachineEvent>;
 
 /**
- * @generated from message baepo.core.v1.MachineEvent.StateChanged
+ * @generated from message baepo.core.v1.MachineEvent.StateChangedEvent
  */
-export declare type MachineEvent_StateChanged = Message<"baepo.core.v1.MachineEvent.StateChanged"> & {
+export declare type MachineEvent_StateChangedEvent = Message<"baepo.core.v1.MachineEvent.StateChangedEvent"> & {
   /**
    * @generated from field: baepo.core.v1.MachineState state = 1;
    */
@@ -281,15 +286,15 @@ export declare type MachineEvent_StateChanged = Message<"baepo.core.v1.MachineEv
 };
 
 /**
- * Describes the message baepo.core.v1.MachineEvent.StateChanged.
- * Use `create(MachineEvent_StateChangedSchema)` to create a new message.
+ * Describes the message baepo.core.v1.MachineEvent.StateChangedEvent.
+ * Use `create(MachineEvent_StateChangedEventSchema)` to create a new message.
  */
-export declare const MachineEvent_StateChangedSchema: GenMessage<MachineEvent_StateChanged>;
+export declare const MachineEvent_StateChangedEventSchema: GenMessage<MachineEvent_StateChangedEvent>;
 
 /**
- * @generated from message baepo.core.v1.MachineEvent.Started
+ * @generated from message baepo.core.v1.MachineEvent.StartedEvent
  */
-export declare type MachineEvent_Started = Message<"baepo.core.v1.MachineEvent.Started"> & {
+export declare type MachineEvent_StartedEvent = Message<"baepo.core.v1.MachineEvent.StartedEvent"> & {
   /**
    * @generated from field: optional google.protobuf.Timestamp expires_at = 1;
    */
@@ -297,15 +302,15 @@ export declare type MachineEvent_Started = Message<"baepo.core.v1.MachineEvent.S
 };
 
 /**
- * Describes the message baepo.core.v1.MachineEvent.Started.
- * Use `create(MachineEvent_StartedSchema)` to create a new message.
+ * Describes the message baepo.core.v1.MachineEvent.StartedEvent.
+ * Use `create(MachineEvent_StartedEventSchema)` to create a new message.
  */
-export declare const MachineEvent_StartedSchema: GenMessage<MachineEvent_Started>;
+export declare const MachineEvent_StartedEventSchema: GenMessage<MachineEvent_StartedEvent>;
 
 /**
- * @generated from message baepo.core.v1.MachineEvent.Terminated
+ * @generated from message baepo.core.v1.MachineEvent.TerminatedEvent
  */
-export declare type MachineEvent_Terminated = Message<"baepo.core.v1.MachineEvent.Terminated"> & {
+export declare type MachineEvent_TerminatedEvent = Message<"baepo.core.v1.MachineEvent.TerminatedEvent"> & {
   /**
    * @generated from field: baepo.core.v1.MachineTerminationCause cause = 1;
    */
@@ -318,15 +323,15 @@ export declare type MachineEvent_Terminated = Message<"baepo.core.v1.MachineEven
 };
 
 /**
- * Describes the message baepo.core.v1.MachineEvent.Terminated.
- * Use `create(MachineEvent_TerminatedSchema)` to create a new message.
+ * Describes the message baepo.core.v1.MachineEvent.TerminatedEvent.
+ * Use `create(MachineEvent_TerminatedEventSchema)` to create a new message.
  */
-export declare const MachineEvent_TerminatedSchema: GenMessage<MachineEvent_Terminated>;
+export declare const MachineEvent_TerminatedEventSchema: GenMessage<MachineEvent_TerminatedEvent>;
 
 /**
- * @generated from message baepo.core.v1.MachineEvent.DesiredStateChanged
+ * @generated from message baepo.core.v1.MachineEvent.DesiredStateChangedEvent
  */
-export declare type MachineEvent_DesiredStateChanged = Message<"baepo.core.v1.MachineEvent.DesiredStateChanged"> & {
+export declare type MachineEvent_DesiredStateChangedEvent = Message<"baepo.core.v1.MachineEvent.DesiredStateChangedEvent"> & {
   /**
    * @generated from field: baepo.core.v1.MachineDesiredState desired_state = 1;
    */
@@ -334,15 +339,15 @@ export declare type MachineEvent_DesiredStateChanged = Message<"baepo.core.v1.Ma
 };
 
 /**
- * Describes the message baepo.core.v1.MachineEvent.DesiredStateChanged.
- * Use `create(MachineEvent_DesiredStateChangedSchema)` to create a new message.
+ * Describes the message baepo.core.v1.MachineEvent.DesiredStateChangedEvent.
+ * Use `create(MachineEvent_DesiredStateChangedEventSchema)` to create a new message.
  */
-export declare const MachineEvent_DesiredStateChangedSchema: GenMessage<MachineEvent_DesiredStateChanged>;
+export declare const MachineEvent_DesiredStateChangedEventSchema: GenMessage<MachineEvent_DesiredStateChangedEvent>;
 
 /**
- * @generated from message baepo.core.v1.MachineEvent.ReconciliationStarted
+ * @generated from message baepo.core.v1.MachineEvent.ReconciliationStartedEvent
  */
-export declare type MachineEvent_ReconciliationStarted = Message<"baepo.core.v1.MachineEvent.ReconciliationStarted"> & {
+export declare type MachineEvent_ReconciliationStartedEvent = Message<"baepo.core.v1.MachineEvent.ReconciliationStartedEvent"> & {
   /**
    * @generated from field: baepo.core.v1.MachineDesiredState desired_state = 1;
    */
@@ -350,15 +355,15 @@ export declare type MachineEvent_ReconciliationStarted = Message<"baepo.core.v1.
 };
 
 /**
- * Describes the message baepo.core.v1.MachineEvent.ReconciliationStarted.
- * Use `create(MachineEvent_ReconciliationStartedSchema)` to create a new message.
+ * Describes the message baepo.core.v1.MachineEvent.ReconciliationStartedEvent.
+ * Use `create(MachineEvent_ReconciliationStartedEventSchema)` to create a new message.
  */
-export declare const MachineEvent_ReconciliationStartedSchema: GenMessage<MachineEvent_ReconciliationStarted>;
+export declare const MachineEvent_ReconciliationStartedEventSchema: GenMessage<MachineEvent_ReconciliationStartedEvent>;
 
 /**
- * @generated from message baepo.core.v1.MachineEvent.ReconciliationCompleted
+ * @generated from message baepo.core.v1.MachineEvent.ReconciliationCompletedEvent
  */
-export declare type MachineEvent_ReconciliationCompleted = Message<"baepo.core.v1.MachineEvent.ReconciliationCompleted"> & {
+export declare type MachineEvent_ReconciliationCompletedEvent = Message<"baepo.core.v1.MachineEvent.ReconciliationCompletedEvent"> & {
   /**
    * @generated from field: baepo.core.v1.MachineDesiredState desired_state = 1;
    */
@@ -371,26 +376,66 @@ export declare type MachineEvent_ReconciliationCompleted = Message<"baepo.core.v
 };
 
 /**
- * Describes the message baepo.core.v1.MachineEvent.ReconciliationCompleted.
- * Use `create(MachineEvent_ReconciliationCompletedSchema)` to create a new message.
+ * Describes the message baepo.core.v1.MachineEvent.ReconciliationCompletedEvent.
+ * Use `create(MachineEvent_ReconciliationCompletedEventSchema)` to create a new message.
  */
-export declare const MachineEvent_ReconciliationCompletedSchema: GenMessage<MachineEvent_ReconciliationCompleted>;
+export declare const MachineEvent_ReconciliationCompletedEventSchema: GenMessage<MachineEvent_ReconciliationCompletedEvent>;
 
 /**
- * @generated from message baepo.core.v1.MachineEvent.Healthcheck
+ * @generated from message baepo.core.v1.MachineEvent.ContainerStateChangedEvent
  */
-export declare type MachineEvent_Healthcheck = Message<"baepo.core.v1.MachineEvent.Healthcheck"> & {
+export declare type MachineEvent_ContainerStateChangedEvent = Message<"baepo.core.v1.MachineEvent.ContainerStateChangedEvent"> & {
   /**
-   * @generated from field: optional string error = 1;
+   * @generated from field: string container_name = 1;
    */
-  error?: string;
+  containerName: string;
+
+  /**
+   * @generated from field: baepo.core.v1.MachineContainerState state = 2;
+   */
+  state: MachineContainerState;
+
+  /**
+   * @generated from field: optional google.protobuf.Timestamp started_at = 3;
+   */
+  startedAt?: Timestamp;
+
+  /**
+   * @generated from field: optional google.protobuf.Timestamp exited_at = 4;
+   */
+  exitedAt?: Timestamp;
+
+  /**
+   * @generated from field: optional int32 exit_code = 5;
+   */
+  exitCode?: number;
+
+  /**
+   * @generated from field: optional string exit_error = 6;
+   */
+  exitError?: string;
+
+  /**
+   * @generated from field: bool healthy = 7;
+   */
+  healthy: boolean;
+
+  /**
+   * @generated from field: optional string healthcheck_error = 8;
+   */
+  healthcheckError?: string;
+
+  /**
+   * @generated from field: int32 restart_count = 9;
+   */
+  restartCount: number;
 };
 
 /**
- * Describes the message baepo.core.v1.MachineEvent.Healthcheck.
- * Use `create(MachineEvent_HealthcheckSchema)` to create a new message.
+ * Describes the message baepo.core.v1.MachineEvent.ContainerStateChangedEvent.
+ * Use `create(MachineEvent_ContainerStateChangedEventSchema)` to create a new message.
  */
-export declare const MachineEvent_HealthcheckSchema: GenMessage<MachineEvent_Healthcheck>;
+export declare const MachineEvent_ContainerStateChangedEventSchema: GenMessage<MachineEvent_ContainerStateChangedEvent>;
 
 /**
  * @generated from enum baepo.core.v1.MachineState

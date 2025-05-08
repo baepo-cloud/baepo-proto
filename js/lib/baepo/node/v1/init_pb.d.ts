@@ -69,7 +69,12 @@ export declare const InitGetLogsResponseSchema: GenMessage<InitGetLogsResponse>;
  */
 export declare type InitEventsResponse = Message<"baepo.node.v1.InitEventsResponse"> & {
   /**
-   * @generated from field: google.protobuf.Timestamp timestamp = 1;
+   * @generated from field: string event_id = 1;
+   */
+  eventId: string;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp timestamp = 2;
    */
   timestamp?: Timestamp;
 
@@ -78,7 +83,7 @@ export declare type InitEventsResponse = Message<"baepo.node.v1.InitEventsRespon
    */
   event: {
     /**
-     * @generated from field: baepo.node.v1.InitEventsResponse.ContainerStateChangedEvent container_state_changed = 2;
+     * @generated from field: baepo.node.v1.InitEventsResponse.ContainerStateChangedEvent container_state_changed = 3;
      */
     value: InitEventsResponse_ContainerStateChangedEvent;
     case: "containerStateChanged";

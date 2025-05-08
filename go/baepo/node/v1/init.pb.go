@@ -146,7 +146,8 @@ func (x *InitGetLogsResponse) GetTimestamp() *timestamppb.Timestamp {
 
 type InitEventsResponse struct {
 	state     protoimpl.MessageState `protogen:"open.v1"`
-	Timestamp *timestamppb.Timestamp `protobuf:"bytes,1,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
+	EventId   string                 `protobuf:"bytes,1,opt,name=event_id,json=eventId,proto3" json:"event_id,omitempty"`
+	Timestamp *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
 	// Types that are valid to be assigned to Event:
 	//
 	//	*InitEventsResponse_ContainerStateChanged
@@ -185,6 +186,13 @@ func (*InitEventsResponse) Descriptor() ([]byte, []int) {
 	return file_baepo_node_v1_init_proto_rawDescGZIP(), []int{2}
 }
 
+func (x *InitEventsResponse) GetEventId() string {
+	if x != nil {
+		return x.EventId
+	}
+	return ""
+}
+
 func (x *InitEventsResponse) GetTimestamp() *timestamppb.Timestamp {
 	if x != nil {
 		return x.Timestamp
@@ -213,7 +221,7 @@ type isInitEventsResponse_Event interface {
 }
 
 type InitEventsResponse_ContainerStateChanged struct {
-	ContainerStateChanged *InitEventsResponse_ContainerStateChangedEvent `protobuf:"bytes,2,opt,name=container_state_changed,json=containerStateChanged,proto3,oneof"`
+	ContainerStateChanged *InitEventsResponse_ContainerStateChangedEvent `protobuf:"bytes,3,opt,name=container_state_changed,json=containerStateChanged,proto3,oneof"`
 }
 
 func (*InitEventsResponse_ContainerStateChanged) isInitEventsResponse_Event() {}
@@ -339,10 +347,11 @@ const file_baepo_node_v1_init_proto_rawDesc = "" +
 	"\x05error\x18\x01 \x01(\bR\x05error\x12%\n" +
 	"\x0econtainer_name\x18\x02 \x01(\tR\rcontainerName\x12\x18\n" +
 	"\acontent\x18\x03 \x01(\fR\acontent\x128\n" +
-	"\ttimestamp\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\ttimestamp\"\xd6\x05\n" +
-	"\x12InitEventsResponse\x128\n" +
-	"\ttimestamp\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\ttimestamp\x12v\n" +
-	"\x17container_state_changed\x18\x02 \x01(\v2<.baepo.node.v1.InitEventsResponse.ContainerStateChangedEventH\x00R\x15containerStateChanged\x1a\x84\x04\n" +
+	"\ttimestamp\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\ttimestamp\"\xf1\x05\n" +
+	"\x12InitEventsResponse\x12\x19\n" +
+	"\bevent_id\x18\x01 \x01(\tR\aeventId\x128\n" +
+	"\ttimestamp\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\ttimestamp\x12v\n" +
+	"\x17container_state_changed\x18\x03 \x01(\v2<.baepo.node.v1.InitEventsResponse.ContainerStateChangedEventH\x00R\x15containerStateChanged\x1a\x84\x04\n" +
 	"\x1aContainerStateChangedEvent\x12%\n" +
 	"\x0econtainer_name\x18\x01 \x01(\tR\rcontainerName\x12:\n" +
 	"\x05state\x18\x02 \x01(\x0e2$.baepo.core.v1.MachineContainerStateR\x05state\x12>\n" +

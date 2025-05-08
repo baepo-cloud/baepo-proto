@@ -27,9 +27,10 @@ message InitGetLogsResponse {
 }
 
 message InitEventsResponse {
-  google.protobuf.Timestamp timestamp = 1;
+  string event_id = 1;
+  google.protobuf.Timestamp timestamp = 2;
   oneof event {
-    ContainerStateChangedEvent container_state_changed = 2;
+    ContainerStateChangedEvent container_state_changed = 3;
   }
 
   message ContainerStateChangedEvent {

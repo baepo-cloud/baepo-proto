@@ -13,13 +13,13 @@ service NodeControllerService {
 
 message NodeControllerServerEvent {
   oneof event {
-    RegistrationCompleted registration_completed_event = 1;
-    Ping ping_event = 2;
-    MachineSpec create_machine_event = 3;
-    UpdateMachineDesiredState update_machine_desired_state_event = 4;
+    RegistrationCompletedEvent registration_completed = 1;
+    PingEvent ping = 2;
+    MachineSpec create_machine = 3;
+    UpdateMachineDesiredStateEvent update_machine_desired_state = 4;
   }
 
-  message RegistrationCompleted {
+  message RegistrationCompletedEvent {
     string node_id = 1;
     string node_token = 2;
     bytes authority_cert = 3;
@@ -28,10 +28,10 @@ message NodeControllerServerEvent {
     repeated MachineSpec expected_machines = 6;
   }
 
-  message Ping {
+  message PingEvent {
   }
 
-  message UpdateMachineDesiredState {
+  message UpdateMachineDesiredStateEvent {
     string machine_id = 1;
     baepo.core.v1.MachineDesiredState desired_state = 2;
   }

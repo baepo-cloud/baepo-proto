@@ -27,10 +27,10 @@ type NodeControllerServerEvent struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// Types that are valid to be assigned to Event:
 	//
-	//	*NodeControllerServerEvent_RegistrationCompletedEvent
-	//	*NodeControllerServerEvent_PingEvent
-	//	*NodeControllerServerEvent_CreateMachineEvent
-	//	*NodeControllerServerEvent_UpdateMachineDesiredStateEvent
+	//	*NodeControllerServerEvent_RegistrationCompleted
+	//	*NodeControllerServerEvent_Ping
+	//	*NodeControllerServerEvent_CreateMachine
+	//	*NodeControllerServerEvent_UpdateMachineDesiredState
 	Event         isNodeControllerServerEvent_Event `protobuf_oneof:"event"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -73,37 +73,37 @@ func (x *NodeControllerServerEvent) GetEvent() isNodeControllerServerEvent_Event
 	return nil
 }
 
-func (x *NodeControllerServerEvent) GetRegistrationCompletedEvent() *NodeControllerServerEvent_RegistrationCompleted {
+func (x *NodeControllerServerEvent) GetRegistrationCompleted() *NodeControllerServerEvent_RegistrationCompletedEvent {
 	if x != nil {
-		if x, ok := x.Event.(*NodeControllerServerEvent_RegistrationCompletedEvent); ok {
-			return x.RegistrationCompletedEvent
+		if x, ok := x.Event.(*NodeControllerServerEvent_RegistrationCompleted); ok {
+			return x.RegistrationCompleted
 		}
 	}
 	return nil
 }
 
-func (x *NodeControllerServerEvent) GetPingEvent() *NodeControllerServerEvent_Ping {
+func (x *NodeControllerServerEvent) GetPing() *NodeControllerServerEvent_PingEvent {
 	if x != nil {
-		if x, ok := x.Event.(*NodeControllerServerEvent_PingEvent); ok {
-			return x.PingEvent
+		if x, ok := x.Event.(*NodeControllerServerEvent_Ping); ok {
+			return x.Ping
 		}
 	}
 	return nil
 }
 
-func (x *NodeControllerServerEvent) GetCreateMachineEvent() *NodeControllerServerEvent_MachineSpec {
+func (x *NodeControllerServerEvent) GetCreateMachine() *NodeControllerServerEvent_MachineSpec {
 	if x != nil {
-		if x, ok := x.Event.(*NodeControllerServerEvent_CreateMachineEvent); ok {
-			return x.CreateMachineEvent
+		if x, ok := x.Event.(*NodeControllerServerEvent_CreateMachine); ok {
+			return x.CreateMachine
 		}
 	}
 	return nil
 }
 
-func (x *NodeControllerServerEvent) GetUpdateMachineDesiredStateEvent() *NodeControllerServerEvent_UpdateMachineDesiredState {
+func (x *NodeControllerServerEvent) GetUpdateMachineDesiredState() *NodeControllerServerEvent_UpdateMachineDesiredStateEvent {
 	if x != nil {
-		if x, ok := x.Event.(*NodeControllerServerEvent_UpdateMachineDesiredStateEvent); ok {
-			return x.UpdateMachineDesiredStateEvent
+		if x, ok := x.Event.(*NodeControllerServerEvent_UpdateMachineDesiredState); ok {
+			return x.UpdateMachineDesiredState
 		}
 	}
 	return nil
@@ -113,30 +113,29 @@ type isNodeControllerServerEvent_Event interface {
 	isNodeControllerServerEvent_Event()
 }
 
-type NodeControllerServerEvent_RegistrationCompletedEvent struct {
-	RegistrationCompletedEvent *NodeControllerServerEvent_RegistrationCompleted `protobuf:"bytes,1,opt,name=registration_completed_event,json=registrationCompletedEvent,proto3,oneof"`
+type NodeControllerServerEvent_RegistrationCompleted struct {
+	RegistrationCompleted *NodeControllerServerEvent_RegistrationCompletedEvent `protobuf:"bytes,1,opt,name=registration_completed,json=registrationCompleted,proto3,oneof"`
 }
 
-type NodeControllerServerEvent_PingEvent struct {
-	PingEvent *NodeControllerServerEvent_Ping `protobuf:"bytes,2,opt,name=ping_event,json=pingEvent,proto3,oneof"`
+type NodeControllerServerEvent_Ping struct {
+	Ping *NodeControllerServerEvent_PingEvent `protobuf:"bytes,2,opt,name=ping,proto3,oneof"`
 }
 
-type NodeControllerServerEvent_CreateMachineEvent struct {
-	CreateMachineEvent *NodeControllerServerEvent_MachineSpec `protobuf:"bytes,3,opt,name=create_machine_event,json=createMachineEvent,proto3,oneof"`
+type NodeControllerServerEvent_CreateMachine struct {
+	CreateMachine *NodeControllerServerEvent_MachineSpec `protobuf:"bytes,3,opt,name=create_machine,json=createMachine,proto3,oneof"`
 }
 
-type NodeControllerServerEvent_UpdateMachineDesiredStateEvent struct {
-	UpdateMachineDesiredStateEvent *NodeControllerServerEvent_UpdateMachineDesiredState `protobuf:"bytes,4,opt,name=update_machine_desired_state_event,json=updateMachineDesiredStateEvent,proto3,oneof"`
+type NodeControllerServerEvent_UpdateMachineDesiredState struct {
+	UpdateMachineDesiredState *NodeControllerServerEvent_UpdateMachineDesiredStateEvent `protobuf:"bytes,4,opt,name=update_machine_desired_state,json=updateMachineDesiredState,proto3,oneof"`
 }
 
-func (*NodeControllerServerEvent_RegistrationCompletedEvent) isNodeControllerServerEvent_Event() {}
+func (*NodeControllerServerEvent_RegistrationCompleted) isNodeControllerServerEvent_Event() {}
 
-func (*NodeControllerServerEvent_PingEvent) isNodeControllerServerEvent_Event() {}
+func (*NodeControllerServerEvent_Ping) isNodeControllerServerEvent_Event() {}
 
-func (*NodeControllerServerEvent_CreateMachineEvent) isNodeControllerServerEvent_Event() {}
+func (*NodeControllerServerEvent_CreateMachine) isNodeControllerServerEvent_Event() {}
 
-func (*NodeControllerServerEvent_UpdateMachineDesiredStateEvent) isNodeControllerServerEvent_Event() {
-}
+func (*NodeControllerServerEvent_UpdateMachineDesiredState) isNodeControllerServerEvent_Event() {}
 
 type NodeControllerClientEvent struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
@@ -236,7 +235,7 @@ func (*NodeControllerClientEvent_StatsEvent) isNodeControllerClientEvent_Event()
 
 func (*NodeControllerClientEvent_MachineEvent) isNodeControllerClientEvent_Event() {}
 
-type NodeControllerServerEvent_RegistrationCompleted struct {
+type NodeControllerServerEvent_RegistrationCompletedEvent struct {
 	state            protoimpl.MessageState                   `protogen:"open.v1"`
 	NodeId           string                                   `protobuf:"bytes,1,opt,name=node_id,json=nodeId,proto3" json:"node_id,omitempty"`
 	NodeToken        string                                   `protobuf:"bytes,2,opt,name=node_token,json=nodeToken,proto3" json:"node_token,omitempty"`
@@ -248,20 +247,20 @@ type NodeControllerServerEvent_RegistrationCompleted struct {
 	sizeCache        protoimpl.SizeCache
 }
 
-func (x *NodeControllerServerEvent_RegistrationCompleted) Reset() {
-	*x = NodeControllerServerEvent_RegistrationCompleted{}
+func (x *NodeControllerServerEvent_RegistrationCompletedEvent) Reset() {
+	*x = NodeControllerServerEvent_RegistrationCompletedEvent{}
 	mi := &file_baepo_api_v1_node_controller_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *NodeControllerServerEvent_RegistrationCompleted) String() string {
+func (x *NodeControllerServerEvent_RegistrationCompletedEvent) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*NodeControllerServerEvent_RegistrationCompleted) ProtoMessage() {}
+func (*NodeControllerServerEvent_RegistrationCompletedEvent) ProtoMessage() {}
 
-func (x *NodeControllerServerEvent_RegistrationCompleted) ProtoReflect() protoreflect.Message {
+func (x *NodeControllerServerEvent_RegistrationCompletedEvent) ProtoReflect() protoreflect.Message {
 	mi := &file_baepo_api_v1_node_controller_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -273,73 +272,73 @@ func (x *NodeControllerServerEvent_RegistrationCompleted) ProtoReflect() protore
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use NodeControllerServerEvent_RegistrationCompleted.ProtoReflect.Descriptor instead.
-func (*NodeControllerServerEvent_RegistrationCompleted) Descriptor() ([]byte, []int) {
+// Deprecated: Use NodeControllerServerEvent_RegistrationCompletedEvent.ProtoReflect.Descriptor instead.
+func (*NodeControllerServerEvent_RegistrationCompletedEvent) Descriptor() ([]byte, []int) {
 	return file_baepo_api_v1_node_controller_proto_rawDescGZIP(), []int{0, 0}
 }
 
-func (x *NodeControllerServerEvent_RegistrationCompleted) GetNodeId() string {
+func (x *NodeControllerServerEvent_RegistrationCompletedEvent) GetNodeId() string {
 	if x != nil {
 		return x.NodeId
 	}
 	return ""
 }
 
-func (x *NodeControllerServerEvent_RegistrationCompleted) GetNodeToken() string {
+func (x *NodeControllerServerEvent_RegistrationCompletedEvent) GetNodeToken() string {
 	if x != nil {
 		return x.NodeToken
 	}
 	return ""
 }
 
-func (x *NodeControllerServerEvent_RegistrationCompleted) GetAuthorityCert() []byte {
+func (x *NodeControllerServerEvent_RegistrationCompletedEvent) GetAuthorityCert() []byte {
 	if x != nil {
 		return x.AuthorityCert
 	}
 	return nil
 }
 
-func (x *NodeControllerServerEvent_RegistrationCompleted) GetServerCert() []byte {
+func (x *NodeControllerServerEvent_RegistrationCompletedEvent) GetServerCert() []byte {
 	if x != nil {
 		return x.ServerCert
 	}
 	return nil
 }
 
-func (x *NodeControllerServerEvent_RegistrationCompleted) GetServerKey() []byte {
+func (x *NodeControllerServerEvent_RegistrationCompletedEvent) GetServerKey() []byte {
 	if x != nil {
 		return x.ServerKey
 	}
 	return nil
 }
 
-func (x *NodeControllerServerEvent_RegistrationCompleted) GetExpectedMachines() []*NodeControllerServerEvent_MachineSpec {
+func (x *NodeControllerServerEvent_RegistrationCompletedEvent) GetExpectedMachines() []*NodeControllerServerEvent_MachineSpec {
 	if x != nil {
 		return x.ExpectedMachines
 	}
 	return nil
 }
 
-type NodeControllerServerEvent_Ping struct {
+type NodeControllerServerEvent_PingEvent struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *NodeControllerServerEvent_Ping) Reset() {
-	*x = NodeControllerServerEvent_Ping{}
+func (x *NodeControllerServerEvent_PingEvent) Reset() {
+	*x = NodeControllerServerEvent_PingEvent{}
 	mi := &file_baepo_api_v1_node_controller_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *NodeControllerServerEvent_Ping) String() string {
+func (x *NodeControllerServerEvent_PingEvent) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*NodeControllerServerEvent_Ping) ProtoMessage() {}
+func (*NodeControllerServerEvent_PingEvent) ProtoMessage() {}
 
-func (x *NodeControllerServerEvent_Ping) ProtoReflect() protoreflect.Message {
+func (x *NodeControllerServerEvent_PingEvent) ProtoReflect() protoreflect.Message {
 	mi := &file_baepo_api_v1_node_controller_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -351,12 +350,12 @@ func (x *NodeControllerServerEvent_Ping) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use NodeControllerServerEvent_Ping.ProtoReflect.Descriptor instead.
-func (*NodeControllerServerEvent_Ping) Descriptor() ([]byte, []int) {
+// Deprecated: Use NodeControllerServerEvent_PingEvent.ProtoReflect.Descriptor instead.
+func (*NodeControllerServerEvent_PingEvent) Descriptor() ([]byte, []int) {
 	return file_baepo_api_v1_node_controller_proto_rawDescGZIP(), []int{0, 1}
 }
 
-type NodeControllerServerEvent_UpdateMachineDesiredState struct {
+type NodeControllerServerEvent_UpdateMachineDesiredStateEvent struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	MachineId     string                 `protobuf:"bytes,1,opt,name=machine_id,json=machineId,proto3" json:"machine_id,omitempty"`
 	DesiredState  v1.MachineDesiredState `protobuf:"varint,2,opt,name=desired_state,json=desiredState,proto3,enum=baepo.core.v1.MachineDesiredState" json:"desired_state,omitempty"`
@@ -364,20 +363,20 @@ type NodeControllerServerEvent_UpdateMachineDesiredState struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *NodeControllerServerEvent_UpdateMachineDesiredState) Reset() {
-	*x = NodeControllerServerEvent_UpdateMachineDesiredState{}
+func (x *NodeControllerServerEvent_UpdateMachineDesiredStateEvent) Reset() {
+	*x = NodeControllerServerEvent_UpdateMachineDesiredStateEvent{}
 	mi := &file_baepo_api_v1_node_controller_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *NodeControllerServerEvent_UpdateMachineDesiredState) String() string {
+func (x *NodeControllerServerEvent_UpdateMachineDesiredStateEvent) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*NodeControllerServerEvent_UpdateMachineDesiredState) ProtoMessage() {}
+func (*NodeControllerServerEvent_UpdateMachineDesiredStateEvent) ProtoMessage() {}
 
-func (x *NodeControllerServerEvent_UpdateMachineDesiredState) ProtoReflect() protoreflect.Message {
+func (x *NodeControllerServerEvent_UpdateMachineDesiredStateEvent) ProtoReflect() protoreflect.Message {
 	mi := &file_baepo_api_v1_node_controller_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -389,19 +388,19 @@ func (x *NodeControllerServerEvent_UpdateMachineDesiredState) ProtoReflect() pro
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use NodeControllerServerEvent_UpdateMachineDesiredState.ProtoReflect.Descriptor instead.
-func (*NodeControllerServerEvent_UpdateMachineDesiredState) Descriptor() ([]byte, []int) {
+// Deprecated: Use NodeControllerServerEvent_UpdateMachineDesiredStateEvent.ProtoReflect.Descriptor instead.
+func (*NodeControllerServerEvent_UpdateMachineDesiredStateEvent) Descriptor() ([]byte, []int) {
 	return file_baepo_api_v1_node_controller_proto_rawDescGZIP(), []int{0, 2}
 }
 
-func (x *NodeControllerServerEvent_UpdateMachineDesiredState) GetMachineId() string {
+func (x *NodeControllerServerEvent_UpdateMachineDesiredStateEvent) GetMachineId() string {
 	if x != nil {
 		return x.MachineId
 	}
 	return ""
 }
 
-func (x *NodeControllerServerEvent_UpdateMachineDesiredState) GetDesiredState() v1.MachineDesiredState {
+func (x *NodeControllerServerEvent_UpdateMachineDesiredStateEvent) GetDesiredState() v1.MachineDesiredState {
 	if x != nil {
 		return x.DesiredState
 	}
@@ -632,14 +631,13 @@ var File_baepo_api_v1_node_controller_proto protoreflect.FileDescriptor
 
 const file_baepo_api_v1_node_controller_proto_rawDesc = "" +
 	"\n" +
-	"\"baepo/api/v1/node_controller.proto\x12\fbaepo.api.v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bbaepo/core/v1/machine.proto\"\xc3\b\n" +
-	"\x19NodeControllerServerEvent\x12\x81\x01\n" +
-	"\x1cregistration_completed_event\x18\x01 \x01(\v2=.baepo.api.v1.NodeControllerServerEvent.RegistrationCompletedH\x00R\x1aregistrationCompletedEvent\x12M\n" +
-	"\n" +
-	"ping_event\x18\x02 \x01(\v2,.baepo.api.v1.NodeControllerServerEvent.PingH\x00R\tpingEvent\x12g\n" +
-	"\x14create_machine_event\x18\x03 \x01(\v23.baepo.api.v1.NodeControllerServerEvent.MachineSpecH\x00R\x12createMachineEvent\x12\x8f\x01\n" +
-	"\"update_machine_desired_state_event\x18\x04 \x01(\v2A.baepo.api.v1.NodeControllerServerEvent.UpdateMachineDesiredStateH\x00R\x1eupdateMachineDesiredStateEvent\x1a\x98\x02\n" +
-	"\x15RegistrationCompleted\x12\x17\n" +
+	"\"baepo/api/v1/node_controller.proto\x12\fbaepo.api.v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bbaepo/core/v1/machine.proto\"\xb4\b\n" +
+	"\x19NodeControllerServerEvent\x12{\n" +
+	"\x16registration_completed\x18\x01 \x01(\v2B.baepo.api.v1.NodeControllerServerEvent.RegistrationCompletedEventH\x00R\x15registrationCompleted\x12G\n" +
+	"\x04ping\x18\x02 \x01(\v21.baepo.api.v1.NodeControllerServerEvent.PingEventH\x00R\x04ping\x12\\\n" +
+	"\x0ecreate_machine\x18\x03 \x01(\v23.baepo.api.v1.NodeControllerServerEvent.MachineSpecH\x00R\rcreateMachine\x12\x89\x01\n" +
+	"\x1cupdate_machine_desired_state\x18\x04 \x01(\v2F.baepo.api.v1.NodeControllerServerEvent.UpdateMachineDesiredStateEventH\x00R\x19updateMachineDesiredState\x1a\x9d\x02\n" +
+	"\x1aRegistrationCompletedEvent\x12\x17\n" +
 	"\anode_id\x18\x01 \x01(\tR\x06nodeId\x12\x1d\n" +
 	"\n" +
 	"node_token\x18\x02 \x01(\tR\tnodeToken\x12%\n" +
@@ -648,9 +646,9 @@ const file_baepo_api_v1_node_controller_proto_rawDesc = "" +
 	"serverCert\x12\x1d\n" +
 	"\n" +
 	"server_key\x18\x05 \x01(\fR\tserverKey\x12`\n" +
-	"\x11expected_machines\x18\x06 \x03(\v23.baepo.api.v1.NodeControllerServerEvent.MachineSpecR\x10expectedMachines\x1a\x06\n" +
-	"\x04Ping\x1a\x83\x01\n" +
-	"\x19UpdateMachineDesiredState\x12\x1d\n" +
+	"\x11expected_machines\x18\x06 \x03(\v23.baepo.api.v1.NodeControllerServerEvent.MachineSpecR\x10expectedMachines\x1a\v\n" +
+	"\tPingEvent\x1a\x88\x01\n" +
+	"\x1eUpdateMachineDesiredStateEvent\x12\x1d\n" +
 	"\n" +
 	"machine_id\x18\x01 \x01(\tR\tmachineId\x12G\n" +
 	"\rdesired_state\x18\x02 \x01(\x0e2\".baepo.core.v1.MachineDesiredStateR\fdesiredState\x1a\xa5\x01\n" +
@@ -700,28 +698,28 @@ func file_baepo_api_v1_node_controller_proto_rawDescGZIP() []byte {
 
 var file_baepo_api_v1_node_controller_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_baepo_api_v1_node_controller_proto_goTypes = []any{
-	(*NodeControllerServerEvent)(nil),                           // 0: baepo.api.v1.NodeControllerServerEvent
-	(*NodeControllerClientEvent)(nil),                           // 1: baepo.api.v1.NodeControllerClientEvent
-	(*NodeControllerServerEvent_RegistrationCompleted)(nil),     // 2: baepo.api.v1.NodeControllerServerEvent.RegistrationCompleted
-	(*NodeControllerServerEvent_Ping)(nil),                      // 3: baepo.api.v1.NodeControllerServerEvent.Ping
-	(*NodeControllerServerEvent_UpdateMachineDesiredState)(nil), // 4: baepo.api.v1.NodeControllerServerEvent.UpdateMachineDesiredState
-	(*NodeControllerServerEvent_MachineSpec)(nil),               // 5: baepo.api.v1.NodeControllerServerEvent.MachineSpec
-	(*NodeControllerClientEvent_Register)(nil),                  // 6: baepo.api.v1.NodeControllerClientEvent.Register
-	(*NodeControllerClientEvent_Stats)(nil),                     // 7: baepo.api.v1.NodeControllerClientEvent.Stats
-	(*v1.MachineEvent)(nil),                                     // 8: baepo.core.v1.MachineEvent
-	(v1.MachineDesiredState)(0),                                 // 9: baepo.core.v1.MachineDesiredState
-	(*v1.MachineSpec)(nil),                                      // 10: baepo.core.v1.MachineSpec
+	(*NodeControllerServerEvent)(nil),                                // 0: baepo.api.v1.NodeControllerServerEvent
+	(*NodeControllerClientEvent)(nil),                                // 1: baepo.api.v1.NodeControllerClientEvent
+	(*NodeControllerServerEvent_RegistrationCompletedEvent)(nil),     // 2: baepo.api.v1.NodeControllerServerEvent.RegistrationCompletedEvent
+	(*NodeControllerServerEvent_PingEvent)(nil),                      // 3: baepo.api.v1.NodeControllerServerEvent.PingEvent
+	(*NodeControllerServerEvent_UpdateMachineDesiredStateEvent)(nil), // 4: baepo.api.v1.NodeControllerServerEvent.UpdateMachineDesiredStateEvent
+	(*NodeControllerServerEvent_MachineSpec)(nil),                    // 5: baepo.api.v1.NodeControllerServerEvent.MachineSpec
+	(*NodeControllerClientEvent_Register)(nil),                       // 6: baepo.api.v1.NodeControllerClientEvent.Register
+	(*NodeControllerClientEvent_Stats)(nil),                          // 7: baepo.api.v1.NodeControllerClientEvent.Stats
+	(*v1.MachineEvent)(nil),                                          // 8: baepo.core.v1.MachineEvent
+	(v1.MachineDesiredState)(0),                                      // 9: baepo.core.v1.MachineDesiredState
+	(*v1.MachineSpec)(nil),                                           // 10: baepo.core.v1.MachineSpec
 }
 var file_baepo_api_v1_node_controller_proto_depIdxs = []int32{
-	2,  // 0: baepo.api.v1.NodeControllerServerEvent.registration_completed_event:type_name -> baepo.api.v1.NodeControllerServerEvent.RegistrationCompleted
-	3,  // 1: baepo.api.v1.NodeControllerServerEvent.ping_event:type_name -> baepo.api.v1.NodeControllerServerEvent.Ping
-	5,  // 2: baepo.api.v1.NodeControllerServerEvent.create_machine_event:type_name -> baepo.api.v1.NodeControllerServerEvent.MachineSpec
-	4,  // 3: baepo.api.v1.NodeControllerServerEvent.update_machine_desired_state_event:type_name -> baepo.api.v1.NodeControllerServerEvent.UpdateMachineDesiredState
+	2,  // 0: baepo.api.v1.NodeControllerServerEvent.registration_completed:type_name -> baepo.api.v1.NodeControllerServerEvent.RegistrationCompletedEvent
+	3,  // 1: baepo.api.v1.NodeControllerServerEvent.ping:type_name -> baepo.api.v1.NodeControllerServerEvent.PingEvent
+	5,  // 2: baepo.api.v1.NodeControllerServerEvent.create_machine:type_name -> baepo.api.v1.NodeControllerServerEvent.MachineSpec
+	4,  // 3: baepo.api.v1.NodeControllerServerEvent.update_machine_desired_state:type_name -> baepo.api.v1.NodeControllerServerEvent.UpdateMachineDesiredStateEvent
 	6,  // 4: baepo.api.v1.NodeControllerClientEvent.register_event:type_name -> baepo.api.v1.NodeControllerClientEvent.Register
 	7,  // 5: baepo.api.v1.NodeControllerClientEvent.stats_event:type_name -> baepo.api.v1.NodeControllerClientEvent.Stats
 	8,  // 6: baepo.api.v1.NodeControllerClientEvent.machine_event:type_name -> baepo.core.v1.MachineEvent
-	5,  // 7: baepo.api.v1.NodeControllerServerEvent.RegistrationCompleted.expected_machines:type_name -> baepo.api.v1.NodeControllerServerEvent.MachineSpec
-	9,  // 8: baepo.api.v1.NodeControllerServerEvent.UpdateMachineDesiredState.desired_state:type_name -> baepo.core.v1.MachineDesiredState
+	5,  // 7: baepo.api.v1.NodeControllerServerEvent.RegistrationCompletedEvent.expected_machines:type_name -> baepo.api.v1.NodeControllerServerEvent.MachineSpec
+	9,  // 8: baepo.api.v1.NodeControllerServerEvent.UpdateMachineDesiredStateEvent.desired_state:type_name -> baepo.core.v1.MachineDesiredState
 	9,  // 9: baepo.api.v1.NodeControllerServerEvent.MachineSpec.desired_state:type_name -> baepo.core.v1.MachineDesiredState
 	10, // 10: baepo.api.v1.NodeControllerServerEvent.MachineSpec.spec:type_name -> baepo.core.v1.MachineSpec
 	7,  // 11: baepo.api.v1.NodeControllerClientEvent.Register.stats:type_name -> baepo.api.v1.NodeControllerClientEvent.Stats
@@ -740,10 +738,10 @@ func file_baepo_api_v1_node_controller_proto_init() {
 		return
 	}
 	file_baepo_api_v1_node_controller_proto_msgTypes[0].OneofWrappers = []any{
-		(*NodeControllerServerEvent_RegistrationCompletedEvent)(nil),
-		(*NodeControllerServerEvent_PingEvent)(nil),
-		(*NodeControllerServerEvent_CreateMachineEvent)(nil),
-		(*NodeControllerServerEvent_UpdateMachineDesiredStateEvent)(nil),
+		(*NodeControllerServerEvent_RegistrationCompleted)(nil),
+		(*NodeControllerServerEvent_Ping)(nil),
+		(*NodeControllerServerEvent_CreateMachine)(nil),
+		(*NodeControllerServerEvent_UpdateMachineDesiredState)(nil),
 	}
 	file_baepo_api_v1_node_controller_proto_msgTypes[1].OneofWrappers = []any{
 		(*NodeControllerClientEvent_RegisterEvent)(nil),

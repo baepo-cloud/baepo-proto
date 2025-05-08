@@ -20,28 +20,28 @@ export declare type NodeControllerServerEvent = Message<"baepo.api.v1.NodeContro
    */
   event: {
     /**
-     * @generated from field: baepo.api.v1.NodeControllerServerEvent.RegistrationCompleted registration_completed_event = 1;
+     * @generated from field: baepo.api.v1.NodeControllerServerEvent.RegistrationCompletedEvent registration_completed = 1;
      */
-    value: NodeControllerServerEvent_RegistrationCompleted;
-    case: "registrationCompletedEvent";
+    value: NodeControllerServerEvent_RegistrationCompletedEvent;
+    case: "registrationCompleted";
   } | {
     /**
-     * @generated from field: baepo.api.v1.NodeControllerServerEvent.Ping ping_event = 2;
+     * @generated from field: baepo.api.v1.NodeControllerServerEvent.PingEvent ping = 2;
      */
-    value: NodeControllerServerEvent_Ping;
-    case: "pingEvent";
+    value: NodeControllerServerEvent_PingEvent;
+    case: "ping";
   } | {
     /**
-     * @generated from field: baepo.api.v1.NodeControllerServerEvent.MachineSpec create_machine_event = 3;
+     * @generated from field: baepo.api.v1.NodeControllerServerEvent.MachineSpec create_machine = 3;
      */
     value: NodeControllerServerEvent_MachineSpec;
-    case: "createMachineEvent";
+    case: "createMachine";
   } | {
     /**
-     * @generated from field: baepo.api.v1.NodeControllerServerEvent.UpdateMachineDesiredState update_machine_desired_state_event = 4;
+     * @generated from field: baepo.api.v1.NodeControllerServerEvent.UpdateMachineDesiredStateEvent update_machine_desired_state = 4;
      */
-    value: NodeControllerServerEvent_UpdateMachineDesiredState;
-    case: "updateMachineDesiredStateEvent";
+    value: NodeControllerServerEvent_UpdateMachineDesiredStateEvent;
+    case: "updateMachineDesiredState";
   } | { case: undefined; value?: undefined };
 };
 
@@ -52,9 +52,9 @@ export declare type NodeControllerServerEvent = Message<"baepo.api.v1.NodeContro
 export declare const NodeControllerServerEventSchema: GenMessage<NodeControllerServerEvent>;
 
 /**
- * @generated from message baepo.api.v1.NodeControllerServerEvent.RegistrationCompleted
+ * @generated from message baepo.api.v1.NodeControllerServerEvent.RegistrationCompletedEvent
  */
-export declare type NodeControllerServerEvent_RegistrationCompleted = Message<"baepo.api.v1.NodeControllerServerEvent.RegistrationCompleted"> & {
+export declare type NodeControllerServerEvent_RegistrationCompletedEvent = Message<"baepo.api.v1.NodeControllerServerEvent.RegistrationCompletedEvent"> & {
   /**
    * @generated from field: string node_id = 1;
    */
@@ -87,27 +87,27 @@ export declare type NodeControllerServerEvent_RegistrationCompleted = Message<"b
 };
 
 /**
- * Describes the message baepo.api.v1.NodeControllerServerEvent.RegistrationCompleted.
- * Use `create(NodeControllerServerEvent_RegistrationCompletedSchema)` to create a new message.
+ * Describes the message baepo.api.v1.NodeControllerServerEvent.RegistrationCompletedEvent.
+ * Use `create(NodeControllerServerEvent_RegistrationCompletedEventSchema)` to create a new message.
  */
-export declare const NodeControllerServerEvent_RegistrationCompletedSchema: GenMessage<NodeControllerServerEvent_RegistrationCompleted>;
+export declare const NodeControllerServerEvent_RegistrationCompletedEventSchema: GenMessage<NodeControllerServerEvent_RegistrationCompletedEvent>;
 
 /**
- * @generated from message baepo.api.v1.NodeControllerServerEvent.Ping
+ * @generated from message baepo.api.v1.NodeControllerServerEvent.PingEvent
  */
-export declare type NodeControllerServerEvent_Ping = Message<"baepo.api.v1.NodeControllerServerEvent.Ping"> & {
+export declare type NodeControllerServerEvent_PingEvent = Message<"baepo.api.v1.NodeControllerServerEvent.PingEvent"> & {
 };
 
 /**
- * Describes the message baepo.api.v1.NodeControllerServerEvent.Ping.
- * Use `create(NodeControllerServerEvent_PingSchema)` to create a new message.
+ * Describes the message baepo.api.v1.NodeControllerServerEvent.PingEvent.
+ * Use `create(NodeControllerServerEvent_PingEventSchema)` to create a new message.
  */
-export declare const NodeControllerServerEvent_PingSchema: GenMessage<NodeControllerServerEvent_Ping>;
+export declare const NodeControllerServerEvent_PingEventSchema: GenMessage<NodeControllerServerEvent_PingEvent>;
 
 /**
- * @generated from message baepo.api.v1.NodeControllerServerEvent.UpdateMachineDesiredState
+ * @generated from message baepo.api.v1.NodeControllerServerEvent.UpdateMachineDesiredStateEvent
  */
-export declare type NodeControllerServerEvent_UpdateMachineDesiredState = Message<"baepo.api.v1.NodeControllerServerEvent.UpdateMachineDesiredState"> & {
+export declare type NodeControllerServerEvent_UpdateMachineDesiredStateEvent = Message<"baepo.api.v1.NodeControllerServerEvent.UpdateMachineDesiredStateEvent"> & {
   /**
    * @generated from field: string machine_id = 1;
    */
@@ -120,10 +120,10 @@ export declare type NodeControllerServerEvent_UpdateMachineDesiredState = Messag
 };
 
 /**
- * Describes the message baepo.api.v1.NodeControllerServerEvent.UpdateMachineDesiredState.
- * Use `create(NodeControllerServerEvent_UpdateMachineDesiredStateSchema)` to create a new message.
+ * Describes the message baepo.api.v1.NodeControllerServerEvent.UpdateMachineDesiredStateEvent.
+ * Use `create(NodeControllerServerEvent_UpdateMachineDesiredStateEventSchema)` to create a new message.
  */
-export declare const NodeControllerServerEvent_UpdateMachineDesiredStateSchema: GenMessage<NodeControllerServerEvent_UpdateMachineDesiredState>;
+export declare const NodeControllerServerEvent_UpdateMachineDesiredStateEventSchema: GenMessage<NodeControllerServerEvent_UpdateMachineDesiredStateEvent>;
 
 /**
  * @generated from message baepo.api.v1.NodeControllerServerEvent.MachineSpec
