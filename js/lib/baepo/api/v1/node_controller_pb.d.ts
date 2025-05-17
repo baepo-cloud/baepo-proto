@@ -5,6 +5,7 @@
 import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv1";
 import type { Message } from "@bufbuild/protobuf";
 import type { MachineDesiredState, MachineEvent, MachineSpec } from "../../core/v1/machine_pb.js";
+import type { ContainerEvent, ContainerSpec } from "../../core/v1/container_pb.js";
 
 /**
  * Describes the file baepo/api/v1/node_controller.proto.
@@ -32,9 +33,9 @@ export declare type NodeControllerServerEvent = Message<"baepo.api.v1.NodeContro
     case: "ping";
   } | {
     /**
-     * @generated from field: baepo.api.v1.NodeControllerServerEvent.MachineSpec create_machine = 3;
+     * @generated from field: baepo.api.v1.NodeControllerServerEvent.Machine create_machine = 3;
      */
-    value: NodeControllerServerEvent_MachineSpec;
+    value: NodeControllerServerEvent_Machine;
     case: "createMachine";
   } | {
     /**
@@ -81,9 +82,9 @@ export declare type NodeControllerServerEvent_RegistrationCompletedEvent = Messa
   serverKey: Uint8Array;
 
   /**
-   * @generated from field: repeated baepo.api.v1.NodeControllerServerEvent.MachineSpec expected_machines = 6;
+   * @generated from field: repeated baepo.api.v1.NodeControllerServerEvent.Machine expected_machines = 6;
    */
-  expectedMachines: NodeControllerServerEvent_MachineSpec[];
+  expectedMachines: NodeControllerServerEvent_Machine[];
 };
 
 /**
@@ -126,9 +127,9 @@ export declare type NodeControllerServerEvent_UpdateMachineDesiredStateEvent = M
 export declare const NodeControllerServerEvent_UpdateMachineDesiredStateEventSchema: GenMessage<NodeControllerServerEvent_UpdateMachineDesiredStateEvent>;
 
 /**
- * @generated from message baepo.api.v1.NodeControllerServerEvent.MachineSpec
+ * @generated from message baepo.api.v1.NodeControllerServerEvent.Machine
  */
-export declare type NodeControllerServerEvent_MachineSpec = Message<"baepo.api.v1.NodeControllerServerEvent.MachineSpec"> & {
+export declare type NodeControllerServerEvent_Machine = Message<"baepo.api.v1.NodeControllerServerEvent.Machine"> & {
   /**
    * @generated from field: string machine_id = 1;
    */
@@ -143,13 +144,39 @@ export declare type NodeControllerServerEvent_MachineSpec = Message<"baepo.api.v
    * @generated from field: baepo.core.v1.MachineSpec spec = 3;
    */
   spec?: MachineSpec;
+
+  /**
+   * @generated from field: repeated baepo.api.v1.NodeControllerServerEvent.Container containers = 4;
+   */
+  containers: NodeControllerServerEvent_Container[];
 };
 
 /**
- * Describes the message baepo.api.v1.NodeControllerServerEvent.MachineSpec.
- * Use `create(NodeControllerServerEvent_MachineSpecSchema)` to create a new message.
+ * Describes the message baepo.api.v1.NodeControllerServerEvent.Machine.
+ * Use `create(NodeControllerServerEvent_MachineSchema)` to create a new message.
  */
-export declare const NodeControllerServerEvent_MachineSpecSchema: GenMessage<NodeControllerServerEvent_MachineSpec>;
+export declare const NodeControllerServerEvent_MachineSchema: GenMessage<NodeControllerServerEvent_Machine>;
+
+/**
+ * @generated from message baepo.api.v1.NodeControllerServerEvent.Container
+ */
+export declare type NodeControllerServerEvent_Container = Message<"baepo.api.v1.NodeControllerServerEvent.Container"> & {
+  /**
+   * @generated from field: string container_id = 1;
+   */
+  containerId: string;
+
+  /**
+   * @generated from field: baepo.core.v1.ContainerSpec spec = 2;
+   */
+  spec?: ContainerSpec;
+};
+
+/**
+ * Describes the message baepo.api.v1.NodeControllerServerEvent.Container.
+ * Use `create(NodeControllerServerEvent_ContainerSchema)` to create a new message.
+ */
+export declare const NodeControllerServerEvent_ContainerSchema: GenMessage<NodeControllerServerEvent_Container>;
 
 /**
  * @generated from message baepo.api.v1.NodeControllerClientEvent
@@ -160,22 +187,28 @@ export declare type NodeControllerClientEvent = Message<"baepo.api.v1.NodeContro
    */
   event: {
     /**
-     * @generated from field: baepo.api.v1.NodeControllerClientEvent.Register register_event = 1;
+     * @generated from field: baepo.api.v1.NodeControllerClientEvent.Register register = 1;
      */
     value: NodeControllerClientEvent_Register;
-    case: "registerEvent";
+    case: "register";
   } | {
     /**
-     * @generated from field: baepo.api.v1.NodeControllerClientEvent.Stats stats_event = 2;
+     * @generated from field: baepo.api.v1.NodeControllerClientEvent.Stats stats = 2;
      */
     value: NodeControllerClientEvent_Stats;
-    case: "statsEvent";
+    case: "stats";
   } | {
     /**
-     * @generated from field: baepo.core.v1.MachineEvent machine_event = 3;
+     * @generated from field: baepo.core.v1.MachineEvent machine = 3;
      */
     value: MachineEvent;
-    case: "machineEvent";
+    case: "machine";
+  } | {
+    /**
+     * @generated from field: baepo.core.v1.ContainerEvent container = 4;
+     */
+    value: ContainerEvent;
+    case: "container";
   } | { case: undefined; value?: undefined };
 };
 

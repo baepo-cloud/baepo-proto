@@ -16,19 +16,19 @@ export declare const file_baepo_core_v1_machine: GenFile;
  */
 export declare type MachineSpec = Message<"baepo.core.v1.MachineSpec"> & {
   /**
-   * @generated from field: uint32 cpus = 1;
+   * @generated from field: optional string name = 1;
+   */
+  name?: string;
+
+  /**
+   * @generated from field: uint32 cpus = 2;
    */
   cpus: number;
 
   /**
-   * @generated from field: uint64 memory_mb = 2;
+   * @generated from field: uint64 memory_mb = 3;
    */
   memoryMb: bigint;
-
-  /**
-   * @generated from field: repeated baepo.core.v1.MachineContainerSpec containers = 3;
-   */
-  containers: MachineContainerSpec[];
 
   /**
    * @generated from field: optional uint64 timeout = 4;
@@ -41,166 +41,6 @@ export declare type MachineSpec = Message<"baepo.core.v1.MachineSpec"> & {
  * Use `create(MachineSpecSchema)` to create a new message.
  */
 export declare const MachineSpecSchema: GenMessage<MachineSpec>;
-
-/**
- * @generated from message baepo.core.v1.MachineContainerSpec
- */
-export declare type MachineContainerSpec = Message<"baepo.core.v1.MachineContainerSpec"> & {
-  /**
-   * @generated from field: string name = 1;
-   */
-  name: string;
-
-  /**
-   * @generated from field: string image = 2;
-   */
-  image: string;
-
-  /**
-   * @generated from field: map<string, string> env = 3;
-   */
-  env: { [key: string]: string };
-
-  /**
-   * @generated from field: repeated string command = 4;
-   */
-  command: string[];
-
-  /**
-   * @generated from field: baepo.core.v1.MachineContainerHealthcheckSpec healthcheck = 5;
-   */
-  healthcheck?: MachineContainerHealthcheckSpec;
-
-  /**
-   * @generated from field: optional string working_dir = 6;
-   */
-  workingDir?: string;
-
-  /**
-   * @generated from field: baepo.core.v1.MachineContainerRestartSpec restart = 7;
-   */
-  restart?: MachineContainerRestartSpec;
-};
-
-/**
- * Describes the message baepo.core.v1.MachineContainerSpec.
- * Use `create(MachineContainerSpecSchema)` to create a new message.
- */
-export declare const MachineContainerSpecSchema: GenMessage<MachineContainerSpec>;
-
-/**
- * @generated from message baepo.core.v1.MachineContainerRestartSpec
- */
-export declare type MachineContainerRestartSpec = Message<"baepo.core.v1.MachineContainerRestartSpec"> & {
-  /**
-   * @generated from field: baepo.core.v1.MachineContainerRestartSpec.Policy policy = 1;
-   */
-  policy: MachineContainerRestartSpec_Policy;
-
-  /**
-   * @generated from field: int32 max_retries = 2;
-   */
-  maxRetries: number;
-};
-
-/**
- * Describes the message baepo.core.v1.MachineContainerRestartSpec.
- * Use `create(MachineContainerRestartSpecSchema)` to create a new message.
- */
-export declare const MachineContainerRestartSpecSchema: GenMessage<MachineContainerRestartSpec>;
-
-/**
- * @generated from enum baepo.core.v1.MachineContainerRestartSpec.Policy
- */
-export enum MachineContainerRestartSpec_Policy {
-  /**
-   * @generated from enum value: Policy_Unknown = 0;
-   */
-  Unknown = 0,
-
-  /**
-   * @generated from enum value: Policy_No = 1;
-   */
-  No = 1,
-
-  /**
-   * @generated from enum value: Policy_OnFailure = 2;
-   */
-  OnFailure = 2,
-
-  /**
-   * @generated from enum value: Policy_Always = 3;
-   */
-  Always = 3,
-}
-
-/**
- * Describes the enum baepo.core.v1.MachineContainerRestartSpec.Policy.
- */
-export declare const MachineContainerRestartSpec_PolicySchema: GenEnum<MachineContainerRestartSpec_Policy>;
-
-/**
- * @generated from message baepo.core.v1.MachineContainerHealthcheckSpec
- */
-export declare type MachineContainerHealthcheckSpec = Message<"baepo.core.v1.MachineContainerHealthcheckSpec"> & {
-  /**
-   * @generated from field: int32 initial_delay_seconds = 1;
-   */
-  initialDelaySeconds: number;
-
-  /**
-   * @generated from field: int32 period_seconds = 2;
-   */
-  periodSeconds: number;
-
-  /**
-   * @generated from oneof baepo.core.v1.MachineContainerHealthcheckSpec.type
-   */
-  type: {
-    /**
-     * @generated from field: baepo.core.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec http = 3;
-     */
-    value: MachineContainerHealthcheckSpec_HttpHealthcheckSpec;
-    case: "http";
-  } | { case: undefined; value?: undefined };
-};
-
-/**
- * Describes the message baepo.core.v1.MachineContainerHealthcheckSpec.
- * Use `create(MachineContainerHealthcheckSpecSchema)` to create a new message.
- */
-export declare const MachineContainerHealthcheckSpecSchema: GenMessage<MachineContainerHealthcheckSpec>;
-
-/**
- * @generated from message baepo.core.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec
- */
-export declare type MachineContainerHealthcheckSpec_HttpHealthcheckSpec = Message<"baepo.core.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec"> & {
-  /**
-   * @generated from field: string method = 1;
-   */
-  method: string;
-
-  /**
-   * @generated from field: string path = 2;
-   */
-  path: string;
-
-  /**
-   * @generated from field: int32 port = 3;
-   */
-  port: number;
-
-  /**
-   * @generated from field: map<string, string> headers = 4;
-   */
-  headers: { [key: string]: string };
-};
-
-/**
- * Describes the message baepo.core.v1.MachineContainerHealthcheckSpec.HttpHealthcheckSpec.
- * Use `create(MachineContainerHealthcheckSpec_HttpHealthcheckSpecSchema)` to create a new message.
- */
-export declare const MachineContainerHealthcheckSpec_HttpHealthcheckSpecSchema: GenMessage<MachineContainerHealthcheckSpec_HttpHealthcheckSpec>;
 
 /**
  * @generated from message baepo.core.v1.MachineEvent
@@ -260,12 +100,6 @@ export declare type MachineEvent = Message<"baepo.core.v1.MachineEvent"> & {
      */
     value: MachineEvent_ReconciliationCompletedEvent;
     case: "reconciliationCompleted";
-  } | {
-    /**
-     * @generated from field: baepo.core.v1.MachineEvent.ContainerStateChangedEvent healthcheck_event = 10;
-     */
-    value: MachineEvent_ContainerStateChangedEvent;
-    case: "healthcheckEvent";
   } | { case: undefined; value?: undefined };
 };
 
@@ -380,62 +214,6 @@ export declare type MachineEvent_ReconciliationCompletedEvent = Message<"baepo.c
  * Use `create(MachineEvent_ReconciliationCompletedEventSchema)` to create a new message.
  */
 export declare const MachineEvent_ReconciliationCompletedEventSchema: GenMessage<MachineEvent_ReconciliationCompletedEvent>;
-
-/**
- * @generated from message baepo.core.v1.MachineEvent.ContainerStateChangedEvent
- */
-export declare type MachineEvent_ContainerStateChangedEvent = Message<"baepo.core.v1.MachineEvent.ContainerStateChangedEvent"> & {
-  /**
-   * @generated from field: string container_name = 1;
-   */
-  containerName: string;
-
-  /**
-   * @generated from field: baepo.core.v1.MachineContainerState state = 2;
-   */
-  state: MachineContainerState;
-
-  /**
-   * @generated from field: optional google.protobuf.Timestamp started_at = 3;
-   */
-  startedAt?: Timestamp;
-
-  /**
-   * @generated from field: optional google.protobuf.Timestamp exited_at = 4;
-   */
-  exitedAt?: Timestamp;
-
-  /**
-   * @generated from field: optional int32 exit_code = 5;
-   */
-  exitCode?: number;
-
-  /**
-   * @generated from field: optional string exit_error = 6;
-   */
-  exitError?: string;
-
-  /**
-   * @generated from field: bool healthy = 7;
-   */
-  healthy: boolean;
-
-  /**
-   * @generated from field: optional string healthcheck_error = 8;
-   */
-  healthcheckError?: string;
-
-  /**
-   * @generated from field: int32 restart_count = 9;
-   */
-  restartCount: number;
-};
-
-/**
- * Describes the message baepo.core.v1.MachineEvent.ContainerStateChangedEvent.
- * Use `create(MachineEvent_ContainerStateChangedEventSchema)` to create a new message.
- */
-export declare const MachineEvent_ContainerStateChangedEventSchema: GenMessage<MachineEvent_ContainerStateChangedEvent>;
 
 /**
  * @generated from enum baepo.core.v1.MachineState
@@ -556,29 +334,4 @@ export enum MachineTerminationCause {
  * Describes the enum baepo.core.v1.MachineTerminationCause.
  */
 export declare const MachineTerminationCauseSchema: GenEnum<MachineTerminationCause>;
-
-/**
- * @generated from enum baepo.core.v1.MachineContainerState
- */
-export enum MachineContainerState {
-  /**
-   * @generated from enum value: MachineContainerState_Unknown = 0;
-   */
-  MachineContainerState_Unknown = 0,
-
-  /**
-   * @generated from enum value: MachineContainerState_Running = 1;
-   */
-  MachineContainerState_Running = 1,
-
-  /**
-   * @generated from enum value: MachineContainerState_Exited = 2;
-   */
-  MachineContainerState_Exited = 2,
-}
-
-/**
- * Describes the enum baepo.core.v1.MachineContainerState.
- */
-export declare const MachineContainerStateSchema: GenEnum<MachineContainerState>;
 

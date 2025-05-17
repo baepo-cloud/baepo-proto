@@ -5,6 +5,8 @@ package baepo.api.v1;
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
 import "baepo/core/v1/machine.proto";
+import "baepo/core/v1/container.proto";
+import "baepo/api/v1/container.proto";
 
 option go_package = "github.com/baepo-cloud/baepo-proto/go/baepo/api/v1;apiv1pb";
 
@@ -38,6 +40,7 @@ message Machine {
   google.protobuf.Timestamp created_at = 13;
   google.protobuf.Timestamp updated_at = 14;
   string workspace_id = 15;
+  repeated baepo.api.v1.Container containers = 16;
 }
 
 message MachineListRequest {
@@ -58,8 +61,8 @@ message MachineFindByIdResponse {
 
 message MachineCreateRequest {
   string workspace_id = 1;
-  optional string name = 2;
-  baepo.core.v1.MachineSpec spec = 3;
+  baepo.core.v1.MachineSpec spec = 2;
+  repeated core.v1.ContainerSpec containers_spec = 3;
   map<string, string> metadata = 4;
   bool start = 5;
   oneof placement {

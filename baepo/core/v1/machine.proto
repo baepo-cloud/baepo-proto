@@ -4,51 +4,15 @@ package baepo.core.v1;
 
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
+import "baepo/core/v1/container.proto";
 
 option go_package = "github.com/baepo-cloud/baepo-proto/go/baepo/core/v1;corev1pb";
 
 message MachineSpec {
-  uint32 cpus = 1;
-  uint64 memory_mb = 2;
-  repeated MachineContainerSpec containers = 3;
+  optional string name = 1;
+  uint32 cpus = 2;
+  uint64 memory_mb = 3;
   optional uint64 timeout = 4;
-}
-
-message MachineContainerSpec {
-  string name = 1;
-  string image = 2;
-  map<string, string> env = 3;
-  repeated string command = 4;
-  MachineContainerHealthcheckSpec healthcheck = 5;
-  optional string working_dir = 6;
-  MachineContainerRestartSpec restart = 7;
-}
-
-message MachineContainerRestartSpec {
-  Policy policy = 1;
-  int32 max_retries = 2;
-
-  enum Policy {
-    Policy_Unknown = 0;
-    Policy_No = 1;
-    Policy_OnFailure = 2;
-    Policy_Always = 3;
-  }
-}
-
-message MachineContainerHealthcheckSpec {
-  int32 initial_delay_seconds = 1;
-  int32 period_seconds = 2;
-  oneof type {
-    HttpHealthcheckSpec http = 3;
-  }
-
-  message HttpHealthcheckSpec {
-    string method = 1;
-    string path = 2;
-    int32 port = 3;
-    map<string, string> headers = 4;
-  }
 }
 
 message MachineEvent {
@@ -62,7 +26,6 @@ message MachineEvent {
     DesiredStateChangedEvent desired_state_changed = 7;
     ReconciliationStartedEvent reconciliation_started = 8;
     ReconciliationCompletedEvent reconciliation_completed = 9;
-    ContainerStateChangedEvent healthcheck_event = 10;
   }
 
   message StateChangedEvent {
@@ -89,18 +52,6 @@ message MachineEvent {
   message ReconciliationCompletedEvent {
     MachineDesiredState desired_state = 1;
     optional string error = 2;
-  }
-
-  message ContainerStateChangedEvent {
-    string container_name = 1;
-    baepo.core.v1.MachineContainerState state = 2;
-    optional google.protobuf.Timestamp started_at = 3;
-    optional google.protobuf.Timestamp exited_at = 4;
-    optional int32 exit_code = 5;
-    optional string exit_error = 6;
-    bool healthy = 7;
-    optional string healthcheck_error = 8;
-    int32 restart_count = 9;
   }
 }
 
@@ -129,10 +80,4 @@ enum MachineTerminationCause {
   MachineTerminationCause_InternalError = 3;
   MachineTerminationCause_NoNodeAvailable = 4;
   MachineTerminationCause_Expired = 5;
-}
-
-enum MachineContainerState {
-  MachineContainerState_Unknown = 0;
-  MachineContainerState_Running = 1;
-  MachineContainerState_Exited = 2;
 }

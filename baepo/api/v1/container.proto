@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package baepo.api.v1;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "baepo/core/v1/machine.proto";
+import "baepo/core/v1/container.proto";
+
+option go_package = "github.com/baepo-cloud/baepo-proto/go/baepo/api/v1;apiv1pb";
+
+message Container {
+  string id = 1;
+  string machine_id = 2;
+  string workspace_id = 3;
+  baepo.core.v1.ContainerSpec spec = 4;
+  baepo.core.v1.ContainerState state = 5;
+  optional google.protobuf.Timestamp started_at = 6;
+  optional google.protobuf.Timestamp exited_at = 7;
+  optional int32 exit_code = 8;
+  optional string exit_error = 9;
+  bool healthy = 10;
+  optional string healthcheck_error = 11;
+  int32 restart_count = 12;
+  google.protobuf.Timestamp created_at = 13;
+  google.protobuf.Timestamp updated_at = 14;
+}

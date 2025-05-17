@@ -4,6 +4,7 @@ package baepo.api.v1;
 
 import "google/protobuf/timestamp.proto";
 import "baepo/core/v1/machine.proto";
+import "baepo/core/v1/container.proto";
 
 option go_package = "github.com/baepo-cloud/baepo-proto/go/baepo/api/v1;apiv1pb";
 
@@ -15,7 +16,7 @@ message NodeControllerServerEvent {
   oneof event {
     RegistrationCompletedEvent registration_completed = 1;
     PingEvent ping = 2;
-    MachineSpec create_machine = 3;
+    Machine create_machine = 3;
     UpdateMachineDesiredStateEvent update_machine_desired_state = 4;
   }
 
@@ -25,7 +26,7 @@ message NodeControllerServerEvent {
     bytes authority_cert = 3;
     bytes server_cert = 4;
     bytes server_key = 5;
-    repeated MachineSpec expected_machines = 6;
+    repeated Machine expected_machines = 6;
   }
 
   message PingEvent {
@@ -36,18 +37,25 @@ message NodeControllerServerEvent {
     baepo.core.v1.MachineDesiredState desired_state = 2;
   }
 
-  message MachineSpec {
+  message Machine {
     string machine_id = 1;
     baepo.core.v1.MachineDesiredState desired_state = 2;
     baepo.core.v1.MachineSpec spec = 3;
+    repeated Container containers = 4;
+  }
+
+  message Container {
+    string container_id = 1;
+    baepo.core.v1.ContainerSpec spec = 2;
   }
 }
 
 message NodeControllerClientEvent {
   oneof event {
-    Register register_event = 1;
-    Stats stats_event = 2;
-    baepo.core.v1.MachineEvent machine_event = 3;
+    Register register = 1;
+    Stats stats = 2;
+    baepo.core.v1.MachineEvent machine = 3;
+    baepo.core.v1.ContainerEvent container = 4;
   }
 
   message Register {

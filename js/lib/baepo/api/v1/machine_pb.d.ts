@@ -6,6 +6,8 @@ import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegen
 import type { Message } from "@bufbuild/protobuf";
 import type { MachineDesiredState, MachineSpec, MachineState, MachineTerminationCause } from "../../core/v1/machine_pb.js";
 import type { Timestamp } from "@bufbuild/protobuf/wkt";
+import type { Container } from "./container_pb.js";
+import type { ContainerSpec } from "../../core/v1/container_pb.js";
 
 /**
  * Describes the file baepo/api/v1/machine.proto.
@@ -90,6 +92,11 @@ export declare type Machine = Message<"baepo.api.v1.Machine"> & {
    * @generated from field: string workspace_id = 15;
    */
   workspaceId: string;
+
+  /**
+   * @generated from field: repeated baepo.api.v1.Container containers = 16;
+   */
+  containers: Container[];
 };
 
 /**
@@ -172,14 +179,14 @@ export declare type MachineCreateRequest = Message<"baepo.api.v1.MachineCreateRe
   workspaceId: string;
 
   /**
-   * @generated from field: optional string name = 2;
-   */
-  name?: string;
-
-  /**
-   * @generated from field: baepo.core.v1.MachineSpec spec = 3;
+   * @generated from field: baepo.core.v1.MachineSpec spec = 2;
    */
   spec?: MachineSpec;
+
+  /**
+   * @generated from field: repeated baepo.core.v1.ContainerSpec containers_spec = 3;
+   */
+  containersSpec: ContainerSpec[];
 
   /**
    * @generated from field: map<string, string> metadata = 4;

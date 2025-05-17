@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package baepo.core.v1;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/baepo-cloud/baepo-proto/go/baepo/core/v1;corev1pb";
+
+message ContainerSpec {
+  optional string name = 1;
+  string image = 2;
+  map<string, string> env = 3;
+  repeated string command = 4;
+  ContainerHealthcheckSpec healthcheck = 5;
+  optional string working_dir = 6;
+  ContainerRestartSpec restart = 7;
+}
+
+message ContainerRestartSpec {
+  Policy policy = 1;
+  int32 max_retries = 2;
+
+  enum Policy {
+    Policy_Unknown = 0;
+    Policy_No = 1;
+    Policy_OnFailure = 2;
+    Policy_Always = 3;
+  }
+}
+
+message ContainerHealthcheckSpec {
+  int32 initial_delay_seconds = 1;
+  int32 period_seconds = 2;
+  oneof type {
+    HttpHealthcheckSpec http = 3;
+  }
+
+  message HttpHealthcheckSpec {
+    string method = 1;
+    string path = 2;
+    int32 port = 3;
+    map<string, string> headers = 4;
+  }
+}
+
+message ContainerEvent {
+  string event_id = 1;
+  string container_id = 2;
+  google.protobuf.Timestamp timestamp = 3;
+  oneof event {
+    StateChangedEvent state_changed = 4;
+  }
+
+  message StateChangedEvent {
+    baepo.core.v1.ContainerState state = 1;
+    optional google.protobuf.Timestamp started_at = 2;
+    optional google.protobuf.Timestamp exited_at = 3;
+    optional int32 exit_code = 4;
+    optional string exit_error = 5;
+    bool healthy = 6;
+    optional string healthcheck_error = 7;
+    int32 restart_count = 8;
+  }
+}
+
+enum ContainerState {
+  MachineContainerState_Unknown = 0;
+  MachineContainerState_Running = 1;
+  MachineContainerState_Exited = 2;
+}

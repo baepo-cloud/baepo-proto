@@ -4,7 +4,7 @@ package baepo.node.v1;
 
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
-import "baepo/core/v1/machine.proto";
+import "baepo/core/v1/container.proto";
 
 option go_package = "github.com/baepo-cloud/baepo-proto/go/baepo/node/v1;nodev1pb";
 
@@ -15,15 +15,16 @@ service Init {
 }
 
 message InitGetLogsRequest {
-  optional string container_name = 1;
+  optional string container = 1;
   bool follow = 2;
 }
 
 message InitGetLogsResponse {
   bool error = 1;
-  string container_name = 2;
-  bytes content = 3;
-  google.protobuf.Timestamp timestamp = 4;
+  string container_id = 2;
+  string container_name = 3;
+  bytes content = 4;
+  google.protobuf.Timestamp timestamp = 5;
 }
 
 message InitEventsResponse {
@@ -34,8 +35,8 @@ message InitEventsResponse {
   }
 
   message ContainerStateChangedEvent {
-    string container_name = 1;
-    baepo.core.v1.MachineContainerState state = 2;
+    string container_id = 1;
+    baepo.core.v1.ContainerState state = 2;
     optional google.protobuf.Timestamp started_at = 3;
     optional google.protobuf.Timestamp exited_at = 4;
     optional int32 exit_code = 5;

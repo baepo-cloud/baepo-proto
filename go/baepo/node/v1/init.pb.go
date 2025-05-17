@@ -26,7 +26,7 @@ const (
 
 type InitGetLogsRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	ContainerName *string                `protobuf:"bytes,1,opt,name=container_name,json=containerName,proto3,oneof" json:"container_name,omitempty"`
+	Container     *string                `protobuf:"bytes,1,opt,name=container,proto3,oneof" json:"container,omitempty"`
 	Follow        bool                   `protobuf:"varint,2,opt,name=follow,proto3" json:"follow,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -62,9 +62,9 @@ func (*InitGetLogsRequest) Descriptor() ([]byte, []int) {
 	return file_baepo_node_v1_init_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *InitGetLogsRequest) GetContainerName() string {
-	if x != nil && x.ContainerName != nil {
-		return *x.ContainerName
+func (x *InitGetLogsRequest) GetContainer() string {
+	if x != nil && x.Container != nil {
+		return *x.Container
 	}
 	return ""
 }
@@ -79,9 +79,10 @@ func (x *InitGetLogsRequest) GetFollow() bool {
 type InitGetLogsResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Error         bool                   `protobuf:"varint,1,opt,name=error,proto3" json:"error,omitempty"`
-	ContainerName string                 `protobuf:"bytes,2,opt,name=container_name,json=containerName,proto3" json:"container_name,omitempty"`
-	Content       []byte                 `protobuf:"bytes,3,opt,name=content,proto3" json:"content,omitempty"`
-	Timestamp     *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
+	ContainerId   string                 `protobuf:"bytes,2,opt,name=container_id,json=containerId,proto3" json:"container_id,omitempty"`
+	ContainerName string                 `protobuf:"bytes,3,opt,name=container_name,json=containerName,proto3" json:"container_name,omitempty"`
+	Content       []byte                 `protobuf:"bytes,4,opt,name=content,proto3" json:"content,omitempty"`
+	Timestamp     *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -121,6 +122,13 @@ func (x *InitGetLogsResponse) GetError() bool {
 		return x.Error
 	}
 	return false
+}
+
+func (x *InitGetLogsResponse) GetContainerId() string {
+	if x != nil {
+		return x.ContainerId
+	}
+	return ""
 }
 
 func (x *InitGetLogsResponse) GetContainerName() string {
@@ -227,16 +235,16 @@ type InitEventsResponse_ContainerStateChanged struct {
 func (*InitEventsResponse_ContainerStateChanged) isInitEventsResponse_Event() {}
 
 type InitEventsResponse_ContainerStateChangedEvent struct {
-	state            protoimpl.MessageState   `protogen:"open.v1"`
-	ContainerName    string                   `protobuf:"bytes,1,opt,name=container_name,json=containerName,proto3" json:"container_name,omitempty"`
-	State            v1.MachineContainerState `protobuf:"varint,2,opt,name=state,proto3,enum=baepo.core.v1.MachineContainerState" json:"state,omitempty"`
-	StartedAt        *timestamppb.Timestamp   `protobuf:"bytes,3,opt,name=started_at,json=startedAt,proto3,oneof" json:"started_at,omitempty"`
-	ExitedAt         *timestamppb.Timestamp   `protobuf:"bytes,4,opt,name=exited_at,json=exitedAt,proto3,oneof" json:"exited_at,omitempty"`
-	ExitCode         *int32                   `protobuf:"varint,5,opt,name=exit_code,json=exitCode,proto3,oneof" json:"exit_code,omitempty"`
-	ExitError        *string                  `protobuf:"bytes,6,opt,name=exit_error,json=exitError,proto3,oneof" json:"exit_error,omitempty"`
-	Healthy          bool                     `protobuf:"varint,7,opt,name=healthy,proto3" json:"healthy,omitempty"`
-	HealthcheckError *string                  `protobuf:"bytes,8,opt,name=healthcheck_error,json=healthcheckError,proto3,oneof" json:"healthcheck_error,omitempty"`
-	RestartCount     int32                    `protobuf:"varint,9,opt,name=restart_count,json=restartCount,proto3" json:"restart_count,omitempty"`
+	state            protoimpl.MessageState `protogen:"open.v1"`
+	ContainerId      string                 `protobuf:"bytes,1,opt,name=container_id,json=containerId,proto3" json:"container_id,omitempty"`
+	State            v1.ContainerState      `protobuf:"varint,2,opt,name=state,proto3,enum=baepo.core.v1.ContainerState" json:"state,omitempty"`
+	StartedAt        *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=started_at,json=startedAt,proto3,oneof" json:"started_at,omitempty"`
+	ExitedAt         *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=exited_at,json=exitedAt,proto3,oneof" json:"exited_at,omitempty"`
+	ExitCode         *int32                 `protobuf:"varint,5,opt,name=exit_code,json=exitCode,proto3,oneof" json:"exit_code,omitempty"`
+	ExitError        *string                `protobuf:"bytes,6,opt,name=exit_error,json=exitError,proto3,oneof" json:"exit_error,omitempty"`
+	Healthy          bool                   `protobuf:"varint,7,opt,name=healthy,proto3" json:"healthy,omitempty"`
+	HealthcheckError *string                `protobuf:"bytes,8,opt,name=healthcheck_error,json=healthcheckError,proto3,oneof" json:"healthcheck_error,omitempty"`
+	RestartCount     int32                  `protobuf:"varint,9,opt,name=restart_count,json=restartCount,proto3" json:"restart_count,omitempty"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
 }
@@ -271,18 +279,18 @@ func (*InitEventsResponse_ContainerStateChangedEvent) Descriptor() ([]byte, []in
 	return file_baepo_node_v1_init_proto_rawDescGZIP(), []int{2, 0}
 }
 
-func (x *InitEventsResponse_ContainerStateChangedEvent) GetContainerName() string {
+func (x *InitEventsResponse_ContainerStateChangedEvent) GetContainerId() string {
 	if x != nil {
-		return x.ContainerName
+		return x.ContainerId
 	}
 	return ""
 }
 
-func (x *InitEventsResponse_ContainerStateChangedEvent) GetState() v1.MachineContainerState {
+func (x *InitEventsResponse_ContainerStateChangedEvent) GetState() v1.ContainerState {
 	if x != nil {
 		return x.State
 	}
-	return v1.MachineContainerState(0)
+	return v1.ContainerState(0)
 }
 
 func (x *InitEventsResponse_ContainerStateChangedEvent) GetStartedAt() *timestamppb.Timestamp {
@@ -338,23 +346,25 @@ var File_baepo_node_v1_init_proto protoreflect.FileDescriptor
 
 const file_baepo_node_v1_init_proto_rawDesc = "" +
 	"\n" +
-	"\x18baepo/node/v1/init.proto\x12\rbaepo.node.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bbaepo/core/v1/machine.proto\"k\n" +
-	"\x12InitGetLogsRequest\x12*\n" +
-	"\x0econtainer_name\x18\x01 \x01(\tH\x00R\rcontainerName\x88\x01\x01\x12\x16\n" +
-	"\x06follow\x18\x02 \x01(\bR\x06followB\x11\n" +
-	"\x0f_container_name\"\xa6\x01\n" +
+	"\x18baepo/node/v1/init.proto\x12\rbaepo.node.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1dbaepo/core/v1/container.proto\"]\n" +
+	"\x12InitGetLogsRequest\x12!\n" +
+	"\tcontainer\x18\x01 \x01(\tH\x00R\tcontainer\x88\x01\x01\x12\x16\n" +
+	"\x06follow\x18\x02 \x01(\bR\x06followB\f\n" +
+	"\n" +
+	"_container\"\xc9\x01\n" +
 	"\x13InitGetLogsResponse\x12\x14\n" +
-	"\x05error\x18\x01 \x01(\bR\x05error\x12%\n" +
-	"\x0econtainer_name\x18\x02 \x01(\tR\rcontainerName\x12\x18\n" +
-	"\acontent\x18\x03 \x01(\fR\acontent\x128\n" +
-	"\ttimestamp\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\ttimestamp\"\xf1\x05\n" +
+	"\x05error\x18\x01 \x01(\bR\x05error\x12!\n" +
+	"\fcontainer_id\x18\x02 \x01(\tR\vcontainerId\x12%\n" +
+	"\x0econtainer_name\x18\x03 \x01(\tR\rcontainerName\x12\x18\n" +
+	"\acontent\x18\x04 \x01(\fR\acontent\x128\n" +
+	"\ttimestamp\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\ttimestamp\"\xe6\x05\n" +
 	"\x12InitEventsResponse\x12\x19\n" +
 	"\bevent_id\x18\x01 \x01(\tR\aeventId\x128\n" +
 	"\ttimestamp\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\ttimestamp\x12v\n" +
-	"\x17container_state_changed\x18\x03 \x01(\v2<.baepo.node.v1.InitEventsResponse.ContainerStateChangedEventH\x00R\x15containerStateChanged\x1a\x84\x04\n" +
-	"\x1aContainerStateChangedEvent\x12%\n" +
-	"\x0econtainer_name\x18\x01 \x01(\tR\rcontainerName\x12:\n" +
-	"\x05state\x18\x02 \x01(\x0e2$.baepo.core.v1.MachineContainerStateR\x05state\x12>\n" +
+	"\x17container_state_changed\x18\x03 \x01(\v2<.baepo.node.v1.InitEventsResponse.ContainerStateChangedEventH\x00R\x15containerStateChanged\x1a\xf9\x03\n" +
+	"\x1aContainerStateChangedEvent\x12!\n" +
+	"\fcontainer_id\x18\x01 \x01(\tR\vcontainerId\x123\n" +
+	"\x05state\x18\x02 \x01(\x0e2\x1d.baepo.core.v1.ContainerStateR\x05state\x12>\n" +
 	"\n" +
 	"started_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampH\x00R\tstartedAt\x88\x01\x01\x12<\n" +
 	"\texited_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampH\x01R\bexitedAt\x88\x01\x01\x12 \n" +
@@ -395,14 +405,14 @@ var file_baepo_node_v1_init_proto_goTypes = []any{
 	(*InitEventsResponse)(nil),                            // 2: baepo.node.v1.InitEventsResponse
 	(*InitEventsResponse_ContainerStateChangedEvent)(nil), // 3: baepo.node.v1.InitEventsResponse.ContainerStateChangedEvent
 	(*timestamppb.Timestamp)(nil),                         // 4: google.protobuf.Timestamp
-	(v1.MachineContainerState)(0),                         // 5: baepo.core.v1.MachineContainerState
+	(v1.ContainerState)(0),                                // 5: baepo.core.v1.ContainerState
 	(*emptypb.Empty)(nil),                                 // 6: google.protobuf.Empty
 }
 var file_baepo_node_v1_init_proto_depIdxs = []int32{
 	4, // 0: baepo.node.v1.InitGetLogsResponse.timestamp:type_name -> google.protobuf.Timestamp
 	4, // 1: baepo.node.v1.InitEventsResponse.timestamp:type_name -> google.protobuf.Timestamp
 	3, // 2: baepo.node.v1.InitEventsResponse.container_state_changed:type_name -> baepo.node.v1.InitEventsResponse.ContainerStateChangedEvent
-	5, // 3: baepo.node.v1.InitEventsResponse.ContainerStateChangedEvent.state:type_name -> baepo.core.v1.MachineContainerState
+	5, // 3: baepo.node.v1.InitEventsResponse.ContainerStateChangedEvent.state:type_name -> baepo.core.v1.ContainerState
 	4, // 4: baepo.node.v1.InitEventsResponse.ContainerStateChangedEvent.started_at:type_name -> google.protobuf.Timestamp
 	4, // 5: baepo.node.v1.InitEventsResponse.ContainerStateChangedEvent.exited_at:type_name -> google.protobuf.Timestamp
 	0, // 6: baepo.node.v1.Init.GetLogs:input_type -> baepo.node.v1.InitGetLogsRequest

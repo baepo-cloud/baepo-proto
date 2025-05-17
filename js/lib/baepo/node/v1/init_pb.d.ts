@@ -5,7 +5,7 @@
 import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv1";
 import type { Message } from "@bufbuild/protobuf";
 import type { EmptySchema, Timestamp } from "@bufbuild/protobuf/wkt";
-import type { MachineContainerState } from "../../core/v1/machine_pb.js";
+import type { ContainerState } from "../../core/v1/container_pb.js";
 
 /**
  * Describes the file baepo/node/v1/init.proto.
@@ -17,9 +17,9 @@ export declare const file_baepo_node_v1_init: GenFile;
  */
 export declare type InitGetLogsRequest = Message<"baepo.node.v1.InitGetLogsRequest"> & {
   /**
-   * @generated from field: optional string container_name = 1;
+   * @generated from field: optional string container = 1;
    */
-  containerName?: string;
+  container?: string;
 
   /**
    * @generated from field: bool follow = 2;
@@ -43,17 +43,22 @@ export declare type InitGetLogsResponse = Message<"baepo.node.v1.InitGetLogsResp
   error: boolean;
 
   /**
-   * @generated from field: string container_name = 2;
+   * @generated from field: string container_id = 2;
+   */
+  containerId: string;
+
+  /**
+   * @generated from field: string container_name = 3;
    */
   containerName: string;
 
   /**
-   * @generated from field: bytes content = 3;
+   * @generated from field: bytes content = 4;
    */
   content: Uint8Array;
 
   /**
-   * @generated from field: google.protobuf.Timestamp timestamp = 4;
+   * @generated from field: google.protobuf.Timestamp timestamp = 5;
    */
   timestamp?: Timestamp;
 };
@@ -101,14 +106,14 @@ export declare const InitEventsResponseSchema: GenMessage<InitEventsResponse>;
  */
 export declare type InitEventsResponse_ContainerStateChangedEvent = Message<"baepo.node.v1.InitEventsResponse.ContainerStateChangedEvent"> & {
   /**
-   * @generated from field: string container_name = 1;
+   * @generated from field: string container_id = 1;
    */
-  containerName: string;
+  containerId: string;
 
   /**
-   * @generated from field: baepo.core.v1.MachineContainerState state = 2;
+   * @generated from field: baepo.core.v1.ContainerState state = 2;
    */
-  state: MachineContainerState;
+  state: ContainerState;
 
   /**
    * @generated from field: optional google.protobuf.Timestamp started_at = 3;
