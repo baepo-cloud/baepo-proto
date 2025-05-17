@@ -20,9 +20,9 @@ message InitGetLogsRequest {
 }
 
 message InitGetLogsResponse {
-  bool error = 1;
-  string container_id = 2;
-  string container_name = 3;
+  string container_id = 1;
+  string container_name = 2;
+  bool error = 3;
   bytes content = 4;
   google.protobuf.Timestamp timestamp = 5;
 }
@@ -32,6 +32,7 @@ message InitEventsResponse {
   google.protobuf.Timestamp timestamp = 2;
   oneof event {
     ContainerStateChangedEvent container_state_changed = 3;
+    PingEvent ping = 4;
   }
 
   message ContainerStateChangedEvent {
@@ -45,4 +46,6 @@ message InitEventsResponse {
     optional string healthcheck_error = 8;
     int32 restart_count = 9;
   }
+
+  message PingEvent {}
 }

@@ -255,8 +255,7 @@ func (x *NodeGetMachineResponse) GetMachine() *Machine {
 type NodeGetMachineLogsRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	MachineId     string                 `protobuf:"bytes,1,opt,name=machine_id,json=machineId,proto3" json:"machine_id,omitempty"`
-	ContainerName *string                `protobuf:"bytes,2,opt,name=container_name,json=containerName,proto3,oneof" json:"container_name,omitempty"`
-	Follow        bool                   `protobuf:"varint,3,opt,name=follow,proto3" json:"follow,omitempty"`
+	Follow        bool                   `protobuf:"varint,2,opt,name=follow,proto3" json:"follow,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -298,13 +297,6 @@ func (x *NodeGetMachineLogsRequest) GetMachineId() string {
 	return ""
 }
 
-func (x *NodeGetMachineLogsRequest) GetContainerName() string {
-	if x != nil && x.ContainerName != nil {
-		return *x.ContainerName
-	}
-	return ""
-}
-
 func (x *NodeGetMachineLogsRequest) GetFollow() bool {
 	if x != nil {
 		return x.Follow
@@ -314,10 +306,7 @@ func (x *NodeGetMachineLogsRequest) GetFollow() bool {
 
 type NodeGetMachineLogsResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Error         bool                   `protobuf:"varint,1,opt,name=error,proto3" json:"error,omitempty"`
-	ContainerName string                 `protobuf:"bytes,2,opt,name=container_name,json=containerName,proto3" json:"container_name,omitempty"`
-	Content       []byte                 `protobuf:"bytes,3,opt,name=content,proto3" json:"content,omitempty"`
-	Timestamp     *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
+	Content       []byte                 `protobuf:"bytes,1,opt,name=content,proto3" json:"content,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -352,20 +341,6 @@ func (*NodeGetMachineLogsResponse) Descriptor() ([]byte, []int) {
 	return file_baepo_node_v1_node_proto_rawDescGZIP(), []int{6}
 }
 
-func (x *NodeGetMachineLogsResponse) GetError() bool {
-	if x != nil {
-		return x.Error
-	}
-	return false
-}
-
-func (x *NodeGetMachineLogsResponse) GetContainerName() string {
-	if x != nil {
-		return x.ContainerName
-	}
-	return ""
-}
-
 func (x *NodeGetMachineLogsResponse) GetContent() []byte {
 	if x != nil {
 		return x.Content
@@ -373,7 +348,136 @@ func (x *NodeGetMachineLogsResponse) GetContent() []byte {
 	return nil
 }
 
-func (x *NodeGetMachineLogsResponse) GetTimestamp() *timestamppb.Timestamp {
+type NodeGetContainerLogsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	MachineId     string                 `protobuf:"bytes,1,opt,name=machine_id,json=machineId,proto3" json:"machine_id,omitempty"`
+	Container     *string                `protobuf:"bytes,2,opt,name=container,proto3,oneof" json:"container,omitempty"`
+	Follow        bool                   `protobuf:"varint,3,opt,name=follow,proto3" json:"follow,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *NodeGetContainerLogsRequest) Reset() {
+	*x = NodeGetContainerLogsRequest{}
+	mi := &file_baepo_node_v1_node_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *NodeGetContainerLogsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*NodeGetContainerLogsRequest) ProtoMessage() {}
+
+func (x *NodeGetContainerLogsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_baepo_node_v1_node_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use NodeGetContainerLogsRequest.ProtoReflect.Descriptor instead.
+func (*NodeGetContainerLogsRequest) Descriptor() ([]byte, []int) {
+	return file_baepo_node_v1_node_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *NodeGetContainerLogsRequest) GetMachineId() string {
+	if x != nil {
+		return x.MachineId
+	}
+	return ""
+}
+
+func (x *NodeGetContainerLogsRequest) GetContainer() string {
+	if x != nil && x.Container != nil {
+		return *x.Container
+	}
+	return ""
+}
+
+func (x *NodeGetContainerLogsRequest) GetFollow() bool {
+	if x != nil {
+		return x.Follow
+	}
+	return false
+}
+
+type NodeGetContainerLogsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ContainerId   string                 `protobuf:"bytes,1,opt,name=container_id,json=containerId,proto3" json:"container_id,omitempty"`
+	ContainerName string                 `protobuf:"bytes,2,opt,name=container_name,json=containerName,proto3" json:"container_name,omitempty"`
+	Error         bool                   `protobuf:"varint,3,opt,name=error,proto3" json:"error,omitempty"`
+	Content       []byte                 `protobuf:"bytes,4,opt,name=content,proto3" json:"content,omitempty"`
+	Timestamp     *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *NodeGetContainerLogsResponse) Reset() {
+	*x = NodeGetContainerLogsResponse{}
+	mi := &file_baepo_node_v1_node_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *NodeGetContainerLogsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*NodeGetContainerLogsResponse) ProtoMessage() {}
+
+func (x *NodeGetContainerLogsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_baepo_node_v1_node_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use NodeGetContainerLogsResponse.ProtoReflect.Descriptor instead.
+func (*NodeGetContainerLogsResponse) Descriptor() ([]byte, []int) {
+	return file_baepo_node_v1_node_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *NodeGetContainerLogsResponse) GetContainerId() string {
+	if x != nil {
+		return x.ContainerId
+	}
+	return ""
+}
+
+func (x *NodeGetContainerLogsResponse) GetContainerName() string {
+	if x != nil {
+		return x.ContainerName
+	}
+	return ""
+}
+
+func (x *NodeGetContainerLogsResponse) GetError() bool {
+	if x != nil {
+		return x.Error
+	}
+	return false
+}
+
+func (x *NodeGetContainerLogsResponse) GetContent() []byte {
+	if x != nil {
+		return x.Content
+	}
+	return nil
+}
+
+func (x *NodeGetContainerLogsResponse) GetTimestamp() *timestamppb.Timestamp {
 	if x != nil {
 		return x.Timestamp
 	}
@@ -397,23 +501,32 @@ const file_baepo_node_v1_node_proto_rawDesc = "" +
 	"\n" +
 	"machine_id\x18\x01 \x01(\tR\tmachineId\"J\n" +
 	"\x16NodeGetMachineResponse\x120\n" +
-	"\amachine\x18\x01 \x01(\v2\x16.baepo.node.v1.MachineR\amachine\"\x91\x01\n" +
+	"\amachine\x18\x01 \x01(\v2\x16.baepo.node.v1.MachineR\amachine\"R\n" +
 	"\x19NodeGetMachineLogsRequest\x12\x1d\n" +
 	"\n" +
-	"machine_id\x18\x01 \x01(\tR\tmachineId\x12*\n" +
-	"\x0econtainer_name\x18\x02 \x01(\tH\x00R\rcontainerName\x88\x01\x01\x12\x16\n" +
-	"\x06follow\x18\x03 \x01(\bR\x06followB\x11\n" +
-	"\x0f_container_name\"\xad\x01\n" +
-	"\x1aNodeGetMachineLogsResponse\x12\x14\n" +
-	"\x05error\x18\x01 \x01(\bR\x05error\x12%\n" +
-	"\x0econtainer_name\x18\x02 \x01(\tR\rcontainerName\x12\x18\n" +
-	"\acontent\x18\x03 \x01(\fR\acontent\x128\n" +
-	"\ttimestamp\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\ttimestamp2\xb2\x02\n" +
+	"machine_id\x18\x01 \x01(\tR\tmachineId\x12\x16\n" +
+	"\x06follow\x18\x02 \x01(\bR\x06follow\"6\n" +
+	"\x1aNodeGetMachineLogsResponse\x12\x18\n" +
+	"\acontent\x18\x01 \x01(\fR\acontent\"\x85\x01\n" +
+	"\x1bNodeGetContainerLogsRequest\x12\x1d\n" +
+	"\n" +
+	"machine_id\x18\x01 \x01(\tR\tmachineId\x12!\n" +
+	"\tcontainer\x18\x02 \x01(\tH\x00R\tcontainer\x88\x01\x01\x12\x16\n" +
+	"\x06follow\x18\x03 \x01(\bR\x06followB\f\n" +
+	"\n" +
+	"_container\"\xd2\x01\n" +
+	"\x1cNodeGetContainerLogsResponse\x12!\n" +
+	"\fcontainer_id\x18\x01 \x01(\tR\vcontainerId\x12%\n" +
+	"\x0econtainer_name\x18\x02 \x01(\tR\rcontainerName\x12\x14\n" +
+	"\x05error\x18\x03 \x01(\bR\x05error\x12\x18\n" +
+	"\acontent\x18\x04 \x01(\fR\acontent\x128\n" +
+	"\ttimestamp\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\ttimestamp2\xa1\x03\n" +
 	"\vNodeService\x12_\n" +
 	"\fListMachines\x12&.baepo.node.v1.NodeListMachinesRequest\x1a'.baepo.node.v1.NodeListMachinesResponse\x12Y\n" +
 	"\n" +
 	"GetMachine\x12$.baepo.node.v1.NodeGetMachineRequest\x1a%.baepo.node.v1.NodeGetMachineResponse\x12g\n" +
-	"\x0eGetMachineLogs\x12(.baepo.node.v1.NodeGetMachineLogsRequest\x1a).baepo.node.v1.NodeGetMachineLogsResponse0\x01B>Z<github.com/baepo-cloud/baepo-proto/go/baepo/node/v1;nodev1pbb\x06proto3"
+	"\x0eGetMachineLogs\x12(.baepo.node.v1.NodeGetMachineLogsRequest\x1a).baepo.node.v1.NodeGetMachineLogsResponse0\x01\x12m\n" +
+	"\x10GetContainerLogs\x12*.baepo.node.v1.NodeGetContainerLogsRequest\x1a+.baepo.node.v1.NodeGetContainerLogsResponse0\x01B>Z<github.com/baepo-cloud/baepo-proto/go/baepo/node/v1;nodev1pbb\x06proto3"
 
 var (
 	file_baepo_node_v1_node_proto_rawDescOnce sync.Once
@@ -427,36 +540,40 @@ func file_baepo_node_v1_node_proto_rawDescGZIP() []byte {
 	return file_baepo_node_v1_node_proto_rawDescData
 }
 
-var file_baepo_node_v1_node_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+var file_baepo_node_v1_node_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
 var file_baepo_node_v1_node_proto_goTypes = []any{
-	(*Machine)(nil),                    // 0: baepo.node.v1.Machine
-	(*NodeListMachinesRequest)(nil),    // 1: baepo.node.v1.NodeListMachinesRequest
-	(*NodeListMachinesResponse)(nil),   // 2: baepo.node.v1.NodeListMachinesResponse
-	(*NodeGetMachineRequest)(nil),      // 3: baepo.node.v1.NodeGetMachineRequest
-	(*NodeGetMachineResponse)(nil),     // 4: baepo.node.v1.NodeGetMachineResponse
-	(*NodeGetMachineLogsRequest)(nil),  // 5: baepo.node.v1.NodeGetMachineLogsRequest
-	(*NodeGetMachineLogsResponse)(nil), // 6: baepo.node.v1.NodeGetMachineLogsResponse
-	(v1.MachineState)(0),               // 7: baepo.core.v1.MachineState
-	(v1.MachineDesiredState)(0),        // 8: baepo.core.v1.MachineDesiredState
-	(*timestamppb.Timestamp)(nil),      // 9: google.protobuf.Timestamp
+	(*Machine)(nil),                      // 0: baepo.node.v1.Machine
+	(*NodeListMachinesRequest)(nil),      // 1: baepo.node.v1.NodeListMachinesRequest
+	(*NodeListMachinesResponse)(nil),     // 2: baepo.node.v1.NodeListMachinesResponse
+	(*NodeGetMachineRequest)(nil),        // 3: baepo.node.v1.NodeGetMachineRequest
+	(*NodeGetMachineResponse)(nil),       // 4: baepo.node.v1.NodeGetMachineResponse
+	(*NodeGetMachineLogsRequest)(nil),    // 5: baepo.node.v1.NodeGetMachineLogsRequest
+	(*NodeGetMachineLogsResponse)(nil),   // 6: baepo.node.v1.NodeGetMachineLogsResponse
+	(*NodeGetContainerLogsRequest)(nil),  // 7: baepo.node.v1.NodeGetContainerLogsRequest
+	(*NodeGetContainerLogsResponse)(nil), // 8: baepo.node.v1.NodeGetContainerLogsResponse
+	(v1.MachineState)(0),                 // 9: baepo.core.v1.MachineState
+	(v1.MachineDesiredState)(0),          // 10: baepo.core.v1.MachineDesiredState
+	(*timestamppb.Timestamp)(nil),        // 11: google.protobuf.Timestamp
 }
 var file_baepo_node_v1_node_proto_depIdxs = []int32{
-	7, // 0: baepo.node.v1.Machine.state:type_name -> baepo.core.v1.MachineState
-	8, // 1: baepo.node.v1.Machine.desired_state:type_name -> baepo.core.v1.MachineDesiredState
-	0, // 2: baepo.node.v1.NodeListMachinesResponse.machines:type_name -> baepo.node.v1.Machine
-	0, // 3: baepo.node.v1.NodeGetMachineResponse.machine:type_name -> baepo.node.v1.Machine
-	9, // 4: baepo.node.v1.NodeGetMachineLogsResponse.timestamp:type_name -> google.protobuf.Timestamp
-	1, // 5: baepo.node.v1.NodeService.ListMachines:input_type -> baepo.node.v1.NodeListMachinesRequest
-	3, // 6: baepo.node.v1.NodeService.GetMachine:input_type -> baepo.node.v1.NodeGetMachineRequest
-	5, // 7: baepo.node.v1.NodeService.GetMachineLogs:input_type -> baepo.node.v1.NodeGetMachineLogsRequest
-	2, // 8: baepo.node.v1.NodeService.ListMachines:output_type -> baepo.node.v1.NodeListMachinesResponse
-	4, // 9: baepo.node.v1.NodeService.GetMachine:output_type -> baepo.node.v1.NodeGetMachineResponse
-	6, // 10: baepo.node.v1.NodeService.GetMachineLogs:output_type -> baepo.node.v1.NodeGetMachineLogsResponse
-	8, // [8:11] is the sub-list for method output_type
-	5, // [5:8] is the sub-list for method input_type
-	5, // [5:5] is the sub-list for extension type_name
-	5, // [5:5] is the sub-list for extension extendee
-	0, // [0:5] is the sub-list for field type_name
+	9,  // 0: baepo.node.v1.Machine.state:type_name -> baepo.core.v1.MachineState
+	10, // 1: baepo.node.v1.Machine.desired_state:type_name -> baepo.core.v1.MachineDesiredState
+	0,  // 2: baepo.node.v1.NodeListMachinesResponse.machines:type_name -> baepo.node.v1.Machine
+	0,  // 3: baepo.node.v1.NodeGetMachineResponse.machine:type_name -> baepo.node.v1.Machine
+	11, // 4: baepo.node.v1.NodeGetContainerLogsResponse.timestamp:type_name -> google.protobuf.Timestamp
+	1,  // 5: baepo.node.v1.NodeService.ListMachines:input_type -> baepo.node.v1.NodeListMachinesRequest
+	3,  // 6: baepo.node.v1.NodeService.GetMachine:input_type -> baepo.node.v1.NodeGetMachineRequest
+	5,  // 7: baepo.node.v1.NodeService.GetMachineLogs:input_type -> baepo.node.v1.NodeGetMachineLogsRequest
+	7,  // 8: baepo.node.v1.NodeService.GetContainerLogs:input_type -> baepo.node.v1.NodeGetContainerLogsRequest
+	2,  // 9: baepo.node.v1.NodeService.ListMachines:output_type -> baepo.node.v1.NodeListMachinesResponse
+	4,  // 10: baepo.node.v1.NodeService.GetMachine:output_type -> baepo.node.v1.NodeGetMachineResponse
+	6,  // 11: baepo.node.v1.NodeService.GetMachineLogs:output_type -> baepo.node.v1.NodeGetMachineLogsResponse
+	8,  // 12: baepo.node.v1.NodeService.GetContainerLogs:output_type -> baepo.node.v1.NodeGetContainerLogsResponse
+	9,  // [9:13] is the sub-list for method output_type
+	5,  // [5:9] is the sub-list for method input_type
+	5,  // [5:5] is the sub-list for extension type_name
+	5,  // [5:5] is the sub-list for extension extendee
+	0,  // [0:5] is the sub-list for field type_name
 }
 
 func init() { file_baepo_node_v1_node_proto_init() }
@@ -464,14 +581,14 @@ func file_baepo_node_v1_node_proto_init() {
 	if File_baepo_node_v1_node_proto != nil {
 		return
 	}
-	file_baepo_node_v1_node_proto_msgTypes[5].OneofWrappers = []any{}
+	file_baepo_node_v1_node_proto_msgTypes[7].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_baepo_node_v1_node_proto_rawDesc), len(file_baepo_node_v1_node_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   7,
+			NumMessages:   9,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

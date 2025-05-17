@@ -38,19 +38,19 @@ export declare const InitGetLogsRequestSchema: GenMessage<InitGetLogsRequest>;
  */
 export declare type InitGetLogsResponse = Message<"baepo.node.v1.InitGetLogsResponse"> & {
   /**
-   * @generated from field: bool error = 1;
-   */
-  error: boolean;
-
-  /**
-   * @generated from field: string container_id = 2;
+   * @generated from field: string container_id = 1;
    */
   containerId: string;
 
   /**
-   * @generated from field: string container_name = 3;
+   * @generated from field: string container_name = 2;
    */
   containerName: string;
+
+  /**
+   * @generated from field: bool error = 3;
+   */
+  error: boolean;
 
   /**
    * @generated from field: bytes content = 4;
@@ -92,6 +92,12 @@ export declare type InitEventsResponse = Message<"baepo.node.v1.InitEventsRespon
      */
     value: InitEventsResponse_ContainerStateChangedEvent;
     case: "containerStateChanged";
+  } | {
+    /**
+     * @generated from field: baepo.node.v1.InitEventsResponse.PingEvent ping = 4;
+     */
+    value: InitEventsResponse_PingEvent;
+    case: "ping";
   } | { case: undefined; value?: undefined };
 };
 
@@ -156,6 +162,18 @@ export declare type InitEventsResponse_ContainerStateChangedEvent = Message<"bae
  * Use `create(InitEventsResponse_ContainerStateChangedEventSchema)` to create a new message.
  */
 export declare const InitEventsResponse_ContainerStateChangedEventSchema: GenMessage<InitEventsResponse_ContainerStateChangedEvent>;
+
+/**
+ * @generated from message baepo.node.v1.InitEventsResponse.PingEvent
+ */
+export declare type InitEventsResponse_PingEvent = Message<"baepo.node.v1.InitEventsResponse.PingEvent"> & {
+};
+
+/**
+ * Describes the message baepo.node.v1.InitEventsResponse.PingEvent.
+ * Use `create(InitEventsResponse_PingEventSchema)` to create a new message.
+ */
+export declare const InitEventsResponse_PingEventSchema: GenMessage<InitEventsResponse_PingEvent>;
 
 /**
  * @generated from service baepo.node.v1.Init

@@ -26,10 +26,10 @@ service MachineService {
 
 message Machine {
   string id = 1;
-  optional string name = 2;
-  baepo.core.v1.MachineState state = 3;
-  optional string node_id = 4;
-  baepo.core.v1.MachineSpec spec = 5;
+  baepo.core.v1.MachineState state = 2;
+  optional string node_id = 3;
+  baepo.core.v1.MachineSpec spec = 4;
+  repeated baepo.api.v1.Container containers = 5;
   baepo.core.v1.MachineDesiredState desired_state = 6;
   optional google.protobuf.Timestamp started_at = 7;
   optional google.protobuf.Timestamp expires_at = 8;
@@ -40,7 +40,6 @@ message Machine {
   google.protobuf.Timestamp created_at = 13;
   google.protobuf.Timestamp updated_at = 14;
   string workspace_id = 15;
-  repeated baepo.api.v1.Container containers = 16;
 }
 
 message MachineListRequest {
@@ -93,13 +92,14 @@ message MachineTerminateResponse {
 
 message MachineLogsRequest {
   string machine_id = 1;
-  optional string container_name = 2;
+  optional string container = 2;
   bool follow = 3;
 }
 
 message MachineLogsResponse {
-  bool error = 1;
+  string container_id = 1;
   string container_name = 2;
-  bytes content = 3;
-  google.protobuf.Timestamp timestamp = 4;
+  bool error = 3;
+  bytes content = 4;
+  google.protobuf.Timestamp timestamp = 5;
 }

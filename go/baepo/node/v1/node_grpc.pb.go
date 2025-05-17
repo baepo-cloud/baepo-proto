@@ -19,9 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	NodeService_ListMachines_FullMethodName   = "/baepo.node.v1.NodeService/ListMachines"
-	NodeService_GetMachine_FullMethodName     = "/baepo.node.v1.NodeService/GetMachine"
-	NodeService_GetMachineLogs_FullMethodName = "/baepo.node.v1.NodeService/GetMachineLogs"
+	NodeService_ListMachines_FullMethodName     = "/baepo.node.v1.NodeService/ListMachines"
+	NodeService_GetMachine_FullMethodName       = "/baepo.node.v1.NodeService/GetMachine"
+	NodeService_GetMachineLogs_FullMethodName   = "/baepo.node.v1.NodeService/GetMachineLogs"
+	NodeService_GetContainerLogs_FullMethodName = "/baepo.node.v1.NodeService/GetContainerLogs"
 )
 
 // NodeServiceClient is the client API for NodeService service.
@@ -31,6 +32,7 @@ type NodeServiceClient interface {
 	ListMachines(ctx context.Context, in *NodeListMachinesRequest, opts ...grpc.CallOption) (*NodeListMachinesResponse, error)
 	GetMachine(ctx context.Context, in *NodeGetMachineRequest, opts ...grpc.CallOption) (*NodeGetMachineResponse, error)
 	GetMachineLogs(ctx context.Context, in *NodeGetMachineLogsRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[NodeGetMachineLogsResponse], error)
+	GetContainerLogs(ctx context.Context, in *NodeGetContainerLogsRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[NodeGetContainerLogsResponse], error)
 }
 
 type nodeServiceClient struct {
@@ -80,6 +82,25 @@ func (c *nodeServiceClient) GetMachineLogs(ctx context.Context, in *NodeGetMachi
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type NodeService_GetMachineLogsClient = grpc.ServerStreamingClient[NodeGetMachineLogsResponse]
 
+func (c *nodeServiceClient) GetContainerLogs(ctx context.Context, in *NodeGetContainerLogsRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[NodeGetContainerLogsResponse], error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	stream, err := c.cc.NewStream(ctx, &NodeService_ServiceDesc.Streams[1], NodeService_GetContainerLogs_FullMethodName, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &grpc.GenericClientStream[NodeGetContainerLogsRequest, NodeGetContainerLogsResponse]{ClientStream: stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type NodeService_GetContainerLogsClient = grpc.ServerStreamingClient[NodeGetContainerLogsResponse]
+
 // NodeServiceServer is the server API for NodeService service.
 // All implementations must embed UnimplementedNodeServiceServer
 // for forward compatibility.
@@ -87,6 +108,7 @@ type NodeServiceServer interface {
 	ListMachines(context.Context, *NodeListMachinesRequest) (*NodeListMachinesResponse, error)
 	GetMachine(context.Context, *NodeGetMachineRequest) (*NodeGetMachineResponse, error)
 	GetMachineLogs(*NodeGetMachineLogsRequest, grpc.ServerStreamingServer[NodeGetMachineLogsResponse]) error
+	GetContainerLogs(*NodeGetContainerLogsRequest, grpc.ServerStreamingServer[NodeGetContainerLogsResponse]) error
 	mustEmbedUnimplementedNodeServiceServer()
 }
 
@@ -105,6 +127,9 @@ func (UnimplementedNodeServiceServer) GetMachine(context.Context, *NodeGetMachin
 }
 func (UnimplementedNodeServiceServer) GetMachineLogs(*NodeGetMachineLogsRequest, grpc.ServerStreamingServer[NodeGetMachineLogsResponse]) error {
 	return status.Errorf(codes.Unimplemented, "method GetMachineLogs not implemented")
+}
+func (UnimplementedNodeServiceServer) GetContainerLogs(*NodeGetContainerLogsRequest, grpc.ServerStreamingServer[NodeGetContainerLogsResponse]) error {
+	return status.Errorf(codes.Unimplemented, "method GetContainerLogs not implemented")
 }
 func (UnimplementedNodeServiceServer) mustEmbedUnimplementedNodeServiceServer() {}
 func (UnimplementedNodeServiceServer) testEmbeddedByValue()                     {}
@@ -174,6 +199,17 @@ func _NodeService_GetMachineLogs_Handler(srv interface{}, stream grpc.ServerStre
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type NodeService_GetMachineLogsServer = grpc.ServerStreamingServer[NodeGetMachineLogsResponse]
 
+func _NodeService_GetContainerLogs_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(NodeGetContainerLogsRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(NodeServiceServer).GetContainerLogs(m, &grpc.GenericServerStream[NodeGetContainerLogsRequest, NodeGetContainerLogsResponse]{ServerStream: stream})
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type NodeService_GetContainerLogsServer = grpc.ServerStreamingServer[NodeGetContainerLogsResponse]
+
 // NodeService_ServiceDesc is the grpc.ServiceDesc for NodeService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -194,6 +230,11 @@ var NodeService_ServiceDesc = grpc.ServiceDesc{
 		{
 			StreamName:    "GetMachineLogs",
 			Handler:       _NodeService_GetMachineLogs_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "GetContainerLogs",
+			Handler:       _NodeService_GetContainerLogs_Handler,
 			ServerStreams: true,
 		},
 	},

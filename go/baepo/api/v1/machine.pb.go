@@ -27,10 +27,10 @@ const (
 type Machine struct {
 	state              protoimpl.MessageState      `protogen:"open.v1"`
 	Id                 string                      `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name               *string                     `protobuf:"bytes,2,opt,name=name,proto3,oneof" json:"name,omitempty"`
-	State              v1.MachineState             `protobuf:"varint,3,opt,name=state,proto3,enum=baepo.core.v1.MachineState" json:"state,omitempty"`
-	NodeId             *string                     `protobuf:"bytes,4,opt,name=node_id,json=nodeId,proto3,oneof" json:"node_id,omitempty"`
-	Spec               *v1.MachineSpec             `protobuf:"bytes,5,opt,name=spec,proto3" json:"spec,omitempty"`
+	State              v1.MachineState             `protobuf:"varint,2,opt,name=state,proto3,enum=baepo.core.v1.MachineState" json:"state,omitempty"`
+	NodeId             *string                     `protobuf:"bytes,3,opt,name=node_id,json=nodeId,proto3,oneof" json:"node_id,omitempty"`
+	Spec               *v1.MachineSpec             `protobuf:"bytes,4,opt,name=spec,proto3" json:"spec,omitempty"`
+	Containers         []*Container                `protobuf:"bytes,5,rep,name=containers,proto3" json:"containers,omitempty"`
 	DesiredState       v1.MachineDesiredState      `protobuf:"varint,6,opt,name=desired_state,json=desiredState,proto3,enum=baepo.core.v1.MachineDesiredState" json:"desired_state,omitempty"`
 	StartedAt          *timestamppb.Timestamp      `protobuf:"bytes,7,opt,name=started_at,json=startedAt,proto3,oneof" json:"started_at,omitempty"`
 	ExpiresAt          *timestamppb.Timestamp      `protobuf:"bytes,8,opt,name=expires_at,json=expiresAt,proto3,oneof" json:"expires_at,omitempty"`
@@ -41,7 +41,6 @@ type Machine struct {
 	CreatedAt          *timestamppb.Timestamp      `protobuf:"bytes,13,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
 	UpdatedAt          *timestamppb.Timestamp      `protobuf:"bytes,14,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
 	WorkspaceId        string                      `protobuf:"bytes,15,opt,name=workspace_id,json=workspaceId,proto3" json:"workspace_id,omitempty"`
-	Containers         []*Container                `protobuf:"bytes,16,rep,name=containers,proto3" json:"containers,omitempty"`
 	unknownFields      protoimpl.UnknownFields
 	sizeCache          protoimpl.SizeCache
 }
@@ -83,13 +82,6 @@ func (x *Machine) GetId() string {
 	return ""
 }
 
-func (x *Machine) GetName() string {
-	if x != nil && x.Name != nil {
-		return *x.Name
-	}
-	return ""
-}
-
 func (x *Machine) GetState() v1.MachineState {
 	if x != nil {
 		return x.State
@@ -107,6 +99,13 @@ func (x *Machine) GetNodeId() string {
 func (x *Machine) GetSpec() *v1.MachineSpec {
 	if x != nil {
 		return x.Spec
+	}
+	return nil
+}
+
+func (x *Machine) GetContainers() []*Container {
+	if x != nil {
+		return x.Containers
 	}
 	return nil
 }
@@ -179,13 +178,6 @@ func (x *Machine) GetWorkspaceId() string {
 		return x.WorkspaceId
 	}
 	return ""
-}
-
-func (x *Machine) GetContainers() []*Container {
-	if x != nil {
-		return x.Containers
-	}
-	return nil
 }
 
 type MachineListRequest struct {
@@ -709,7 +701,7 @@ func (x *MachineTerminateResponse) GetMachine() *Machine {
 type MachineLogsRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	MachineId     string                 `protobuf:"bytes,1,opt,name=machine_id,json=machineId,proto3" json:"machine_id,omitempty"`
-	ContainerName *string                `protobuf:"bytes,2,opt,name=container_name,json=containerName,proto3,oneof" json:"container_name,omitempty"`
+	Container     *string                `protobuf:"bytes,2,opt,name=container,proto3,oneof" json:"container,omitempty"`
 	Follow        bool                   `protobuf:"varint,3,opt,name=follow,proto3" json:"follow,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -752,9 +744,9 @@ func (x *MachineLogsRequest) GetMachineId() string {
 	return ""
 }
 
-func (x *MachineLogsRequest) GetContainerName() string {
-	if x != nil && x.ContainerName != nil {
-		return *x.ContainerName
+func (x *MachineLogsRequest) GetContainer() string {
+	if x != nil && x.Container != nil {
+		return *x.Container
 	}
 	return ""
 }
@@ -768,10 +760,11 @@ func (x *MachineLogsRequest) GetFollow() bool {
 
 type MachineLogsResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Error         bool                   `protobuf:"varint,1,opt,name=error,proto3" json:"error,omitempty"`
+	ContainerId   string                 `protobuf:"bytes,1,opt,name=container_id,json=containerId,proto3" json:"container_id,omitempty"`
 	ContainerName string                 `protobuf:"bytes,2,opt,name=container_name,json=containerName,proto3" json:"container_name,omitempty"`
-	Content       []byte                 `protobuf:"bytes,3,opt,name=content,proto3" json:"content,omitempty"`
-	Timestamp     *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
+	Error         bool                   `protobuf:"varint,3,opt,name=error,proto3" json:"error,omitempty"`
+	Content       []byte                 `protobuf:"bytes,4,opt,name=content,proto3" json:"content,omitempty"`
+	Timestamp     *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -806,11 +799,11 @@ func (*MachineLogsResponse) Descriptor() ([]byte, []int) {
 	return file_baepo_api_v1_machine_proto_rawDescGZIP(), []int{12}
 }
 
-func (x *MachineLogsResponse) GetError() bool {
+func (x *MachineLogsResponse) GetContainerId() string {
 	if x != nil {
-		return x.Error
+		return x.ContainerId
 	}
-	return false
+	return ""
 }
 
 func (x *MachineLogsResponse) GetContainerName() string {
@@ -818,6 +811,13 @@ func (x *MachineLogsResponse) GetContainerName() string {
 		return x.ContainerName
 	}
 	return ""
+}
+
+func (x *MachineLogsResponse) GetError() bool {
+	if x != nil {
+		return x.Error
+	}
+	return false
 }
 
 func (x *MachineLogsResponse) GetContent() []byte {
@@ -838,35 +838,33 @@ var File_baepo_api_v1_machine_proto protoreflect.FileDescriptor
 
 const file_baepo_api_v1_machine_proto_rawDesc = "" +
 	"\n" +
-	"\x1abaepo/api/v1/machine.proto\x12\fbaepo.api.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bbaepo/core/v1/machine.proto\x1a\x1dbaepo/core/v1/container.proto\x1a\x1cbaepo/api/v1/container.proto\"\x95\b\n" +
+	"\x1abaepo/api/v1/machine.proto\x12\fbaepo.api.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bbaepo/core/v1/machine.proto\x1a\x1dbaepo/core/v1/container.proto\x1a\x1cbaepo/api/v1/container.proto\"\xf3\a\n" +
 	"\aMachine\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id\x12\x17\n" +
-	"\x04name\x18\x02 \x01(\tH\x00R\x04name\x88\x01\x01\x121\n" +
-	"\x05state\x18\x03 \x01(\x0e2\x1b.baepo.core.v1.MachineStateR\x05state\x12\x1c\n" +
-	"\anode_id\x18\x04 \x01(\tH\x01R\x06nodeId\x88\x01\x01\x12.\n" +
-	"\x04spec\x18\x05 \x01(\v2\x1a.baepo.core.v1.MachineSpecR\x04spec\x12G\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x121\n" +
+	"\x05state\x18\x02 \x01(\x0e2\x1b.baepo.core.v1.MachineStateR\x05state\x12\x1c\n" +
+	"\anode_id\x18\x03 \x01(\tH\x00R\x06nodeId\x88\x01\x01\x12.\n" +
+	"\x04spec\x18\x04 \x01(\v2\x1a.baepo.core.v1.MachineSpecR\x04spec\x127\n" +
+	"\n" +
+	"containers\x18\x05 \x03(\v2\x17.baepo.api.v1.ContainerR\n" +
+	"containers\x12G\n" +
 	"\rdesired_state\x18\x06 \x01(\x0e2\".baepo.core.v1.MachineDesiredStateR\fdesiredState\x12>\n" +
 	"\n" +
-	"started_at\x18\a \x01(\v2\x1a.google.protobuf.TimestampH\x02R\tstartedAt\x88\x01\x01\x12>\n" +
+	"started_at\x18\a \x01(\v2\x1a.google.protobuf.TimestampH\x01R\tstartedAt\x88\x01\x01\x12>\n" +
 	"\n" +
-	"expires_at\x18\b \x01(\v2\x1a.google.protobuf.TimestampH\x03R\texpiresAt\x88\x01\x01\x12D\n" +
-	"\rterminated_at\x18\t \x01(\v2\x1a.google.protobuf.TimestampH\x04R\fterminatedAt\x88\x01\x01\x12X\n" +
+	"expires_at\x18\b \x01(\v2\x1a.google.protobuf.TimestampH\x02R\texpiresAt\x88\x01\x01\x12D\n" +
+	"\rterminated_at\x18\t \x01(\v2\x1a.google.protobuf.TimestampH\x03R\fterminatedAt\x88\x01\x01\x12X\n" +
 	"\x11termination_cause\x18\n" +
-	" \x01(\x0e2&.baepo.core.v1.MachineTerminationCauseH\x05R\x10terminationCause\x88\x01\x01\x124\n" +
-	"\x13termination_details\x18\v \x01(\tH\x06R\x12terminationDetails\x88\x01\x01\x12?\n" +
+	" \x01(\x0e2&.baepo.core.v1.MachineTerminationCauseH\x04R\x10terminationCause\x88\x01\x01\x124\n" +
+	"\x13termination_details\x18\v \x01(\tH\x05R\x12terminationDetails\x88\x01\x01\x12?\n" +
 	"\bmetadata\x18\f \x03(\v2#.baepo.api.v1.Machine.MetadataEntryR\bmetadata\x129\n" +
 	"\n" +
 	"created_at\x18\r \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
 	"\n" +
 	"updated_at\x18\x0e \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\x12!\n" +
-	"\fworkspace_id\x18\x0f \x01(\tR\vworkspaceId\x127\n" +
-	"\n" +
-	"containers\x18\x10 \x03(\v2\x17.baepo.api.v1.ContainerR\n" +
-	"containers\x1a;\n" +
+	"\fworkspace_id\x18\x0f \x01(\tR\vworkspaceId\x1a;\n" +
 	"\rMetadataEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01B\a\n" +
-	"\x05_nameB\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01B\n" +
 	"\n" +
 	"\b_node_idB\r\n" +
 	"\v_started_atB\r\n" +
@@ -907,18 +905,20 @@ const file_baepo_api_v1_machine_proto_rawDesc = "" +
 	"\n" +
 	"machine_id\x18\x01 \x01(\tR\tmachineId\"K\n" +
 	"\x18MachineTerminateResponse\x12/\n" +
-	"\amachine\x18\x01 \x01(\v2\x15.baepo.api.v1.MachineR\amachine\"\x8a\x01\n" +
+	"\amachine\x18\x01 \x01(\v2\x15.baepo.api.v1.MachineR\amachine\"|\n" +
 	"\x12MachineLogsRequest\x12\x1d\n" +
 	"\n" +
-	"machine_id\x18\x01 \x01(\tR\tmachineId\x12*\n" +
-	"\x0econtainer_name\x18\x02 \x01(\tH\x00R\rcontainerName\x88\x01\x01\x12\x16\n" +
-	"\x06follow\x18\x03 \x01(\bR\x06followB\x11\n" +
-	"\x0f_container_name\"\xa6\x01\n" +
-	"\x13MachineLogsResponse\x12\x14\n" +
-	"\x05error\x18\x01 \x01(\bR\x05error\x12%\n" +
-	"\x0econtainer_name\x18\x02 \x01(\tR\rcontainerName\x12\x18\n" +
-	"\acontent\x18\x03 \x01(\fR\acontent\x128\n" +
-	"\ttimestamp\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\ttimestamp2\x84\x04\n" +
+	"machine_id\x18\x01 \x01(\tR\tmachineId\x12!\n" +
+	"\tcontainer\x18\x02 \x01(\tH\x00R\tcontainer\x88\x01\x01\x12\x16\n" +
+	"\x06follow\x18\x03 \x01(\bR\x06followB\f\n" +
+	"\n" +
+	"_container\"\xc9\x01\n" +
+	"\x13MachineLogsResponse\x12!\n" +
+	"\fcontainer_id\x18\x01 \x01(\tR\vcontainerId\x12%\n" +
+	"\x0econtainer_name\x18\x02 \x01(\tR\rcontainerName\x12\x14\n" +
+	"\x05error\x18\x03 \x01(\bR\x05error\x12\x18\n" +
+	"\acontent\x18\x04 \x01(\fR\acontent\x128\n" +
+	"\ttimestamp\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\ttimestamp2\x84\x04\n" +
 	"\x0eMachineService\x12K\n" +
 	"\x04List\x12 .baepo.api.v1.MachineListRequest\x1a!.baepo.api.v1.MachineListResponse\x12W\n" +
 	"\bFindById\x12$.baepo.api.v1.MachineFindByIdRequest\x1a%.baepo.api.v1.MachineFindByIdResponse\x12Q\n" +
@@ -958,24 +958,24 @@ var file_baepo_api_v1_machine_proto_goTypes = []any{
 	nil,                              // 14: baepo.api.v1.MachineCreateRequest.MetadataEntry
 	(v1.MachineState)(0),             // 15: baepo.core.v1.MachineState
 	(*v1.MachineSpec)(nil),           // 16: baepo.core.v1.MachineSpec
-	(v1.MachineDesiredState)(0),      // 17: baepo.core.v1.MachineDesiredState
-	(*timestamppb.Timestamp)(nil),    // 18: google.protobuf.Timestamp
-	(v1.MachineTerminationCause)(0),  // 19: baepo.core.v1.MachineTerminationCause
-	(*Container)(nil),                // 20: baepo.api.v1.Container
+	(*Container)(nil),                // 17: baepo.api.v1.Container
+	(v1.MachineDesiredState)(0),      // 18: baepo.core.v1.MachineDesiredState
+	(*timestamppb.Timestamp)(nil),    // 19: google.protobuf.Timestamp
+	(v1.MachineTerminationCause)(0),  // 20: baepo.core.v1.MachineTerminationCause
 	(*v1.ContainerSpec)(nil),         // 21: baepo.core.v1.ContainerSpec
 }
 var file_baepo_api_v1_machine_proto_depIdxs = []int32{
 	15, // 0: baepo.api.v1.Machine.state:type_name -> baepo.core.v1.MachineState
 	16, // 1: baepo.api.v1.Machine.spec:type_name -> baepo.core.v1.MachineSpec
-	17, // 2: baepo.api.v1.Machine.desired_state:type_name -> baepo.core.v1.MachineDesiredState
-	18, // 3: baepo.api.v1.Machine.started_at:type_name -> google.protobuf.Timestamp
-	18, // 4: baepo.api.v1.Machine.expires_at:type_name -> google.protobuf.Timestamp
-	18, // 5: baepo.api.v1.Machine.terminated_at:type_name -> google.protobuf.Timestamp
-	19, // 6: baepo.api.v1.Machine.termination_cause:type_name -> baepo.core.v1.MachineTerminationCause
-	13, // 7: baepo.api.v1.Machine.metadata:type_name -> baepo.api.v1.Machine.MetadataEntry
-	18, // 8: baepo.api.v1.Machine.created_at:type_name -> google.protobuf.Timestamp
-	18, // 9: baepo.api.v1.Machine.updated_at:type_name -> google.protobuf.Timestamp
-	20, // 10: baepo.api.v1.Machine.containers:type_name -> baepo.api.v1.Container
+	17, // 2: baepo.api.v1.Machine.containers:type_name -> baepo.api.v1.Container
+	18, // 3: baepo.api.v1.Machine.desired_state:type_name -> baepo.core.v1.MachineDesiredState
+	19, // 4: baepo.api.v1.Machine.started_at:type_name -> google.protobuf.Timestamp
+	19, // 5: baepo.api.v1.Machine.expires_at:type_name -> google.protobuf.Timestamp
+	19, // 6: baepo.api.v1.Machine.terminated_at:type_name -> google.protobuf.Timestamp
+	20, // 7: baepo.api.v1.Machine.termination_cause:type_name -> baepo.core.v1.MachineTerminationCause
+	13, // 8: baepo.api.v1.Machine.metadata:type_name -> baepo.api.v1.Machine.MetadataEntry
+	19, // 9: baepo.api.v1.Machine.created_at:type_name -> google.protobuf.Timestamp
+	19, // 10: baepo.api.v1.Machine.updated_at:type_name -> google.protobuf.Timestamp
 	0,  // 11: baepo.api.v1.MachineListResponse.machines:type_name -> baepo.api.v1.Machine
 	0,  // 12: baepo.api.v1.MachineFindByIdResponse.machine:type_name -> baepo.api.v1.Machine
 	16, // 13: baepo.api.v1.MachineCreateRequest.spec:type_name -> baepo.core.v1.MachineSpec
@@ -984,7 +984,7 @@ var file_baepo_api_v1_machine_proto_depIdxs = []int32{
 	0,  // 16: baepo.api.v1.MachineCreateResponse.machine:type_name -> baepo.api.v1.Machine
 	0,  // 17: baepo.api.v1.MachineStartResponse.machine:type_name -> baepo.api.v1.Machine
 	0,  // 18: baepo.api.v1.MachineTerminateResponse.machine:type_name -> baepo.api.v1.Machine
-	18, // 19: baepo.api.v1.MachineLogsResponse.timestamp:type_name -> google.protobuf.Timestamp
+	19, // 19: baepo.api.v1.MachineLogsResponse.timestamp:type_name -> google.protobuf.Timestamp
 	1,  // 20: baepo.api.v1.MachineService.List:input_type -> baepo.api.v1.MachineListRequest
 	3,  // 21: baepo.api.v1.MachineService.FindById:input_type -> baepo.api.v1.MachineFindByIdRequest
 	5,  // 22: baepo.api.v1.MachineService.Create:input_type -> baepo.api.v1.MachineCreateRequest

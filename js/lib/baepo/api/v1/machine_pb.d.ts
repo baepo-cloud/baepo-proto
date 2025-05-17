@@ -5,8 +5,8 @@
 import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv1";
 import type { Message } from "@bufbuild/protobuf";
 import type { MachineDesiredState, MachineSpec, MachineState, MachineTerminationCause } from "../../core/v1/machine_pb.js";
-import type { Timestamp } from "@bufbuild/protobuf/wkt";
 import type { Container } from "./container_pb.js";
+import type { Timestamp } from "@bufbuild/protobuf/wkt";
 import type { ContainerSpec } from "../../core/v1/container_pb.js";
 
 /**
@@ -24,24 +24,24 @@ export declare type Machine = Message<"baepo.api.v1.Machine"> & {
   id: string;
 
   /**
-   * @generated from field: optional string name = 2;
-   */
-  name?: string;
-
-  /**
-   * @generated from field: baepo.core.v1.MachineState state = 3;
+   * @generated from field: baepo.core.v1.MachineState state = 2;
    */
   state: MachineState;
 
   /**
-   * @generated from field: optional string node_id = 4;
+   * @generated from field: optional string node_id = 3;
    */
   nodeId?: string;
 
   /**
-   * @generated from field: baepo.core.v1.MachineSpec spec = 5;
+   * @generated from field: baepo.core.v1.MachineSpec spec = 4;
    */
   spec?: MachineSpec;
+
+  /**
+   * @generated from field: repeated baepo.api.v1.Container containers = 5;
+   */
+  containers: Container[];
 
   /**
    * @generated from field: baepo.core.v1.MachineDesiredState desired_state = 6;
@@ -92,11 +92,6 @@ export declare type Machine = Message<"baepo.api.v1.Machine"> & {
    * @generated from field: string workspace_id = 15;
    */
   workspaceId: string;
-
-  /**
-   * @generated from field: repeated baepo.api.v1.Container containers = 16;
-   */
-  containers: Container[];
 };
 
 /**
@@ -312,9 +307,9 @@ export declare type MachineLogsRequest = Message<"baepo.api.v1.MachineLogsReques
   machineId: string;
 
   /**
-   * @generated from field: optional string container_name = 2;
+   * @generated from field: optional string container = 2;
    */
-  containerName?: string;
+  container?: string;
 
   /**
    * @generated from field: bool follow = 3;
@@ -333,9 +328,9 @@ export declare const MachineLogsRequestSchema: GenMessage<MachineLogsRequest>;
  */
 export declare type MachineLogsResponse = Message<"baepo.api.v1.MachineLogsResponse"> & {
   /**
-   * @generated from field: bool error = 1;
+   * @generated from field: string container_id = 1;
    */
-  error: boolean;
+  containerId: string;
 
   /**
    * @generated from field: string container_name = 2;
@@ -343,12 +338,17 @@ export declare type MachineLogsResponse = Message<"baepo.api.v1.MachineLogsRespo
   containerName: string;
 
   /**
-   * @generated from field: bytes content = 3;
+   * @generated from field: bool error = 3;
+   */
+  error: boolean;
+
+  /**
+   * @generated from field: bytes content = 4;
    */
   content: Uint8Array;
 
   /**
-   * @generated from field: google.protobuf.Timestamp timestamp = 4;
+   * @generated from field: google.protobuf.Timestamp timestamp = 5;
    */
   timestamp?: Timestamp;
 };

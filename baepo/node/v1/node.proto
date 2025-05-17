@@ -14,6 +14,8 @@ service NodeService {
   rpc GetMachine(NodeGetMachineRequest) returns (NodeGetMachineResponse);
 
   rpc GetMachineLogs(NodeGetMachineLogsRequest) returns (stream NodeGetMachineLogsResponse);
+
+  rpc GetContainerLogs(NodeGetContainerLogsRequest) returns (stream NodeGetContainerLogsResponse);
 }
 
 message Machine {
@@ -39,13 +41,23 @@ message NodeGetMachineResponse {
 
 message NodeGetMachineLogsRequest {
   string machine_id = 1;
-  optional string container_name = 2;
-  bool follow = 3;
+  bool follow = 2;
 }
 
 message NodeGetMachineLogsResponse {
-  bool error = 1;
+  bytes content = 1;
+}
+
+message NodeGetContainerLogsRequest {
+  string machine_id = 1;
+  optional string container = 2;
+  bool follow = 3;
+}
+
+message NodeGetContainerLogsResponse {
+  string container_id = 1;
   string container_name = 2;
-  bytes content = 3;
-  google.protobuf.Timestamp timestamp = 4;
+  bool error = 3;
+  bytes content = 4;
+  google.protobuf.Timestamp timestamp = 5;
 }

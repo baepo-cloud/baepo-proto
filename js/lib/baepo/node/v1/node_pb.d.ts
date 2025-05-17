@@ -108,12 +108,7 @@ export declare type NodeGetMachineLogsRequest = Message<"baepo.node.v1.NodeGetMa
   machineId: string;
 
   /**
-   * @generated from field: optional string container_name = 2;
-   */
-  containerName?: string;
-
-  /**
-   * @generated from field: bool follow = 3;
+   * @generated from field: bool follow = 2;
    */
   follow: boolean;
 };
@@ -129,24 +124,9 @@ export declare const NodeGetMachineLogsRequestSchema: GenMessage<NodeGetMachineL
  */
 export declare type NodeGetMachineLogsResponse = Message<"baepo.node.v1.NodeGetMachineLogsResponse"> & {
   /**
-   * @generated from field: bool error = 1;
-   */
-  error: boolean;
-
-  /**
-   * @generated from field: string container_name = 2;
-   */
-  containerName: string;
-
-  /**
-   * @generated from field: bytes content = 3;
+   * @generated from field: bytes content = 1;
    */
   content: Uint8Array;
-
-  /**
-   * @generated from field: google.protobuf.Timestamp timestamp = 4;
-   */
-  timestamp?: Timestamp;
 };
 
 /**
@@ -154,6 +134,68 @@ export declare type NodeGetMachineLogsResponse = Message<"baepo.node.v1.NodeGetM
  * Use `create(NodeGetMachineLogsResponseSchema)` to create a new message.
  */
 export declare const NodeGetMachineLogsResponseSchema: GenMessage<NodeGetMachineLogsResponse>;
+
+/**
+ * @generated from message baepo.node.v1.NodeGetContainerLogsRequest
+ */
+export declare type NodeGetContainerLogsRequest = Message<"baepo.node.v1.NodeGetContainerLogsRequest"> & {
+  /**
+   * @generated from field: string machine_id = 1;
+   */
+  machineId: string;
+
+  /**
+   * @generated from field: optional string container = 2;
+   */
+  container?: string;
+
+  /**
+   * @generated from field: bool follow = 3;
+   */
+  follow: boolean;
+};
+
+/**
+ * Describes the message baepo.node.v1.NodeGetContainerLogsRequest.
+ * Use `create(NodeGetContainerLogsRequestSchema)` to create a new message.
+ */
+export declare const NodeGetContainerLogsRequestSchema: GenMessage<NodeGetContainerLogsRequest>;
+
+/**
+ * @generated from message baepo.node.v1.NodeGetContainerLogsResponse
+ */
+export declare type NodeGetContainerLogsResponse = Message<"baepo.node.v1.NodeGetContainerLogsResponse"> & {
+  /**
+   * @generated from field: string container_id = 1;
+   */
+  containerId: string;
+
+  /**
+   * @generated from field: string container_name = 2;
+   */
+  containerName: string;
+
+  /**
+   * @generated from field: bool error = 3;
+   */
+  error: boolean;
+
+  /**
+   * @generated from field: bytes content = 4;
+   */
+  content: Uint8Array;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp timestamp = 5;
+   */
+  timestamp?: Timestamp;
+};
+
+/**
+ * Describes the message baepo.node.v1.NodeGetContainerLogsResponse.
+ * Use `create(NodeGetContainerLogsResponseSchema)` to create a new message.
+ */
+export declare const NodeGetContainerLogsResponseSchema: GenMessage<NodeGetContainerLogsResponse>;
 
 /**
  * @generated from service baepo.node.v1.NodeService
@@ -182,6 +224,14 @@ export declare const NodeService: GenService<{
     methodKind: "server_streaming";
     input: typeof NodeGetMachineLogsRequestSchema;
     output: typeof NodeGetMachineLogsResponseSchema;
+  },
+  /**
+   * @generated from rpc baepo.node.v1.NodeService.GetContainerLogs
+   */
+  getContainerLogs: {
+    methodKind: "server_streaming";
+    input: typeof NodeGetContainerLogsRequestSchema;
+    output: typeof NodeGetContainerLogsResponseSchema;
   },
 }>;
 
