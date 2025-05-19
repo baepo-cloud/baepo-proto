@@ -701,8 +701,7 @@ func (x *MachineTerminateResponse) GetMachine() *Machine {
 type MachineLogsRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	MachineId     string                 `protobuf:"bytes,1,opt,name=machine_id,json=machineId,proto3" json:"machine_id,omitempty"`
-	Container     *string                `protobuf:"bytes,2,opt,name=container,proto3,oneof" json:"container,omitempty"`
-	Follow        bool                   `protobuf:"varint,3,opt,name=follow,proto3" json:"follow,omitempty"`
+	Follow        bool                   `protobuf:"varint,2,opt,name=follow,proto3" json:"follow,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -744,13 +743,6 @@ func (x *MachineLogsRequest) GetMachineId() string {
 	return ""
 }
 
-func (x *MachineLogsRequest) GetContainer() string {
-	if x != nil && x.Container != nil {
-		return *x.Container
-	}
-	return ""
-}
-
 func (x *MachineLogsRequest) GetFollow() bool {
 	if x != nil {
 		return x.Follow
@@ -760,11 +752,9 @@ func (x *MachineLogsRequest) GetFollow() bool {
 
 type MachineLogsResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	ContainerId   string                 `protobuf:"bytes,1,opt,name=container_id,json=containerId,proto3" json:"container_id,omitempty"`
-	ContainerName string                 `protobuf:"bytes,2,opt,name=container_name,json=containerName,proto3" json:"container_name,omitempty"`
-	Error         bool                   `protobuf:"varint,3,opt,name=error,proto3" json:"error,omitempty"`
-	Content       []byte                 `protobuf:"bytes,4,opt,name=content,proto3" json:"content,omitempty"`
-	Timestamp     *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
+	Error         bool                   `protobuf:"varint,1,opt,name=error,proto3" json:"error,omitempty"`
+	Content       []byte                 `protobuf:"bytes,2,opt,name=content,proto3" json:"content,omitempty"`
+	Timestamp     *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -797,20 +787,6 @@ func (x *MachineLogsResponse) ProtoReflect() protoreflect.Message {
 // Deprecated: Use MachineLogsResponse.ProtoReflect.Descriptor instead.
 func (*MachineLogsResponse) Descriptor() ([]byte, []int) {
 	return file_baepo_api_v1_machine_proto_rawDescGZIP(), []int{12}
-}
-
-func (x *MachineLogsResponse) GetContainerId() string {
-	if x != nil {
-		return x.ContainerId
-	}
-	return ""
-}
-
-func (x *MachineLogsResponse) GetContainerName() string {
-	if x != nil {
-		return x.ContainerName
-	}
-	return ""
 }
 
 func (x *MachineLogsResponse) GetError() bool {
@@ -905,20 +881,15 @@ const file_baepo_api_v1_machine_proto_rawDesc = "" +
 	"\n" +
 	"machine_id\x18\x01 \x01(\tR\tmachineId\"K\n" +
 	"\x18MachineTerminateResponse\x12/\n" +
-	"\amachine\x18\x01 \x01(\v2\x15.baepo.api.v1.MachineR\amachine\"|\n" +
+	"\amachine\x18\x01 \x01(\v2\x15.baepo.api.v1.MachineR\amachine\"K\n" +
 	"\x12MachineLogsRequest\x12\x1d\n" +
 	"\n" +
-	"machine_id\x18\x01 \x01(\tR\tmachineId\x12!\n" +
-	"\tcontainer\x18\x02 \x01(\tH\x00R\tcontainer\x88\x01\x01\x12\x16\n" +
-	"\x06follow\x18\x03 \x01(\bR\x06followB\f\n" +
-	"\n" +
-	"_container\"\xc9\x01\n" +
-	"\x13MachineLogsResponse\x12!\n" +
-	"\fcontainer_id\x18\x01 \x01(\tR\vcontainerId\x12%\n" +
-	"\x0econtainer_name\x18\x02 \x01(\tR\rcontainerName\x12\x14\n" +
-	"\x05error\x18\x03 \x01(\bR\x05error\x12\x18\n" +
-	"\acontent\x18\x04 \x01(\fR\acontent\x128\n" +
-	"\ttimestamp\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\ttimestamp2\x84\x04\n" +
+	"machine_id\x18\x01 \x01(\tR\tmachineId\x12\x16\n" +
+	"\x06follow\x18\x02 \x01(\bR\x06follow\"\x7f\n" +
+	"\x13MachineLogsResponse\x12\x14\n" +
+	"\x05error\x18\x01 \x01(\bR\x05error\x12\x18\n" +
+	"\acontent\x18\x02 \x01(\fR\acontent\x128\n" +
+	"\ttimestamp\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\ttimestamp2\x84\x04\n" +
 	"\x0eMachineService\x12K\n" +
 	"\x04List\x12 .baepo.api.v1.MachineListRequest\x1a!.baepo.api.v1.MachineListResponse\x12W\n" +
 	"\bFindById\x12$.baepo.api.v1.MachineFindByIdRequest\x1a%.baepo.api.v1.MachineFindByIdResponse\x12Q\n" +
@@ -1015,7 +986,6 @@ func file_baepo_api_v1_machine_proto_init() {
 		(*MachineCreateRequest_NodeId)(nil),
 		(*MachineCreateRequest_ClusterId)(nil),
 	}
-	file_baepo_api_v1_machine_proto_msgTypes[11].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{

@@ -2,7 +2,7 @@
 // @generated from file baepo/api/v1/container.proto (package baepo.api.v1, syntax proto3)
 /* eslint-disable */
 
-import type { GenFile, GenMessage } from "@bufbuild/protobuf/codegenv1";
+import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv1";
 import type { Message } from "@bufbuild/protobuf";
 import type { ContainerSpec, ContainerState } from "../../core/v1/container_pb.js";
 import type { Timestamp } from "@bufbuild/protobuf/wkt";
@@ -92,4 +92,150 @@ export declare type Container = Message<"baepo.api.v1.Container"> & {
  * Use `create(ContainerSchema)` to create a new message.
  */
 export declare const ContainerSchema: GenMessage<Container>;
+
+/**
+ * @generated from message baepo.api.v1.ContainerListRequest
+ */
+export declare type ContainerListRequest = Message<"baepo.api.v1.ContainerListRequest"> & {
+  /**
+   * @generated from field: string workspace_id = 1;
+   */
+  workspaceId: string;
+
+  /**
+   * @generated from field: optional string machine_id = 2;
+   */
+  machineId?: string;
+};
+
+/**
+ * Describes the message baepo.api.v1.ContainerListRequest.
+ * Use `create(ContainerListRequestSchema)` to create a new message.
+ */
+export declare const ContainerListRequestSchema: GenMessage<ContainerListRequest>;
+
+/**
+ * @generated from message baepo.api.v1.ContainerListResponse
+ */
+export declare type ContainerListResponse = Message<"baepo.api.v1.ContainerListResponse"> & {
+  /**
+   * @generated from field: repeated baepo.api.v1.Container containers = 1;
+   */
+  containers: Container[];
+};
+
+/**
+ * Describes the message baepo.api.v1.ContainerListResponse.
+ * Use `create(ContainerListResponseSchema)` to create a new message.
+ */
+export declare const ContainerListResponseSchema: GenMessage<ContainerListResponse>;
+
+/**
+ * @generated from message baepo.api.v1.ContainerFindByIdRequest
+ */
+export declare type ContainerFindByIdRequest = Message<"baepo.api.v1.ContainerFindByIdRequest"> & {
+  /**
+   * @generated from field: string container_id = 1;
+   */
+  containerId: string;
+};
+
+/**
+ * Describes the message baepo.api.v1.ContainerFindByIdRequest.
+ * Use `create(ContainerFindByIdRequestSchema)` to create a new message.
+ */
+export declare const ContainerFindByIdRequestSchema: GenMessage<ContainerFindByIdRequest>;
+
+/**
+ * @generated from message baepo.api.v1.ContainerFindByIdResponse
+ */
+export declare type ContainerFindByIdResponse = Message<"baepo.api.v1.ContainerFindByIdResponse"> & {
+  /**
+   * @generated from field: baepo.api.v1.Container container = 1;
+   */
+  container?: Container;
+};
+
+/**
+ * Describes the message baepo.api.v1.ContainerFindByIdResponse.
+ * Use `create(ContainerFindByIdResponseSchema)` to create a new message.
+ */
+export declare const ContainerFindByIdResponseSchema: GenMessage<ContainerFindByIdResponse>;
+
+/**
+ * @generated from message baepo.api.v1.ContainerLogsRequest
+ */
+export declare type ContainerLogsRequest = Message<"baepo.api.v1.ContainerLogsRequest"> & {
+  /**
+   * @generated from field: string container_id = 1;
+   */
+  containerId: string;
+
+  /**
+   * @generated from field: bool follow = 2;
+   */
+  follow: boolean;
+};
+
+/**
+ * Describes the message baepo.api.v1.ContainerLogsRequest.
+ * Use `create(ContainerLogsRequestSchema)` to create a new message.
+ */
+export declare const ContainerLogsRequestSchema: GenMessage<ContainerLogsRequest>;
+
+/**
+ * @generated from message baepo.api.v1.ContainerLogsResponse
+ */
+export declare type ContainerLogsResponse = Message<"baepo.api.v1.ContainerLogsResponse"> & {
+  /**
+   * @generated from field: bool error = 1;
+   */
+  error: boolean;
+
+  /**
+   * @generated from field: bytes content = 2;
+   */
+  content: Uint8Array;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp timestamp = 3;
+   */
+  timestamp?: Timestamp;
+};
+
+/**
+ * Describes the message baepo.api.v1.ContainerLogsResponse.
+ * Use `create(ContainerLogsResponseSchema)` to create a new message.
+ */
+export declare const ContainerLogsResponseSchema: GenMessage<ContainerLogsResponse>;
+
+/**
+ * @generated from service baepo.api.v1.ContainerService
+ */
+export declare const ContainerService: GenService<{
+  /**
+   * @generated from rpc baepo.api.v1.ContainerService.List
+   */
+  list: {
+    methodKind: "unary";
+    input: typeof ContainerListRequestSchema;
+    output: typeof ContainerListResponseSchema;
+  },
+  /**
+   * @generated from rpc baepo.api.v1.ContainerService.FindById
+   */
+  findById: {
+    methodKind: "unary";
+    input: typeof ContainerFindByIdRequestSchema;
+    output: typeof ContainerFindByIdResponseSchema;
+  },
+  /**
+   * @generated from rpc baepo.api.v1.ContainerService.Logs
+   */
+  logs: {
+    methodKind: "server_streaming";
+    input: typeof ContainerLogsRequestSchema;
+    output: typeof ContainerLogsResponseSchema;
+  },
+}>;
 

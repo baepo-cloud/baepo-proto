@@ -2,7 +2,7 @@
 // @generated from file baepo/api/v1/container.proto (package baepo.api.v1, syntax proto3)
 /* eslint-disable */
 
-import { fileDesc, messageDesc } from "@bufbuild/protobuf/codegenv1";
+import { fileDesc, messageDesc, serviceDesc } from "@bufbuild/protobuf/codegenv1";
 import { file_google_protobuf_empty, file_google_protobuf_timestamp } from "@bufbuild/protobuf/wkt";
 import { file_baepo_core_v1_machine } from "../../core/v1/machine_pb.js";
 import { file_baepo_core_v1_container } from "../../core/v1/container_pb.js";
@@ -11,7 +11,7 @@ import { file_baepo_core_v1_container } from "../../core/v1/container_pb.js";
  * Describes the file baepo/api/v1/container.proto.
  */
 export const file_baepo_api_v1_container = /*@__PURE__*/
-  fileDesc("ChxiYWVwby9hcGkvdjEvY29udGFpbmVyLnByb3RvEgxiYWVwby5hcGkudjEirQQKCUNvbnRhaW5lchIKCgJpZBgBIAEoCRISCgptYWNoaW5lX2lkGAIgASgJEhQKDHdvcmtzcGFjZV9pZBgDIAEoCRIqCgRzcGVjGAQgASgLMhwuYmFlcG8uY29yZS52MS5Db250YWluZXJTcGVjEiwKBXN0YXRlGAUgASgOMh0uYmFlcG8uY29yZS52MS5Db250YWluZXJTdGF0ZRIzCgpzdGFydGVkX2F0GAYgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcEgAiAEBEjIKCWV4aXRlZF9hdBgHIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBIAYgBARIWCglleGl0X2NvZGUYCCABKAVIAogBARIXCgpleGl0X2Vycm9yGAkgASgJSAOIAQESDwoHaGVhbHRoeRgKIAEoCBIeChFoZWFsdGhjaGVja19lcnJvchgLIAEoCUgEiAEBEhUKDXJlc3RhcnRfY291bnQYDCABKAUSLgoKY3JlYXRlZF9hdBgNIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASLgoKdXBkYXRlZF9hdBgOIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBCDQoLX3N0YXJ0ZWRfYXRCDAoKX2V4aXRlZF9hdEIMCgpfZXhpdF9jb2RlQg0KC19leGl0X2Vycm9yQhQKEl9oZWFsdGhjaGVja19lcnJvckI8WjpnaXRodWIuY29tL2JhZXBvLWNsb3VkL2JhZXBvLXByb3RvL2dvL2JhZXBvL2FwaS92MTthcGl2MXBiYgZwcm90bzM", [file_google_protobuf_empty, file_google_protobuf_timestamp, file_baepo_core_v1_machine, file_baepo_core_v1_container]);
+  fileDesc("ChxiYWVwby9hcGkvdjEvY29udGFpbmVyLnByb3RvEgxiYWVwby5hcGkudjEirQQKCUNvbnRhaW5lchIKCgJpZBgBIAEoCRISCgptYWNoaW5lX2lkGAIgASgJEhQKDHdvcmtzcGFjZV9pZBgDIAEoCRIqCgRzcGVjGAQgASgLMhwuYmFlcG8uY29yZS52MS5Db250YWluZXJTcGVjEiwKBXN0YXRlGAUgASgOMh0uYmFlcG8uY29yZS52MS5Db250YWluZXJTdGF0ZRIzCgpzdGFydGVkX2F0GAYgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcEgAiAEBEjIKCWV4aXRlZF9hdBgHIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBIAYgBARIWCglleGl0X2NvZGUYCCABKAVIAogBARIXCgpleGl0X2Vycm9yGAkgASgJSAOIAQESDwoHaGVhbHRoeRgKIAEoCBIeChFoZWFsdGhjaGVja19lcnJvchgLIAEoCUgEiAEBEhUKDXJlc3RhcnRfY291bnQYDCABKAUSLgoKY3JlYXRlZF9hdBgNIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASLgoKdXBkYXRlZF9hdBgOIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBCDQoLX3N0YXJ0ZWRfYXRCDAoKX2V4aXRlZF9hdEIMCgpfZXhpdF9jb2RlQg0KC19leGl0X2Vycm9yQhQKEl9oZWFsdGhjaGVja19lcnJvciJUChRDb250YWluZXJMaXN0UmVxdWVzdBIUCgx3b3Jrc3BhY2VfaWQYASABKAkSFwoKbWFjaGluZV9pZBgCIAEoCUgAiAEBQg0KC19tYWNoaW5lX2lkIkQKFUNvbnRhaW5lckxpc3RSZXNwb25zZRIrCgpjb250YWluZXJzGAEgAygLMhcuYmFlcG8uYXBpLnYxLkNvbnRhaW5lciIwChhDb250YWluZXJGaW5kQnlJZFJlcXVlc3QSFAoMY29udGFpbmVyX2lkGAEgASgJIkcKGUNvbnRhaW5lckZpbmRCeUlkUmVzcG9uc2USKgoJY29udGFpbmVyGAEgASgLMhcuYmFlcG8uYXBpLnYxLkNvbnRhaW5lciI8ChRDb250YWluZXJMb2dzUmVxdWVzdBIUCgxjb250YWluZXJfaWQYASABKAkSDgoGZm9sbG93GAIgASgIImYKFUNvbnRhaW5lckxvZ3NSZXNwb25zZRINCgVlcnJvchgBIAEoCBIPCgdjb250ZW50GAIgASgMEi0KCXRpbWVzdGFtcBgDIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAykwIKEENvbnRhaW5lclNlcnZpY2USTwoETGlzdBIiLmJhZXBvLmFwaS52MS5Db250YWluZXJMaXN0UmVxdWVzdBojLmJhZXBvLmFwaS52MS5Db250YWluZXJMaXN0UmVzcG9uc2USWwoIRmluZEJ5SWQSJi5iYWVwby5hcGkudjEuQ29udGFpbmVyRmluZEJ5SWRSZXF1ZXN0GicuYmFlcG8uYXBpLnYxLkNvbnRhaW5lckZpbmRCeUlkUmVzcG9uc2USUQoETG9ncxIiLmJhZXBvLmFwaS52MS5Db250YWluZXJMb2dzUmVxdWVzdBojLmJhZXBvLmFwaS52MS5Db250YWluZXJMb2dzUmVzcG9uc2UwAUI8WjpnaXRodWIuY29tL2JhZXBvLWNsb3VkL2JhZXBvLXByb3RvL2dvL2JhZXBvL2FwaS92MTthcGl2MXBiYgZwcm90bzM", [file_google_protobuf_empty, file_google_protobuf_timestamp, file_baepo_core_v1_machine, file_baepo_core_v1_container]);
 
 /**
  * Describes the message baepo.api.v1.Container.
@@ -19,4 +19,52 @@ export const file_baepo_api_v1_container = /*@__PURE__*/
  */
 export const ContainerSchema = /*@__PURE__*/
   messageDesc(file_baepo_api_v1_container, 0);
+
+/**
+ * Describes the message baepo.api.v1.ContainerListRequest.
+ * Use `create(ContainerListRequestSchema)` to create a new message.
+ */
+export const ContainerListRequestSchema = /*@__PURE__*/
+  messageDesc(file_baepo_api_v1_container, 1);
+
+/**
+ * Describes the message baepo.api.v1.ContainerListResponse.
+ * Use `create(ContainerListResponseSchema)` to create a new message.
+ */
+export const ContainerListResponseSchema = /*@__PURE__*/
+  messageDesc(file_baepo_api_v1_container, 2);
+
+/**
+ * Describes the message baepo.api.v1.ContainerFindByIdRequest.
+ * Use `create(ContainerFindByIdRequestSchema)` to create a new message.
+ */
+export const ContainerFindByIdRequestSchema = /*@__PURE__*/
+  messageDesc(file_baepo_api_v1_container, 3);
+
+/**
+ * Describes the message baepo.api.v1.ContainerFindByIdResponse.
+ * Use `create(ContainerFindByIdResponseSchema)` to create a new message.
+ */
+export const ContainerFindByIdResponseSchema = /*@__PURE__*/
+  messageDesc(file_baepo_api_v1_container, 4);
+
+/**
+ * Describes the message baepo.api.v1.ContainerLogsRequest.
+ * Use `create(ContainerLogsRequestSchema)` to create a new message.
+ */
+export const ContainerLogsRequestSchema = /*@__PURE__*/
+  messageDesc(file_baepo_api_v1_container, 5);
+
+/**
+ * Describes the message baepo.api.v1.ContainerLogsResponse.
+ * Use `create(ContainerLogsResponseSchema)` to create a new message.
+ */
+export const ContainerLogsResponseSchema = /*@__PURE__*/
+  messageDesc(file_baepo_api_v1_container, 6);
+
+/**
+ * @generated from service baepo.api.v1.ContainerService
+ */
+export const ContainerService = /*@__PURE__*/
+  serviceDesc(file_baepo_api_v1_container, 0);
 

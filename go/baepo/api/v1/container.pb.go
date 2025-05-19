@@ -172,6 +172,302 @@ func (x *Container) GetUpdatedAt() *timestamppb.Timestamp {
 	return nil
 }
 
+type ContainerListRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	WorkspaceId   string                 `protobuf:"bytes,1,opt,name=workspace_id,json=workspaceId,proto3" json:"workspace_id,omitempty"`
+	MachineId     *string                `protobuf:"bytes,2,opt,name=machine_id,json=machineId,proto3,oneof" json:"machine_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ContainerListRequest) Reset() {
+	*x = ContainerListRequest{}
+	mi := &file_baepo_api_v1_container_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ContainerListRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ContainerListRequest) ProtoMessage() {}
+
+func (x *ContainerListRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_baepo_api_v1_container_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ContainerListRequest.ProtoReflect.Descriptor instead.
+func (*ContainerListRequest) Descriptor() ([]byte, []int) {
+	return file_baepo_api_v1_container_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *ContainerListRequest) GetWorkspaceId() string {
+	if x != nil {
+		return x.WorkspaceId
+	}
+	return ""
+}
+
+func (x *ContainerListRequest) GetMachineId() string {
+	if x != nil && x.MachineId != nil {
+		return *x.MachineId
+	}
+	return ""
+}
+
+type ContainerListResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Containers    []*Container           `protobuf:"bytes,1,rep,name=containers,proto3" json:"containers,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ContainerListResponse) Reset() {
+	*x = ContainerListResponse{}
+	mi := &file_baepo_api_v1_container_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ContainerListResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ContainerListResponse) ProtoMessage() {}
+
+func (x *ContainerListResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_baepo_api_v1_container_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ContainerListResponse.ProtoReflect.Descriptor instead.
+func (*ContainerListResponse) Descriptor() ([]byte, []int) {
+	return file_baepo_api_v1_container_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *ContainerListResponse) GetContainers() []*Container {
+	if x != nil {
+		return x.Containers
+	}
+	return nil
+}
+
+type ContainerFindByIdRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ContainerId   string                 `protobuf:"bytes,1,opt,name=container_id,json=containerId,proto3" json:"container_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ContainerFindByIdRequest) Reset() {
+	*x = ContainerFindByIdRequest{}
+	mi := &file_baepo_api_v1_container_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ContainerFindByIdRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ContainerFindByIdRequest) ProtoMessage() {}
+
+func (x *ContainerFindByIdRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_baepo_api_v1_container_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ContainerFindByIdRequest.ProtoReflect.Descriptor instead.
+func (*ContainerFindByIdRequest) Descriptor() ([]byte, []int) {
+	return file_baepo_api_v1_container_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *ContainerFindByIdRequest) GetContainerId() string {
+	if x != nil {
+		return x.ContainerId
+	}
+	return ""
+}
+
+type ContainerFindByIdResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Container     *Container             `protobuf:"bytes,1,opt,name=container,proto3" json:"container,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ContainerFindByIdResponse) Reset() {
+	*x = ContainerFindByIdResponse{}
+	mi := &file_baepo_api_v1_container_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ContainerFindByIdResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ContainerFindByIdResponse) ProtoMessage() {}
+
+func (x *ContainerFindByIdResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_baepo_api_v1_container_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ContainerFindByIdResponse.ProtoReflect.Descriptor instead.
+func (*ContainerFindByIdResponse) Descriptor() ([]byte, []int) {
+	return file_baepo_api_v1_container_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *ContainerFindByIdResponse) GetContainer() *Container {
+	if x != nil {
+		return x.Container
+	}
+	return nil
+}
+
+type ContainerLogsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ContainerId   string                 `protobuf:"bytes,1,opt,name=container_id,json=containerId,proto3" json:"container_id,omitempty"`
+	Follow        bool                   `protobuf:"varint,2,opt,name=follow,proto3" json:"follow,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ContainerLogsRequest) Reset() {
+	*x = ContainerLogsRequest{}
+	mi := &file_baepo_api_v1_container_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ContainerLogsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ContainerLogsRequest) ProtoMessage() {}
+
+func (x *ContainerLogsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_baepo_api_v1_container_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ContainerLogsRequest.ProtoReflect.Descriptor instead.
+func (*ContainerLogsRequest) Descriptor() ([]byte, []int) {
+	return file_baepo_api_v1_container_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *ContainerLogsRequest) GetContainerId() string {
+	if x != nil {
+		return x.ContainerId
+	}
+	return ""
+}
+
+func (x *ContainerLogsRequest) GetFollow() bool {
+	if x != nil {
+		return x.Follow
+	}
+	return false
+}
+
+type ContainerLogsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Error         bool                   `protobuf:"varint,1,opt,name=error,proto3" json:"error,omitempty"`
+	Content       []byte                 `protobuf:"bytes,2,opt,name=content,proto3" json:"content,omitempty"`
+	Timestamp     *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ContainerLogsResponse) Reset() {
+	*x = ContainerLogsResponse{}
+	mi := &file_baepo_api_v1_container_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ContainerLogsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ContainerLogsResponse) ProtoMessage() {}
+
+func (x *ContainerLogsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_baepo_api_v1_container_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ContainerLogsResponse.ProtoReflect.Descriptor instead.
+func (*ContainerLogsResponse) Descriptor() ([]byte, []int) {
+	return file_baepo_api_v1_container_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *ContainerLogsResponse) GetError() bool {
+	if x != nil {
+		return x.Error
+	}
+	return false
+}
+
+func (x *ContainerLogsResponse) GetContent() []byte {
+	if x != nil {
+		return x.Content
+	}
+	return nil
+}
+
+func (x *ContainerLogsResponse) GetTimestamp() *timestamppb.Timestamp {
+	if x != nil {
+		return x.Timestamp
+	}
+	return nil
+}
+
 var File_baepo_api_v1_container_proto protoreflect.FileDescriptor
 
 const file_baepo_api_v1_container_proto_rawDesc = "" +
@@ -204,7 +500,31 @@ const file_baepo_api_v1_container_proto_rawDesc = "" +
 	"\n" +
 	"_exit_codeB\r\n" +
 	"\v_exit_errorB\x14\n" +
-	"\x12_healthcheck_errorB<Z:github.com/baepo-cloud/baepo-proto/go/baepo/api/v1;apiv1pbb\x06proto3"
+	"\x12_healthcheck_error\"l\n" +
+	"\x14ContainerListRequest\x12!\n" +
+	"\fworkspace_id\x18\x01 \x01(\tR\vworkspaceId\x12\"\n" +
+	"\n" +
+	"machine_id\x18\x02 \x01(\tH\x00R\tmachineId\x88\x01\x01B\r\n" +
+	"\v_machine_id\"P\n" +
+	"\x15ContainerListResponse\x127\n" +
+	"\n" +
+	"containers\x18\x01 \x03(\v2\x17.baepo.api.v1.ContainerR\n" +
+	"containers\"=\n" +
+	"\x18ContainerFindByIdRequest\x12!\n" +
+	"\fcontainer_id\x18\x01 \x01(\tR\vcontainerId\"R\n" +
+	"\x19ContainerFindByIdResponse\x125\n" +
+	"\tcontainer\x18\x01 \x01(\v2\x17.baepo.api.v1.ContainerR\tcontainer\"Q\n" +
+	"\x14ContainerLogsRequest\x12!\n" +
+	"\fcontainer_id\x18\x01 \x01(\tR\vcontainerId\x12\x16\n" +
+	"\x06follow\x18\x02 \x01(\bR\x06follow\"\x81\x01\n" +
+	"\x15ContainerLogsResponse\x12\x14\n" +
+	"\x05error\x18\x01 \x01(\bR\x05error\x12\x18\n" +
+	"\acontent\x18\x02 \x01(\fR\acontent\x128\n" +
+	"\ttimestamp\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\ttimestamp2\x93\x02\n" +
+	"\x10ContainerService\x12O\n" +
+	"\x04List\x12\".baepo.api.v1.ContainerListRequest\x1a#.baepo.api.v1.ContainerListResponse\x12[\n" +
+	"\bFindById\x12&.baepo.api.v1.ContainerFindByIdRequest\x1a'.baepo.api.v1.ContainerFindByIdResponse\x12Q\n" +
+	"\x04Logs\x12\".baepo.api.v1.ContainerLogsRequest\x1a#.baepo.api.v1.ContainerLogsResponse0\x01B<Z:github.com/baepo-cloud/baepo-proto/go/baepo/api/v1;apiv1pbb\x06proto3"
 
 var (
 	file_baepo_api_v1_container_proto_rawDescOnce sync.Once
@@ -218,25 +538,40 @@ func file_baepo_api_v1_container_proto_rawDescGZIP() []byte {
 	return file_baepo_api_v1_container_proto_rawDescData
 }
 
-var file_baepo_api_v1_container_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_baepo_api_v1_container_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_baepo_api_v1_container_proto_goTypes = []any{
-	(*Container)(nil),             // 0: baepo.api.v1.Container
-	(*v1.ContainerSpec)(nil),      // 1: baepo.core.v1.ContainerSpec
-	(v1.ContainerState)(0),        // 2: baepo.core.v1.ContainerState
-	(*timestamppb.Timestamp)(nil), // 3: google.protobuf.Timestamp
+	(*Container)(nil),                 // 0: baepo.api.v1.Container
+	(*ContainerListRequest)(nil),      // 1: baepo.api.v1.ContainerListRequest
+	(*ContainerListResponse)(nil),     // 2: baepo.api.v1.ContainerListResponse
+	(*ContainerFindByIdRequest)(nil),  // 3: baepo.api.v1.ContainerFindByIdRequest
+	(*ContainerFindByIdResponse)(nil), // 4: baepo.api.v1.ContainerFindByIdResponse
+	(*ContainerLogsRequest)(nil),      // 5: baepo.api.v1.ContainerLogsRequest
+	(*ContainerLogsResponse)(nil),     // 6: baepo.api.v1.ContainerLogsResponse
+	(*v1.ContainerSpec)(nil),          // 7: baepo.core.v1.ContainerSpec
+	(v1.ContainerState)(0),            // 8: baepo.core.v1.ContainerState
+	(*timestamppb.Timestamp)(nil),     // 9: google.protobuf.Timestamp
 }
 var file_baepo_api_v1_container_proto_depIdxs = []int32{
-	1, // 0: baepo.api.v1.Container.spec:type_name -> baepo.core.v1.ContainerSpec
-	2, // 1: baepo.api.v1.Container.state:type_name -> baepo.core.v1.ContainerState
-	3, // 2: baepo.api.v1.Container.started_at:type_name -> google.protobuf.Timestamp
-	3, // 3: baepo.api.v1.Container.exited_at:type_name -> google.protobuf.Timestamp
-	3, // 4: baepo.api.v1.Container.created_at:type_name -> google.protobuf.Timestamp
-	3, // 5: baepo.api.v1.Container.updated_at:type_name -> google.protobuf.Timestamp
-	6, // [6:6] is the sub-list for method output_type
-	6, // [6:6] is the sub-list for method input_type
-	6, // [6:6] is the sub-list for extension type_name
-	6, // [6:6] is the sub-list for extension extendee
-	0, // [0:6] is the sub-list for field type_name
+	7,  // 0: baepo.api.v1.Container.spec:type_name -> baepo.core.v1.ContainerSpec
+	8,  // 1: baepo.api.v1.Container.state:type_name -> baepo.core.v1.ContainerState
+	9,  // 2: baepo.api.v1.Container.started_at:type_name -> google.protobuf.Timestamp
+	9,  // 3: baepo.api.v1.Container.exited_at:type_name -> google.protobuf.Timestamp
+	9,  // 4: baepo.api.v1.Container.created_at:type_name -> google.protobuf.Timestamp
+	9,  // 5: baepo.api.v1.Container.updated_at:type_name -> google.protobuf.Timestamp
+	0,  // 6: baepo.api.v1.ContainerListResponse.containers:type_name -> baepo.api.v1.Container
+	0,  // 7: baepo.api.v1.ContainerFindByIdResponse.container:type_name -> baepo.api.v1.Container
+	9,  // 8: baepo.api.v1.ContainerLogsResponse.timestamp:type_name -> google.protobuf.Timestamp
+	1,  // 9: baepo.api.v1.ContainerService.List:input_type -> baepo.api.v1.ContainerListRequest
+	3,  // 10: baepo.api.v1.ContainerService.FindById:input_type -> baepo.api.v1.ContainerFindByIdRequest
+	5,  // 11: baepo.api.v1.ContainerService.Logs:input_type -> baepo.api.v1.ContainerLogsRequest
+	2,  // 12: baepo.api.v1.ContainerService.List:output_type -> baepo.api.v1.ContainerListResponse
+	4,  // 13: baepo.api.v1.ContainerService.FindById:output_type -> baepo.api.v1.ContainerFindByIdResponse
+	6,  // 14: baepo.api.v1.ContainerService.Logs:output_type -> baepo.api.v1.ContainerLogsResponse
+	12, // [12:15] is the sub-list for method output_type
+	9,  // [9:12] is the sub-list for method input_type
+	9,  // [9:9] is the sub-list for extension type_name
+	9,  // [9:9] is the sub-list for extension extendee
+	0,  // [0:9] is the sub-list for field type_name
 }
 
 func init() { file_baepo_api_v1_container_proto_init() }
@@ -245,15 +580,16 @@ func file_baepo_api_v1_container_proto_init() {
 		return
 	}
 	file_baepo_api_v1_container_proto_msgTypes[0].OneofWrappers = []any{}
+	file_baepo_api_v1_container_proto_msgTypes[1].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_baepo_api_v1_container_proto_rawDesc), len(file_baepo_api_v1_container_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   1,
+			NumMessages:   7,
 			NumExtensions: 0,
-			NumServices:   0,
+			NumServices:   1,
 		},
 		GoTypes:           file_baepo_api_v1_container_proto_goTypes,
 		DependencyIndexes: file_baepo_api_v1_container_proto_depIdxs,

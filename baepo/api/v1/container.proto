@@ -9,6 +9,14 @@ import "baepo/core/v1/container.proto";
 
 option go_package = "github.com/baepo-cloud/baepo-proto/go/baepo/api/v1;apiv1pb";
 
+service ContainerService {
+  rpc List(ContainerListRequest) returns (ContainerListResponse);
+
+  rpc FindById(ContainerFindByIdRequest) returns (ContainerFindByIdResponse);
+
+  rpc Logs(ContainerLogsRequest) returns (stream ContainerLogsResponse);
+}
+
 message Container {
   string id = 1;
   string machine_id = 2;
@@ -24,4 +32,32 @@ message Container {
   int32 restart_count = 12;
   google.protobuf.Timestamp created_at = 13;
   google.protobuf.Timestamp updated_at = 14;
+}
+
+message ContainerListRequest {
+  string workspace_id = 1;
+  optional string machine_id = 2;
+}
+
+message ContainerListResponse {
+  repeated Container containers = 1;
+}
+
+message ContainerFindByIdRequest {
+  string container_id = 1;
+}
+
+message ContainerFindByIdResponse {
+  Container container = 1;
+}
+
+message ContainerLogsRequest {
+  string container_id = 1;
+  bool follow = 2;
+}
+
+message ContainerLogsResponse {
+  bool error = 1;
+  bytes content = 2;
+  google.protobuf.Timestamp timestamp = 3;
 }
