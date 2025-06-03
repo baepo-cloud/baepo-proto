@@ -65,7 +65,7 @@ message ContainerEvent {
 }
 
 enum ContainerState {
-  MachineContainerState_Unknown = 0;
-  MachineContainerState_Running = 1;
-  MachineContainerState_Exited = 2;
+  ContainerState_Unknown = 0;
+  ContainerState_Running = 1;
+  ContainerState_Exited = 2;
 }

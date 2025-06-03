@@ -26,22 +26,22 @@ const (
 type ContainerState int32
 
 const (
-	ContainerState_MachineContainerState_Unknown ContainerState = 0
-	ContainerState_MachineContainerState_Running ContainerState = 1
-	ContainerState_MachineContainerState_Exited  ContainerState = 2
+	ContainerState_ContainerState_Unknown ContainerState = 0
+	ContainerState_ContainerState_Running ContainerState = 1
+	ContainerState_ContainerState_Exited  ContainerState = 2
 )
 
 // Enum value maps for ContainerState.
 var (
 	ContainerState_name = map[int32]string{
-		0: "MachineContainerState_Unknown",
-		1: "MachineContainerState_Running",
-		2: "MachineContainerState_Exited",
+		0: "ContainerState_Unknown",
+		1: "ContainerState_Running",
+		2: "ContainerState_Exited",
 	}
 	ContainerState_value = map[string]int32{
-		"MachineContainerState_Unknown": 0,
-		"MachineContainerState_Running": 1,
-		"MachineContainerState_Exited":  2,
+		"ContainerState_Unknown": 0,
+		"ContainerState_Running": 1,
+		"ContainerState_Exited":  2,
 	}
 )
 
@@ -556,7 +556,7 @@ func (x *ContainerEvent_StateChangedEvent) GetState() ContainerState {
 	if x != nil {
 		return x.State
 	}
-	return ContainerState_MachineContainerState_Unknown
+	return ContainerState_ContainerState_Unknown
 }
 
 func (x *ContainerEvent_StateChangedEvent) GetStartedAt() *timestamppb.Timestamp {
@@ -672,11 +672,11 @@ const file_baepo_core_v1_container_proto_rawDesc = "" +
 	"_exit_codeB\r\n" +
 	"\v_exit_errorB\x14\n" +
 	"\x12_healthcheck_errorB\a\n" +
-	"\x05event*x\n" +
-	"\x0eContainerState\x12!\n" +
-	"\x1dMachineContainerState_Unknown\x10\x00\x12!\n" +
-	"\x1dMachineContainerState_Running\x10\x01\x12 \n" +
-	"\x1cMachineContainerState_Exited\x10\x02B>Z<github.com/baepo-cloud/baepo-proto/go/baepo/core/v1;corev1pbb\x06proto3"
+	"\x05event*c\n" +
+	"\x0eContainerState\x12\x1a\n" +
+	"\x16ContainerState_Unknown\x10\x00\x12\x1a\n" +
+	"\x16ContainerState_Running\x10\x01\x12\x19\n" +
+	"\x15ContainerState_Exited\x10\x02B>Z<github.com/baepo-cloud/baepo-proto/go/baepo/core/v1;corev1pbb\x06proto3"
 
 var (
 	file_baepo_core_v1_container_proto_rawDescOnce sync.Once

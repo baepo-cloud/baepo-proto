@@ -264,19 +264,19 @@ export declare const ContainerEvent_StateChangedEventSchema: GenMessage<Containe
  */
 export enum ContainerState {
   /**
-   * @generated from enum value: MachineContainerState_Unknown = 0;
+   * @generated from enum value: ContainerState_Unknown = 0;
    */
-  MachineContainerState_Unknown = 0,
+  ContainerState_Unknown = 0,
 
   /**
-   * @generated from enum value: MachineContainerState_Running = 1;
+   * @generated from enum value: ContainerState_Running = 1;
    */
-  MachineContainerState_Running = 1,
+  ContainerState_Running = 1,
 
   /**
-   * @generated from enum value: MachineContainerState_Exited = 2;
+   * @generated from enum value: ContainerState_Exited = 2;
    */
-  MachineContainerState_Exited = 2,
+  ContainerState_Exited = 2,
 }
 
 /**
