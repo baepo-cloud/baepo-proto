@@ -96,7 +96,6 @@ message MachineLogsRequest {
 }
 
 message MachineLogsResponse {
-  bool error = 1;
-  bytes content = 2;
-  google.protobuf.Timestamp timestamp = 3;
+  bytes content = 1;
+  google.protobuf.Timestamp timestamp = 2;
 }

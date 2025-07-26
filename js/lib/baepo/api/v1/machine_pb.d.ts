@@ -323,17 +323,12 @@ export declare const MachineLogsRequestSchema: GenMessage<MachineLogsRequest>;
  */
 export declare type MachineLogsResponse = Message<"baepo.api.v1.MachineLogsResponse"> & {
   /**
-   * @generated from field: bool error = 1;
-   */
-  error: boolean;
-
-  /**
-   * @generated from field: bytes content = 2;
+   * @generated from field: bytes content = 1;
    */
   content: Uint8Array;
 
   /**
-   * @generated from field: google.protobuf.Timestamp timestamp = 3;
+   * @generated from field: google.protobuf.Timestamp timestamp = 2;
    */
   timestamp?: Timestamp;
 };

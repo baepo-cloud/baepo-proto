@@ -752,9 +752,8 @@ func (x *MachineLogsRequest) GetFollow() bool {
 
 type MachineLogsResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Error         bool                   `protobuf:"varint,1,opt,name=error,proto3" json:"error,omitempty"`
-	Content       []byte                 `protobuf:"bytes,2,opt,name=content,proto3" json:"content,omitempty"`
-	Timestamp     *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
+	Content       []byte                 `protobuf:"bytes,1,opt,name=content,proto3" json:"content,omitempty"`
+	Timestamp     *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -787,13 +786,6 @@ func (x *MachineLogsResponse) ProtoReflect() protoreflect.Message {
 // Deprecated: Use MachineLogsResponse.ProtoReflect.Descriptor instead.
 func (*MachineLogsResponse) Descriptor() ([]byte, []int) {
 	return file_baepo_api_v1_machine_proto_rawDescGZIP(), []int{12}
-}
-
-func (x *MachineLogsResponse) GetError() bool {
-	if x != nil {
-		return x.Error
-	}
-	return false
 }
 
 func (x *MachineLogsResponse) GetContent() []byte {
@@ -885,11 +877,10 @@ const file_baepo_api_v1_machine_proto_rawDesc = "" +
 	"\x12MachineLogsRequest\x12\x1d\n" +
 	"\n" +
 	"machine_id\x18\x01 \x01(\tR\tmachineId\x12\x16\n" +
-	"\x06follow\x18\x02 \x01(\bR\x06follow\"\x7f\n" +
-	"\x13MachineLogsResponse\x12\x14\n" +
-	"\x05error\x18\x01 \x01(\bR\x05error\x12\x18\n" +
-	"\acontent\x18\x02 \x01(\fR\acontent\x128\n" +
-	"\ttimestamp\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\ttimestamp2\x84\x04\n" +
+	"\x06follow\x18\x02 \x01(\bR\x06follow\"i\n" +
+	"\x13MachineLogsResponse\x12\x18\n" +
+	"\acontent\x18\x01 \x01(\fR\acontent\x128\n" +
+	"\ttimestamp\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\ttimestamp2\x84\x04\n" +
 	"\x0eMachineService\x12K\n" +
 	"\x04List\x12 .baepo.api.v1.MachineListRequest\x1a!.baepo.api.v1.MachineListResponse\x12W\n" +
 	"\bFindById\x12$.baepo.api.v1.MachineFindByIdRequest\x1a%.baepo.api.v1.MachineFindByIdResponse\x12Q\n" +
