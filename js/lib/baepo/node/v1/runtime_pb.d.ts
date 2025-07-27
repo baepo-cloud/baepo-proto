@@ -13,6 +13,22 @@ import type { ContainerState } from "../../core/v1/container_pb.js";
 export declare const file_baepo_node_v1_runtime: GenFile;
 
 /**
+ * @generated from message baepo.node.v1.RuntimeGetStateResponse
+ */
+export declare type RuntimeGetStateResponse = Message<"baepo.node.v1.RuntimeGetStateResponse"> & {
+  /**
+   * @generated from field: bool running = 1;
+   */
+  running: boolean;
+};
+
+/**
+ * Describes the message baepo.node.v1.RuntimeGetStateResponse.
+ * Use `create(RuntimeGetStateResponseSchema)` to create a new message.
+ */
+export declare const RuntimeGetStateResponseSchema: GenMessage<RuntimeGetStateResponse>;
+
+/**
  * @generated from message baepo.node.v1.RuntimeGetLogsRequest
  */
 export declare type RuntimeGetLogsRequest = Message<"baepo.node.v1.RuntimeGetLogsRequest"> & {
@@ -211,6 +227,14 @@ export declare const RuntimeEventsResponse_PingEventSchema: GenMessage<RuntimeEv
  * @generated from service baepo.node.v1.Runtime
  */
 export declare const Runtime: GenService<{
+  /**
+   * @generated from rpc baepo.node.v1.Runtime.GetState
+   */
+  getState: {
+    methodKind: "unary";
+    input: typeof EmptySchema;
+    output: typeof RuntimeGetStateResponseSchema;
+  },
   /**
    * @generated from rpc baepo.node.v1.Runtime.GetLogs
    */

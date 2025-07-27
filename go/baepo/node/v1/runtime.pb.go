@@ -24,6 +24,50 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type RuntimeGetStateResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Running       bool                   `protobuf:"varint,1,opt,name=running,proto3" json:"running,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RuntimeGetStateResponse) Reset() {
+	*x = RuntimeGetStateResponse{}
+	mi := &file_baepo_node_v1_runtime_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RuntimeGetStateResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RuntimeGetStateResponse) ProtoMessage() {}
+
+func (x *RuntimeGetStateResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_baepo_node_v1_runtime_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RuntimeGetStateResponse.ProtoReflect.Descriptor instead.
+func (*RuntimeGetStateResponse) Descriptor() ([]byte, []int) {
+	return file_baepo_node_v1_runtime_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *RuntimeGetStateResponse) GetRunning() bool {
+	if x != nil {
+		return x.Running
+	}
+	return false
+}
+
 type RuntimeGetLogsRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Follow        bool                   `protobuf:"varint,1,opt,name=follow,proto3" json:"follow,omitempty"`
@@ -33,7 +77,7 @@ type RuntimeGetLogsRequest struct {
 
 func (x *RuntimeGetLogsRequest) Reset() {
 	*x = RuntimeGetLogsRequest{}
-	mi := &file_baepo_node_v1_runtime_proto_msgTypes[0]
+	mi := &file_baepo_node_v1_runtime_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -45,7 +89,7 @@ func (x *RuntimeGetLogsRequest) String() string {
 func (*RuntimeGetLogsRequest) ProtoMessage() {}
 
 func (x *RuntimeGetLogsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_baepo_node_v1_runtime_proto_msgTypes[0]
+	mi := &file_baepo_node_v1_runtime_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -58,7 +102,7 @@ func (x *RuntimeGetLogsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RuntimeGetLogsRequest.ProtoReflect.Descriptor instead.
 func (*RuntimeGetLogsRequest) Descriptor() ([]byte, []int) {
-	return file_baepo_node_v1_runtime_proto_rawDescGZIP(), []int{0}
+	return file_baepo_node_v1_runtime_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *RuntimeGetLogsRequest) GetFollow() bool {
@@ -78,7 +122,7 @@ type RuntimeGetLogsResponse struct {
 
 func (x *RuntimeGetLogsResponse) Reset() {
 	*x = RuntimeGetLogsResponse{}
-	mi := &file_baepo_node_v1_runtime_proto_msgTypes[1]
+	mi := &file_baepo_node_v1_runtime_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -90,7 +134,7 @@ func (x *RuntimeGetLogsResponse) String() string {
 func (*RuntimeGetLogsResponse) ProtoMessage() {}
 
 func (x *RuntimeGetLogsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_baepo_node_v1_runtime_proto_msgTypes[1]
+	mi := &file_baepo_node_v1_runtime_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -103,7 +147,7 @@ func (x *RuntimeGetLogsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RuntimeGetLogsResponse.ProtoReflect.Descriptor instead.
 func (*RuntimeGetLogsResponse) Descriptor() ([]byte, []int) {
-	return file_baepo_node_v1_runtime_proto_rawDescGZIP(), []int{1}
+	return file_baepo_node_v1_runtime_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *RuntimeGetLogsResponse) GetContent() []byte {
@@ -130,7 +174,7 @@ type RuntimeGetContainerLogsRequest struct {
 
 func (x *RuntimeGetContainerLogsRequest) Reset() {
 	*x = RuntimeGetContainerLogsRequest{}
-	mi := &file_baepo_node_v1_runtime_proto_msgTypes[2]
+	mi := &file_baepo_node_v1_runtime_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -142,7 +186,7 @@ func (x *RuntimeGetContainerLogsRequest) String() string {
 func (*RuntimeGetContainerLogsRequest) ProtoMessage() {}
 
 func (x *RuntimeGetContainerLogsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_baepo_node_v1_runtime_proto_msgTypes[2]
+	mi := &file_baepo_node_v1_runtime_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -155,7 +199,7 @@ func (x *RuntimeGetContainerLogsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RuntimeGetContainerLogsRequest.ProtoReflect.Descriptor instead.
 func (*RuntimeGetContainerLogsRequest) Descriptor() ([]byte, []int) {
-	return file_baepo_node_v1_runtime_proto_rawDescGZIP(), []int{2}
+	return file_baepo_node_v1_runtime_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *RuntimeGetContainerLogsRequest) GetContainer() string {
@@ -184,7 +228,7 @@ type RuntimeGetContainerLogsResponse struct {
 
 func (x *RuntimeGetContainerLogsResponse) Reset() {
 	*x = RuntimeGetContainerLogsResponse{}
-	mi := &file_baepo_node_v1_runtime_proto_msgTypes[3]
+	mi := &file_baepo_node_v1_runtime_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -196,7 +240,7 @@ func (x *RuntimeGetContainerLogsResponse) String() string {
 func (*RuntimeGetContainerLogsResponse) ProtoMessage() {}
 
 func (x *RuntimeGetContainerLogsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_baepo_node_v1_runtime_proto_msgTypes[3]
+	mi := &file_baepo_node_v1_runtime_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -209,7 +253,7 @@ func (x *RuntimeGetContainerLogsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RuntimeGetContainerLogsResponse.ProtoReflect.Descriptor instead.
 func (*RuntimeGetContainerLogsResponse) Descriptor() ([]byte, []int) {
-	return file_baepo_node_v1_runtime_proto_rawDescGZIP(), []int{3}
+	return file_baepo_node_v1_runtime_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *RuntimeGetContainerLogsResponse) GetContainerId() string {
@@ -255,7 +299,7 @@ type RuntimeEventsResponse struct {
 
 func (x *RuntimeEventsResponse) Reset() {
 	*x = RuntimeEventsResponse{}
-	mi := &file_baepo_node_v1_runtime_proto_msgTypes[4]
+	mi := &file_baepo_node_v1_runtime_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -267,7 +311,7 @@ func (x *RuntimeEventsResponse) String() string {
 func (*RuntimeEventsResponse) ProtoMessage() {}
 
 func (x *RuntimeEventsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_baepo_node_v1_runtime_proto_msgTypes[4]
+	mi := &file_baepo_node_v1_runtime_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -280,7 +324,7 @@ func (x *RuntimeEventsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RuntimeEventsResponse.ProtoReflect.Descriptor instead.
 func (*RuntimeEventsResponse) Descriptor() ([]byte, []int) {
-	return file_baepo_node_v1_runtime_proto_rawDescGZIP(), []int{4}
+	return file_baepo_node_v1_runtime_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *RuntimeEventsResponse) GetEventId() string {
@@ -355,7 +399,7 @@ type RuntimeEventsResponse_ContainerStateChangedEvent struct {
 
 func (x *RuntimeEventsResponse_ContainerStateChangedEvent) Reset() {
 	*x = RuntimeEventsResponse_ContainerStateChangedEvent{}
-	mi := &file_baepo_node_v1_runtime_proto_msgTypes[5]
+	mi := &file_baepo_node_v1_runtime_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -367,7 +411,7 @@ func (x *RuntimeEventsResponse_ContainerStateChangedEvent) String() string {
 func (*RuntimeEventsResponse_ContainerStateChangedEvent) ProtoMessage() {}
 
 func (x *RuntimeEventsResponse_ContainerStateChangedEvent) ProtoReflect() protoreflect.Message {
-	mi := &file_baepo_node_v1_runtime_proto_msgTypes[5]
+	mi := &file_baepo_node_v1_runtime_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -380,7 +424,7 @@ func (x *RuntimeEventsResponse_ContainerStateChangedEvent) ProtoReflect() protor
 
 // Deprecated: Use RuntimeEventsResponse_ContainerStateChangedEvent.ProtoReflect.Descriptor instead.
 func (*RuntimeEventsResponse_ContainerStateChangedEvent) Descriptor() ([]byte, []int) {
-	return file_baepo_node_v1_runtime_proto_rawDescGZIP(), []int{4, 0}
+	return file_baepo_node_v1_runtime_proto_rawDescGZIP(), []int{5, 0}
 }
 
 func (x *RuntimeEventsResponse_ContainerStateChangedEvent) GetContainerId() string {
@@ -454,7 +498,7 @@ type RuntimeEventsResponse_PingEvent struct {
 
 func (x *RuntimeEventsResponse_PingEvent) Reset() {
 	*x = RuntimeEventsResponse_PingEvent{}
-	mi := &file_baepo_node_v1_runtime_proto_msgTypes[6]
+	mi := &file_baepo_node_v1_runtime_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -466,7 +510,7 @@ func (x *RuntimeEventsResponse_PingEvent) String() string {
 func (*RuntimeEventsResponse_PingEvent) ProtoMessage() {}
 
 func (x *RuntimeEventsResponse_PingEvent) ProtoReflect() protoreflect.Message {
-	mi := &file_baepo_node_v1_runtime_proto_msgTypes[6]
+	mi := &file_baepo_node_v1_runtime_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -479,14 +523,16 @@ func (x *RuntimeEventsResponse_PingEvent) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RuntimeEventsResponse_PingEvent.ProtoReflect.Descriptor instead.
 func (*RuntimeEventsResponse_PingEvent) Descriptor() ([]byte, []int) {
-	return file_baepo_node_v1_runtime_proto_rawDescGZIP(), []int{4, 1}
+	return file_baepo_node_v1_runtime_proto_rawDescGZIP(), []int{5, 1}
 }
 
 var File_baepo_node_v1_runtime_proto protoreflect.FileDescriptor
 
 const file_baepo_node_v1_runtime_proto_rawDesc = "" +
 	"\n" +
-	"\x1bbaepo/node/v1/runtime.proto\x12\rbaepo.node.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1dbaepo/core/v1/container.proto\"/\n" +
+	"\x1bbaepo/node/v1/runtime.proto\x12\rbaepo.node.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1dbaepo/core/v1/container.proto\"3\n" +
+	"\x17RuntimeGetStateResponse\x12\x18\n" +
+	"\arunning\x18\x01 \x01(\bR\arunning\"/\n" +
 	"\x15RuntimeGetLogsRequest\x12\x16\n" +
 	"\x06follow\x18\x01 \x01(\bR\x06follow\"l\n" +
 	"\x16RuntimeGetLogsResponse\x12\x18\n" +
@@ -525,8 +571,9 @@ const file_baepo_node_v1_runtime_proto_rawDesc = "" +
 	"\v_exit_errorB\x14\n" +
 	"\x12_healthcheck_error\x1a\v\n" +
 	"\tPingEventB\a\n" +
-	"\x05event2\xdf\x02\n" +
-	"\aRuntime\x12X\n" +
+	"\x05event2\xab\x03\n" +
+	"\aRuntime\x12J\n" +
+	"\bGetState\x12\x16.google.protobuf.Empty\x1a&.baepo.node.v1.RuntimeGetStateResponse\x12X\n" +
 	"\aGetLogs\x12$.baepo.node.v1.RuntimeGetLogsRequest\x1a%.baepo.node.v1.RuntimeGetLogsResponse0\x01\x12s\n" +
 	"\x10GetContainerLogs\x12-.baepo.node.v1.RuntimeGetContainerLogsRequest\x1a..baepo.node.v1.RuntimeGetContainerLogsResponse0\x01\x12H\n" +
 	"\x06Events\x12\x16.google.protobuf.Empty\x1a$.baepo.node.v1.RuntimeEventsResponse0\x01\x12;\n" +
@@ -544,38 +591,41 @@ func file_baepo_node_v1_runtime_proto_rawDescGZIP() []byte {
 	return file_baepo_node_v1_runtime_proto_rawDescData
 }
 
-var file_baepo_node_v1_runtime_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+var file_baepo_node_v1_runtime_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_baepo_node_v1_runtime_proto_goTypes = []any{
-	(*RuntimeGetLogsRequest)(nil),                            // 0: baepo.node.v1.RuntimeGetLogsRequest
-	(*RuntimeGetLogsResponse)(nil),                           // 1: baepo.node.v1.RuntimeGetLogsResponse
-	(*RuntimeGetContainerLogsRequest)(nil),                   // 2: baepo.node.v1.RuntimeGetContainerLogsRequest
-	(*RuntimeGetContainerLogsResponse)(nil),                  // 3: baepo.node.v1.RuntimeGetContainerLogsResponse
-	(*RuntimeEventsResponse)(nil),                            // 4: baepo.node.v1.RuntimeEventsResponse
-	(*RuntimeEventsResponse_ContainerStateChangedEvent)(nil), // 5: baepo.node.v1.RuntimeEventsResponse.ContainerStateChangedEvent
-	(*RuntimeEventsResponse_PingEvent)(nil),                  // 6: baepo.node.v1.RuntimeEventsResponse.PingEvent
-	(*timestamppb.Timestamp)(nil),                            // 7: google.protobuf.Timestamp
-	(v1.ContainerState)(0),                                   // 8: baepo.core.v1.ContainerState
-	(*emptypb.Empty)(nil),                                    // 9: google.protobuf.Empty
+	(*RuntimeGetStateResponse)(nil),                          // 0: baepo.node.v1.RuntimeGetStateResponse
+	(*RuntimeGetLogsRequest)(nil),                            // 1: baepo.node.v1.RuntimeGetLogsRequest
+	(*RuntimeGetLogsResponse)(nil),                           // 2: baepo.node.v1.RuntimeGetLogsResponse
+	(*RuntimeGetContainerLogsRequest)(nil),                   // 3: baepo.node.v1.RuntimeGetContainerLogsRequest
+	(*RuntimeGetContainerLogsResponse)(nil),                  // 4: baepo.node.v1.RuntimeGetContainerLogsResponse
+	(*RuntimeEventsResponse)(nil),                            // 5: baepo.node.v1.RuntimeEventsResponse
+	(*RuntimeEventsResponse_ContainerStateChangedEvent)(nil), // 6: baepo.node.v1.RuntimeEventsResponse.ContainerStateChangedEvent
+	(*RuntimeEventsResponse_PingEvent)(nil),                  // 7: baepo.node.v1.RuntimeEventsResponse.PingEvent
+	(*timestamppb.Timestamp)(nil),                            // 8: google.protobuf.Timestamp
+	(v1.ContainerState)(0),                                   // 9: baepo.core.v1.ContainerState
+	(*emptypb.Empty)(nil),                                    // 10: google.protobuf.Empty
 }
 var file_baepo_node_v1_runtime_proto_depIdxs = []int32{
-	7,  // 0: baepo.node.v1.RuntimeGetLogsResponse.timestamp:type_name -> google.protobuf.Timestamp
-	7,  // 1: baepo.node.v1.RuntimeGetContainerLogsResponse.timestamp:type_name -> google.protobuf.Timestamp
-	7,  // 2: baepo.node.v1.RuntimeEventsResponse.timestamp:type_name -> google.protobuf.Timestamp
-	5,  // 3: baepo.node.v1.RuntimeEventsResponse.container_state_changed:type_name -> baepo.node.v1.RuntimeEventsResponse.ContainerStateChangedEvent
-	6,  // 4: baepo.node.v1.RuntimeEventsResponse.ping:type_name -> baepo.node.v1.RuntimeEventsResponse.PingEvent
-	8,  // 5: baepo.node.v1.RuntimeEventsResponse.ContainerStateChangedEvent.state:type_name -> baepo.core.v1.ContainerState
-	7,  // 6: baepo.node.v1.RuntimeEventsResponse.ContainerStateChangedEvent.started_at:type_name -> google.protobuf.Timestamp
-	7,  // 7: baepo.node.v1.RuntimeEventsResponse.ContainerStateChangedEvent.exited_at:type_name -> google.protobuf.Timestamp
-	0,  // 8: baepo.node.v1.Runtime.GetLogs:input_type -> baepo.node.v1.RuntimeGetLogsRequest
-	2,  // 9: baepo.node.v1.Runtime.GetContainerLogs:input_type -> baepo.node.v1.RuntimeGetContainerLogsRequest
-	9,  // 10: baepo.node.v1.Runtime.Events:input_type -> google.protobuf.Empty
-	9,  // 11: baepo.node.v1.Runtime.Terminate:input_type -> google.protobuf.Empty
-	1,  // 12: baepo.node.v1.Runtime.GetLogs:output_type -> baepo.node.v1.RuntimeGetLogsResponse
-	3,  // 13: baepo.node.v1.Runtime.GetContainerLogs:output_type -> baepo.node.v1.RuntimeGetContainerLogsResponse
-	4,  // 14: baepo.node.v1.Runtime.Events:output_type -> baepo.node.v1.RuntimeEventsResponse
-	9,  // 15: baepo.node.v1.Runtime.Terminate:output_type -> google.protobuf.Empty
-	12, // [12:16] is the sub-list for method output_type
-	8,  // [8:12] is the sub-list for method input_type
+	8,  // 0: baepo.node.v1.RuntimeGetLogsResponse.timestamp:type_name -> google.protobuf.Timestamp
+	8,  // 1: baepo.node.v1.RuntimeGetContainerLogsResponse.timestamp:type_name -> google.protobuf.Timestamp
+	8,  // 2: baepo.node.v1.RuntimeEventsResponse.timestamp:type_name -> google.protobuf.Timestamp
+	6,  // 3: baepo.node.v1.RuntimeEventsResponse.container_state_changed:type_name -> baepo.node.v1.RuntimeEventsResponse.ContainerStateChangedEvent
+	7,  // 4: baepo.node.v1.RuntimeEventsResponse.ping:type_name -> baepo.node.v1.RuntimeEventsResponse.PingEvent
+	9,  // 5: baepo.node.v1.RuntimeEventsResponse.ContainerStateChangedEvent.state:type_name -> baepo.core.v1.ContainerState
+	8,  // 6: baepo.node.v1.RuntimeEventsResponse.ContainerStateChangedEvent.started_at:type_name -> google.protobuf.Timestamp
+	8,  // 7: baepo.node.v1.RuntimeEventsResponse.ContainerStateChangedEvent.exited_at:type_name -> google.protobuf.Timestamp
+	10, // 8: baepo.node.v1.Runtime.GetState:input_type -> google.protobuf.Empty
+	1,  // 9: baepo.node.v1.Runtime.GetLogs:input_type -> baepo.node.v1.RuntimeGetLogsRequest
+	3,  // 10: baepo.node.v1.Runtime.GetContainerLogs:input_type -> baepo.node.v1.RuntimeGetContainerLogsRequest
+	10, // 11: baepo.node.v1.Runtime.Events:input_type -> google.protobuf.Empty
+	10, // 12: baepo.node.v1.Runtime.Terminate:input_type -> google.protobuf.Empty
+	0,  // 13: baepo.node.v1.Runtime.GetState:output_type -> baepo.node.v1.RuntimeGetStateResponse
+	2,  // 14: baepo.node.v1.Runtime.GetLogs:output_type -> baepo.node.v1.RuntimeGetLogsResponse
+	4,  // 15: baepo.node.v1.Runtime.GetContainerLogs:output_type -> baepo.node.v1.RuntimeGetContainerLogsResponse
+	5,  // 16: baepo.node.v1.Runtime.Events:output_type -> baepo.node.v1.RuntimeEventsResponse
+	10, // 17: baepo.node.v1.Runtime.Terminate:output_type -> google.protobuf.Empty
+	13, // [13:18] is the sub-list for method output_type
+	8,  // [8:13] is the sub-list for method input_type
 	8,  // [8:8] is the sub-list for extension type_name
 	8,  // [8:8] is the sub-list for extension extendee
 	0,  // [0:8] is the sub-list for field type_name
@@ -586,18 +636,18 @@ func file_baepo_node_v1_runtime_proto_init() {
 	if File_baepo_node_v1_runtime_proto != nil {
 		return
 	}
-	file_baepo_node_v1_runtime_proto_msgTypes[4].OneofWrappers = []any{
+	file_baepo_node_v1_runtime_proto_msgTypes[5].OneofWrappers = []any{
 		(*RuntimeEventsResponse_ContainerStateChanged)(nil),
 		(*RuntimeEventsResponse_Ping)(nil),
 	}
-	file_baepo_node_v1_runtime_proto_msgTypes[5].OneofWrappers = []any{}
+	file_baepo_node_v1_runtime_proto_msgTypes[6].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_baepo_node_v1_runtime_proto_rawDesc), len(file_baepo_node_v1_runtime_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   7,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

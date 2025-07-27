@@ -9,6 +9,8 @@ import "baepo/core/v1/container.proto";
 option go_package = "github.com/baepo-cloud/baepo-proto/go/baepo/node/v1;nodev1pb";
 
 service Runtime {
+  rpc GetState(google.protobuf.Empty) returns (RuntimeGetStateResponse);
+
   rpc GetLogs(RuntimeGetLogsRequest) returns (stream RuntimeGetLogsResponse);
 
   rpc GetContainerLogs(RuntimeGetContainerLogsRequest) returns (stream RuntimeGetContainerLogsResponse);
@@ -16,6 +18,10 @@ service Runtime {
   rpc Events(google.protobuf.Empty) returns (stream RuntimeEventsResponse);
 
   rpc Terminate(google.protobuf.Empty) returns (google.protobuf.Empty);
+}
+
+message RuntimeGetStateResponse {
+  bool running = 1;
 }
 
 message RuntimeGetLogsRequest {

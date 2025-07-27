@@ -34,6 +34,8 @@ const (
 // reflection-formatted method names, remove the leading slash and convert the remaining slash to a
 // period.
 const (
+	// RuntimeGetStateProcedure is the fully-qualified name of the Runtime's GetState RPC.
+	RuntimeGetStateProcedure = "/baepo.node.v1.Runtime/GetState"
 	// RuntimeGetLogsProcedure is the fully-qualified name of the Runtime's GetLogs RPC.
 	RuntimeGetLogsProcedure = "/baepo.node.v1.Runtime/GetLogs"
 	// RuntimeGetContainerLogsProcedure is the fully-qualified name of the Runtime's GetContainerLogs
@@ -47,6 +49,7 @@ const (
 
 // RuntimeClient is a client for the baepo.node.v1.Runtime service.
 type RuntimeClient interface {
+	GetState(context.Context, *connect.Request[emptypb.Empty]) (*connect.Response[v1.RuntimeGetStateResponse], error)
 	GetLogs(context.Context, *connect.Request[v1.RuntimeGetLogsRequest]) (*connect.ServerStreamForClient[v1.RuntimeGetLogsResponse], error)
 	GetContainerLogs(context.Context, *connect.Request[v1.RuntimeGetContainerLogsRequest]) (*connect.ServerStreamForClient[v1.RuntimeGetContainerLogsResponse], error)
 	Events(context.Context, *connect.Request[emptypb.Empty]) (*connect.ServerStreamForClient[v1.RuntimeEventsResponse], error)
@@ -64,6 +67,12 @@ func NewRuntimeClient(httpClient connect.HTTPClient, baseURL string, opts ...con
 	baseURL = strings.TrimRight(baseURL, "/")
 	runtimeMethods := v1.File_baepo_node_v1_runtime_proto.Services().ByName("Runtime").Methods()
 	return &runtimeClient{
+		getState: connect.NewClient[emptypb.Empty, v1.RuntimeGetStateResponse](
+			httpClient,
+			baseURL+RuntimeGetStateProcedure,
+			connect.WithSchema(runtimeMethods.ByName("GetState")),
+			connect.WithClientOptions(opts...),
+		),
 		getLogs: connect.NewClient[v1.RuntimeGetLogsRequest, v1.RuntimeGetLogsResponse](
 			httpClient,
 			baseURL+RuntimeGetLogsProcedure,
@@ -93,10 +102,16 @@ func NewRuntimeClient(httpClient connect.HTTPClient, baseURL string, opts ...con
 
 // runtimeClient implements RuntimeClient.
 type runtimeClient struct {
+	getState         *connect.Client[emptypb.Empty, v1.RuntimeGetStateResponse]
 	getLogs          *connect.Client[v1.RuntimeGetLogsRequest, v1.RuntimeGetLogsResponse]
 	getContainerLogs *connect.Client[v1.RuntimeGetContainerLogsRequest, v1.RuntimeGetContainerLogsResponse]
 	events           *connect.Client[emptypb.Empty, v1.RuntimeEventsResponse]
 	terminate        *connect.Client[emptypb.Empty, emptypb.Empty]
+}
+
+// GetState calls baepo.node.v1.Runtime.GetState.
+func (c *runtimeClient) GetState(ctx context.Context, req *connect.Request[emptypb.Empty]) (*connect.Response[v1.RuntimeGetStateResponse], error) {
+	return c.getState.CallUnary(ctx, req)
 }
 
 // GetLogs calls baepo.node.v1.Runtime.GetLogs.
@@ -121,6 +136,7 @@ func (c *runtimeClient) Terminate(ctx context.Context, req *connect.Request[empt
 
 // RuntimeHandler is an implementation of the baepo.node.v1.Runtime service.
 type RuntimeHandler interface {
+	GetState(context.Context, *connect.Request[emptypb.Empty]) (*connect.Response[v1.RuntimeGetStateResponse], error)
 	GetLogs(context.Context, *connect.Request[v1.RuntimeGetLogsRequest], *connect.ServerStream[v1.RuntimeGetLogsResponse]) error
 	GetContainerLogs(context.Context, *connect.Request[v1.RuntimeGetContainerLogsRequest], *connect.ServerStream[v1.RuntimeGetContainerLogsResponse]) error
 	Events(context.Context, *connect.Request[emptypb.Empty], *connect.ServerStream[v1.RuntimeEventsResponse]) error
@@ -134,6 +150,12 @@ type RuntimeHandler interface {
 // and JSON codecs. They also support gzip compression.
 func NewRuntimeHandler(svc RuntimeHandler, opts ...connect.HandlerOption) (string, http.Handler) {
 	runtimeMethods := v1.File_baepo_node_v1_runtime_proto.Services().ByName("Runtime").Methods()
+	runtimeGetStateHandler := connect.NewUnaryHandler(
+		RuntimeGetStateProcedure,
+		svc.GetState,
+		connect.WithSchema(runtimeMethods.ByName("GetState")),
+		connect.WithHandlerOptions(opts...),
+	)
 	runtimeGetLogsHandler := connect.NewServerStreamHandler(
 		RuntimeGetLogsProcedure,
 		svc.GetLogs,
@@ -160,6 +182,8 @@ func NewRuntimeHandler(svc RuntimeHandler, opts ...connect.HandlerOption) (strin
 	)
 	return "/baepo.node.v1.Runtime/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
+		case RuntimeGetStateProcedure:
+			runtimeGetStateHandler.ServeHTTP(w, r)
 		case RuntimeGetLogsProcedure:
 			runtimeGetLogsHandler.ServeHTTP(w, r)
 		case RuntimeGetContainerLogsProcedure:
@@ -176,6 +200,10 @@ func NewRuntimeHandler(svc RuntimeHandler, opts ...connect.HandlerOption) (strin
 
 // UnimplementedRuntimeHandler returns CodeUnimplemented from all methods.
 type UnimplementedRuntimeHandler struct{}
+
+func (UnimplementedRuntimeHandler) GetState(context.Context, *connect.Request[emptypb.Empty]) (*connect.Response[v1.RuntimeGetStateResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("baepo.node.v1.Runtime.GetState is not implemented"))
+}
 
 func (UnimplementedRuntimeHandler) GetLogs(context.Context, *connect.Request[v1.RuntimeGetLogsRequest], *connect.ServerStream[v1.RuntimeGetLogsResponse]) error {
 	return connect.NewError(connect.CodeUnimplemented, errors.New("baepo.node.v1.Runtime.GetLogs is not implemented"))

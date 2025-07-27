@@ -20,6 +20,7 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
+	Runtime_GetState_FullMethodName         = "/baepo.node.v1.Runtime/GetState"
 	Runtime_GetLogs_FullMethodName          = "/baepo.node.v1.Runtime/GetLogs"
 	Runtime_GetContainerLogs_FullMethodName = "/baepo.node.v1.Runtime/GetContainerLogs"
 	Runtime_Events_FullMethodName           = "/baepo.node.v1.Runtime/Events"
@@ -30,6 +31,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type RuntimeClient interface {
+	GetState(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*RuntimeGetStateResponse, error)
 	GetLogs(ctx context.Context, in *RuntimeGetLogsRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[RuntimeGetLogsResponse], error)
 	GetContainerLogs(ctx context.Context, in *RuntimeGetContainerLogsRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[RuntimeGetContainerLogsResponse], error)
 	Events(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (grpc.ServerStreamingClient[RuntimeEventsResponse], error)
@@ -42,6 +44,16 @@ type runtimeClient struct {
 
 func NewRuntimeClient(cc grpc.ClientConnInterface) RuntimeClient {
 	return &runtimeClient{cc}
+}
+
+func (c *runtimeClient) GetState(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*RuntimeGetStateResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RuntimeGetStateResponse)
+	err := c.cc.Invoke(ctx, Runtime_GetState_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *runtimeClient) GetLogs(ctx context.Context, in *RuntimeGetLogsRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[RuntimeGetLogsResponse], error) {
@@ -115,6 +127,7 @@ func (c *runtimeClient) Terminate(ctx context.Context, in *emptypb.Empty, opts .
 // All implementations must embed UnimplementedRuntimeServer
 // for forward compatibility.
 type RuntimeServer interface {
+	GetState(context.Context, *emptypb.Empty) (*RuntimeGetStateResponse, error)
 	GetLogs(*RuntimeGetLogsRequest, grpc.ServerStreamingServer[RuntimeGetLogsResponse]) error
 	GetContainerLogs(*RuntimeGetContainerLogsRequest, grpc.ServerStreamingServer[RuntimeGetContainerLogsResponse]) error
 	Events(*emptypb.Empty, grpc.ServerStreamingServer[RuntimeEventsResponse]) error
@@ -129,6 +142,9 @@ type RuntimeServer interface {
 // pointer dereference when methods are called.
 type UnimplementedRuntimeServer struct{}
 
+func (UnimplementedRuntimeServer) GetState(context.Context, *emptypb.Empty) (*RuntimeGetStateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetState not implemented")
+}
 func (UnimplementedRuntimeServer) GetLogs(*RuntimeGetLogsRequest, grpc.ServerStreamingServer[RuntimeGetLogsResponse]) error {
 	return status.Errorf(codes.Unimplemented, "method GetLogs not implemented")
 }
@@ -160,6 +176,24 @@ func RegisterRuntimeServer(s grpc.ServiceRegistrar, srv RuntimeServer) {
 		t.testEmbeddedByValue()
 	}
 	s.RegisterService(&Runtime_ServiceDesc, srv)
+}
+
+func _Runtime_GetState_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RuntimeServer).GetState(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Runtime_GetState_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RuntimeServer).GetState(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _Runtime_GetLogs_Handler(srv interface{}, stream grpc.ServerStream) error {
@@ -220,6 +254,10 @@ var Runtime_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "baepo.node.v1.Runtime",
 	HandlerType: (*RuntimeServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetState",
+			Handler:    _Runtime_GetState_Handler,
+		},
 		{
 			MethodName: "Terminate",
 			Handler:    _Runtime_Terminate_Handler,
