@@ -26,7 +26,8 @@ const (
 
 type RuntimeGetStateResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Running       bool                   `protobuf:"varint,1,opt,name=running,proto3" json:"running,omitempty"`
+	Pid           int64                  `protobuf:"varint,1,opt,name=pid,proto3" json:"pid,omitempty"`
+	Running       bool                   `protobuf:"varint,2,opt,name=running,proto3" json:"running,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -59,6 +60,13 @@ func (x *RuntimeGetStateResponse) ProtoReflect() protoreflect.Message {
 // Deprecated: Use RuntimeGetStateResponse.ProtoReflect.Descriptor instead.
 func (*RuntimeGetStateResponse) Descriptor() ([]byte, []int) {
 	return file_baepo_node_v1_runtime_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *RuntimeGetStateResponse) GetPid() int64 {
+	if x != nil {
+		return x.Pid
+	}
+	return 0
 }
 
 func (x *RuntimeGetStateResponse) GetRunning() bool {
@@ -530,9 +538,10 @@ var File_baepo_node_v1_runtime_proto protoreflect.FileDescriptor
 
 const file_baepo_node_v1_runtime_proto_rawDesc = "" +
 	"\n" +
-	"\x1bbaepo/node/v1/runtime.proto\x12\rbaepo.node.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1dbaepo/core/v1/container.proto\"3\n" +
-	"\x17RuntimeGetStateResponse\x12\x18\n" +
-	"\arunning\x18\x01 \x01(\bR\arunning\"/\n" +
+	"\x1bbaepo/node/v1/runtime.proto\x12\rbaepo.node.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1dbaepo/core/v1/container.proto\"E\n" +
+	"\x17RuntimeGetStateResponse\x12\x10\n" +
+	"\x03pid\x18\x01 \x01(\x03R\x03pid\x12\x18\n" +
+	"\arunning\x18\x02 \x01(\bR\arunning\"/\n" +
 	"\x15RuntimeGetLogsRequest\x12\x16\n" +
 	"\x06follow\x18\x01 \x01(\bR\x06follow\"l\n" +
 	"\x16RuntimeGetLogsResponse\x12\x18\n" +
@@ -571,13 +580,12 @@ const file_baepo_node_v1_runtime_proto_rawDesc = "" +
 	"\v_exit_errorB\x14\n" +
 	"\x12_healthcheck_error\x1a\v\n" +
 	"\tPingEventB\a\n" +
-	"\x05event2\xab\x03\n" +
+	"\x05event2\xee\x02\n" +
 	"\aRuntime\x12J\n" +
 	"\bGetState\x12\x16.google.protobuf.Empty\x1a&.baepo.node.v1.RuntimeGetStateResponse\x12X\n" +
 	"\aGetLogs\x12$.baepo.node.v1.RuntimeGetLogsRequest\x1a%.baepo.node.v1.RuntimeGetLogsResponse0\x01\x12s\n" +
 	"\x10GetContainerLogs\x12-.baepo.node.v1.RuntimeGetContainerLogsRequest\x1a..baepo.node.v1.RuntimeGetContainerLogsResponse0\x01\x12H\n" +
-	"\x06Events\x12\x16.google.protobuf.Empty\x1a$.baepo.node.v1.RuntimeEventsResponse0\x01\x12;\n" +
-	"\tTerminate\x12\x16.google.protobuf.Empty\x1a\x16.google.protobuf.EmptyB>Z<github.com/baepo-cloud/baepo-proto/go/baepo/node/v1;nodev1pbb\x06proto3"
+	"\x06Events\x12\x16.google.protobuf.Empty\x1a$.baepo.node.v1.RuntimeEventsResponse0\x01B>Z<github.com/baepo-cloud/baepo-proto/go/baepo/node/v1;nodev1pbb\x06proto3"
 
 var (
 	file_baepo_node_v1_runtime_proto_rawDescOnce sync.Once
@@ -618,14 +626,12 @@ var file_baepo_node_v1_runtime_proto_depIdxs = []int32{
 	1,  // 9: baepo.node.v1.Runtime.GetLogs:input_type -> baepo.node.v1.RuntimeGetLogsRequest
 	3,  // 10: baepo.node.v1.Runtime.GetContainerLogs:input_type -> baepo.node.v1.RuntimeGetContainerLogsRequest
 	10, // 11: baepo.node.v1.Runtime.Events:input_type -> google.protobuf.Empty
-	10, // 12: baepo.node.v1.Runtime.Terminate:input_type -> google.protobuf.Empty
-	0,  // 13: baepo.node.v1.Runtime.GetState:output_type -> baepo.node.v1.RuntimeGetStateResponse
-	2,  // 14: baepo.node.v1.Runtime.GetLogs:output_type -> baepo.node.v1.RuntimeGetLogsResponse
-	4,  // 15: baepo.node.v1.Runtime.GetContainerLogs:output_type -> baepo.node.v1.RuntimeGetContainerLogsResponse
-	5,  // 16: baepo.node.v1.Runtime.Events:output_type -> baepo.node.v1.RuntimeEventsResponse
-	10, // 17: baepo.node.v1.Runtime.Terminate:output_type -> google.protobuf.Empty
-	13, // [13:18] is the sub-list for method output_type
-	8,  // [8:13] is the sub-list for method input_type
+	0,  // 12: baepo.node.v1.Runtime.GetState:output_type -> baepo.node.v1.RuntimeGetStateResponse
+	2,  // 13: baepo.node.v1.Runtime.GetLogs:output_type -> baepo.node.v1.RuntimeGetLogsResponse
+	4,  // 14: baepo.node.v1.Runtime.GetContainerLogs:output_type -> baepo.node.v1.RuntimeGetContainerLogsResponse
+	5,  // 15: baepo.node.v1.Runtime.Events:output_type -> baepo.node.v1.RuntimeEventsResponse
+	12, // [12:16] is the sub-list for method output_type
+	8,  // [8:12] is the sub-list for method input_type
 	8,  // [8:8] is the sub-list for extension type_name
 	8,  // [8:8] is the sub-list for extension extendee
 	0,  // [0:8] is the sub-list for field type_name

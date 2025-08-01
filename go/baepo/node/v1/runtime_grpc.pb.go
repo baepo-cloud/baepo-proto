@@ -24,7 +24,6 @@ const (
 	Runtime_GetLogs_FullMethodName          = "/baepo.node.v1.Runtime/GetLogs"
 	Runtime_GetContainerLogs_FullMethodName = "/baepo.node.v1.Runtime/GetContainerLogs"
 	Runtime_Events_FullMethodName           = "/baepo.node.v1.Runtime/Events"
-	Runtime_Terminate_FullMethodName        = "/baepo.node.v1.Runtime/Terminate"
 )
 
 // RuntimeClient is the client API for Runtime service.
@@ -35,7 +34,6 @@ type RuntimeClient interface {
 	GetLogs(ctx context.Context, in *RuntimeGetLogsRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[RuntimeGetLogsResponse], error)
 	GetContainerLogs(ctx context.Context, in *RuntimeGetContainerLogsRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[RuntimeGetContainerLogsResponse], error)
 	Events(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (grpc.ServerStreamingClient[RuntimeEventsResponse], error)
-	Terminate(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type runtimeClient struct {
@@ -113,16 +111,6 @@ func (c *runtimeClient) Events(ctx context.Context, in *emptypb.Empty, opts ...g
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type Runtime_EventsClient = grpc.ServerStreamingClient[RuntimeEventsResponse]
 
-func (c *runtimeClient) Terminate(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*emptypb.Empty, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, Runtime_Terminate_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // RuntimeServer is the server API for Runtime service.
 // All implementations must embed UnimplementedRuntimeServer
 // for forward compatibility.
@@ -131,7 +119,6 @@ type RuntimeServer interface {
 	GetLogs(*RuntimeGetLogsRequest, grpc.ServerStreamingServer[RuntimeGetLogsResponse]) error
 	GetContainerLogs(*RuntimeGetContainerLogsRequest, grpc.ServerStreamingServer[RuntimeGetContainerLogsResponse]) error
 	Events(*emptypb.Empty, grpc.ServerStreamingServer[RuntimeEventsResponse]) error
-	Terminate(context.Context, *emptypb.Empty) (*emptypb.Empty, error)
 	mustEmbedUnimplementedRuntimeServer()
 }
 
@@ -153,9 +140,6 @@ func (UnimplementedRuntimeServer) GetContainerLogs(*RuntimeGetContainerLogsReque
 }
 func (UnimplementedRuntimeServer) Events(*emptypb.Empty, grpc.ServerStreamingServer[RuntimeEventsResponse]) error {
 	return status.Errorf(codes.Unimplemented, "method Events not implemented")
-}
-func (UnimplementedRuntimeServer) Terminate(context.Context, *emptypb.Empty) (*emptypb.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Terminate not implemented")
 }
 func (UnimplementedRuntimeServer) mustEmbedUnimplementedRuntimeServer() {}
 func (UnimplementedRuntimeServer) testEmbeddedByValue()                 {}
@@ -229,24 +213,6 @@ func _Runtime_Events_Handler(srv interface{}, stream grpc.ServerStream) error {
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type Runtime_EventsServer = grpc.ServerStreamingServer[RuntimeEventsResponse]
 
-func _Runtime_Terminate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(emptypb.Empty)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(RuntimeServer).Terminate(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Runtime_Terminate_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RuntimeServer).Terminate(ctx, req.(*emptypb.Empty))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // Runtime_ServiceDesc is the grpc.ServiceDesc for Runtime service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -257,10 +223,6 @@ var Runtime_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetState",
 			Handler:    _Runtime_GetState_Handler,
-		},
-		{
-			MethodName: "Terminate",
-			Handler:    _Runtime_Terminate_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{

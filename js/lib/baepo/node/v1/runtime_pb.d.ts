@@ -17,7 +17,12 @@ export declare const file_baepo_node_v1_runtime: GenFile;
  */
 export declare type RuntimeGetStateResponse = Message<"baepo.node.v1.RuntimeGetStateResponse"> & {
   /**
-   * @generated from field: bool running = 1;
+   * @generated from field: int64 pid = 1;
+   */
+  pid: bigint;
+
+  /**
+   * @generated from field: bool running = 2;
    */
   running: boolean;
 };
@@ -258,14 +263,6 @@ export declare const Runtime: GenService<{
     methodKind: "server_streaming";
     input: typeof EmptySchema;
     output: typeof RuntimeEventsResponseSchema;
-  },
-  /**
-   * @generated from rpc baepo.node.v1.Runtime.Terminate
-   */
-  terminate: {
-    methodKind: "unary";
-    input: typeof EmptySchema;
-    output: typeof EmptySchema;
   },
 }>;
 

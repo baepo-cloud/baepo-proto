@@ -16,12 +16,11 @@ service Runtime {
   rpc GetContainerLogs(RuntimeGetContainerLogsRequest) returns (stream RuntimeGetContainerLogsResponse);
 
   rpc Events(google.protobuf.Empty) returns (stream RuntimeEventsResponse);
-
-  rpc Terminate(google.protobuf.Empty) returns (google.protobuf.Empty);
 }
 
 message RuntimeGetStateResponse {
-  bool running = 1;
+  int64 pid = 1;
+  bool running = 2;
 }
 
 message RuntimeGetLogsRequest {

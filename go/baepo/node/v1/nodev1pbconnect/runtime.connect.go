@@ -43,8 +43,6 @@ const (
 	RuntimeGetContainerLogsProcedure = "/baepo.node.v1.Runtime/GetContainerLogs"
 	// RuntimeEventsProcedure is the fully-qualified name of the Runtime's Events RPC.
 	RuntimeEventsProcedure = "/baepo.node.v1.Runtime/Events"
-	// RuntimeTerminateProcedure is the fully-qualified name of the Runtime's Terminate RPC.
-	RuntimeTerminateProcedure = "/baepo.node.v1.Runtime/Terminate"
 )
 
 // RuntimeClient is a client for the baepo.node.v1.Runtime service.
@@ -53,7 +51,6 @@ type RuntimeClient interface {
 	GetLogs(context.Context, *connect.Request[v1.RuntimeGetLogsRequest]) (*connect.ServerStreamForClient[v1.RuntimeGetLogsResponse], error)
 	GetContainerLogs(context.Context, *connect.Request[v1.RuntimeGetContainerLogsRequest]) (*connect.ServerStreamForClient[v1.RuntimeGetContainerLogsResponse], error)
 	Events(context.Context, *connect.Request[emptypb.Empty]) (*connect.ServerStreamForClient[v1.RuntimeEventsResponse], error)
-	Terminate(context.Context, *connect.Request[emptypb.Empty]) (*connect.Response[emptypb.Empty], error)
 }
 
 // NewRuntimeClient constructs a client for the baepo.node.v1.Runtime service. By default, it uses
@@ -91,12 +88,6 @@ func NewRuntimeClient(httpClient connect.HTTPClient, baseURL string, opts ...con
 			connect.WithSchema(runtimeMethods.ByName("Events")),
 			connect.WithClientOptions(opts...),
 		),
-		terminate: connect.NewClient[emptypb.Empty, emptypb.Empty](
-			httpClient,
-			baseURL+RuntimeTerminateProcedure,
-			connect.WithSchema(runtimeMethods.ByName("Terminate")),
-			connect.WithClientOptions(opts...),
-		),
 	}
 }
 
@@ -106,7 +97,6 @@ type runtimeClient struct {
 	getLogs          *connect.Client[v1.RuntimeGetLogsRequest, v1.RuntimeGetLogsResponse]
 	getContainerLogs *connect.Client[v1.RuntimeGetContainerLogsRequest, v1.RuntimeGetContainerLogsResponse]
 	events           *connect.Client[emptypb.Empty, v1.RuntimeEventsResponse]
-	terminate        *connect.Client[emptypb.Empty, emptypb.Empty]
 }
 
 // GetState calls baepo.node.v1.Runtime.GetState.
@@ -129,18 +119,12 @@ func (c *runtimeClient) Events(ctx context.Context, req *connect.Request[emptypb
 	return c.events.CallServerStream(ctx, req)
 }
 
-// Terminate calls baepo.node.v1.Runtime.Terminate.
-func (c *runtimeClient) Terminate(ctx context.Context, req *connect.Request[emptypb.Empty]) (*connect.Response[emptypb.Empty], error) {
-	return c.terminate.CallUnary(ctx, req)
-}
-
 // RuntimeHandler is an implementation of the baepo.node.v1.Runtime service.
 type RuntimeHandler interface {
 	GetState(context.Context, *connect.Request[emptypb.Empty]) (*connect.Response[v1.RuntimeGetStateResponse], error)
 	GetLogs(context.Context, *connect.Request[v1.RuntimeGetLogsRequest], *connect.ServerStream[v1.RuntimeGetLogsResponse]) error
 	GetContainerLogs(context.Context, *connect.Request[v1.RuntimeGetContainerLogsRequest], *connect.ServerStream[v1.RuntimeGetContainerLogsResponse]) error
 	Events(context.Context, *connect.Request[emptypb.Empty], *connect.ServerStream[v1.RuntimeEventsResponse]) error
-	Terminate(context.Context, *connect.Request[emptypb.Empty]) (*connect.Response[emptypb.Empty], error)
 }
 
 // NewRuntimeHandler builds an HTTP handler from the service implementation. It returns the path on
@@ -174,12 +158,6 @@ func NewRuntimeHandler(svc RuntimeHandler, opts ...connect.HandlerOption) (strin
 		connect.WithSchema(runtimeMethods.ByName("Events")),
 		connect.WithHandlerOptions(opts...),
 	)
-	runtimeTerminateHandler := connect.NewUnaryHandler(
-		RuntimeTerminateProcedure,
-		svc.Terminate,
-		connect.WithSchema(runtimeMethods.ByName("Terminate")),
-		connect.WithHandlerOptions(opts...),
-	)
 	return "/baepo.node.v1.Runtime/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case RuntimeGetStateProcedure:
@@ -190,8 +168,6 @@ func NewRuntimeHandler(svc RuntimeHandler, opts ...connect.HandlerOption) (strin
 			runtimeGetContainerLogsHandler.ServeHTTP(w, r)
 		case RuntimeEventsProcedure:
 			runtimeEventsHandler.ServeHTTP(w, r)
-		case RuntimeTerminateProcedure:
-			runtimeTerminateHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -215,8 +191,4 @@ func (UnimplementedRuntimeHandler) GetContainerLogs(context.Context, *connect.Re
 
 func (UnimplementedRuntimeHandler) Events(context.Context, *connect.Request[emptypb.Empty], *connect.ServerStream[v1.RuntimeEventsResponse]) error {
 	return connect.NewError(connect.CodeUnimplemented, errors.New("baepo.node.v1.Runtime.Events is not implemented"))
-}
-
-func (UnimplementedRuntimeHandler) Terminate(context.Context, *connect.Request[emptypb.Empty]) (*connect.Response[emptypb.Empty], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("baepo.node.v1.Runtime.Terminate is not implemented"))
 }
