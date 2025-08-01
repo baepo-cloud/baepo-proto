@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package baepo.node.v1;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "baepo/core/v1/container.proto";
+
+option go_package = "github.com/baepo-cloud/baepo-proto/go/baepo/node/v1;nodev1pb";
+
+service Init {
+  rpc GetLogs(InitGetLogsRequest) returns (stream InitGetLogsResponse);
+
+  rpc Events(google.protobuf.Empty) returns (stream InitEventsResponse);
+}
+
+message InitGetLogsRequest {
+  optional string container = 1;
+  bool follow = 2;
+}
+
+message InitGetLogsResponse {
+  string container_id = 1;
+  string container_name = 2;
+  bool error = 3;
+  bytes content = 4;
+  google.protobuf.Timestamp timestamp = 5;
+}
+
+message InitEventsResponse {
+  string event_id = 1;
+  google.protobuf.Timestamp timestamp = 2;
+  oneof event {
+    ContainerStateChangedEvent container_state_changed = 3;
+    PingEvent ping = 4;
+  }
+
+  message ContainerStateChangedEvent {
+    string container_id = 1;
+    baepo.core.v1.ContainerState state = 2;
+    optional google.protobuf.Timestamp started_at = 3;
+    optional google.protobuf.Timestamp exited_at = 4;
+    optional int32 exit_code = 5;
+    optional string exit_error = 6;
+    bool healthy = 7;
+    optional string healthcheck_error = 8;
+    int32 restart_count = 9;
+  }
+
+  message PingEvent {}
+}
