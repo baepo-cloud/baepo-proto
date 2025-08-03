@@ -14,10 +14,7 @@ service Init {
   rpc Events(google.protobuf.Empty) returns (stream InitEventsResponse);
 }
 
-message InitGetLogsRequest {
-  optional string container = 1;
-  bool follow = 2;
-}
+message InitGetLogsRequest {}
 
 message InitGetLogsResponse {
   string container_id = 1;
