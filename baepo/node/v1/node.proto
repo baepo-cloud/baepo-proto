@@ -51,7 +51,7 @@ message NodeGetMachineLogsResponse {
 
 message NodeGetContainerLogsRequest {
   string machine_id = 1;
-  optional string container = 2;
+  string container_id = 2;
   bool follow = 3;
 }
 

@@ -150,9 +150,9 @@ export declare type NodeGetContainerLogsRequest = Message<"baepo.node.v1.NodeGet
   machineId: string;
 
   /**
-   * @generated from field: optional string container = 2;
+   * @generated from field: string container_id = 2;
    */
-  container?: string;
+  containerId: string;
 
   /**
    * @generated from field: bool follow = 3;

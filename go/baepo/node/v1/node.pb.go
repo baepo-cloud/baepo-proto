@@ -359,7 +359,7 @@ func (x *NodeGetMachineLogsResponse) GetTimestamp() *timestamppb.Timestamp {
 type NodeGetContainerLogsRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	MachineId     string                 `protobuf:"bytes,1,opt,name=machine_id,json=machineId,proto3" json:"machine_id,omitempty"`
-	Container     *string                `protobuf:"bytes,2,opt,name=container,proto3,oneof" json:"container,omitempty"`
+	ContainerId   string                 `protobuf:"bytes,2,opt,name=container_id,json=containerId,proto3" json:"container_id,omitempty"`
 	Follow        bool                   `protobuf:"varint,3,opt,name=follow,proto3" json:"follow,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -402,9 +402,9 @@ func (x *NodeGetContainerLogsRequest) GetMachineId() string {
 	return ""
 }
 
-func (x *NodeGetContainerLogsRequest) GetContainer() string {
-	if x != nil && x.Container != nil {
-		return *x.Container
+func (x *NodeGetContainerLogsRequest) GetContainerId() string {
+	if x != nil {
+		return x.ContainerId
 	}
 	return ""
 }
@@ -508,14 +508,12 @@ const file_baepo_node_v1_node_proto_rawDesc = "" +
 	"\x06follow\x18\x02 \x01(\bR\x06follow\"p\n" +
 	"\x1aNodeGetMachineLogsResponse\x12\x18\n" +
 	"\acontent\x18\x01 \x01(\fR\acontent\x128\n" +
-	"\ttimestamp\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\ttimestamp\"\x85\x01\n" +
+	"\ttimestamp\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\ttimestamp\"w\n" +
 	"\x1bNodeGetContainerLogsRequest\x12\x1d\n" +
 	"\n" +
 	"machine_id\x18\x01 \x01(\tR\tmachineId\x12!\n" +
-	"\tcontainer\x18\x02 \x01(\tH\x00R\tcontainer\x88\x01\x01\x12\x16\n" +
-	"\x06follow\x18\x03 \x01(\bR\x06followB\f\n" +
-	"\n" +
-	"_container\"\xab\x01\n" +
+	"\fcontainer_id\x18\x02 \x01(\tR\vcontainerId\x12\x16\n" +
+	"\x06follow\x18\x03 \x01(\bR\x06follow\"\xab\x01\n" +
 	"\x1cNodeGetContainerLogsResponse\x12!\n" +
 	"\fcontainer_id\x18\x01 \x01(\tR\vcontainerId\x12\x14\n" +
 	"\x05error\x18\x02 \x01(\bR\x05error\x12\x18\n" +
@@ -582,7 +580,6 @@ func file_baepo_node_v1_node_proto_init() {
 	if File_baepo_node_v1_node_proto != nil {
 		return
 	}
-	file_baepo_node_v1_node_proto_msgTypes[7].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
