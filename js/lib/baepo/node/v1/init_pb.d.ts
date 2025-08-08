@@ -16,15 +16,6 @@ export declare const file_baepo_node_v1_init: GenFile;
  * @generated from message baepo.node.v1.InitGetLogsRequest
  */
 export declare type InitGetLogsRequest = Message<"baepo.node.v1.InitGetLogsRequest"> & {
-  /**
-   * @generated from field: optional string container = 1;
-   */
-  container?: string;
-
-  /**
-   * @generated from field: bool follow = 2;
-   */
-  follow: boolean;
 };
 
 /**
@@ -43,22 +34,17 @@ export declare type InitGetLogsResponse = Message<"baepo.node.v1.InitGetLogsResp
   containerId: string;
 
   /**
-   * @generated from field: string container_name = 2;
-   */
-  containerName: string;
-
-  /**
-   * @generated from field: bool error = 3;
+   * @generated from field: bool error = 2;
    */
   error: boolean;
 
   /**
-   * @generated from field: bytes content = 4;
+   * @generated from field: bytes content = 3;
    */
   content: Uint8Array;
 
   /**
-   * @generated from field: google.protobuf.Timestamp timestamp = 5;
+   * @generated from field: google.protobuf.Timestamp timestamp = 4;
    */
   timestamp?: Timestamp;
 };

@@ -46,6 +46,7 @@ message NodeGetMachineLogsRequest {
 
 message NodeGetMachineLogsResponse {
   bytes content = 1;
+  google.protobuf.Timestamp timestamp = 2;
 }
 
 message NodeGetContainerLogsRequest {
@@ -56,8 +57,7 @@ message NodeGetContainerLogsRequest {
 
 message NodeGetContainerLogsResponse {
   string container_id = 1;
-  string container_name = 2;
-  bool error = 3;
-  bytes content = 4;
-  google.protobuf.Timestamp timestamp = 5;
+  bool error = 2;
+  bytes content = 3;
+  google.protobuf.Timestamp timestamp = 4;
 }

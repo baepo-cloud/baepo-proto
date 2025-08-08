@@ -174,7 +174,7 @@ func (x *RuntimeGetLogsResponse) GetTimestamp() *timestamppb.Timestamp {
 
 type RuntimeGetContainerLogsRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Container     string                 `protobuf:"bytes,1,opt,name=container,proto3" json:"container,omitempty"`
+	ContainerId   string                 `protobuf:"bytes,1,opt,name=container_id,json=containerId,proto3" json:"container_id,omitempty"`
 	Follow        bool                   `protobuf:"varint,2,opt,name=follow,proto3" json:"follow,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -210,9 +210,9 @@ func (*RuntimeGetContainerLogsRequest) Descriptor() ([]byte, []int) {
 	return file_baepo_node_v1_runtime_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *RuntimeGetContainerLogsRequest) GetContainer() string {
+func (x *RuntimeGetContainerLogsRequest) GetContainerId() string {
 	if x != nil {
-		return x.Container
+		return x.ContainerId
 	}
 	return ""
 }
@@ -546,9 +546,9 @@ const file_baepo_node_v1_runtime_proto_rawDesc = "" +
 	"\x06follow\x18\x01 \x01(\bR\x06follow\"l\n" +
 	"\x16RuntimeGetLogsResponse\x12\x18\n" +
 	"\acontent\x18\x01 \x01(\fR\acontent\x128\n" +
-	"\ttimestamp\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\ttimestamp\"V\n" +
-	"\x1eRuntimeGetContainerLogsRequest\x12\x1c\n" +
-	"\tcontainer\x18\x01 \x01(\tR\tcontainer\x12\x16\n" +
+	"\ttimestamp\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\ttimestamp\"[\n" +
+	"\x1eRuntimeGetContainerLogsRequest\x12!\n" +
+	"\fcontainer_id\x18\x01 \x01(\tR\vcontainerId\x12\x16\n" +
 	"\x06follow\x18\x02 \x01(\bR\x06follow\"\xae\x01\n" +
 	"\x1fRuntimeGetContainerLogsResponse\x12!\n" +
 	"\fcontainer_id\x18\x01 \x01(\tR\vcontainerId\x12\x14\n" +

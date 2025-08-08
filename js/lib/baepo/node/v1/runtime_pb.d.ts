@@ -75,9 +75,9 @@ export declare const RuntimeGetLogsResponseSchema: GenMessage<RuntimeGetLogsResp
  */
 export declare type RuntimeGetContainerLogsRequest = Message<"baepo.node.v1.RuntimeGetContainerLogsRequest"> & {
   /**
-   * @generated from field: string container = 1;
+   * @generated from field: string container_id = 1;
    */
-  container: string;
+  containerId: string;
 
   /**
    * @generated from field: bool follow = 2;

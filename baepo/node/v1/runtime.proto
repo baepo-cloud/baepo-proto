@@ -33,7 +33,7 @@ message RuntimeGetLogsResponse {
 }
 
 message RuntimeGetContainerLogsRequest {
-  string container = 1;
+  string container_id = 1;
   bool follow = 2;
 }
 

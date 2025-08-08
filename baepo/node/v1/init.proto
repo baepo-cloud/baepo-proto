@@ -18,10 +18,9 @@ message InitGetLogsRequest {}
 
 message InitGetLogsResponse {
   string container_id = 1;
-  string container_name = 2;
-  bool error = 3;
-  bytes content = 4;
-  google.protobuf.Timestamp timestamp = 5;
+  bool error = 2;
+  bytes content = 3;
+  google.protobuf.Timestamp timestamp = 4;
 }
 
 message InitEventsResponse {
