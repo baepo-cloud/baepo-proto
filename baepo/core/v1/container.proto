@@ -15,6 +15,7 @@ message ContainerSpec {
   ContainerHealthcheckSpec healthcheck = 5;
   optional string working_dir = 6;
   ContainerRestartSpec restart = 7;
+  bool lazyload_image = 8;
 }
 
 message ContainerRestartSpec {

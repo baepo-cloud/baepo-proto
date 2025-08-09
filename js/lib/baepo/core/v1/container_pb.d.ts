@@ -49,6 +49,11 @@ export declare type ContainerSpec = Message<"baepo.core.v1.ContainerSpec"> & {
    * @generated from field: baepo.core.v1.ContainerRestartSpec restart = 7;
    */
   restart?: ContainerRestartSpec;
+
+  /**
+   * @generated from field: bool lazyload_image = 8;
+   */
+  lazyloadImage: boolean;
 };
 
 /**

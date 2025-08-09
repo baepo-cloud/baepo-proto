@@ -133,6 +133,7 @@ type ContainerSpec struct {
 	Healthcheck   *ContainerHealthcheckSpec `protobuf:"bytes,5,opt,name=healthcheck,proto3" json:"healthcheck,omitempty"`
 	WorkingDir    *string                   `protobuf:"bytes,6,opt,name=working_dir,json=workingDir,proto3,oneof" json:"working_dir,omitempty"`
 	Restart       *ContainerRestartSpec     `protobuf:"bytes,7,opt,name=restart,proto3" json:"restart,omitempty"`
+	LazyloadImage bool                      `protobuf:"varint,8,opt,name=lazyload_image,json=lazyloadImage,proto3" json:"lazyload_image,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -214,6 +215,13 @@ func (x *ContainerSpec) GetRestart() *ContainerRestartSpec {
 		return x.Restart
 	}
 	return nil
+}
+
+func (x *ContainerSpec) GetLazyloadImage() bool {
+	if x != nil {
+		return x.LazyloadImage
+	}
+	return false
 }
 
 type ContainerRestartSpec struct {
@@ -612,7 +620,7 @@ var File_baepo_core_v1_container_proto protoreflect.FileDescriptor
 
 const file_baepo_core_v1_container_proto_rawDesc = "" +
 	"\n" +
-	"\x1dbaepo/core/v1/container.proto\x12\rbaepo.core.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\x92\x03\n" +
+	"\x1dbaepo/core/v1/container.proto\x12\rbaepo.core.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xb9\x03\n" +
 	"\rContainerSpec\x12\x17\n" +
 	"\x04name\x18\x01 \x01(\tH\x00R\x04name\x88\x01\x01\x12\x14\n" +
 	"\x05image\x18\x02 \x01(\tR\x05image\x127\n" +
@@ -621,7 +629,8 @@ const file_baepo_core_v1_container_proto_rawDesc = "" +
 	"\vhealthcheck\x18\x05 \x01(\v2'.baepo.core.v1.ContainerHealthcheckSpecR\vhealthcheck\x12$\n" +
 	"\vworking_dir\x18\x06 \x01(\tH\x01R\n" +
 	"workingDir\x88\x01\x01\x12=\n" +
-	"\arestart\x18\a \x01(\v2#.baepo.core.v1.ContainerRestartSpecR\arestart\x1a6\n" +
+	"\arestart\x18\a \x01(\v2#.baepo.core.v1.ContainerRestartSpecR\arestart\x12%\n" +
+	"\x0elazyload_image\x18\b \x01(\bR\rlazyloadImage\x1a6\n" +
 	"\bEnvEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01B\a\n" +
